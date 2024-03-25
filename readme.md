@@ -8,5 +8,5 @@ The folders structure is made by semester. S1 represent the first semester of th
 
 >[!warning]
 >As I used Notion for the S1 you won't find any documentation about this semester. It's in my ToDo list!      
->As I used Obsidian for the S2 and S3 you won't find any documentation about this semester. It's in my Todo list!
+>As I used Obsidian for the S2 and S3 you won't find any documentation about this semester. It's in my Todo list!     
 >...
