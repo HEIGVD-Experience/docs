@@ -1,5 +1,5 @@
 // In the main.typ
-#import "_settings/typst/template.typ": *
+#import "../../../_settings/typst/template.typ": *
 
 #show: resume.with(
   "Résumé ISI",
