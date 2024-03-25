@@ -7,6 +7,6 @@ The folders structure is made by semester. S1 represent the first semester of th
 **As I was doing the HEIG in part time you will maybe not find the academic subject in the same semester as you!**
 
 >[!warning]
->As I used Notion for the S1 you won't find any documentation about this semester. It's in my ToDo list!
+>As I used Notion for the S1 you won't find any documentation about this semester. It's in my ToDo list!      
 >As I used Obsidian for the S2 and S3 you won't find any documentation about this semester. It's in my Todo list!
 >...
