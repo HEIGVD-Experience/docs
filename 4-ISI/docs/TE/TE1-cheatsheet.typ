@@ -1,5 +1,5 @@
 // In the main.typ
-#import "../../../_settings/typst/template.typ": *
+#import "../../../_settings/typst/template-te.typ": *
 
 #show: resume.with(
   "Résumé ISI",
@@ -195,4 +195,3 @@ Protection sur 4 niveaux recommandé
 - Serveurs de fichiers
 - Serveurs de messagerie
 - Proxies internet
-

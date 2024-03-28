@@ -1,4 +1,4 @@
-#let resume(title, name, cols: 2,doc) = {
+#let resume(title, name, cols: 2, doc) = {
   set text(size:8pt, font: "Inria Sans")
   set par(leading: 0.45em)
   set block(above: 0.5em)
