@@ -2,32 +2,62 @@
   title: none,
   lesson: none,
   chapter: none,
+  author: "Guillaume T.",
   definition: [],
+  col: 2,
   doc,
 ) = {
+
+  set page("a4",
+    header: [
+      #columns(2)[
+        #set align(left)
+        #set text(size: 12pt)
+        #author
+        #colbreak()
+        #set align(right)
+        #datetime.today().display("[month]-[year]")
+      ]
+    ],
+    header-ascent: 0%,
+    footer-descent: 20%,
+    margin: (x: 14mm, top: 14mm, bottom: 14mm),
+    numbering: "1/1"
+  )
+
+  v(15pt)
+
   set align(center)
   text(18pt, title)
 
-  par(justify: true)[
+  par()[
     #v(15pt)
-    *#lesson* \
-    #chapter
+    #text(14pt, lesson, weight: "bold") \
+    #text(12pt, chapter)
   ]
   
-  v(15pt)
-
   par(justify: true)[
-    *Definition* \
-    #definition
+    #v(15pt)
+    #text(14pt, "Definition", weight: "bold") \
+    #text(12pt, definition)
   ]
 
-  v(20pt)
+  v(15pt)
 
   set align(left)
-  outline(indent: auto)
+  set heading(numbering: "1.")
+  show outline.entry.where(
+      level: 1
+    ): it => {
+      v(10pt, weak: true)
+      strong(it)
+  }
+  outline(title: "Table des matières", indent: auto)
 
   pagebreak()
 
+  v(30pt)
+  
   set align(left)
-  columns(2, doc)
+  columns(col, doc)
 }
