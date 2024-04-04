@@ -8,6 +8,8 @@
   doc,
 ) = {
 
+  set text(font: "Proxima Nova")
+
   set page("a4",
     header: [
       #columns(2)[

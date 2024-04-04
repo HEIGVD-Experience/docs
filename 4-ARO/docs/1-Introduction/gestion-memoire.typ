@@ -6,6 +6,7 @@
   lesson: "ARO",
   chapter: "1 - Introduction",
   definition: "Comprendre la gestion de la mémoire dans le cours d'ARO vous permettera de pouvoir calculer facilement des tailles de mémoire ainsi que des adresses mémoires.",
+  col: 1,
   doc,
 )
 
@@ -24,6 +25,8 @@ $2^32 = 2^2 * 2^30 = 4"GB"$
 La taille d'un mot mémoire est forcément un multiple de $8$. C'est pourquoi nous pouvons appliquer le tableau suivant :
 #image("../../../_src/img/docs/image.png")
 
-=== Gestion des adresses
+== Gestion des adresses
 En fonction de la taille de la mémoire nous aurons une taille d'adresses variables, le tableau suivant représente les possibilités : 
 #image("../../../_src/img/docs/image2.png")
+
+// = Ilona mon amoureuse
