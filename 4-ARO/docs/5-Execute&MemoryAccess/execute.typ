@@ -5,7 +5,7 @@
   ],
   lesson: "ARO",
   chapter: "5 - Execute & Memory Access",
-  definition: "TBD",
+  definition: "Le texte traite de l'étape d'exécution dans un processeur, où les instructions sont effectivement réalisées, incluant des opérations arithmétiques, logiques et de transfert de données. Il explique également les différents aspects de cette étape, tels que l'addition/soustraction avec gestion des dépassements, la multiplication avec précision des résultats selon qu'ils sont signés ou non, et les opérations de décalage (logical shift, arithmetic shift, rotation) implémentées efficacement à l'aide de circuits spécialisés.",
   col: 1,
   doc,
 )
@@ -65,3 +65,17 @@ Overflow = Cn xor Cn-1
 *Précision des multiplications* : Les multiplications doivent être spécifiées comme signées ou non signées. Cela détermine si les opérandes et le résultat sont interprétés comme des nombres positifs ou des nombres signés (pouvant être positifs ou négatifs). C'est crucial pour interpréter correctement le résultat, surtout lorsqu'on manipule des nombres négatifs.
 
 = Shifter
+== Logical shift 
+Le logical shift revient à faire une multiplication ou une division par une puissance de 2. Cela se fait en ajoutant soit à gauche soit à droite un 0.
+
+== Arithmetic shift
+L'arithmétique shift est similaire au logical shift, mais il conserve le bit de signe. Cela signifie que si le bit de signe est 1, il sera ajouté à gauche lors d'un décalage à droite. Cela permet de conserver le signe du nombre et ne s'applique qu'aux nombres signés.
+
+== Rotation
+La rotation est une opération de décalage circulaire. Cela signifie que le bit qui sort d'un côté est réintroduit de l'autre côté. Cela permet de déplacer les bits d'un nombre sans perdre d'information.
+
+== Implémentation
+- Le registre à décalage n’est pas utilisé (trop lent)
+- Utilisation du barrel shifter : un circuit numérique qui permet instantanément les -hifts logiques et arithmétiques ou les rotations
+- Un multiplexeur par bit avec en entrée tous les bits à shifter, 0 et 1
+- Exemple pour 16 bits : 16 multiplexeurs
