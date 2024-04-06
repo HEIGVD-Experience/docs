@@ -10,6 +10,8 @@
   doc,
 )
 
+= Opération FETCH
+L'opération de fetch (récupération) dans un processeur consiste à récupérer l'instruction suivante depuis la mémoire, en utilisant l'adresse stockée dans le compteur de programme (PC). Cette instruction est ensuite placée dans le registre d'instruction (IR) pour être décodée et exécutée ultérieurement.
 
 = Program Counter (PC)
 Le programme counter (PC) est un registre qui contient l'adresse de l'instruction courante à éxécuter. Il est incrémenté à chaque instruction pour passer à l'instruction suivante *sauf si un saut est effectué*.
@@ -39,7 +41,7 @@ Les sauts sont des instructions qui permettent de modifier le PC pour exécuter 
 - Saut inconditionnel
  - Exemple : Retour au début d’un programme
 - Saut conditionnel
-- Exemple : Exécution d’une boucle 
+ - Exemple : Exécution d’une boucle 
 - Appel de fonction
 == Déclanché matériellement
 - Interruption
