@@ -31,7 +31,7 @@ Le bloc EXECUTE contient le bloc *ALU*, le registre *CPSR*, le bloc *SHIFTER*. L
 - Génération d’un flag de *Carry* dans le registre d’état
  - Pour la soustraction, le Borrow est traduit par un flag de Carry *inversé* dans le registre d’état: *Carry = NOT(Borrow)*
 
-- Le Carry permet de détecter une erreur pour les opérations avec des nombres non-signés ! 
+- Le Carry permet de détecter une erreur pour les opérations avec des nombres non-signés! 
 
 == Signés
 #image("../../../_src/img/docs/image copy 23.png")

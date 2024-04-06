@@ -61,6 +61,5 @@
     #it
   ]
   
-  set align(left)
   columns(col, doc)
 }

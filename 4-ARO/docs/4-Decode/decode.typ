@@ -5,7 +5,7 @@
   ],
   lesson: "ARO",
   chapter: "3 - Decode",
-  definition: "TBD",
+  definition: "Le décodage dans un processeur traduit les instructions binaires en signaux de contrôle pour les opérations nécessaires. Une banque de registres stocke des données temporaires, entourée d'un décodeur en entrée et d'un multiplexeur en sortie. Dans un processeur ARM, différents registres ont des objectifs spécifiques comme le Stack Pointer (SP) pour la gestion de la pile. Les instructions ARM telles que MOV et ADD permettent de manipuler les données et d'effectuer des opérations arithmétiques.",
   col: 1,
   doc,
 )
@@ -77,4 +77,4 @@ L'instruction `ADD` permet d'additionner deux valeurs et de stocker le résultat
 *OU* 
 
 - syntaxe : ```shell ADD <Rd>, <Rs>, <Rn>```
-- ajoute la valeur de Rs à celle de Rn et écrit le résultat dans Rd
+- ajoute la valeur de Rs à celle de Rn et écrit le résultat dans Rd 

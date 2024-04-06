@@ -29,4 +29,4 @@ La taille d'un mot mémoire est forcément un multiple de $8$. C'est pourquoi no
 En fonction de la taille de la mémoire nous aurons une taille d'adresses variables, le tableau suivant représente les possibilités : 
 #image("../../../_src/img/docs/image2.png")
 
-// = Ilona mon amoureuse
+// = Ilona mon amoureuse 

@@ -21,7 +21,7 @@ Il existe 3 types d'instructions que nous allons voir.
 = Format d'une instruction
 #image("../../../_src/img/docs/image3.png")
 == Opcode
-Le champ «opcode» est l’identificateur de l’instruction est permet donc de définir ce que doit celle-ci va devoir faire.
+Le champ «opcode» est l’identificateur de l’instruction est permet donc de définir ce que doit celle-ci va devoir faire. 
 == Opérande(s)
 - Les champs opérandes spécifient la destination et les deux opérandes pour le traitement
  - Le nombre d’opérandes peut varier de 1 à 3.
@@ -98,4 +98,5 @@ Le mode d'adressage correspond à la méthode d'accès au données. En fonction 
   1. La convertir en binaire: ```shell 0001 1111 0001 1001```
   2. Chercher dans la table des instructions l'opcode correspondant à ```shell 00011```
   3. Interpreter les opérandes en fonction de l'opcode trouvé.
-  #image("../../../_src/img/docs/image copy 6.png")
+  #image("../../../_src/img/docs/image copy 6.png") 
+ 
