@@ -30,3 +30,19 @@ En fonction de la taille de la mémoire nous aurons une taille d'adresses variab
 #image("../../../_src/img/docs/image2.png")
 
 // = Ilona mon amoureuse 
+
+== Calculer les adresses
+=== Calculer adresse de fin
+$
+"Adr.Fin" = "Adr.Deb" + "Taille" - 1
+$
+
+=== Calculer adresse de début
+$
+"Adr.Deb" = "Adr.Fin" - "Taille" + 1
+$
+
+=== Calculer la taille
+$
+"Taille" = "Adr.Fin" - "Adr.Deb" + 1
+$
