@@ -8,13 +8,6 @@
   doc,
 ) = {
 
-/*
-  show heading.where(level: 1): it => block[
-    #pagebreak(weak: false)
-    #it
-  ]
-*/
-
   set text(font: "Proxima Nova")
 
   set page("a4",
@@ -63,9 +56,10 @@
   }
   outline(title: "Table des matières", indent: auto)
 
-  pagebreak()
-
-  v(30pt)
+  show heading.where(level: 1): it => block[
+    #colbreak()
+    #it
+  ]
   
   set align(left)
   columns(col, doc)
