@@ -8,6 +8,13 @@
   doc,
 ) = {
 
+/*
+  show heading.where(level: 1): it => block[
+    #pagebreak(weak: false)
+    #it
+  ]
+*/
+
   set text(font: "Proxima Nova")
 
   set page("a4",

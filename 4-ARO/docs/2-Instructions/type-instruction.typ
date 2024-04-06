@@ -62,3 +62,40 @@ Le mode d'adressage correspond à la méthode d'accès au données. En fonction 
  - nombreuses variantes pour ce dernier cas
 
  == Adressage immédiat
+ Pour ce qui est de l'adressage immédiat nous aurons une valeur constante dans le champ d'instruction.
+ ```shell
+ mov rd, #valeur
+ add rd, #cte
+ ```
+
+ == Adressage direct
+ Lors de l'adressage direct nous adressons directement l'adresse de l'opérande. De plus, il existe 2 sous catégories d'adressage direct:
+ === Absolu
+ Dans ce cas, l'adresse est directement ajoutée dans le champ d'instruction.
+ ```shell
+  mov r1, 0x1234
+  add r1, 0x1234
+  ```
+ === Par registre
+ Dans ce cas, l'adresse est stockée dans un registre donc on met le numéro du registre.
+ ```shell
+  mov r1, r2
+  add r1, r2
+  ```
+  #image("../../../_src/img/docs/image copy 4.png")
+
+  == Adressage indirect
+  Lors de l'adressage indirect, l'adresse de l'opérande est stockée dans un registre.
+  ```shell
+  mov r1, [0x1234]
+  add r1, [2]
+  ```
+  #image("../../../_src/img/docs/image copy 5.png")
+
+  = Comment interpréter une instruction
+  Pour interpréter une instruction, il faut suivre les étapes suivantes:
+  Dans notre situation notre instruction vaut ```shell 0x1F19``` et nous travaillons sur un procésseur 16 bits.
+  1. La convertir en binaire: ```shell 0001 1111 0001 1001```
+  2. Chercher dans la table des instructions l'opcode correspondant à ```shell 00011```
+  3. Interpreter les opérandes en fonction de l'opcode trouvé.
+  #image("../../../_src/img/docs/image copy 6.png")
