@@ -28,7 +28,7 @@ Dans un processeur ARM nous avons un total de 37 registres physiques. Il y en a 
 #table(
   columns: (0.5fr, 1fr),
   table.header(
-    [*Code d'instruction*], [*Incrément*]
+    [*Registre*], [*Objectif*]
   ),
   "R13", "Stack Pointer (SP) " + sym.arrow + " Stocke la position dans la pile de stockage (interruptions chaînées)",
   "R14", "Link Register (LR) " + sym.arrow + "Garde l’adresse de retour (appel de fct, interruption)",
