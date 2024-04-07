@@ -48,3 +48,8 @@ $
 $
 "Taille" = "Adr.Fin" - "Adr.Deb" + 1
 $
+$
+"Taille" = 1 << log_2(2^n)
+$
+$n =$ le nombre de bits alloué à la zone mémoire
+Exemple : $2"KB" = 2^10 * 2^1 = 2^11$ donc $n = 11$
