@@ -16,7 +16,7 @@ L'opération de décodage dans un processeur consiste à interpréter les instru
 = Banque de registres
 Une banque de registre s'articule autour de plusieurs registres, chacun stockant une valeur. Ces registres sont utilisés pour stocker des données temporaires, des adresses mémoire, des résultats intermédiaires, ou des valeurs de contrôle.
 
-Ces registres sont entourés d'un décodeur en entrée et d'un multiplexeur en sortie. Le décodeur permet de définir dans quel registre nous allons écrire tandis que le multiplexeur permet de choisir quel registre nous allons lire.
+Ces registres sont entourés d'un décodeur en entrée et d'un multiplexeur en sortie. Le décodeur permet de définir dans quel registre nous allons écrire tandis que le multiplexeur permet de choisir quel registre nous allons lire. 
 #image("../../../_src/img/docs/image copy 16.png")
 
 == Traitement de plusieurs valeur en parallèle

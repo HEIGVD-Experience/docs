@@ -20,6 +20,7 @@
         #set align(right)
         #datetime.today().display("[month]-[year]")
       ]
+      #v(13pt)
     ],
     header-ascent: 0%,
     footer-descent: 20%,

@@ -17,7 +17,7 @@ L'opération de fetch (récupération) dans un processeur consiste à récupére
 Le programme counter (PC) est un registre qui contient l'adresse de l'instruction courante à éxécuter. Il est incrémenté à chaque instruction pour passer à l'instruction suivante *sauf si un saut est effectué*.
 
 == Incrémenter le PC
-La valeur de l’incrément correspond au nombre de bytes de l’instruction, indépendamment du bus d’adresses!
+La valeur de l’incrément correspond au nombre de bytes de l’instruction, indépendamment du bus d’adresses! 
 #table(
   columns: (1fr, 1fr),
   table.header(

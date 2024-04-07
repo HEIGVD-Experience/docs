@@ -21,7 +21,7 @@ L'accès à la mémoire dans un processeur permet au CPU d'interagir avec la mé
 #columns(2)[
   - L’espace mémoire total adressable par un processeur avec un bus d’adresse de n bits est $2^n$ bytes
   - Les mémoire et les périphériques occupent des espaces définis à des adresses précises : ceci s’appelle le *memory mapping*
-  - L’adresse de début et la taille des espaces mémoire sont définis par *un décodage d’adresse* effectué par comparaison des bits de poids fort
+  - L’adresse de début et la taille des espaces mémoire sont définis par *un décodage d’adresse* effectué par comparaison des bits de poids fort 
 
   #colbreak()
 

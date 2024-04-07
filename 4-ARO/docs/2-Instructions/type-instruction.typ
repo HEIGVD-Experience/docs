@@ -16,7 +16,7 @@ Il existe 3 types d'instructions que nous allons voir.
 2. instructions de transfert de donnée
  - interne #sym.arrow interne
  - interne #sym.arrow externe
-3. instructions de branchement (saut)
+3. instructions de branchement (saut) 
 
 = Format d'une instruction
 #image("../../../_src/img/docs/image3.png")
