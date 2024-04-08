@@ -159,3 +159,21 @@ $
   "R15 / R7", "Program Counter (PC) " + sym.arrow + "Stocke l’adresse de la prochaine instruction",
 )
 Lors d'une interruption on stocke la valeur actuelle du PC dans le LR et on met la valeur de l'adresse de l'interruption dans le PC.
+
+== Puissance de 2
+#table(
+  columns: (1fr, 1fr),
+  table.header(
+    [*Puissance de 2*], [*Résultat*]
+  ),
+  $2^0$, "1",
+  $2^1$, "2",
+  $2^2$, "4",
+  $2^3$, "8",
+  $2^4$, "16",
+  $2^5$, "32",
+  $2^6$, "64",
+  $2^7$, "128",
+  $2^8$, "256",
+  $2^9$, "512",
+)
