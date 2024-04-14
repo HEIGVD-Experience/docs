@@ -1,4 +1,4 @@
-#import "../../../_settings/typst/template-note.typ": conf
+#import "../../../_settings/typst/template-note-en.typ": conf
 #show: doc => conf(
   title: [
     HTML

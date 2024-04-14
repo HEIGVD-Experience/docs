@@ -41,7 +41,7 @@
   
   par(justify: true)[
     #v(15pt)
-    #text(14pt, "Résumé du document", weight: "bold") \
+    #text(14pt, "Document summary", weight: "bold") \
     #text(12pt, definition)
   ]
 
@@ -55,7 +55,7 @@
       v(10pt, weak: true)
       strong(it)
   }
-  outline(title: "Table des matières", indent: auto)
+  outline(title: "Table of content", indent: auto)
 
   show heading.where(level: 1): it => block[
     #colbreak()
