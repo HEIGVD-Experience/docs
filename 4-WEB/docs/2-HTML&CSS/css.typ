@@ -5,7 +5,7 @@
   ],
   lesson: "WEB",
   chapter: "2 - HTML & CSS",
-  definition: "TBD",
+  definition: "The text covers fundamental educational objectives in web development, elucidating the roles of HTML and CSS, HTML document structure, and the integration of CSS styling. It emphasizes the application of HTML elements, CSS properties, and the importance of understanding the Document Object Model (DOM). Additionally, it delves into advanced layout techniques like Grid and Flexbox, alongside responsive design using Media Queries. The narrative underscores the significance of accessibility and SEO, elucidating various methods to enhance SEO practices. Furthermore, it provides comprehensive insights into CSS anatomy, selectors, properties, layout models like Flexbox and Grid, and the implementation of Media Queries for responsive design.",
   col: 1,
   doc,
 )
