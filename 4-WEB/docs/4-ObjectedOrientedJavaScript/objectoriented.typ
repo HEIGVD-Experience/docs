@@ -65,6 +65,41 @@ var apple = new Fruit("red");
 console.log(apple.toString()); // This fruit is red!
 ```
 
+= Context
+The context of a function is the object to which the function belongs. The context is determined by how a function is invoked. The context of a function can be set using the call, apply, or bind methods.
+
+```javascript 
+function doTwice(f) {
+    f()
+    f()
+}
+let human = {
+    age: 32,
+    getOlder() {
+        this.age++
+    }
+}
+doTwice(human.getOlder)
+console.log(human.age)
+```
+
+In this case the context of the function getOlder is not shared when calling ```javascript doTwice(human.getOlder)```. The context is lost and the age property is not incremented. The program throw an error. To fix this, you can use the bind method to set the context of the function.
+
+```javascript
+function doTwice(f) {
+    f.call(this); // bind this to the current context
+    f.call(this); // bind this to the current context
+}
+let human = {
+    age: 32,
+    getOlder() {
+        this.age++;
+    }
+}
+doTwice.call(human, human.getOlder); // bind this to human
+console.log(human.age); // Output will be 34
+```
+
 = Array object
 The Array object is a global object that is used in the construction of arrays, which are high-level, list-like objects.
 ```javascript
