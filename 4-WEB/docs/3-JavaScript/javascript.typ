@@ -56,13 +56,13 @@ Server-side JavaScript is executed on the server. It is used to create web appli
 
 = JavaScript types
 == Primitive types
-- Undefined: Unique primitive value undefined
-- Number: Real or integer number (e.g. 3.14, 42)
-- Boolean: true or false
-- String: Character sequence, whose literals begin and end with single or double - quotes (e.g. "HEIG-VD", 'hello')
-- BigInt: Arbitrary-precision integers, whose literals end with an n (e.g. - 9007199254740992n)
-- Symbol: Globally unique values usable as identifiers or keys in objects (e.g. Symbol(), Symbol("description"))
-- Null: Unique value null
+- *Undefined*: Unique primitive value undefined
+- *Number*: Real or integer number (e.g. 3.14, 42)
+- *Boolean*: true or false
+- *String*: Character sequence, whose literals begin and end with single or double - quotes (e.g. "HEIG-VD", 'hello')
+- *BigInt*: Arbitrary-precision integers, whose literals end with an n (e.g. - 9007199254740992n)
+- *Symbol*: Globally unique values usable as identifiers or keys in objects (e.g. Symbol(), Symbol("description"))
+- *Null*: Unique value null
 
 *In a dynamic language you don’t specify the type when you declare a variable and the type of a variable can change.*
 
