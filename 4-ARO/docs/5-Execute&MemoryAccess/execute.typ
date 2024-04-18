@@ -21,9 +21,7 @@ Le bloc EXECUTE contient le bloc *ALU*, le registre *CPSR*, le bloc *SHIFTER*. L
 == Non-signés
 #table(
   columns: (0.5fr, 1fr, 1fr),
-  table.header(
-    [Pour n bits], [*Addition*], [*Soustraction*]
-  ),
+  [Pour n bits], [*Addition*], [*Soustraction*],
   "Dépassement si le résultat est :",$> 2^n-1$,$<0$,
   "Flag","Carry (report) ","Borrow (emprunt)"
 )

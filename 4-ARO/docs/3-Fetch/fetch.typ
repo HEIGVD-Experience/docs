@@ -20,9 +20,7 @@ Le programme counter (PC) est un registre qui contient l'adresse de l'instructio
 La valeur de l’incrément correspond au nombre de bytes de l’instruction, indépendamment du bus d’adresses! 
 #table(
   columns: (1fr, 1fr),
-  table.header(
-    [*Code d'instruction*], [*Incrément*]
-  ),
+  [*Code d'instruction*], [*Incrément*],
   "8 bits = 1 byte", "1",
   "16 bits = 2 bytes", "2",
   "32 bits = 4 bytes", "4",
@@ -57,9 +55,7 @@ $
 $
 #table(
   columns: (0.5fr, 1fr),
-  table.header(
-    [*Code d'instruction*], [*Incrément*]
-  ),
+  [*Code d'instruction*], [*Incrément*],
   "Adr", "Adresse finale du saut",
   "PC", "Adresse de l'instruction courante",
   "Extension 16 bits", "Extension de l'adresse de saut en y ajoutant la valeur du bit de signe",

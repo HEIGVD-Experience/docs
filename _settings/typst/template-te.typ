@@ -1,5 +1,5 @@
 #let resume(title, name, cols: 2, doc) = {
-  set text(size:8pt, font: "Inria Sans")
+  set text(size:7.5pt, font: "Inter")
   set par(leading: 0.45em)
   set block(above: 0.5em)
 

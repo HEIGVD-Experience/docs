@@ -47,9 +47,7 @@ $
 $
 #table(
   columns: (0.5fr, 1fr),
-  table.header(
-    [*Code d'instruction*], [*Incrément*]
-  ),
+  [*Code d'instruction*], [*Incrément*],
   "Adr", "Adresse finale du saut",
   "PC", "Adresse de l'instruction courante",
   "Extension 16 bits", "Extension de l'adresse de saut en y ajoutant la valeur du bit de signe",
@@ -71,9 +69,7 @@ $
   align: center + horizon,
   columns: (0.5fr, 1fr),
   rows: 10pt,
-  table.header(
-    [*Mnemonic*],[*Instruction*]
-  ),
+  [*Mnemonic*],[*Instruction*],
   "ADC","Add with Carry",
   "ADD","Add",
   "AND","AND",
@@ -114,33 +110,29 @@ $
 
 #table(
   columns: (1fr, 1fr, 1fr),
-  table.header(
-    [*Décimal*], [*Héxadécimal*], [*Binaire*]
-  ),
-"0", "0", "0000",
-"1", "1", "0001",
-"2", "2", "0010",
-"3", "3", "0011",
-"4", "4", "0100",
-"5", "5", "0101",
-"6", "6", "0110",
-"7", "7", "0111",
-"8", "8", "1000",
-"9", "9", "1001",
-"10", "A", "1010",
-"11", "B", "1011",
-"12", "C", "1100",
-"13", "D", "1101",
-"14", "E", "1110",
-"15", "F", "1111"
+  [*Décimal*], [*Héxadécimal*], [*Binaire*],
+  "0", "0", "0000",
+  "1", "1", "0001",
+  "2", "2", "0010",
+  "3", "3", "0011",
+  "4", "4", "0100",
+  "5", "5", "0101",
+  "6", "6", "0110",
+  "7", "7", "0111",
+  "8", "8", "1000",
+  "9", "9", "1001",
+  "10", "A", "1010",
+  "11", "B", "1011",
+  "12", "C", "1100",
+  "13", "D", "1101",
+  "14", "E", "1110",
+  "15", "F", "1111"
 )
 
 == Incrémenter le PC
 #table(
   columns: (1fr, 1fr),
-  table.header(
-    [*Code d'instruction*], [*Incrément*]
-  ),
+  [*Code d'instruction*], [*Incrément*],
   "8 bits = 1 byte", "1",
   "16 bits = 2 bytes", "2",
   "32 bits = 4 bytes", "4",
@@ -151,9 +143,7 @@ $
 == Registres spéciaux
 #table(
   columns: (0.5fr, 1fr),
-  table.header(
-    [*Registre*], [*Objectif*]
-  ),
+  [*Registre*], [*Objectif*],
   "R13 / R5", "Stack Pointer (SP) " + sym.arrow + " Stocke la position dans la pile de stockage (interruptions chaînées)",
   "R14 / R6", "Link Register (LR) " + sym.arrow + "Garde l’adresse de retour (appel de fct, interruption)",
   "R15 / R7", "Program Counter (PC) " + sym.arrow + "Stocke l’adresse de la prochaine instruction",
@@ -163,9 +153,7 @@ Lors d'une interruption on stocke la valeur actuelle du PC dans le LR et on met 
 == Puissance de 2
 #table(
   columns: (1fr, 1fr),
-  table.header(
-    [*Puissance de 2*], [*Résultat*]
-  ),
+  [*Puissance de 2*], [*Résultat*],
   $2^0$, "1",
   $2^1$, "2",
   $2^2$, "4",

@@ -27,9 +27,7 @@ Dans un processeur, les registres sont souvent utilisés pour traiter plusieurs 
 Dans un processeur ARM nous avons un total de 37 registres physiques. Il y en a 16 (+2) qui sont utilisé en fonction du mode.
 #table(
   columns: (0.5fr, 1fr),
-  table.header(
-    [*Registre*], [*Objectif*]
-  ),
+  [*Registre*], [*Objectif*],
   "R13", "Stack Pointer (SP) " + sym.arrow + " Stocke la position dans la pile de stockage (interruptions chaînées)",
   "R14", "Link Register (LR) " + sym.arrow + "Garde l’adresse de retour (appel de fct, interruption)",
   "R15", "Program Counter (PC) " + sym.arrow + "Stocke l’adresse de la prochaine instruction",

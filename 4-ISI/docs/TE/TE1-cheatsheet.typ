@@ -55,7 +55,7 @@ Souvent décrite comme une sécurité sous forme d'onion car composé de plusieu
 - *Accounting/Auditing*
 - S’assurer qu’il soit possible de suivre les accès/traitement qui ont été effectués
 - Logging
-#colbreak()
+
 = 5 principes fondamentaux
 1. La sécurité globale est aussi forte que le maillon
 le plus faible
@@ -153,9 +153,7 @@ Hash tout d'un coup, max 256 char (128b)
   columns: (1.7cm, auto, auto, 1cm, auto, auto),
   rows: (1.6cm,auto,auto,auto,auto,auto),
   align: horizon+center,
-  table.header(
-    [*Méthode*], [#rotate(270deg)[*Temps préparation*]], [#rotate(270deg)[*Temps cassage*]],[#rotate(270deg)[*Taille mémoire*]],[#rotate(270deg)[*Probabilité succès*]],[#rotate(270deg)[*Sel*]],
-  ),
+  [*Méthode*], [#rotate(270deg)[*Temps préparation*]], [#rotate(270deg)[*Temps cassage*]],[#rotate(270deg)[*Taille mémoire*]],[#rotate(270deg)[*Probabilité succès*]],[#rotate(270deg)[*Sel*]],
   "Dictionnaire","0","?","Faible","?","Idem",
   "Heuristique","0","?","Faible","?","Idem",
   "Force brute","0","O(N)","0","100%","Idem",
