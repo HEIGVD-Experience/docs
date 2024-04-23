@@ -12,13 +12,13 @@ MiseAuPropre: oui
 >
 >Une seule sortie active simultanément -> correspond à un minterme
 
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020231026133039.png)
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020231026135512.png)
+![](..//_src/img/docs/Pasted%20image%2020231026133039.png)
+![](..//_src/img/docs/Pasted%20image%2020231026135512.png)
 
 Les images présentées ci-dessus présente le fonctionnement ainsi que la table de vérité d'un décodeur à `4 bits`.
 Ci-dessous la version avec le **enable**.
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020231026135806.png)
+![](..//_src/img/docs/Pasted%20image%2020231026135806.png)
 >[!important]
 >Un décodeur permet donc de choisir une sortie précise et **unique** en fonction des bits d'entrée. La valeur numérique des bits représente la valeur 1 des mintermes.
 
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020231026140408.png)
+![](..//_src/img/docs/Pasted%20image%2020231026140408.png)

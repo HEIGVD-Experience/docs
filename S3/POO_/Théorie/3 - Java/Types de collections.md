@@ -12,7 +12,7 @@ ___
 ## Définition
 >[!important]
 >En Java il existe plusieurs types de collections, qui sont des objets. Il existe des multiples héritages entre ces différentes collections.
->![](../../../../S0/PiecesJointes/Pasted%20image%2020231106215937.png)
+>![](/_src/img/docs/Pasted%20image%2020231106215937.png)
 ## ArrayList
 - Tableaux extensibles.
 - Peu performants en insertion et en suppression. 

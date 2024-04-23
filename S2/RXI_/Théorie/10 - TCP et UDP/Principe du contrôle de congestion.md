@@ -32,7 +32,7 @@ Le contrôle de congestion de TCP doit optimiser le débit de transmission sans 
 >(MSS: Maximum Segment Size: taille maximum d’un paquet)
 >Cwnd double chaque RTT (délai aller-retour)
 
-![[S0/PiecesJointes/Pasted image 20230624215005.png]]
+![[/_src/img/docs/Pasted image 20230624215005.png]]
 
 
 ## Évitement de congestion
@@ -44,7 +44,7 @@ Le contrôle de congestion de TCP doit optimiser le débit de transmission sans 
 >[!important] Algorithme Congestion Avoidance
 > - Dès que cwnd > ssthresh, cwnd est agrandie linéairement
 > - Pour chaque acquittement reçu : 
->   ![[S0/PiecesJointes/Pasted image 20230624215210.png]]
+>   ![[/_src/img/docs/Pasted image 20230624215210.png]]
 >   
 >   Augmentation d’un MSS par RTT
 

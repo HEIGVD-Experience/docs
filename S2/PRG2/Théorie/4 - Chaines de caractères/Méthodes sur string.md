@@ -4,7 +4,7 @@ MiseAuPropre: oui
 ---
 
 ## Listing (non exhaustive) de string.h
-![[S0/PiecesJointes/Pasted image 20230601165038.png]]
+![[/_src/img/docs/Pasted image 20230601165038.png]]
 
 ## Recherche dans une chaine
 Il existe en C grâce à la librairie `string.h` de faire des recherches dans un string.

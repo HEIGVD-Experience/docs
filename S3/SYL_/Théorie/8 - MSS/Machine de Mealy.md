@@ -15,6 +15,6 @@ ___
 - Chaque état est nommé
 - L'état de la sortie est indiqué sur chaque transition
 - Sur chaque transition la condition est indiquée
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240106104051.png)
+![](..//_src/img/docs/Pasted%20image%2020240106104051.png)
 ## Table de Mealy
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240106104637.png)
+![](..//_src/img/docs/Pasted%20image%2020240106104637.png)

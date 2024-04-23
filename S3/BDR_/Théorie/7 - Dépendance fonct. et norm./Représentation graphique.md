@@ -29,7 +29,7 @@ $$
 \{Type\} &\to \{Puissance\}
 \end{align}
 $$
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240102151138.png)
+![](/_src/img/docs/Pasted%20image%2020240102151138.png)
 Les arcs sont uniques entre chaque attribut car il n'y a aucune relation basé sur une combinaison de plusieurs attributs.
 ## Attributs multiples
 Dans le cas ou une composition d'attributs servent de clé sur un ou plusieurs attributs alors nous aurons le type de graphe suivant :
@@ -38,7 +38,7 @@ $$
 \{A,B\} &\to \{C,D\} \\
 \end{align}
 $$
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240102151835.png)
+![](/_src/img/docs/Pasted%20image%2020240102151835.png)
 La relation entre A et B est le point de départ de la relation sur les attributs C et D.
 ## Fermeture transitive
 >[!important]
@@ -46,12 +46,12 @@ La relation entre A et B est le point de départ de la relation sur les attribut
 ### Notation
 L’ensemble des DFs élémentaires enrichi des DFs élémentaires obtenues par transitivité est la **fermeture transitive**, notée $F^T$.
 ### Exemple
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240102152216.png)
+![](/_src/img/docs/Pasted%20image%2020240102152216.png)
 ## Equivalence des DFs
 >[!important]
 >Deux ensembles de DFs élémentaires sont dits **équivalents** s’ils ont la même fermeture transitive.
 ### Contre-exemple
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240102152935.png)
+![](/_src/img/docs/Pasted%20image%2020240102152935.png)
 
 **Les deux premières DFs dans F1 et F2 sont identiques.**
 
@@ -70,4 +70,4 @@ La couverture minimale permet de vérifier plusieurs points pour un ensemble de 
 Tout ensemble de DFs admet au moins une **couverture minimale**!
 ### Graphe minimal
 Le graphe de $F_{min}$ s’appel **graphe minimal** des DFs
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240102163239.png)
+![](/_src/img/docs/Pasted%20image%2020240102163239.png)

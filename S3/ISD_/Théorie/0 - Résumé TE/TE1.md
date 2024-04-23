@@ -15,7 +15,7 @@ L'apprentissage automatique consiste à donner aux ordinateurs la capacité d'ap
 	- **Paramètre clé :** K (nombre de voisins à considérer).
 	- **Requis :** Ensemble de données étiquetées, métrique de similarité.
 	- **Fonctionnement :** Choix de K, mesure de la similarité, sélection des K plus proches voisins, vote majoritaire pour la classification.
-	- ![](../../../../S0/PiecesJointes/Pasted%20image%2020231123114344.png)
+	- ![](/_src/img/docs/Pasted%20image%2020231123114344.png)
 - **Prédiction**
 - **Détection d’anomalies**
 - **Authentification**
@@ -40,7 +40,7 @@ L'apprentissage automatique consiste à donner aux ordinateurs la capacité d'ap
 
 ### Diagramme de Voronoï
 La région de Voronoï est celle qui est composée de tous les points qui sont plus proches d’une observation que d’aucune autre. La classe prédite par I-NN pour tous les points d’une région de Voronoï sera donc la même.
-![](../../../../S0/PiecesJointes/Pasted%20image%2020231123120115.png)
+![](/_src/img/docs/Pasted%20image%2020231123120115.png)
 ```
 ```col-md
 flexGrow=1
@@ -52,7 +52,7 @@ flexGrow=1
 - **Médiane :** La valeur du milieu lorsque les données sont classées dans l'ordre croissant, prenant la moyenne des deux en cas de nombre pair.
 - **Écart type :** Mesure de la dispersion des valeurs, représentant la moyenne quadratique des écarts par rapport à la moyenne.
 ### Boite à moustache
-![](../../../../S0/PiecesJointes/Pasted%20image%2020231123115728.png)
+![](/_src/img/docs/Pasted%20image%2020231123115728.png)
 ## Mesures d’évaluation
 - **Accuracy :**
   - *Description :* Pourcentage de prédictions correctes parmi l'ensemble des prédictions.
@@ -108,7 +108,7 @@ On attend d’un modèle créé par apprentissage automatique de pouvoir gé
 > [!important]
 > L’overfitting et l’underfitting sont les causes prinicipales de mauvaises performances (mauvaise généralisation).
 
-![](../../../../S0/PiecesJointes/Pasted%20image%2020231123120536.png)
+![](/_src/img/docs/Pasted%20image%2020231123120536.png)
 
 **Validation hold-out**
 - Réserver une partie des données disponibles pour tester la performance du modèle.

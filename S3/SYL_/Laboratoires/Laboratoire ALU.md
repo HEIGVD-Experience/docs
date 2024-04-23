@@ -15,7 +15,7 @@ Dans le bloc **Comparateur** nous aurons des erreurs dans les cas ou l'opcode va
 ### QUESTION 2
 **Reprenez le schéma disponible en Figure 1 et donnez, pour chaque bloc, les bits d’opcode utilisés (l’idée est de répondre aux points d’interrogation dans le schéma). Vos réponses doivent être de la forme "les bits d’opcode du bloc add/sub sont les bits [X:Y]".**
 
-![Schema Bloc de l'ALU](S0/PiecesJointes/SchemaBlocAlu.PNG)
+![Schema Bloc de l'ALU](/_src/img/docs/SchemaBlocAlu.PNG)
 
 Format d'opcode de 6 bits : (MSB->)ϕϕϕϕϕϕ(<-LSB)
 

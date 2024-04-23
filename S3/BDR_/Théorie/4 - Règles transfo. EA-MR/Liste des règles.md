@@ -29,12 +29,12 @@ MiseAuPropre: oui
 ## Types d’entité forts
 - Créer une relation R avec tous les attributs simples, et les composantes simples des attributs composites, de E
 - La clé primaire de E devient celle de R
-![](../../../../S0/PiecesJointes/Pastedimage20231024154532.png)
+![](/_src/img/docs/Pastedimage20231024154532.png)
 
 ## Types d'entité faibles
 - Créer une relation R contenant tous les attributs de E
 - La clé est celle du type d’entité fort avec le(s) attribut(s) discriminant(s)
-![](../../../../S0/PiecesJointes/Pasted%20image%2020231024155046.png)
+![](/_src/img/docs/Pasted%20image%2020231024155046.png)
 
 Type d'entité fort :   R1(<u>k1</u>, a)
 Type d'entité faible: R2(<u>k1, k2</u>, b)
@@ -43,7 +43,7 @@ Contrainte de FK:     R2.k1 référence R1.k1
 ## Héritages
 - Le type d’entité parent se transforme comme un type d’entité normal (fort)
 - Les types d’entité enfant deviennent des relations avec leurs attributs et comme clé primaire celle de leur parent (qui est donc aussi une clé étrangère **unique et not null**)
-![](../../../../S0/PiecesJointes/Pasted%20image%2020231024173714.png)
+![](/_src/img/docs/Pasted%20image%2020231024173714.png)
 ### Types
 - Pour rappel, il existe 4 types d’héritage possibles:
 	- {complete, overlapping}
@@ -60,10 +60,10 @@ Contrainte de FK:     R2.k1 référence R1.k1
 - Il faut identifier le type d’entité qui a obligatoirement une référence sur l’autre (cardinalité minimale de 1) et:
 	- En faire une relation qui a comme clé étrangère la clé primaire de l’autre type d’entité
 	- Tous les attributs de l’association sont mis dans cette relation
-![](../../../../S0/PiecesJointes/Pasted%20image%2020231024174218.png)
+![](/_src/img/docs/Pasted%20image%2020231024174218.png)
 ### Association 1:1 (1 des 2 côtés)
 - Idem que le cas précédent sauf qu’ici on doit choisir un des deux types d’entité
-![](../../../../S0/PiecesJointes/Pasted%20image%2020231024175534.png)
+![](/_src/img/docs/Pasted%20image%2020231024175534.png)
 - En choisissant E1:
 	- R2(<u>k2</u>, b)
 	- R1(<u>k1, k2</u>, a, c) 
@@ -71,7 +71,7 @@ Contrainte de FK:     R2.k1 référence R1.k1
 
 ### Association 1:1 (0..1 des 2 côtés)
 - Identique au cas précédent, il faut choisir un type d’entité
-![](../../../../S0/PiecesJointes/Pasted%20image%2020231024180913.png)
+![](/_src/img/docs/Pasted%20image%2020231024180913.png)
 - En choisissant E2:
 	- R1(<b>k1</b>, b) 
 	- R2(<b>k2, k1</b>, a, c)
@@ -88,7 +88,7 @@ Contrainte de FK:     R2.k1 référence R1.k1
 >Si un des deux types d’entité est "spécial" alors c’est lui qu’il faut prendre pour y faire migrer les attributs
 
 - Dans cet exemple c’est donc automatiquement E2 qui est choisi pour la transformation de l’association binaire
-![[S0/PiecesJointes/Pasted image 20231024182440.png]]
+![[/_src/img/docs/Pasted image 20231024182440.png]]
 - R1(<u>k1</u>, a)
 - R3(<u>k3</u>, c)
 - R2(<u>k1</u>, k3, b, d)
@@ -97,7 +97,7 @@ Contrainte de FK:     R2.k1 référence R1.k1
 
 ## Associations binaires 1:N
 - De base, on applique la même règle que pour les associations 0..1 – 1
-![[S0/PiecesJointes/Pasted image 20231024183204.png]]
+![[/_src/img/docs/Pasted image 20231024183204.png]]
 - R2(<u>k2</u>, b)
 - R1(<u>k1, k2</u>, a)
 - R1.k2 référence R2.k2
@@ -109,13 +109,13 @@ Contrainte de FK:     R2.k1 référence R1.k1
 ### Avec attribut
 **Variante 1**
 - Si l’association a au moins un attribut, le cas avec une cardinalité de 1 se transforme de manière identique
-![[S0/PiecesJointes/Pasted image 20231024183417.png]]
+![[/_src/img/docs/Pasted image 20231024183417.png]]
 - R2(<u>k2</u>, b)
 - R1(<u>k1</u>, k2, a, c)
 - R1.k2 référence R2.k2, R1.k2 NOT NULL
 
 **Variante 2**
-![[S0/PiecesJointes/Pasted image 20231024183610.png]]
+![[/_src/img/docs/Pasted image 20231024183610.png]]
 >[!warning]
 >- La variante 1 impose plus de vérifications/contraintes au SGBD: 
 >	- Si R1.k2 est NULL alors R1.c doit aussi l’être 
@@ -126,7 +126,7 @@ Contrainte de FK:     R2.k1 référence R1.k1
 - L’association devient une relation:
 	- Contenant tous ses éventuels attributs
 	- Ayant pour clé primaire la combinaison des clés des 2 types d’entité (+ ses éventuels attributs définis comme membre de la clé primaire)
-![[S0/PiecesJointes/Pasted image 20231024184129.png]]
+![[/_src/img/docs/Pasted image 20231024184129.png]]
 - R1(k1, a)
 - R2(k2, k3, b)
 - R3(k1, k2, k3, c)
@@ -136,7 +136,7 @@ Contrainte de FK:     R2.k1 référence R1.k1
 ## Attributs multivalué
 - Possède un attribut (monovalué) qui correspond à l’attribut multivalué
 - A comme clé la combinaison de son attribut et de la clé du type d’entité auquel il appartenait
-![[S0/PiecesJointes/Pasted image 20231024215736.png]]
+![[/_src/img/docs/Pasted image 20231024215736.png]]
 - R1(k, b)
 - R2(k, a)
 - R2.k référence E.k
@@ -145,10 +145,10 @@ Contrainte de FK:     R2.k1 référence R1.k1
 - Comme 1ère étape on transforme l’association n-aire en n associations binaires 1:N en: 
 	1. Transformant l’association en type d’entité et en lui attribuant une clé artificielle
 	2. Créant une association de type 1 à plusieurs depuis ce type d’entité vers chacun des types d’entités qui étaient reliés par l’association Le côté 1 est mis du côté des types d’entité de base
-![[S0/PiecesJointes/Pasted image 20231024220348.png]]
+![[/_src/img/docs/Pasted image 20231024220348.png]]
 
 - Ensuite il faut appliquer la règle de transformation des associations 1:N vue précédemment
-![[S0/PiecesJointes/Pasted image 20231024220507.png]]
+![[/_src/img/docs/Pasted image 20231024220507.png]]
 - R1(k1, a)
 - R2(k2)
 - R3(k3, b)
@@ -160,9 +160,9 @@ Contrainte de FK:     R2.k1 référence R1.k1
 ## Associations réflexives
 ### Association N:M
 - La transformation est la même que pour toutes les association N:M
-![[S0/PiecesJointes/Pasted image 20231024221341.png]]
+![[/_src/img/docs/Pasted image 20231024221341.png]]
 ### Association 1:N
-![[S0/PiecesJointes/Pasted image 20231024222007.png]]
+![[/_src/img/docs/Pasted image 20231024222007.png]]
 - La variante 2 est recommandée notamment parce qu'elle:
 	- Sépare mieux les concepts (par ex. lien de parenté du slide précédent)
 	- Est supportée par tous les SGBD au niveau des options de contrainte d’intégrité référentielle (ON UPDATE CASCADE n’est par exemple pas supporté par MySQL dans la variante 1)

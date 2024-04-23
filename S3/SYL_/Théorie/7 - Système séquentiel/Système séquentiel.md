@@ -23,13 +23,13 @@ ___
 La valeur des sorties dans un système séquentiel ne dépend pas uniquement des valeurs des entrées à l'instant présent, **mais également de la valeur des entrées dans les instants précédents**.
 
 Les systèmes séquentiels introduisent donc la notion de **mémoire** (pour stocker l’état du système) et **d'horloge** (pour déterminer les instants de mesure).
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105114357.png)
+![](..//_src/img/docs/Pasted%20image%2020240105114357.png)
 ## Bascule
 Une bascule est un module logique permettant d'initialiser et de stocker une valeur logique.
 - Le circuit a un comportement séquentiel
 - Il contient qu'une seule sortie à deux états
 - Il ne contient pas plus de deux états stables
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105115314.png)
+![](..//_src/img/docs/Pasted%20image%2020240105115314.png)
 ### Type de bascules par état(s)
 - Astable -> aucun état stable
 - Monostable -> 1 état stable

@@ -18,7 +18,7 @@ ___
 
 ## INNER JOIN
 Cette jointure renvoie uniquement les lignes qui ont des valeurs correspondant aux deux tables. Les tuples de la table initiale n'ayant aucune correspondance dans la deuxième table n'apparaîtront pas dans la sortie.
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240113170519.png)
+![](/_src/img/docs/Pasted%20image%2020240113170519.png)
 La syntaxe est la suivante : 
 ```sql
 SELECT expression 
@@ -31,7 +31,7 @@ INNER JOIN table2 ON table1.val = table2.val;
 >- Les jointures externes permettent de garder tous les tuples d’une table, même ceux qui ne satisfont pas au critère de jointure.
 ## LEFT JOIN
 Un `LEFT JOIN`, aussi appelé `LEFT OUTER JOIN`, est une opération de jointure en SQL qui retourne toutes les lignes de la table de gauche (la première mentionnée) et les lignes correspondantes de la table de droite (la seconde mentionnée). Si aucune correspondance n'est trouvée, les colonnes de la table de droite auront des valeurs NULL.
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240113170459.png)
+![](/_src/img/docs/Pasted%20image%2020240113170459.png)
 La syntaxe est la suivante : 
 ```sql
 SELECT expression 
@@ -40,7 +40,7 @@ LEFT JOIN table2 ON table1.val = table2.val;
 ```
 ## RIGHT JOIN
 Un `RIGHT JOIN`, aussi appelé `RIGHT OUTER JOIN`, est une opération de jointure en SQL qui retourne toutes les lignes de la table de droite (la seconde mentionnée) et les lignes correspondantes de la table de gauche (la première mentionnée). Si aucune correspondance n'est trouvée, les colonnes de la table de gauche auront des valeurs NULL.
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240113170740.png)
+![](/_src/img/docs/Pasted%20image%2020240113170740.png)
 La syntaxe est la suivante : 
 ```sql
 SELECT expression 
@@ -49,7 +49,7 @@ RIGHT JOIN table2 ON table1.val = table2.val;
 ```
 ## FULL JOIN
 Un `FULL OUTER JOIN` retourne toutes les lignes lorsqu'il y a une correspondance dans l'une des tables. Si aucune correspondance n'est trouvée, les colonnes de la table qui n'a pas de correspondance auront des valeurs NULL. Cela combine les résultats de `LEFT JOIN` et `RIGHT JOIN`.
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240113171717.png)
+![](/_src/img/docs/Pasted%20image%2020240113171717.png)
 
 ## CROSS JOIN
 Un `CROSS JOIN` est une opération de jointure en SQL qui produit le produit cartésien de deux tables, c'est-à-dire toutes les combinaisons possibles de lignes entre les deux tables. Il n'utilise pas de clause `ON` pour spécifier une condition de jointure.

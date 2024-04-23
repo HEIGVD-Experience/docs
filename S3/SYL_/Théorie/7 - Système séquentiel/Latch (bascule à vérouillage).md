@@ -29,7 +29,7 @@ LD -> commande de verrouillage (gate)
 ```col-md
 flexGrow=1
 ===
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240105121733.png)
+![](/_src/img/docs/Pasted%20image%2020240105121733.png)
 ```
 ````
 
@@ -39,7 +39,7 @@ flexGrow=1
 | 0 | La sortie conserve sa valeur |
 - Si l'entrée LD est **inactive** alors la sortie conserve sa valeur (**HOLD**).
 - Si l'entrée LD est **active** alors la sortie prend la valeur de son entrée d'excitation (**LOAD**).
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105141753.png)
+![](..//_src/img/docs/Pasted%20image%2020240105141753.png)
 >[!warning]
 >Ce qu'il faut savoir c'est qu'avec des latchs il y a un temps de propagations donc un décalage au moment du front montant.
 

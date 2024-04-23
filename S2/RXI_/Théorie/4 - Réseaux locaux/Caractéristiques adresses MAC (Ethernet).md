@@ -15,7 +15,7 @@ Son format est de `48 bits (6 octets)` en notation héxadécimale.
 - Les 3 premiers octets définissent le constructeur de la carte
 - Les 3 derniers octets définissent l'identification de la carte et sont géré par le constructeur
 
-![[S0/PiecesJointes/Pasted image 20230326144549.png]]
+![[/_src/img/docs/Pasted image 20230326144549.png]]
 
 > [!info]
 > L'adresse `FF:FF:FF:FF:FF:FF` correspond à l'adresse de broadcast et les stations doivent traiter les trames reçues sur cette adresse. Elle est utilisée, par exemple, pour les requêtes DHCP.

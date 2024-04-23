@@ -18,9 +18,9 @@ Cet exemple est basé sur la décomposition au chapitre [suivant](Décomposition
 ![](/_src/img/docs/Pasted%20image%2020240103101817.png)
 ### Décomposition 2
 Cet exemple est basé sur la décomposition au chapitre [suivant](Décomposition.md#deuxi%C3%A8me-d%C3%A9composition).
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240103102008.png)
+![](/_src/img/docs/Pasted%20image%2020240103102008.png)
 #### Représentation graphique
 Si nous représentons graphiquement la deuxième décomposition nous pouvons voir ou se trouve la perte d'information impliquant que cette décomposition n'est **pas SPI**.
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240103102556.png) 
+![](/_src/img/docs/Pasted%20image%2020240103102556.png) 
 
 On voit que la DF : $\{NoVéh\} \to \{Couleur\}$ car celle-ci n'est ni dans R1 ni dans R2.

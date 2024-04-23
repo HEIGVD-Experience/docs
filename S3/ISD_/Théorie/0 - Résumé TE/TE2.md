@@ -42,7 +42,7 @@ L’algèbre linéaire fournit une solution directe, mais qui peut être très c
 La valeur minimum d'une fonction se trouve lorsque la dérivée s'annule et change de signe passant de négatif à positif.
 ### Formule de Pearson
 Le coefficient de détermination linéaire de Pearson, noté $R^2$ ou $r^2$, est une mesure de la qualité de la prédiction d'une régression linéaire.
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240118120159.png)
+![](/_src/img/docs/Pasted%20image%2020240118120159.png)
 où n est le nombre de mesures, ŷi est la prédiction de la valeur yi (le “ground truth”) et ȳ est la moyenne des mesures
 ### Erreur du modèle
 L’erreur de chaque estimation est $y_i - ŷ_i$ et globalement, l’erreur du modèle peut-être donné par l’expression
@@ -60,7 +60,7 @@ flexGrow=1
 	- m <- m - lr * ∂E/∂m,
 	- b <- b - lr * ∂E/∂b, où 0< lr <1 est une constante appelée “learning rate”
 4. On répète 2 et 3 jusqu’à trouver le minimum (ou un certain nombre de fois)
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240118123011.png)
+![](/_src/img/docs/Pasted%20image%2020240118123011.png)
 # Algorithme LVQ
 ### Etapes
 1. Choisir un point aléatoire de la classe
@@ -99,4 +99,4 @@ L’ensemble de vecteurs prototypes, on l’appelle un codebook.
 ```
 ````
 
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240207175623.png)
+![](/_src/img/docs/Pasted%20image%2020240207175623.png)

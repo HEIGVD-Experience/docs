@@ -15,6 +15,6 @@ ___
 - Chaque état est nommé
 - L'état de la sortie est indiqué dans chaque état
 - Sur chaque transition, la condition est indiquée
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240106103834.png)
+![](..//_src/img/docs/Pasted%20image%2020240106103834.png)
 ## Table des états
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240106104521.png)
+![](..//_src/img/docs/Pasted%20image%2020240106104521.png)

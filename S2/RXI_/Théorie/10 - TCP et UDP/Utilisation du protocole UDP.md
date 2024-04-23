@@ -19,7 +19,7 @@ Le protocole UDP est particulièrement léger au niveau de l'en-tête du paquet,
 - Les échanges courts, comme DNS (pas de connexion)
 
 ## Datagrammes
-![[S0/PiecesJointes/slide13-n.jpg]]
+![[/_src/img/docs/slide13-n.jpg]]
 
 >[!important]
 >- Seulement 4 champs dans l’en-tête UDP, 8 octets en total 

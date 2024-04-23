@@ -51,4 +51,4 @@ std::binary_search
 >Dans le cas de conteneurs dits "non ordonnés" comme `std::unordered_set` ou `std::unordered_map` la complexité des fonctions ci-dessus sera de $O(n)$
 
 
-![[S0/PiecesJointes/Pasted image 20230323172538.png]]
+![[/_src/img/docs/Pasted image 20230323172538.png]]

@@ -23,16 +23,16 @@ $$
 \{attribut 1\} \to \{attribut 2, attribut 3, \dots\}
 $$
 Si nous reprenons l'exemple dans le chapitre [Décomposition](Décomposition.md#Utilisation) alors nous pourrons voir que cela serait noté : 
-![](../../../../S0/PiecesJointes/Pasted%20image%2020231231153931.png)
+![](/_src/img/docs/Pasted%20image%2020231231153931.png)
 ## Déterminant non-clé
 Une DF dont le déterminant n’est pas une clé de la relation crée des redondances. Cela a été vu dans l'exemple discuté ci-dessus.
-![](../../../../S0/PiecesJointes/Pasted%20image%2020231231154241.png)
+![](/_src/img/docs/Pasted%20image%2020231231154241.png)
 Dans la première décomposition chaque déterminant d'une DF est une clé de sa relation, il n'y a donc plus de redondances.
-![](../../../../S0/PiecesJointes/Pasted%20image%2020231231154427.png)
+![](/_src/img/docs/Pasted%20image%2020231231154427.png)
 
 ### Autre exemple
 Exemple d’une relation dans laquelle le déterminant d’une DF n’est qu’une partie d’une clé.
-![](../../../../S0/PiecesJointes/Pasted%20image%2020231231155021.png)
+![](/_src/img/docs/Pasted%20image%2020231231155021.png)
 ## Règles d'inférence
 - Si une relation vérifie une dépendance fonctionnelle donnée (DF), elle vérifie également d'autres DF obtenues par des règles d'inférence à partir de la DF donnée.
 - Les règles d'inférence, parfois appelées règles de dérivation, permettent d'obtenir de nouvelles DF à partir des DF existantes.
@@ -41,12 +41,12 @@ Exemple d’une relation dans laquelle le déterminant d’une DF n’est qu’u
 ## Fermeture ensemble attributs
 Pour savoir si une $DF$ fait partie de $F^+$ , donc découle d’un ensemble initial $F$ de $DFs$, il existe aussi un algorithme. Celui-ci permet d'obtenir tous les attributs déterminés par un ensemble d'attributs X relativement à un ensemble $F$ de $DFs$. Il repose sur la notion de **fermeture d’un ensemble d’attributs**.
 ### Algoritme (pseudo-code)
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240101105910.png)
+![](/_src/img/docs/Pasted%20image%2020240101105910.png)
 ### Exemple
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240101110312.png)
+![](/_src/img/docs/Pasted%20image%2020240101110312.png)
 ## DF élémentaire
 Une DF $X \to Y$ est élémentaire si:
 - Y est un singleton ne contenant qu’un attribut $A \notin X$
 - Il n’existe pas de $X’  \subset X$ tel que $X’ \to Y$
 
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240101110752.png)
+![](/_src/img/docs/Pasted%20image%2020240101110752.png)

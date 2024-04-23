@@ -16,7 +16,7 @@ Création : quand l'utilisateur choisi
 Destruction : quand l'utilisateur choisi
 
 ### Pointeurs constants
-![[S0/PiecesJointes/Pasted image 20230404203509.png]]
+![[/_src/img/docs/Pasted image 20230404203509.png]]
 ### std::move
 La fonction move proposé par la librairie **utility** permet de déplacer une valeur d'une variable dans une autre. En prenant les valeurs nous allons supprimer tous les valeurs de la variable copiée mais sera pas détruite.
 

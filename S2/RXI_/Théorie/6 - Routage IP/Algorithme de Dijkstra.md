@@ -11,4 +11,4 @@ L'algorithme de Dijkstra est un algorithme de recherche de chemin dans un graphe
 4.  Répéter les étapes 2 et 3 jusqu'à ce que tous les nœuds aient été visités ou que le nœud d'arrivée soit atteint.
 5.  Si le nœud d'arrivée a été atteint, le chemin le plus court a été trouvé en suivant les distances mises à jour depuis le nœud de départ jusqu'au nœud d'arrivée.
 
-L'algorithme de Dijkstra est un algorithme de recherche gloutonne, ce qui signifie qu'il sélectionne toujours le nœud non visité avec la distance la plus courte. Cependant, il ne garantit pas de trouver le chemin le plus court dans tous les cas, notamment s'il y a des boucles dans le graphe pondéré.![[S0/PiecesJointes/dijkstra.gif]]
+L'algorithme de Dijkstra est un algorithme de recherche gloutonne, ce qui signifie qu'il sélectionne toujours le nœud non visité avec la distance la plus courte. Cependant, il ne garantit pas de trouver le chemin le plus court dans tous les cas, notamment s'il y a des boucles dans le graphe pondéré.![[/_src/img/docs/dijkstra.gif]]

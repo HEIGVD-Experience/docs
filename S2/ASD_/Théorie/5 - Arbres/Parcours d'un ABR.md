@@ -12,4 +12,4 @@ Le parcours symétrique commence par le sous-arbre de gauche puis traite la raci
 
 |Arbre|Evaluation|
 |--|--|
-|D, B, G, E, H, A, F, I, C|![[S0/PiecesJointes/Capture d’écran 2023-05-23 à 22.23.34.png]]|
+|D, B, G, E, H, A, F, I, C|![[/_src/img/docs/Capture d’écran 2023-05-23 à 22.23.34.png]]|

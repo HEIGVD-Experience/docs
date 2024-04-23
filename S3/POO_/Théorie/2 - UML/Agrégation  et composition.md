@@ -8,7 +8,7 @@ MiseAuPropre: oui
 
 « Un polygone est composé de plusieurs points et un point peut appartenir à plus d’un polygone. »
 
-![[S0/PiecesJointes/Pasted image 20230927142935.png]]
+![[/_src/img/docs/Pasted image 20230927142935.png]]
 
 ## Définition
 >[!important] 
@@ -19,4 +19,4 @@ MiseAuPropre: oui
 
 « Un ordinateur est composé de ses pièces. »
 
-![[S0/PiecesJointes/Pasted image 20230927143049.png]]
+![[/_src/img/docs/Pasted image 20230927143049.png]]

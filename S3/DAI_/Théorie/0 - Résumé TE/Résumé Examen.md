@@ -265,7 +265,7 @@ Docker Compose simplifie l'exécution d'applications Docker multi-conteneurs. Il
 - **v2 :** Recommandée, basée sur Go, utilise la commande `docker compose`.
 
 ## Exemple docker-compose
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240205173307.png)
+![](/_src/img/docs/Pasted%20image%2020240205173307.png)
 
 ```
 ```col-md

@@ -20,13 +20,13 @@ ___
 Une relation r est dite en première forme normale (1FN) si tout attribut de r contient une valeur atomique.
 - Aucun attribut ne doit être composite ou multivalué
 ### Exemple
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240114152808.png)
+![](/_src/img/docs/Pasted%20image%2020240114152808.png)
 ## Deuxième forme normale (2FN)
 Une relation r est dite en deuxième forme normale (2FN) si
 - r est en **1FN**
 - Toutes les colonnes non clés dépendent entièrement de la clé primaire
 ### Exemple
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240114153035.png)
+![](/_src/img/docs/Pasted%20image%2020240114153035.png)
 Une décomposition qui serait de type **2FN** vaudrait ça : 
 $$
 \begin{align}
@@ -39,7 +39,7 @@ Une relation r est dite en troisième forme normale (3FN) si
 - r est en **2FN**
 - Les colonnes non clés ne doivent pas dépendre d'autres colonnes non clés.
 ### Exemple
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240114153654.png)
+![](/_src/img/docs/Pasted%20image%2020240114153654.png)
 La 3FN permet d’éliminer les redondances dues aux dépendances transitives.
 ## Frome norme de Boyce-Codd (FNBC)
 Une relation r est dite en forme normale de Boyce-Codd (FNBC) s’il n’existe aucune dépendance fonctionnelle autre que K -> A ou

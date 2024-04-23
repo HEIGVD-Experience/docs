@@ -10,7 +10,7 @@ Un arbre peut contenir des données mais peut aussi contenir des opérations. De
 
 |                                         | Arbre                                              |
 | ---------------------------------------- | ---------------------------------------------- |
-| Prenons comme exemple l'arbre suivant -> | ![[S0/PiecesJointes/Capture d’écran 2023-05-28 à 11.14.47.png]] |
+| Prenons comme exemple l'arbre suivant -> | ![[/_src/img/docs/Capture d’écran 2023-05-28 à 11.14.47.png]] |
 
 ## Parcours de l'arbre
 ### Préfixe

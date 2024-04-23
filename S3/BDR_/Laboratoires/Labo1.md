@@ -21,7 +21,7 @@ Ce laboratoire a pour objectif la modélisation d'une base de données, ainsi qu
 ## Modélisation
 
 ### Schéma-EA
-![Schéma-EA](../../../../S0/PiecesJointes/Model.png)
+![Schéma-EA](/_src/img/docs/Model.png)
 
 ### Contraintes d’intégrité
 - Pour qu'un client puisse regarder un média, son age doit être plus grand ou égal à l'âge légal du média.

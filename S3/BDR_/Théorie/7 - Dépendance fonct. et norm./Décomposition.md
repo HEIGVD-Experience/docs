@@ -15,7 +15,7 @@ ___
 ## Utilisation
 | Première décomposition | Deuxième décomposition |
 | ---- | ---- |
-| ![](../../../../S0/PiecesJointes/Pasted%20image%2020231231150013.png) | ![](../../../../S0/PiecesJointes/Pasted%20image%2020231231150029.png) |
+| ![](/_src/img/docs/Pasted%20image%2020231231150013.png) | ![](/_src/img/docs/Pasted%20image%2020231231150029.png) |
 ### Première décomposition
 Dans ce cas nous pouvons déduire que la décomposition est **SPI** car après avoir joint les tables nous retrouvons la forme d'origine. En faisant cette décomposition nous avons pu voir que le modèle de la voiture est directement relié à la marque.
 ### Deuxième décomposition

@@ -26,15 +26,15 @@ ___
 ## Machine séquentielles
 ### Machine de Medvedev
 - Sorties correspondent directement aux bits d'états
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240106101912.png)
+![](..//_src/img/docs/Pasted%20image%2020240106101912.png)
 ### Machine de Moore
 - Sorties dépendent uniquement de l'état présent
 - Le changement des sorties est synchrone: il se fait avec le changement des états
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240106101938.png)
+![](..//_src/img/docs/Pasted%20image%2020240106101938.png)
 ### Machine de Mealy
 - Sorties dépendent de l'état présent et des entrées
 - Le changement des sorties est asynchrone: il se fait avec le changement des entrées
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240106101954.png)
+![](..//_src/img/docs/Pasted%20image%2020240106101954.png)
 ## Comparaison Moore-Mealy
 - Tout problème peut être résolu par une machine de type Mealy ou Moore
 - Une machine de Moore **demande plus d'états** que la machine de Mealy
@@ -49,7 +49,7 @@ ___
 Le graphe est constitué par une série de bulles reliées par des flèches.
 - Une bulle correspond à un **code de bits d'état**
 - Une flèche représente une **transition entre deux états**
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240106103706.png)
+![](..//_src/img/docs/Pasted%20image%2020240106103706.png)
 #### Règles de construction
 1. De chaque bulle d'état, il faut autant de flèches que de combinaisons valides des entrées 
 2. Chaque changement des entrées pertinentes (nouvelle combinaison) provoque un changement d'état
@@ -73,4 +73,4 @@ Il y a des règles obligatoires à respecter pour garantir le bon fonctionnement
 
 Essayer de placer les états dans une table de Karnaugh en respectant les sorties sans aléas et en simplifiant au mieux les décodeurs.
 ### Exemple de codage
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240106110142.png)
+![](..//_src/img/docs/Pasted%20image%2020240106110142.png)

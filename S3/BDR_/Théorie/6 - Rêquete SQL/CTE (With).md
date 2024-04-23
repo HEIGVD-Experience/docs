@@ -61,4 +61,4 @@ Les avantages des CTE incluent une meilleure lisibilité du code, la possibilit�
 Il peut y avoir plus d’une CTE dans une requête et elles peuvent se référencer entre elles.
 
 ## Insertion avec héritage
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240114092959.png)
+![](/_src/img/docs/Pasted%20image%2020240114092959.png)

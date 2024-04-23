@@ -23,4 +23,4 @@ MiseAuPropre: oui
 >[!attention]
 >Sauf en cas d’obligation, par exemple pour des questions de performance, on ne **stocke jamais d’attributs qui peuvent être dérivés/calculés**
 
-![[S0/PiecesJointes/Pastedimage20230920092100.png]]
+![[/_src/img/docs/Pastedimage20230920092100.png]]

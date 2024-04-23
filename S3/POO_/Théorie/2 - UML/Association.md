@@ -12,4 +12,4 @@ MiseAuPropre: oui
 - Le nom ou les rôles d’une association doivent être spécifiés.
 - Des cardinalités (ou multiplicité) indiquant le nombre d’objets liés par une association.
 
-![[S0/PiecesJointes/Pasted image 20230927142536.png]]
+![[/_src/img/docs/Pasted image 20230927142536.png]]

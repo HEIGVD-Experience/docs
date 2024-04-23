@@ -25,9 +25,9 @@ ___
 L'existence d'un signal de contrôle LOAD (L) permet d'inhiber ou pas le chargement de l'information:
 - A la montée du signal d'horloge, si L=1, les signaux d'entrée sont stockés dans le registre.
 ### Table des opérations
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105151003.png)
+![](..//_src/img/docs/Pasted%20image%2020240105151003.png)
 ### Types de registres
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105151052.png)
+![](..//_src/img/docs/Pasted%20image%2020240105151052.png)
 ## Registre simple
 ````col
 ```col-md
@@ -40,24 +40,24 @@ Son symbole CEI ->
 ```col-md
 flexGrow=1
 ===
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240105151210.png)
+![](/_src/img/docs/Pasted%20image%2020240105151210.png)
 ```
 ````
 ### Exemple
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105151443.png)
+![](..//_src/img/docs/Pasted%20image%2020240105151443.png)
 ## Registre à décalage
 Ces registres sont de taille fixe. Chaque bits est décalés à chaque coups d'horloge. Cela constitue un chaînage de bascules synchronisées sur l'horloge.
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105151933.png)
+![](..//_src/img/docs/Pasted%20image%2020240105151933.png)
 >[!important]
 >Ce type de registre est particulièrement utilisés dans les liaison série. Transmettre de l'information sous forme *parallèle* nécessiterait au moins 9 fils (8 pour les 8bits et un pour la masse). Grace au registre à décalage on ne peut utiliser qu'un seul fil en transmettant chaque bit l'un après l'autre.
 ### Schéma
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105153140.png)
+![](..//_src/img/docs/Pasted%20image%2020240105153140.png)
 ### Nomenclature
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105152725.png)
+![](..//_src/img/docs/Pasted%20image%2020240105152725.png)
 ### Symbole registre
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105153229.png)
+![](..//_src/img/docs/Pasted%20image%2020240105153229.png)
 ### Table de fonctions synchrones
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105153351.png)
+![](..//_src/img/docs/Pasted%20image%2020240105153351.png)
 ### Conception de registres (méthodologie)
 1. Identifier les fonctions du registre à décalage 
 2. Lister ces fonctions (classer synchrones et asynchrones) 

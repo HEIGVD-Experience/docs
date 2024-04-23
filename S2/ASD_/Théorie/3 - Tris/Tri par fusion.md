@@ -6,7 +6,7 @@ MiseAuPropre: oui
 ## Définition
 Le tri par fusion consiste à découper notre conteneur de données et n conteneurs et de trier des plus petits éléments. Une fois ces n petits éléments triés, nous les fusionnons. Le tri par fusion est un **tri stable**.
 
-![[S0/PiecesJointes/triparfusion.gif| 700]]
+![[/_src/img/docs/triparfusion.gif| 700]]
 ## Pseudo-code
 
 ```

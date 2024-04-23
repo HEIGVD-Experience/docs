@@ -17,12 +17,12 @@ MiseAuPropre: oui
 ```col-md
 flexGrow=1
 ===
-![](../../../../../S0/PiecesJointes/a1.jpg)
+![](..//_src/img/docs/a1.jpg)
 ```
 ```col-md
 flexGrow=1
 ===
-![](../../../../../S0/PiecesJointes/a2.jpg)
+![](..//_src/img/docs/a2.jpg)
 ```
 ````
 ## Algèbre de Boole
@@ -40,18 +40,18 @@ $$
 ```col-md
 flexGrow=1
 ===
-![](S0/PiecesJointes/Pasted%20image%2020231025162431.png)
+![](/_src/img/docs/Pasted%20image%2020231025162431.png)
 ```
 ```col-md
 flexGrow=1
 ===
-![](S0/PiecesJointes/Capture%20d%E2%80%99%C3%A9cran%202023-10-25%20%C3%A0%2015.24.52.png)
+![](/_src/img/docs/Capture%20d%E2%80%99%C3%A9cran%202023-10-25%20%C3%A0%2015.24.52.png)
 ```
 ````
 ## Fonctions standards combinatoires
 ### Multiplexeur
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020231026140449.png)
+![](..//_src/img/docs/Pasted%20image%2020231026140449.png)
 ### Décodeur
-![](../../../../S0/PiecesJointes/Pasted%20image%2020240131105100.png)
+![](/_src/img/docs/Pasted%20image%2020240131105100.png)
 ### Comparateur
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020231025164259.png)
+![](..//_src/img/docs/Pasted%20image%2020231025164259.png)

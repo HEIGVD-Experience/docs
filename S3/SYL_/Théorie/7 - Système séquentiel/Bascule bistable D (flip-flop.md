@@ -19,9 +19,9 @@ ___
 - Lorsque CK=1, la sortie de l'élément maître est conservée, et passe à la sortie de l'élément esclave.
 - La sortie de la bascule peut changer seulement pendant la montée du signal d’horloge CK.
 - La sortie de la bascule prend la valeur présente à l'entrée D au moment de la montée du signal d’horloge.
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105144515.png)
+![](..//_src/img/docs/Pasted%20image%2020240105144515.png)
 ### Table d'état
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105144704.png)
+![](..//_src/img/docs/Pasted%20image%2020240105144704.png)
 Cette table montre la valeur de la sortie future en fonction de l'entrée et de l'état présent. Le comportement de la bascule peut être décrit également par son équation caractéristique:
 $$
 \begin{align}
@@ -30,8 +30,8 @@ Q^+ = D \\
 \end{align}
 $$
 ### Table des transitions
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105145156.png)
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105145423.png)
+![](..//_src/img/docs/Pasted%20image%2020240105145156.png)
+![](..//_src/img/docs/Pasted%20image%2020240105145423.png)
 
 ### Schéma interne
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105145501.png)
+![](..//_src/img/docs/Pasted%20image%2020240105145501.png)

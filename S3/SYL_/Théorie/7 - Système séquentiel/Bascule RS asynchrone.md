@@ -22,16 +22,16 @@ ___
 | Set = Reset = '0' | Maintient de la valeur en sortie |
 | Set = Reset = '1' | Interdit |
 L'évolution dépend des entrées **et** de l'état présent (historique), nous rajoutons Q comme entrée dans la table de vérité.
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105120316.png)
+![](..//_src/img/docs/Pasted%20image%2020240105120316.png)
 >[!important]
 >- `Q`: état actuel de la bascule RS
 >- `Q+`: état futur de la bascule RS
 
 ### Table des transitions
 La table des transitions permet de définir ce qu'il va se passer quand les entrées et la sortie dans sont dans les valeurs R et S.
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105120617.png)
+![](..//_src/img/docs/Pasted%20image%2020240105120617.png)
 ## Schéma logique
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105120643.png)
+![](..//_src/img/docs/Pasted%20image%2020240105120643.png)
 ## Inconvénients
 Sensible à toute impulsion sur ses entrées
 - Si durée supérieure au temps de propagation de 2 portes

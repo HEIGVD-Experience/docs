@@ -5,7 +5,7 @@ MiseAuPropre: oui
 
 >[!important] Définition
 >Le tri topologique consiste à redessiner un graphe orienté acyclique (**DAG**) pour que tous ses arcs pointent dans la même direction.
-![[S0/PiecesJointes/Pasted image 20230625160201.png]]
+![[/_src/img/docs/Pasted image 20230625160201.png]]
 
 ## Fonctionnement
 Pour faire un tri topologique il suffit de suivre les étapes suivantes : 

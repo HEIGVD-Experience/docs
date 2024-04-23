@@ -5,7 +5,7 @@ MiseAuPropre: oui
 
 ## Règles d'interprétation
 Pour transformer une déclaration en `C` d'un tableau, fonction ou autre en français nous utilisant le tableau suivant. Celui-ci permet d'appliquer des règles et de décortiquer les notations.
-![[S0/PiecesJointes/Pasted image 20230413214928.png]]
+![[/_src/img/docs/Pasted image 20230413214928.png]]
 
 **Exemples**
 
@@ -21,7 +21,7 @@ int  (* (*b [5]) (int)) [10];
 
 ## Règles d'écriture
 Pour transformer une définition en français d'un déclarateur en code en `C` nous utiliserons le tableau suivant.
-![[S0/PiecesJointes/Pasted image 20230413222546.png]]
+![[/_src/img/docs/Pasted image 20230413222546.png]]
 
 **Exemples**
 

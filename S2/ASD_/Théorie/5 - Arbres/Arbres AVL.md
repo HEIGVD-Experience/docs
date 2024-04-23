@@ -33,7 +33,7 @@ Dans le cas d'une rotation gauche il faut :
 
 | Explication | Arbres |
 | ----------- | ------ |
-|1. Prendre l'enfant de droite `Y` (de la racine en déséquilibre)<br>2. Rattacher l'enfant gauche `B` à la racine `X` à la place de `Y`<br>3. Rattacher la racine `X` comme enfant gauche de `Y`|![[S0/PiecesJointes/Pasted image 20230529110305.png]]|
+|1. Prendre l'enfant de droite `Y` (de la racine en déséquilibre)<br>2. Rattacher l'enfant gauche `B` à la racine `X` à la place de `Y`<br>3. Rattacher la racine `X` comme enfant gauche de `Y`|![[/_src/img/docs/Pasted image 20230529110305.png]]|
 
 ### Droite (+2)
 Dans le cas d'une rotation à droite on applique exactement le même procédé en inversant juste le sous-arbre dans lequel on va chercher l'enfant.
@@ -50,7 +50,7 @@ Pour ce faire, nous allons commencer par chercher la valeur avec la plus grande 
 
 | ABR |     | ABR dégénéré |
 | --- | --- | ------------ |
-|![[S0/PiecesJointes/Pasted image 20230529114335.png]]|![[S0/PiecesJointes/Pasted image 20230529114353.png]]|![[S0/PiecesJointes/Pasted image 20230529114415.png]]|
+|![[/_src/img/docs/Pasted image 20230529114335.png]]|![[/_src/img/docs/Pasted image 20230529114353.png]]|![[/_src/img/docs/Pasted image 20230529114415.png]]|
 
 1. 8 est la plus grande clé de l'arbre
 2. 7 aura comme enfant droite 8
@@ -66,7 +66,7 @@ Le principe d'arboriser est de partir d'un ABR dit dégénéré mais ordonné (d
 
 | ABR dégénéré |     | ABR |
 | ------------ | --- | --- |
-|![[S0/PiecesJointes/Pasted image 20230529114415.png]]|![[S0/PiecesJointes/Pasted image 20230529114353.png]]|![[S0/PiecesJointes/Capture d’écran 2023-05-29 à 12.15.31.png]]|
+|![[/_src/img/docs/Pasted image 20230529114415.png]]|![[/_src/img/docs/Pasted image 20230529114353.png]]|![[/_src/img/docs/Capture d’écran 2023-05-29 à 12.15.31.png]]|
 
 1. 4 est choisi comme racine de l'arbre car se trouve au milieu de la liste
 2. 2 est choisi comme enfant gauche de la racine 4 car se trouve au milieu de la liste allant de 1 à 3

@@ -17,9 +17,9 @@ ___
 ## Compteur
 ### Compteur classique
 Il existe plusieurs type de compteur celui-ci permet d'augmenter de le compteur à chaque coup de clock ou `En` est à 1.
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105154317.png)
+![](..//_src/img/docs/Pasted%20image%2020240105154317.png)
 ### Décompteur
 Dans le cas d'un décompteur il possède une entrée particulière supplémentaire appelée UP/DOWN permettant de définir si nous ajoutons 1 ou soustrayons 1.
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105154507.png)
+![](..//_src/img/docs/Pasted%20image%2020240105154507.png)
 ### Table des fonctions synchrones
-![](../../../../../S0/PiecesJointes/Pasted%20image%2020240105154806.png)
+![](..//_src/img/docs/Pasted%20image%2020240105154806.png)

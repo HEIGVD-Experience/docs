@@ -12,5 +12,5 @@ MiseAuPropre: oui
 - On marque tous les sommets atteints avec le même indice de composante connexe
 - S’il reste des sommets non marqués, on incrémente l’indice de CC et on recommence
 - Complexité identique à celle des parcours
-![[S0/PiecesJointes/Pasted image 20230624134009.png]]
+![[/_src/img/docs/Pasted image 20230624134009.png]]
 Dans ce graph nous pouvons voir que il existe zone ou aucun lien entre celle-ci existe.

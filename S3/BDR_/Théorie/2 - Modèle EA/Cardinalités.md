@@ -11,4 +11,4 @@ MiseAuPropre: oui
 - Max -> (cardinalité maximale) est le nombre maximal de fois qu'un TE peut intervenir dans l'association
 	- Vaut en général 1 ou * (un nombre quelconque de fois)
 
-![[S0/PiecesJointes/Pastedimage20230920093111.png]]
+![[/_src/img/docs/Pastedimage20230920093111.png]]
