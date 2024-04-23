@@ -15,10 +15,10 @@ Printf possède **deux** paramètre obligatoires. Le premier est de type `const 
 
 ### Type de valeur à afficher 
 Nous avons plusieurs paramètres en fonction du type que nous souhaitons afficher. 
-![[/_src/img/docs/Pasted image 20230411101200.png]]
+![](/_src/img/docs/Pasted image 20230411101200.png)
 ### Instructions d'affichage
 Les instructeurs d'affichage permettent de modifier l'affichage possible avec le **printf**.
-![[/_src/img/docs/Pasted image 20230411105520.png]]
+![](/_src/img/docs/Pasted image 20230411105520.png)
 #### Flags
 
 |Flags|Description|
@@ -44,7 +44,7 @@ Les instructeurs d'affichage permettent de modifier l'affichage possible avec le
 |.\*|La précision n'est pas spécifiée dans la chaîne de formatage, mais en tant qu'argument supplémentaire de valeur entière précédant l'argument à formater.|
 
 #### Length
-![[/_src/img/docs/Pasted image 20230411143424.png]]
+![](/_src/img/docs/Pasted image 20230411143424.png)
 
 ## Scanf
 La fonction **scanf** permet la lecture et la conversion de caractères depuis stdin dans des variables. 
@@ -57,6 +57,6 @@ scanf("const char* format", val1, val2, etc);
 > **Scanf** essaie de faire matcher les suites de caractères mais s'arrêtera au premier caractère qui ne correspond pas au type demandé.
 
 De plus le caractère **espace** se verra comme un séparateur de valeurs, mais dans le cas ou on précise le type de séparateur plusieurs cas existent : 
-![[/_src/img/docs/Pasted image 20230411161507.png]]
+![](/_src/img/docs/Pasted image 20230411161507.png)
 ### Cas spéciaux
-![[/_src/img/docs/Pasted image 20230411161755.png]]
+![](/_src/img/docs/Pasted image 20230411161755.png)

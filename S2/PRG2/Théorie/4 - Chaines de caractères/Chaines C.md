@@ -9,7 +9,7 @@ En C une chaine de caractères est simplement une **liste de caractères** termi
 // tableau de caractères
 char chaine[] = "Hello";
 ```
-![[/_src/img/docs/Pasted image 20230604161529.png]]
+![](/_src/img/docs/Pasted image 20230604161529.png)
 Il existe une manière de définir un tableau de caractère, c'est en passant par un pointeur. La chaine ci-dessus pourrait donc aussi s'écrire :
 ```c
 char* chaine = "Hello";
@@ -45,5 +45,5 @@ printf("%p - %p", (void*)ptr1, (void*)ptr2);
 ```
 
 ## Cas particulier
-![[/_src/img/docs/Pasted image 20230604164153.png]]
-![[/_src/img/docs/Pasted image 20230604164213.png]]
+![](/_src/img/docs/Pasted image 20230604164153.png)
+![](/_src/img/docs/Pasted image 20230604164213.png)

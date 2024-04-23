@@ -6,7 +6,7 @@ MiseAuPropre: oui
 - Technologie LAN la plus importante
 - Initialement conçu comme bus, sur un câble coaxial partagé 
 - Aujourd’hui principalement en étoile, avec un switch qui interconnectent les stations
-![[/_src/img/docs/Pasted image 20230326142029.png]]
+![](/_src/img/docs/Pasted image 20230326142029.png)
 
 ## Trames Ethernet
 ### Emetteur / récepteur
@@ -17,10 +17,10 @@ Ethernet (récepteur) reçoit la trame de la couche physique, contrôle les en-t
 > Une trame ethernet est l'emballage dans le quelle se trouve le contenu d'un fichier transitant sur le réseaux. Il existe deux formats de trames Ethernet : 
 
 ### Ethernet II
-![[/_src/img/docs/Pasted image 20230326142418.png]]
+![](/_src/img/docs/Pasted image 20230326142418.png)
 
 ### 802.3
-![[/_src/img/docs/Pasted image 20230326142547.png]]
+![](/_src/img/docs/Pasted image 20230326142547.png)
 #### Préambule + délimiteur
 - 7 octets 10101010, dernier octet 10101011
 - Permet au récepteur de synchroniser son horloge pour garantir la bonne réception

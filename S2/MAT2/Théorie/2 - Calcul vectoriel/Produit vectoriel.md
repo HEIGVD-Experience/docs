@@ -38,7 +38,7 @@ $$
 >$$
 >\vec{AM} * (\vec{AB} \wedge \vec{AC}) = 0
 >$$
->![[/_src/img/docs/Pasted image 20230428203810.png]]
+>![](/_src/img/docs/Pasted image 20230428203810.png)
 
 ## Propriétés
 $$

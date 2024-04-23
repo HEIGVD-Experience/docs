@@ -1,4 +1,4 @@
-#import "../../../_settings/typst/template-te.typ": *
+#import "/_settings/typst/template-te.typ": *
 
 #show: resume.with(
   "Résumé ARO",
@@ -8,11 +8,11 @@
 
 == Taille mot mémoire
 La taille d'un mot mémoire est forcément un multiple de $8$. C'est pourquoi nous pouvons appliquer le tableau suivant :
-#image("../../../_src/img/docs/image.png")
+#image("/_src/img/docs/image.png")
 
 == Gestion des adresses
 En fonction de la taille de la mémoire nous aurons une taille d'adresses variables, le tableau suivant représente les possibilités : 
-#image("../../../_src/img/docs/image2.png")
+#image("/_src/img/docs/image2.png")
 
 == Calculer la mémoire
 === Calculer adresse de fin
@@ -38,7 +38,7 @@ $n =$ le nombre de bits alloué à la zone mémoire
 Exemple : $2"KB" = 2^10 * 2^1 = 2^11$ donc $n = 11$
 
 == Saut inconditionnel
-#image("../../../_src/img/docs/image copy 9.png")
+#image("/_src/img/docs/image copy 9.png")
 L'opcode pour un saut inconditionnel prends 5 bits et le reste est alloué pour donner l'adresse de la prochaine instruction à exécuter.
 === Calcul de l'adresse de saut
 Pour calculer l'adresse de saut il suffit d'utiliser la formule suivante : 
@@ -56,7 +56,7 @@ $
 )
 
 == Saut conditionnel
-#image("../../../_src/img/docs/image copy 10.png")
+#image("/_src/img/docs/image copy 10.png")
 Pour calculer l'adresse de saut il suffit d'utiliser la formule suivante *attention elle est légèrement différente de celle pour le saut inconditionnel* : 
 $
 "Adr" = "PC" + "extension_16bits"("offset"_8 * 2) + 4

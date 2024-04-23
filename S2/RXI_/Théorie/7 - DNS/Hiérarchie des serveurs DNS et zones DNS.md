@@ -10,5 +10,5 @@ MiseAuPropre: oui
 	- Une zone peut créer des sous-zones en déléguant l’autorité à d’autres serveurs DNS subordonnés 
 	- Le serveur officiel (authoritative server) est celui qui est responsable pour une zone et qui n’a pas délégué la responsabilité
 
-![[/_src/img/docs/Pasted image 20230624160643.png]]
+![](/_src/img/docs/Pasted image 20230624160643.png)
 

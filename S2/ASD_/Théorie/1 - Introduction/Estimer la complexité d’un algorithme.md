@@ -81,7 +81,7 @@ Dès que nous parlons d’enchainement alternatif nous introduisons la notion de
 -   Le cas moyen
 -   Le pire cas
 
-[[Espérance mathématique |Pour trouver la chance de tomber dans une branche ou une autre du code nous utiliserons l’espérance mathématique qui permet de calculer la probabilité.]]
+[[Espérance mathématique |Pour trouver la chance de tomber dans une branche ou une autre du code nous utiliserons l’espérance mathématique qui permet de calculer la probabilité.)
 
 ```cpp
 if( rand() % n == 0 ) {

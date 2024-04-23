@@ -6,7 +6,7 @@ MiseAuPropre: oui
 >[!important]
 >Le concept d’association est lié à celui de relation dans la théorie des ensembles.
 
-![[/_src/img/docs/Pastedimage20230920092323.png]]
+![](/_src/img/docs/Pastedimage20230920092323.png)
 
 ## Degré d'une association
 Le degré d’une association se dit aussi **arité**.

@@ -88,7 +88,7 @@ Contrainte de FK:     R2.k1 référence R1.k1
 >Si un des deux types d’entité est "spécial" alors c’est lui qu’il faut prendre pour y faire migrer les attributs
 
 - Dans cet exemple c’est donc automatiquement E2 qui est choisi pour la transformation de l’association binaire
-![[/_src/img/docs/Pasted image 20231024182440.png]]
+![](/_src/img/docs/Pasted image 20231024182440.png)
 - R1(<u>k1</u>, a)
 - R3(<u>k3</u>, c)
 - R2(<u>k1</u>, k3, b, d)
@@ -97,7 +97,7 @@ Contrainte de FK:     R2.k1 référence R1.k1
 
 ## Associations binaires 1:N
 - De base, on applique la même règle que pour les associations 0..1 – 1
-![[/_src/img/docs/Pasted image 20231024183204.png]]
+![](/_src/img/docs/Pasted image 20231024183204.png)
 - R2(<u>k2</u>, b)
 - R1(<u>k1, k2</u>, a)
 - R1.k2 référence R2.k2
@@ -109,13 +109,13 @@ Contrainte de FK:     R2.k1 référence R1.k1
 ### Avec attribut
 **Variante 1**
 - Si l’association a au moins un attribut, le cas avec une cardinalité de 1 se transforme de manière identique
-![[/_src/img/docs/Pasted image 20231024183417.png]]
+![](/_src/img/docs/Pasted image 20231024183417.png)
 - R2(<u>k2</u>, b)
 - R1(<u>k1</u>, k2, a, c)
 - R1.k2 référence R2.k2, R1.k2 NOT NULL
 
 **Variante 2**
-![[/_src/img/docs/Pasted image 20231024183610.png]]
+![](/_src/img/docs/Pasted image 20231024183610.png)
 >[!warning]
 >- La variante 1 impose plus de vérifications/contraintes au SGBD: 
 >	- Si R1.k2 est NULL alors R1.c doit aussi l’être 
@@ -126,7 +126,7 @@ Contrainte de FK:     R2.k1 référence R1.k1
 - L’association devient une relation:
 	- Contenant tous ses éventuels attributs
 	- Ayant pour clé primaire la combinaison des clés des 2 types d’entité (+ ses éventuels attributs définis comme membre de la clé primaire)
-![[/_src/img/docs/Pasted image 20231024184129.png]]
+![](/_src/img/docs/Pasted image 20231024184129.png)
 - R1(k1, a)
 - R2(k2, k3, b)
 - R3(k1, k2, k3, c)
@@ -136,7 +136,7 @@ Contrainte de FK:     R2.k1 référence R1.k1
 ## Attributs multivalué
 - Possède un attribut (monovalué) qui correspond à l’attribut multivalué
 - A comme clé la combinaison de son attribut et de la clé du type d’entité auquel il appartenait
-![[/_src/img/docs/Pasted image 20231024215736.png]]
+![](/_src/img/docs/Pasted image 20231024215736.png)
 - R1(k, b)
 - R2(k, a)
 - R2.k référence E.k
@@ -145,10 +145,10 @@ Contrainte de FK:     R2.k1 référence R1.k1
 - Comme 1ère étape on transforme l’association n-aire en n associations binaires 1:N en: 
 	1. Transformant l’association en type d’entité et en lui attribuant une clé artificielle
 	2. Créant une association de type 1 à plusieurs depuis ce type d’entité vers chacun des types d’entités qui étaient reliés par l’association Le côté 1 est mis du côté des types d’entité de base
-![[/_src/img/docs/Pasted image 20231024220348.png]]
+![](/_src/img/docs/Pasted image 20231024220348.png)
 
 - Ensuite il faut appliquer la règle de transformation des associations 1:N vue précédemment
-![[/_src/img/docs/Pasted image 20231024220507.png]]
+![](/_src/img/docs/Pasted image 20231024220507.png)
 - R1(k1, a)
 - R2(k2)
 - R3(k3, b)
@@ -160,9 +160,9 @@ Contrainte de FK:     R2.k1 référence R1.k1
 ## Associations réflexives
 ### Association N:M
 - La transformation est la même que pour toutes les association N:M
-![[/_src/img/docs/Pasted image 20231024221341.png]]
+![](/_src/img/docs/Pasted image 20231024221341.png)
 ### Association 1:N
-![[/_src/img/docs/Pasted image 20231024222007.png]]
+![](/_src/img/docs/Pasted image 20231024222007.png)
 - La variante 2 est recommandée notamment parce qu'elle:
 	- Sépare mieux les concepts (par ex. lien de parenté du slide précédent)
 	- Est supportée par tous les SGBD au niveau des options de contrainte d’intégrité référentielle (ON UPDATE CASCADE n’est par exemple pas supporté par MySQL dans la variante 1)

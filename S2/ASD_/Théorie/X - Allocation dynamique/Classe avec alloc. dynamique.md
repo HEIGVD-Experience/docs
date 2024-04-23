@@ -28,7 +28,7 @@ Si la classe utilise de l'allocation de mémoire dynamique et n'a pas défini de
 >Lors de la copie `rs2 = rs1` cela va copier tout les attributs de l'objet `rs1` dans `rs2`. Hors cela va poser problème car `data` utilise l'allocation dynamique. Lors de la destruction de `rs2` celui-ci va supprimer l'attribut `data` de ce fait, à la destruction de `rs1`, l'attribut `data` n'existera déjà plus car c'est **l'adresse mémoire** qui aura été copiée.
 
 L'erreur suivante apparaîtra : 
-![[/_src/img/docs/Pasted image 20230402172304.png]]
+![](/_src/img/docs/Pasted image 20230402172304.png)
 ### Implémentation d'un constructeur de copie
 ```cpp
 RadomString(const RandomString& rs){

@@ -17,7 +17,7 @@ fonction(val)
 	sinon -> retourne fonction(val/2) + fonction(val/2)
 ```
 Sur cet algorithme on peut voir que pour chaque appel de la fonction *f* nous appelons la rappelons 2 fois (si *n* est différent de 0). Si nous prenons *n* = 8 nous aurons donc :
-![[/_src/img/docs/Pasted image 20230328103142.png]]
+![](/_src/img/docs/Pasted image 20230328103142.png)
 Ce cas est un cas particulier car nous aurons **2 types** de fonction récursive. 
 #### Première fonction
 ```cpp
@@ -52,7 +52,7 @@ $$ O(2^{\log_{2}n}) = O(n)$$
 
 | Boucle                               | Complexité                 |
 | ------------------------------------ | -------------------------- |
-| ![[/_src/img/docs/Pasted image 20230621171717.png]] | $O(n)$                     |
-| ![[/_src/img/docs/Pasted image 20230621171955.png]] | $O(2^n)$ -> $O(nbAppel^n)$ |
-| ![[/_src/img/docs/Pasted image 20230621172604.png]] | $O(\log_{k}n)$          |
+| ![](/_src/img/docs/Pasted image 20230621171717.png) | $O(n)$                     |
+| ![](/_src/img/docs/Pasted image 20230621171955.png) | $O(2^n)$ -> $O(nbAppel^n)$ |
+| ![](/_src/img/docs/Pasted image 20230621172604.png) | $O(\log_{k}n)$          |
 

@@ -3,7 +3,7 @@ MiseAuPropre: oui
 ---
 
 ## Architecture d'internet
-![[/_src/img/docs/Pasted image 20230327133332.png]]
+![](/_src/img/docs/Pasted image 20230327133332.png)
 
 Les utilisateurs (particuliers, entreprises et organisations) sont connectés à Internet par un ISP (Internet Service Provider).
 
@@ -22,5 +22,5 @@ Les ISP se connectent à des **IXP** (Internet Exchange Point)
 Un IXP est simplement une salle avec des routeurs appartenant à différents ISP. Un LAN haute vitesse permet d’interconnecter les routeurs de deux ISP pour effectuer le **peering**.
 
 ## Routeurs pour l’interconnexion des réseaux
-![[/_src/img/docs/Pasted image 20230327135057.png]]
+![](/_src/img/docs/Pasted image 20230327135057.png)
 Un routeur est un équipement de la couche 3 (**OSI**) qui permet d’interconnecter plusieurs réseaux. Un routeur permet d'interconnecter les réseaux mais aussi de les séparer.

@@ -16,4 +16,4 @@ Une information complète se retrouve normalement à l’aide d’une clé qui l
 	- Retirer une clé de la table (avec la valeur associée): erase / delete
 
 ## Complexité
-![[/_src/img/docs/Pasted image 20230626134417.png]]
+![](/_src/img/docs/Pasted image 20230626134417.png)

@@ -8,7 +8,7 @@ Le parcours post-ordonné à comme principe d'évaluer la valeur après avoir co
 
 |Arbre|Evaluation|
 |--|--|
-|F, L, M, G, B, C, H, D, I, J, K, E, A|![[/_src/img/docs/Pasted image 20230523215910.png]]|
+|F, L, M, G, B, C, H, D, I, J, K, E, A|![](/_src/img/docs/Pasted image 20230523215910.png)|
 >[!important]
 >La racine de l'arbre sera **toujours** évaluée en dernière.
 
@@ -17,7 +17,7 @@ De la même manière que le parcours post-ordonné nous allons toujours commence
 
 |Arbre|Evaluation|
 |--|--|
-|A, B, F, G, L, M, C, D, H, E, I, J, K|![[/_src/img/docs/Pasted image 20230523215910.png]]|
+|A, B, F, G, L, M, C, D, H, E, I, J, K|![](/_src/img/docs/Pasted image 20230523215910.png)|
 >[!important]
 >La racine de l'arbre sera **toujours** évaluée en première.
 
@@ -26,4 +26,4 @@ Dans le cas d'un parcours en largeur il suffit de lire les éléments de gauche 
 
 |Arbre|Evaluation|
 |--|--|
-|A, B, C, D, E, F, G, H, I, J, K, L, M|![[/_src/img/docs/Pasted image 20230523215910.png]]|
+|A, B, C, D, E, F, G, H, I, J, K, L, M|![](/_src/img/docs/Pasted image 20230523215910.png)|

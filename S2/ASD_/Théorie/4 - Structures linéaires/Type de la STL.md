@@ -8,14 +8,14 @@ Array est une structure linéaire dont :
 - la taille est fixe et doit être connue à la **compilation**
 - son type ainsi que sa taille sont spécifiés en paramètres génériques
 - la mémoire est allouée automatiquement (stack memory)
-![[/_src/img/docs/Pasted image 20230527101443.png]]
+![](/_src/img/docs/Pasted image 20230527101443.png)
 
 ## std::vector
 Vector est une structure linéaire dont : 
 - la taille et la capacité sont variable
 - son type est donné de manière générique
 - la mémoire est allouée dynamiquement (heap memory)
-![[/_src/img/docs/Pasted image 20230527102039.png]]
+![](/_src/img/docs/Pasted image 20230527102039.png)
 
 ## std::list (liste doublement chainée)
 List est une structure linéaire dont :
@@ -25,14 +25,14 @@ List est une structure linéaire dont :
 
 | 1                                    | 2                                    |
 | ------------------------------------ | ------------------------------------ |
-| ![[/_src/img/docs/Pasted image 20230527102446.png]] | ![[/_src/img/docs/Pasted image 20230527102507.png]] |
+| ![](/_src/img/docs/Pasted image 20230527102446.png) | ![](/_src/img/docs/Pasted image 20230527102507.png) |
 
 ## std::forward_list (liste simplement chainée)
 Forward_list est une structure linéaire dont :
 - seul la tête est connue sans itération
 - pas d'accès aléatoire sur les données
 - pas d'itération décroissante
-![[/_src/img/docs/Pasted image 20230527103121.png]]
+![](/_src/img/docs/Pasted image 20230527103121.png)
 
 ## std::deque
 Deque est une structure linéaire dont : 
@@ -40,4 +40,4 @@ Deque est une structure linéaire dont :
 - N'a pas de méthode `capacity()`
 
 ## Efficacité des conteneurs
-![[/_src/img/docs/Pasted image 20230527111144.png]]
+![](/_src/img/docs/Pasted image 20230527111144.png)

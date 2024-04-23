@@ -19,12 +19,12 @@ Un graph est composé de trois informations :
 Il existe deux types de graph, ceux dit orientés et ceux dit non orientés.
 
 ### Non orientés
-![[/_src/img/docs/Pasted image 20230616221259.png]]
+![](/_src/img/docs/Pasted image 20230616221259.png)
 - Les deux sommets sont reliés par une **arrête** qui n'a pas de sens
 - Ces deux sommets sont dis adjacents
 
 ### Orientés
-![[/_src/img/docs/Pasted image 20230616221440.png]]
+![](/_src/img/docs/Pasted image 20230616221440.png)
 - Les deux sommets sont reliés par un **arc**
 
 ## Caractéristiques

@@ -8,7 +8,7 @@ Les opérateurs `<<` et `>>` permettent de faire des décalages de bits.
 
 ### Opérateur `<<`
 L'opérateur `<<` décale les valeurs à gauche. C'est à dire que l'on va insérer un ou plusieurs `0` au début du nombre. Les bits qui débordent à gauche sont perdus. Cela revient à **multiplier la valeur par 2**.
-![[/_src/img/docs/Pasted image 20230410190405.png]]
+![](/_src/img/docs/Pasted image 20230410190405.png)
 ```c
 uint8_t i = (uint8_t)7;
 i  =  i  <<  1;                     // i devient 14
@@ -16,7 +16,7 @@ i  =  i  <<  1;                     // i devient 14
 
 ### Opérateur `>>`
 L'opérateur `>>` décale les valeurs à droite. C'est à dire que l'on va insérer des `0` ou le même que la valeur du signe (cela dépend du compilateur mais dans la majorité des cas c'est `0`). Les bits qui débordent à droite sont perdus. Cela revient à **diviser la valeur par 2**.
-![[/_src/img/docs/Pasted image 20230410210201.png]]
+![](/_src/img/docs/Pasted image 20230410210201.png)
 ```c
 uint8_t i = (uint8_t)15; 
 i  =  i  >>  1;                     // i devient 7

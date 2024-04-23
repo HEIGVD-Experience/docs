@@ -68,10 +68,10 @@ $$
 
 |Type de délai|Résumé|Graph|
 |----|----|----|
-|Délai de transmission|Le délai de transmission est le délai permettant d’émettre tout les bits sur le réseau.|![[/_src/img/docs/Pasted image 20230623210026.png]]
-|Délai de propagation|Le délai de propagation est le délai du signal physique entre émetteur et récepteur.|![[/_src/img/docs/Pasted image 20230623210134.png]]|
-|Délai de traitement|Le délai de traitement est le délai de calcul nécessaire à un noeud. <br>- Vérification de la somme de contrôle <br>- Recherche dans la table de routage|![[/_src/img/docs/Pasted image 20230623210253.png]]|
-|Délai d'attente|Le délai d’attente est le délai causé par la file d’attente de l’interface de sortie.|![[/_src/img/docs/Pasted image 20230623210253.png]]|
+|Délai de transmission|Le délai de transmission est le délai permettant d’émettre tout les bits sur le réseau.|![](/_src/img/docs/Pasted image 20230623210026.png)
+|Délai de propagation|Le délai de propagation est le délai du signal physique entre émetteur et récepteur.|![](/_src/img/docs/Pasted image 20230623210134.png)|
+|Délai de traitement|Le délai de traitement est le délai de calcul nécessaire à un noeud. <br>- Vérification de la somme de contrôle <br>- Recherche dans la table de routage|![](/_src/img/docs/Pasted image 20230623210253.png)|
+|Délai d'attente|Le délai d’attente est le délai causé par la file d’attente de l’interface de sortie.|![](/_src/img/docs/Pasted image 20230623210253.png)|
 
 
 |Puissance|Nom|Valeur|

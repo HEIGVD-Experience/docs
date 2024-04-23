@@ -4,7 +4,7 @@ MiseAuPropre: oui
 ---
 
 ## Affichage d'une chaine
-Il existe deux options fournies par la librairie `stdio.h`. La première consiste à utiliser le `printf` que nous avons déjà vu dans la note [[Printf et Scanf]].
+Il existe deux options fournies par la librairie `stdio.h`. La première consiste à utiliser le `printf` que nous avons déjà vu dans la note [[Printf et Scanf).
 
 La deuxième consiste à utiliser une fonction nommée `puts` et qui permet d'afficher une chaine dans la console. Sa structure est : 
 

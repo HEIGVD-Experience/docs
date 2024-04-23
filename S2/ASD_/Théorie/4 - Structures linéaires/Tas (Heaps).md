@@ -17,7 +17,7 @@ Pour représenter un tas, il faut le visualiser comme un arbre binaire :
 
 |Valeurs|Affichage|
 |--|--|
-|Avant : `23, 45, 12, 8, 4, 67, 19`<br>Après : `67, 23, 45, 12, 8, 4, 19`|![[/_src/img/docs/Pasted image 20230509160044.png]]|
+|Avant : `23, 45, 12, 8, 4, 67, 19`<br>Après : `67, 23, 45, 12, 8, 4, 19`|![](/_src/img/docs/Pasted image 20230509160044.png)|
 
 ## Methodes
 ### Insérer une valeur
@@ -37,10 +37,10 @@ make_heap(v.being(), v.end());
 
 |Valeurs|Affichage|
 |--|--|
-|Avant : `13, 5, 8, 2, 3, 1, 14` <br> Après : `14, 5, 13, 2, 3, 1, 8`|![[/_src/img/docs/Pasted image 20230509161507.png]]|
+|Avant : `13, 5, 8, 2, 3, 1, 14` <br> Après : `14, 5, 13, 2, 3, 1, 8`|![](/_src/img/docs/Pasted image 20230509161507.png)|
 
 ### Résumé d'autres méthodes
-![[/_src/img/docs/Pasted image 20230527113343.png]]
+![](/_src/img/docs/Pasted image 20230527113343.png)
 
 | Fonction             | Principe                                                                                                                                                                                        | Doit être un tas? |Complexité (moyenne)|
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --- |

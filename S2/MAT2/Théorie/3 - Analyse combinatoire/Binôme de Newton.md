@@ -11,7 +11,7 @@ $$
 (a+b)^n = \sum_{k=0}^{n} C^{n}_{k}*a^{n-k}*b^k 
 $$
 ## Application
-Nous souhaitons trouver le polynôme développé de l'identité $(x+y)^4$ trouvons les [[Combinaison]] de la formule
+Nous souhaitons trouver le polynôme développé de l'identité $(x+y)^4$ trouvons les [[Combinaison) de la formule
 $$
 C^{4}_{0} = \frac{4!}{4!} = 1, \>\> C^{4}_{1} = \frac{4!}{3!} = 4, \>\> C^{4}_{2} = \frac{4!}{2!*2!} = 6, \>\> C^{4}_{3} = \frac{4!}{3!} = 4, \>\> C^{4}_{4} = \frac{4!}{4!} = 1
 $$

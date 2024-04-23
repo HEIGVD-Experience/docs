@@ -8,7 +8,7 @@ MiseAuPropre: oui
 - Elles font 4 octets de longueurs
 
 ### Compositon d'une adresse IP
-![[/_src/img/docs/Pasted image 20230327135724.png]]
+![](/_src/img/docs/Pasted image 20230327135724.png)
 - Identificateur de réseau (Network ID)
 	- Assigné par une autorité (par exemple ISP)
 - Identificateur de machine (Host ID)
@@ -16,7 +16,7 @@ MiseAuPropre: oui
 
 ## Classes d'adresses IP
 Selon la longueur du préfixe réseau, on distingue plusieurs classes d’adresses : 
-![[/_src/img/docs/Pasted image 20230327135835.png]]
+![](/_src/img/docs/Pasted image 20230327135835.png)
 
 | Classe | Préfixe réseau | Suffixe machine | Plage d’adresses | Exemple Commentaire |
 | ------- | ------- | ------- | ------- | ------- |
@@ -26,4 +26,4 @@ Selon la longueur du préfixe réseau, on distingue plusieurs classes d’adress
 | D |  | 224.0.0.0 – 239.255.255.255 | 224.0.0.2 | Adresses multicast, par exemple « Tous les routeurs » |
 
 ## Adresses particulières
-![[/_src/img/docs/Pasted image 20230327140455.png]]
+![](/_src/img/docs/Pasted image 20230327140455.png)

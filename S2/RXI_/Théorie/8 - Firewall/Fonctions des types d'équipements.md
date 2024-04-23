@@ -11,7 +11,7 @@ MiseAuPropre: oui
 	 - Les informations des en-têtes IP et TCP (IP source et destination, port source et destination, protocole, …)
 	 - Les informations de routage (interface d’entrée, interface de sortie)
 
-![[/_src/img/docs/Pasted image 20230624164215.png]]
+![](/_src/img/docs/Pasted image 20230624164215.png)
 
 ## Passerelle applicative
 « Server mandataire » ou « proxy » 

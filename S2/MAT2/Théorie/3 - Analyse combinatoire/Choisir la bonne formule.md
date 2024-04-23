@@ -21,4 +21,4 @@ Si oui -> on utilise le p-uplet -> $n^p$
 Si non -> on utilise la formule **arrangement**
 	Cas particulier -> si $n = p$ -> **permutation**
 
-![[/_src/img/docs/Pasted image 20230520223940.png]]
+![](/_src/img/docs/Pasted image 20230520223940.png)

@@ -12,4 +12,4 @@ En C les opérateurs de base ne fonctionnent pas sur les chaînes. On ne peut do
 
 Dès que des manipulations sont nécessaires sur des chaînes de caractères il faut passer par la librairie `string.h` mettant à disposition des fonction sur chaines.
 
-Une partie d'entre elles ont été expliquées dans la note [[Méthodes sur string]].
+Une partie d'entre elles ont été expliquées dans la note [[Méthodes sur string).

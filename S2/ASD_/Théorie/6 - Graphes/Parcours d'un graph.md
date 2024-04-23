@@ -21,7 +21,7 @@ Pour résoudre ce problème la solution choisie est de **marquer les sommets** d
 
 | Résultat                                   | Graphes                              |
 | ------------------------------------------ | ------------------------------------ |
-| Pré : `5 2 0 3 1 4 6 7 8`<br>Post : `0 1 4 3 7 8 6 2 5` | ![[/_src/img/docs/Pasted image 20230616231617.png]] |
+| Pré : `5 2 0 3 1 4 6 7 8`<br>Post : `0 1 4 3 7 8 6 2 5` | ![](/_src/img/docs/Pasted image 20230616231617.png) |
 
 **Pseudo-code**
 ```cpp
@@ -65,5 +65,5 @@ tant que Q n’est pas vide
 
 >[!attention]
 >Dans tous les cas, peut-importe le type de parcours, s'il existe un groupe de sommet non reliés au reste, ceux-ci ne seront jamais visités par le parcours.
->![[/_src/img/docs/Pasted image 20230616234615.png]]
+>![](/_src/img/docs/Pasted image 20230616234615.png)
 

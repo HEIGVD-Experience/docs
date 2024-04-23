@@ -17,7 +17,7 @@ structure Noeud<K>
 	Entier hauteur // la hauteur doit être ajoutée
 ```
 
-Comme expliqué dans la note [[Propriétés d'un arbre générique]] l'information `hauteur` permet de connaitre la distance depuis la feuille la plus basse jusqu'au noeud souhaité. Il sera primordial que cette information de hauteur soit recalculée après chaque opération du type **insertion ou suppression**.
+Comme expliqué dans la note [[Propriétés d'un arbre générique) l'information `hauteur` permet de connaitre la distance depuis la feuille la plus basse jusqu'au noeud souhaité. Il sera primordial que cette information de hauteur soit recalculée après chaque opération du type **insertion ou suppression**.
 
 ## Equilibrage
 Pour équilibrer un arbre il nous faut, premièrement, calculer pour chaque noeud son équilibre. Pour calculer l'équilibre il suffit de prendre chaque noeud et de soustraire la hauteur du sous-arbre droite à la hauteur du sous-arbre gauche. Si la valeur trouvée est différente de $-1, 0, 1$ alors l'arbre est dit déséquilibré.
@@ -33,7 +33,7 @@ Dans le cas d'une rotation gauche il faut :
 
 | Explication | Arbres |
 | ----------- | ------ |
-|1. Prendre l'enfant de droite `Y` (de la racine en déséquilibre)<br>2. Rattacher l'enfant gauche `B` à la racine `X` à la place de `Y`<br>3. Rattacher la racine `X` comme enfant gauche de `Y`|![[/_src/img/docs/Pasted image 20230529110305.png]]|
+|1. Prendre l'enfant de droite `Y` (de la racine en déséquilibre)<br>2. Rattacher l'enfant gauche `B` à la racine `X` à la place de `Y`<br>3. Rattacher la racine `X` comme enfant gauche de `Y`|![](/_src/img/docs/Pasted image 20230529110305.png)|
 
 ### Droite (+2)
 Dans le cas d'une rotation à droite on applique exactement le même procédé en inversant juste le sous-arbre dans lequel on va chercher l'enfant.
@@ -50,7 +50,7 @@ Pour ce faire, nous allons commencer par chercher la valeur avec la plus grande 
 
 | ABR |     | ABR dégénéré |
 | --- | --- | ------------ |
-|![[/_src/img/docs/Pasted image 20230529114335.png]]|![[/_src/img/docs/Pasted image 20230529114353.png]]|![[/_src/img/docs/Pasted image 20230529114415.png]]|
+|![](/_src/img/docs/Pasted image 20230529114335.png)|![](/_src/img/docs/Pasted image 20230529114353.png)|![](/_src/img/docs/Pasted image 20230529114415.png)|
 
 1. 8 est la plus grande clé de l'arbre
 2. 7 aura comme enfant droite 8
@@ -66,7 +66,7 @@ Le principe d'arboriser est de partir d'un ABR dit dégénéré mais ordonné (d
 
 | ABR dégénéré |     | ABR |
 | ------------ | --- | --- |
-|![[/_src/img/docs/Pasted image 20230529114415.png]]|![[/_src/img/docs/Pasted image 20230529114353.png]]|![[/_src/img/docs/Capture d’écran 2023-05-29 à 12.15.31.png]]|
+|![](/_src/img/docs/Pasted image 20230529114415.png)|![](/_src/img/docs/Pasted image 20230529114353.png)|![](/_src/img/docs/Capture d’écran 2023-05-29 à 12.15.31.png)|
 
 1. 4 est choisi comme racine de l'arbre car se trouve au milieu de la liste
 2. 2 est choisi comme enfant gauche de la racine 4 car se trouve au milieu de la liste allant de 1 à 3

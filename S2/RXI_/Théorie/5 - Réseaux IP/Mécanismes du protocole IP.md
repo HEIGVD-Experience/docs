@@ -16,4 +16,4 @@ MiseAuPropre: oui
 	- Les routeurs intermédiaires peuvent fragmenter un datagramme en plusieurs fragments plus petits
 
 ## Format des datagrammes
-![[/_src/img/docs/Pasted image 20230403143224.png]]
+![](/_src/img/docs/Pasted image 20230403143224.png)

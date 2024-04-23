@@ -25,7 +25,7 @@ sinon // k > r.clé -> on continue à chercher à droite
 
 ## Ajouter un élément
 Pour ajouter un élément dans l'arbre, il suffit de parcourir l'arbre tout en cherchant le noeud dans le quel la valeur pourrait s'insérer. N'oublions pas qu'un ABR a comme condition que tout élément se trouvant à droite de la racine doit être plus grand et tout élément à gauche doit être plus petit.
-![[/_src/img/docs/Pasted image 20230527135636.png]]
+![](/_src/img/docs/Pasted image 20230527135636.png)
 Dans cette situation on voit que la valeur 5.5 est :
 - plus petite que 8 -> on va à gauche
 - plus grande que 4 -> on va à droite
