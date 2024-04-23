@@ -15,7 +15,7 @@ ___
 ## Exemple
 ### Décomposition 1
 Cet exemple est basé sur la décomposition au chapitre [suivant](Décomposition.md#premi%C3%A8re-d%C3%A9composition).
-![](/S0/PiecesJointes/Pasted%20image%2020240103101817.png)
+![](/_src/img/docs/Pasted%20image%2020240103101817.png)
 ### Décomposition 2
 Cet exemple est basé sur la décomposition au chapitre [suivant](Décomposition.md#deuxi%C3%A8me-d%C3%A9composition).
 ![](../../../../S0/PiecesJointes/Pasted%20image%2020240103102008.png)
