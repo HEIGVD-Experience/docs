@@ -15,6 +15,6 @@ The folders structure is made by semester. S1 represent the first semester of th
 
 Semester | Lesson | Documentations | Laboratories
 |----|----|----|----|
-| S1 | MAT1 | [documentation](/S1/MAT1/docs/) | none |
-| S1 | MAD | [documentation](/S1/MAD/docs/) | none |
-| S1 | PRG1 | [documentation](/S1/PRG1/docs/) | none |
+| S1 | MAT1 | [documentation](S1/MAT1/docs/) | none |
+| S1 | MAD | [documentation](S1/MAD/docs/) | none |
+| S1 | PRG1 | [documentation](S1/PRG1/docs/) | [lab](S1/PRG1/labs/) |
