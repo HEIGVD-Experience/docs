@@ -17,6 +17,9 @@
     <tr>
       <td><a href='/hello'>Hello App Engine</a></td>
     </tr>
+    <tr>
+      <td><a href='/datastorewrite'>Datastore Write</a></td>
+    </tr>
   </table>
 
 </body>
