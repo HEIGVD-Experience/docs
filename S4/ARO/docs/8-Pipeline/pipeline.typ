@@ -98,5 +98,5 @@ $
 === Accélération
 Accélération: nombre de fois plus vite qu’en séquentiel.
 $
-A = frac(T_s, T_p)
+A = frac(T_s, T_p) = frac(m * n * T_e, (n + m - 1) * T_e) = frac(m * n, n + m -1) " " ~ " " n " (pour m très grand)"
 $
