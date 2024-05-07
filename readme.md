@@ -10,3 +10,11 @@ The folders structure is made by semester. S1 represent the first semester of th
 >As I used Notion for the S1 you won't find any documentation about this semester. It's in my ToDo list!      
 >As I used Obsidian for the S2 and S3 you won't find any documentation about this semester. It's in my Todo list!     
 >...
+
+## Details
+
+Semester | Lesson | Documentations | Laboratories
+|----|----|----|----|
+| S1 | MAT1 | [documentation](/S1/MAT1/docs/) | none |
+| S1 | MAD | [documentation](/S1/MAD/docs/) | none |
+| S1 | PRG1 | [documentation](/S1/PRG1/docs/) | none |
