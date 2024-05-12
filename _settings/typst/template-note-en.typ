@@ -8,7 +8,7 @@
   doc,
 ) = {
 
-  set text(font: "Inter")
+  set text(font: "Times New Roman")
   
   set page("a4",
     header: [
