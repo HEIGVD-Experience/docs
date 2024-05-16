@@ -5,7 +5,7 @@
   ],
   lesson: "ISI",
   chapter: "3 - Cryptographie",
-  definition: "TBD",
+  definition: "Dans ce document, nous allons explorer les principes fondamentaux de la cryptographie, qui est l'art de sécuriser les communications en transformant des données de manière à les rendre inintelligibles pour quiconque ne possède pas la clé de déchiffrement. Nous aborderons différentes techniques de chiffrement symétrique et asymétrique, ainsi que les méthodes de hashage, d'authentification et de signature numérique.",
   col: 1,
   doc,
 )
