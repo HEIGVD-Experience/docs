@@ -99,6 +99,73 @@ $T_"MAM" = T_"succes" + (1 - H) * T_"penal"$
 
 $H = "fréquence de succès"$
 
+== Fréquence de succès
+- Dépend de la taille de la cache et des politiques de placement
+- Miss penalty >> Hit time
+
+#table(
+  columns: (0.5fr, 1fr, 1fr),
+  [], [*Rate*], [*Time*],
+  "Cache Hit", "Hit rate =Nombre de hits/Nombre d’accès", "Temps d’accès à la cache (hit time)",
+  "Cache Miss", "1 - Hit rate", "Temps d’accès à la mémoire principale + temps de chargement cache (miss penalty)"
+)
+
+== Recherche dans le cache
+Consiste à trouver quelle est la ligne de cache dont le tag correspond à l’adresse de base demandée au répertoire.
+
+*3 stratégies (cablées, non logicielles)* :
+1. Fully Associative – Complètement associative
+2. Direct Mapped – Associative par ensembles
+3. Set Associative – Associative par voies
+
+=== Fully Associative
+#columns(2)[
+  - un mot de la mémoire principale peut être stocké n’importe où dans la cache
+  - Avantages : taux de succès très élevé (pas de conflit)
+  - Désavantages : trop lent (séquentiel, toutes les lignes à regarder)
+  #colbreak()
+  #image("/_src/img/docs/image copy 79.png")
+]
+
+=== Direct Mapped
+#columns(2)[
+  - un mot de la mémoire principale est chargé dans une ligne de cache prédéfinie (toujours la même)
+  - Avantages : accès rapide, car il faut vérifier qu’une ligne
+  - Désavantages : défaut par conflit, taux de succès mauvais
+  #colbreak()
+  #image("/_src/img/docs/image copy 80.png")
+]
+#columns(2)[
+
+  L’adresse physique (32 bits) est divisée en deux parties :
+  - Bits de poids faible permettent de spécifier un index, qui indique à quelle ligne de la cache l’information se trouve, ainsi que la position dans la ligne
+  - Bits de poids fort forment un tag, qui est à comparer avec la valeur stockée dans le répertoire
+   - Bit de validité inclus
+
+  #colbreak()
+  
+  #image("/_src/img/docs/image copy 82.png")
+]
+
+#colbreak()
+
+=== Set Associative
+
+
+#columns(2)[
+- Caches composés de plusieurs «caches» directement adressés accessibles en parallèle
+- Chaque cache est appelé une voie
+- Un mot de la mémoire peut être stocké en N positions différentes de la cache
+- Diminution de la fréquence d’échec:
+ - $"Associativité" * 2$ = diminution de 20%
+ - $"Taille cache" * 2$ = diminution de 69%
+
+  #colbreak()
+  
+  #image("/_src/img/docs/image copy 83.png")
+]
+
+
 = Hit & Miss
 == Hit lecture
 #image("/_src/img/docs/image copy 74.png")
