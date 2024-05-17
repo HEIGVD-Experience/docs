@@ -5,7 +5,7 @@
   ],
   lesson: "ARO",
   chapter: "9 - Mémoire cache",
-  definition: "TBD",
+  definition: "Dans ce document, nous allons aborder en détail la mémoire cache, un élément essentiel pour améliorer la performance des processeurs en stockant temporairement des données fréquemment utilisées. Nous expliquerons sa définition, son fonctionnement, sa structure interne, et ses différentes stratégies de placement. Nous discuterons également des concepts de localité temporelle et spatiale, et des niveaux de cache, tout en soulignant l'importance des succès (hits) et des échecs (misses) dans l'accès aux données.",
   col: 1,
   doc,
 )
