@@ -31,8 +31,43 @@
 - Scheduling determines the placement of application containers on cluster nodes based on resource requirements and constraints like affinity and anti-affinity.
 - Goals are to increase cluster utilization while meeting application requirements.
 
-= Kubernetes
+= YAML (Yet Another Markup Language)
+- The operator can create K8s objects with the command line or he can describe the objects in manifest files.
+ - `kubectl` create -f file.yaml
+ - File format is JSON, which can also be written as YAML
 
+== Structure  
+- Only two basic data structures: arrays and dictionaries, which can be nested
+- YAML is a superset of JSON
+- Easier for humans to read and write than JSON
+- Indentation is significant
+- Specification at http://yaml.org/
+
+== YAML Example
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+  labels:
+    component: redis
+    app: todo
+spec:
+  containers:
+  - name: redis
+  image: redis
+  ports:
+  - containerPort: 6379
+  resources:
+    limits:
+      cpu: 100m
+  args:
+  - redis-server
+  - --requirepass ccp2
+  - --appendonly yes
+```
+
+= Kubernetes
 == Introduction
 - Kubernetes is an open-source platform for automating the deployment, scaling, and management of containerized applications.
 - Originally developed by Google, it is now maintained by the Cloud Native Computing Foundation (*CNCF*).
@@ -68,12 +103,17 @@
 - Traditional IaaS involves manual steps like launching VMs, configuring them, and setting up load balancers.
 - Kubernetes simplifies this process with container images and manifests, allowing automated deployment and scaling.
 
-= YAML
-- The operator can create K8s objects with the command line or he can describe the objects in manifest files.
- - `kubectl` create -f file.yaml
- - File format is JSON, which can also be written as YAML
-
-*YAML Example*
+== Kubernetes YAML Example
+#columns(2)[
+- Every Kubernetes object description begins with two fields:
+ - *kind*: a string that identifies the schema this object should have
+ - *apiVersion*: a string that identifies the version of the schema the object should have
+- Every object has two basic structures: Object Metadata and Specification (or Spec).
+- The Object Metadata structure is the same for all objects in the system
+ - *name*: uniquely identifies this object within the current namespace
+ - *labels*: a map of string keys and values that can be used to organize and categorize objects
+- *Spec* is used to describe the desired state of the object
+#colbreak()
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -85,14 +125,15 @@ metadata:
 spec:
   containers:
   - name: redis
-  image: redis
-  ports:
-  - containerPort: 6379
-  resources:
-    limits:
-      cpu: 100m
-  args:
-  - redis-server
-  - --requirepass ccp2
-  - --appendonly yes
+    image: redis
+    ports:
+    - containerPort: 6379
+    resources:
+      limits:
+        cpu: 100m
+    args:
+    - redis-server
+    - --requirepass ccp2
+    - --appendonly yes
 ```
+]
