@@ -5,7 +5,7 @@
   ],
   lesson: "ISI",
   chapter: "2 - Intrusions",
-  definition: "TBD",
+  definition: "Ce document traite de la cryptographie, une discipline essentielle pour sécuriser les communications en ligne. Il couvre les concepts fondamentaux des appels et réponses HTTP, la gestion des cookies, les outils de sécurité web (OWASP), et les techniques d'attaques web telles que le détournement de session, le cross-site scripting (XSS), et l'injection de commandes.",
   col: 1,
   doc,
 )
