@@ -68,6 +68,17 @@ Lorsqu'un aléa est détecté, le pipeline peut être arrêté pour attendre que
 
 #image("/_src/img/docs/image copy 47.png")
 
-== Arrêt de pipeline par software
+== Arrêt de pipeline par 
 
 #image("/_src/img/docs/image copy 48.png")
+
+= Forwarding (bypassing)
+Le forwarding est une technique qui permet de résoudre les aléas de données en transmettant directement les données d'une étape du pipeline à une autre. Cela permet d'éviter les retards dus aux aléas de données en fournissant les données nécessaires à l'étape suivante du pipeline dès qu'elles sont disponibles.
+
+- Le résultat est directement accessible à la sortie du bloc *EXECUTE* pourl'instruction suivante.
+
+== Sans Forwarding
+#image("/_src/img/docs/image copy 88.png")
+
+== Avec Forwarding
+#image("/_src/img/docs/image copy 89.png")
