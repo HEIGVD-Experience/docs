@@ -69,18 +69,20 @@ $
 = Pipelining aléas
 == Résolution d'aléas
 Arrêt de pipeline (hardware/software)
-*Hardware* : Arrêter le pipeline (stall/break).
+
+*Hardware* : Arrêter le pipeline (stall/break) -> dupliquer les opérations bloquées.
 *Software* : Insérer des NOPs (no operation).
 == Sans forwarding
 Les règles de gestion des aléas sont les suivantes :
 - Si l'instruction dépend d'une *valeur calculée par une instruction précédente* (RAW) nous devons attendre que l'opération *write-back soit terminée*.
 - Dans le cas ou nous avons des dépendances de données (WAW ou WAR) cela n'impacte pas le pipeline.
 *Attention* dans le cas d'aléas structurels, nous ne pouvons pas faire d'opération *Memory Access (M)* et *Fetch (F)* en même temps.
-== Forwarding
+== Avec forwarding
 #image("/_src/img/docs/image copy 90.png")
 Les règles de gestion des aléas sont les suivantes :
 - Si l'instruction suivante dépend d'une valeur calculée par une instruction précédente, la valeur sera directement disponible dans le bloc *Execute*.
-
+- Si un *LOAD* est fait, la valeur sera accesible directement après le bloc *Memory* dans le bloc *Execute*, donc pas besoin d'attendre jusqu'au bloc *Write Back*.
+#image("/_src/img/docs/image copy 92.png")
 
 = Taxonomie de Flynn
 Classification basée sur les notions de flot de contrôle
