@@ -85,3 +85,281 @@ Lors du téléchargement d'une application, vous spécifiez le type de mise à l
 - *Mise à l'échelle manuelle* : Vous spécifiez manuellement le nombre d'instances à instancier. Les instances fonctionnent en continu, permettant à l'application d'effectuer une initialisation complexe et de s'appuyer sur l'état de sa mémoire au fil du temps (elles peuvent *stateful*).
 - *Mise à l'échelle basique* : La plateforme commence avec zéro instance et crée une instance lorsqu'une requête est reçue. L'instance est arrêtée lorsque l'application devient inactive. L'application doit être *stateless*. Le développeur contrôle directement deux paramètres : le *nombre maximum d'instances* et le *délai d'inactivité* pour supprimer les instances.
 - *Mise à l'échelle automatique* : La plateforme décide quand créer et supprimer des instances en utilisant des algorithmes prédictifs basés sur le taux de requêtes, les latences de réponse, et d'autres métriques de l'application. Le développeur n'a qu'un contrôle indirect en ajustant certains paramètres. L'application doit être stateless. Ce type de mise à l'échelle est celui par défaut.
+
+= Storage as a Service
+Le stockage en tant que service (STaaS) est un modèle de stockage de données dans le cloud, où les données sont stockées sur des serveurs distants accessibles via Internet. Les services de stockage en tant que service peuvent être utilisés pour stocker des données structurées, non structurées ou semi-structurées.
+
+Il existe 3 catégories bien distinctes de STaaS : 
+- *Block storage* : Stockage de blocs, utilisé pour stocker des données brutes, généralement utilisé pour les bases de données.
+- *Object storage* : Stockage d'objets, utilisé pour stocker des objets (fichiers, images, vidéos, etc.), généralement utilisé pour les applications web.
+- *Database as a Service* : Stockage de données structurées, utilisé pour stocker des données structurées, généralement utilisé pour les applications web.
+
+== Base de données relationnelle
+- *Stockage de données persistantes* :
+  - Permet de stocker de grandes quantités de données sur le disque, tout en permettant aux applications d'accéder aux données nécessaires via des requêtes.
+  
+- *Intégration d'applications* :
+  - De nombreuses applications au sein d'une entreprise ont besoin de partager des informations.
+  - En utilisant la base de données commune, on assure que toutes ces applications disposent de données cohérentes et à jour.
+  
+- *Principalement standardisé* :
+  - Le modèle relationnel est largement utilisé et compris.
+  - L'interaction avec la base de données se fait avec SQL, un langage (principalement) standard.
+  - Ce degré de standardisation permet de maintenir une familiarité pour éviter d'apprendre de nouvelles choses.
+  
+- *Contrôle de la concurrence* :
+  - De nombreux utilisateurs accèdent aux mêmes informations en même temps.
+  - Gérer cette concurrence est difficile à programmer, donc les bases de données fournissent des transactions pour garantir une interaction cohérente.
+  
+- *Reporting* :
+  - Le modèle de données simple et la standardisation de SQL en font une base pour de nombreux outils de reporting.
+
+=== Problèmes des bases de données relationnelles
+- Impedance mismatch : La différence entre les structures de données en mémoire (objets) du programme et le modèle relationnel de la base de données.
+  - Modèle relationnel : Ensemble de tuples avec des valeurs simples.
+  - Structure de données du programme : Hiérarchie d'objets.
+- Source de frustration pour les développeurs.
+
+=== Problèmes de scalabilité
+- Les bases de données relationnelles sont conçues pour fonctionner sur une seule machine, donc pour les mettre à l'échelle, vous devez acheter une machine plus puissante.
+- Cependant, il est moins cher et plus efficace de mettre à l'échelle horizontalement en achetant de nombreuses machines.
+- Les machines dans ces grands clusters sont individuellement peu fiables, mais le cluster dans son ensemble continue de fonctionner même lorsque des machines tombent en panne, donc le cluster global est fiable.
+- *Les bases de données relationnelles ne fonctionnent pas bien sur des clusters.*
+
+#colbreak()
+
+=== Pourquoi les bases relationnelles continuent d'être utilisées
+- *Le modèle relationnel reste pertinent* : le modèle tabulaire convient à de nombreux types de données, notamment lorsque vous devez analyser les données et les réassembler de différentes manières pour différents usages.
+- *Transactions ACID* : Pour fonctionner efficacement sur un cluster, la plupart des bases de données NoSQL ont une capacité transactionnelle limitée. Souvent, cela suffit... mais pas toujours.
+- *Outils* : La longue domination de SQL signifie que de nombreux outils ont été développés pour fonctionner avec les bases de données SQL. Les outils pour les systèmes de stockage de données alternatifs sont beaucoup plus limités.
+- *Familiarité* : Les systèmes NoSQL sont encore récents, donc les gens ne sont pas familiers avec leur utilisation. Par conséquent, nous ne devrions pas les utiliser dans des projets utilitaires où leurs avantages auraient moins d'impact.
+
+== Object-oriented databases
+- Invention au milieu des années 1990, les bases de données orientées objet promettaient de résoudre le problème du déséquilibre d'impédance.
+- Contrairement aux attentes, elles n'ont pas connu beaucoup de succès.
+- Les bases de données SQL sont restées dominantes.
+ - La principale raison : elles sont utilisées comme bases de données d'intégration entre différentes applications.
+
+= NoSQL
+NoSQL signifie "Not Only SQL". Il s'agit d'une catégorie de bases de données qui ne suivent pas le modèle de base de données relationnelle traditionnel. Les bases de données NoSQL sont conçues pour les applications web modernes, qui nécessitent une scalabilité horizontale, une faible latence et une disponibilité élevée.
+
+== Caractéristiques
+- Ils n'utilisent pas le modèle de données relationnel, et par conséquent, n'utilisent pas le langage SQL.
+- Ils sont généralement conçus pour fonctionner sur un cluster.
+- Ils n'ont pas de schéma fixe, ce qui vous permet de stocker n'importe quelle donnée dans n'importe quel enregistrement.
+- Ils ont tendance à être open source (lorsqu'ils sont proposés en tant que logiciel).
+
+== Modèle clé-valeur
+#columns(2)[
+- La base de données permet de stocker des objets arbitraires (un nom, une image, un document, ...) et de les récupérer avec une clé.
+- C'est le principe d'une table de hachage, mais stockée de manière persistante sur un disque.
+#colbreak()
+#image("/_src/img/docs/image copy 103.png")
+]
+
+== Modèle de colonnes
+#columns(2)[
+- *Clé de ligne* :
+  - Clé unique pour chaque ligne.
+  - Une ligne contient plusieurs familles de colonnes.
+  - Accessible via la clé.
+
+- *Famille de colonnes* :
+  - Une combinaison de colonnes qui vont ensemble.
+  - A un nom.
+  - Contient plusieurs paires de clés de colonne / valeurs de colonne.
+
+- *Clé de colonne / Valeur de colonne* :
+  - Paire clé/valeur contenant les données.
+#colbreak()
+#image("/_src/img/docs/image copy 102.png")
+]
+
+#colbreak()
+
+== Modèle de documents
+Ce modèle de base de données permet de stocker des documents, la ou chaque document peut avoir sa propre structure. La structure est souvent représentée en JSON. Cela permet au développeur de faire des requêtes directement sur la structure de données.
+
+```json
+{"id":1001,
+ "customer_id":7231,
+ "line8items":[
+  {"product_id":4555,"quantity":8},
+  {"product_id":7655,"quantity":4},
+ ],
+ "discount8code":Y
+}
+
+{"id":"1002,
+ "customer_id":9831,
+ "line8items":[
+  {"product_id":4555,"quantity":3},
+  {"product_id":2155,"quantity":4},
+  {"product_id":6384,"quantity":1},
+ ],
+}
+```
+
+== Modèle de graphe
+#columns(2)[
+- *Structure d'un graphe avec des sommets et des arêtes* :
+ - Peut être orienté ou non.
+ - Bien adapté pour suivre les relations entre les objets.
+ - Les bases de données relationnelles ne fonctionnent pas bien dans ce cas. Il faut faire des jointures qui peuvent devenir très complexes.
+ - Le terme "relationnel" vient de la théorie des ensembles.
+  
+- *Langage de requête adapté à la structure du graphe*.
+#colbreak()
+#image("/_src/img/docs/image copy 104.png")
+]
+
+#colbreak()
+
+== Comment utiliser NoSQL
+Prenons l'exemple d'une plateforme de E-Commerce, traditionnellement nous aurions opté pour une base de donnée relationnelle. L'avantage du NoSQL est qu'il peut s'adapter au différents types de données que nous avons à stocker.
+
+#image("/_src/img/docs/image copy 105.png")
+
+=== Utilisation recommandée
+D'accord, voici la correction :
+
+- *Modèle de données clé-valeur*
+  - Stockage des données de session web
+  - Profils et préférences utilisateur
+  - Données du panier d'achat
+  
+- *Modèle de données document*
+  - Journalisation des événements
+  - Gestion de contenu d'entreprise, plateformes de blogs
+  - Collecte de données pour l'analyse web
+  
+- *Modèle de données en famille de colonnes*
+  - Gestion de contenu d'entreprise, plateformes de blogs
+  - Compteurs
+  
+- *Modèle de données graphique*
+  - Réseaux sociaux
+  - Applications de livraison et de routage basées sur la géolocalisation
+  - Moteurs de recommandation
+
+= Base de données distribuée
+Dimensions selon lesquelles une base de données peut avoir besoin de s'étendre :
+  - *Capacité de stockage*
+   - Nombre d'objets stockés
+    - Moteur de recherche : métadonnées de 2 milliards de pages du World Wide Web
+    - Réseaux sociaux : profils d'utilisateurs de 1 milliard d'utilisateurs
+    - Suivi des comportements
+    - Internet des objets
+  - *Capacité de débit des requêtes de lecture*
+   - Nombre de requêtes de lecture par seconde
+    - Commerce électronique
+    - Jeux en ligne : jusqu'à 100 000 lectures par seconde
+  - *Capacité de débit des requêtes d'écriture*
+   - Nombre de requêtes d'écriture par seconde
+    - Jeux en ligne : jusqu'à 100 000 écritures par seconde
+    - Internet des objets : jusqu'à 1 million d'écritures par seconde
+
+== Sharding vs Replication
+#columns(2)[
+- *Sharding* : Partitionnement des données sur plusieurs machines.
+#image("/_src/img/docs/image copy 106.png")
+#colbreak()
+- *Replication* : Duplication des données sur plusieurs machines.
+#image("/_src/img/docs/image copy 107.png")
+]
+
+#colbreak()
+
+=== Repliacation
+Lors ce que les données sont repliquées il existe deux modèles de réplication :
+#columns(2)[
+- *Master-slave* : Un serveur est le maître et les autres sont des esclaves. Les esclaves sont synchronisés avec le maître.
+#image("/_src/img/docs/image copy 108.png")
+#colbreak()
+- *Peer-to-peer* : Chaque serveur est un pair et les données sont synchronisées entre les pairs.
+#image("/_src/img/docs/image copy 109.png")
+]
+
+=== Sharding
+#columns(3)[
+Au lieu de traiter la base de données comme un conteneur monolithique, elle est divisée en fragments (shards).
+#colbreak()
+Supposons que les données soient organisées sous forme de paires clé-valeur, par exemple des photos d'utilisateur (valeur) identifiées par leur nom (clé).
+#colbreak()
+La question est de savoir comment subdiviser l'espace clé entre les machines pour répartir uniformément la charge.
+]
+
+#image("/_src/img/docs/image copy 110.png")
+
+Les *load balancers* sont utilisés pour rediriger les requêtes vers les bons serveurs. Ils doivent prendre une décision très rapidement, donc ils utilisent souvent des tables de hachage.
+
+#colbreak()
+
+==== Tables de hachage
+- Une table de hachage distribue des objets dans une table à l'aide d'une fonction de hachage qui est calculée à partir de la clé.
+- Une bonne fonction de hachage distribue les objets de manière plus ou moins uniforme pour minimiser les collisions.
+
+- *Seul problème* : Lorsqu'une machine est ajoutée, les positions de presque tous les objets changent. Cela entraînerait un trafic réseau inacceptable pour migrer les objets !
+
+==== Consistant hashing
+- Le hachage cohérent évite de déplacer les objets lors de l'ajout ou de la suppression de machines.
+- Les clés sont mappées par la même fonction de hachage, puis les valeurs de hachage sont mappées sur un cercle.
+- Les machines sont également mappées dans le cercle en utilisant leur nom comme clé.
+- Une convention est établie : chaque objet est attribué à la machine suivante dans le cercle dans le sens horaire.
+
+#columns(3)[
+Situation initiale.
+#colbreak()
+Ajouter une machine n'affecte que les objets se trouvant entre la nouvelle machine et la précédente.
+#colbreak()
+Retirer une machine n'affecte que les objets se trouvant entre la machine retirée.
+]
+
+#image("/_src/img/docs/image copy 111.png")
+
+==== Ecritures concurrentes
+Dans un système distribué, les écritures concurrentes peuvent poser problème. Par exemple, si deux utilisateurs modifient le même objet en même temps, comment résoudre le conflit ?
+
+#colbreak()
+
+===== Transactions lecture-écriture
+La première solution consiste à envelopper la lecture et l'écriture de chaque utilisateur dans une transaction. La base de données détectera le conflit, exécutera avec succès l'une des deux transactions et annulera l'autre. Cependant, un problème majeur est que le* maintien d'une transaction* sur une aussi longue période peut entraîner une *dégradation des performances*.
+
+#image("/_src/img/docs/image copy 112.png")
+
+#colbreak()
+
+===== Transactions écriture
+La deuxième solution consiste à envelopper uniquement l'écriture dans une transaction. Cela garantira que l'écriture est exécutée complètement ou pas du tout (pas d'écriture à moitié). Cependant, ni la *base de données* ni l'*application* ne seront conscients d'un *conflit entre les utilisateurs*.
+
+De plus l'ajout d'une *version* sur le champ de données permet de vérifier si la donnée a été modifiée. Avant de modifier la donnée, on vérifie si la version est la même que celle que l'on a en mémoire. Nous pouvons donc détecter s'il y a eu un problème de concurrence.
+
+#image("/_src/img/docs/image copy 113.png")
+
+==== Consistance avec de la réplication
+#columns(2)[
+- *Le théorème CAP* aborde les compromis dans les bases de données distribuées. Il stipule que parmi les objectifs de Cohérence (Consistency - C), Disponibilité (Availability - A) et Tolérance aux partitions réseau (Partitions - P), seuls deux peuvent être atteints simultanément.
+- Conjecturé par Eric Brewer en 2000, preuve formelle par Nancy Lynch et Seth Gilbert en 2002.
+#colbreak()
+#image("/_src/img/docs/image copy 114.png")
+]
+
+===== Tolerance à la réplication
+- *Problèmes de réseau* : peuvent mener à des partitions dites partitions réseau.
+ - Avec deux ruptures dans les lignes de communication, le cluster de la base de données se partitionne en deux groupes.
+- Un système est tolérant aux partitions s'il continue de fonctionner en présence d'une partition.
+
+==== Consistance forte avec commit à deux phases
+#columns(2)[
+  #image("/_src/img/docs/image copy 115.png")
+  #colbreak()
+  #image("/_src/img/docs/image copy 116.png")
+]
+
+==== Disponibilité sans consistance forte
+#columns(2)[
+  #image("/_src/img/docs/image copy 117.png")
+  #colbreak()
+  #linebreak()
+  #image("/_src/img/docs/image copy 118.png")
+]
