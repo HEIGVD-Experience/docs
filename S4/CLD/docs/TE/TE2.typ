@@ -363,3 +363,134 @@ De plus l'ajout d'une *version* sur le champ de données permet de vérifier si 
   #linebreak()
   #image("/_src/img/docs/image copy 118.png")
 ]
+
+= Conteneurs logiciels
+
+== Conteneurs vs Machines virtuelles
+- Les conteneurs offrent une alternative légère aux machines virtuelles en partageant le noyau du système d'exploitation hôte tout en maintenant des espaces utilisateurs isolés.
+- Les conteneurs sont plus efficaces en termes d'utilisation des ressources comparés aux machines virtuelles traditionnelles.
+
+#image("/_src/img/docs/image copy 84.png")
+
+== Création et téléchargement d'images de conteneurs
+- Le processus implique la création d'une image de conteneur, généralement avec Docker, et son téléchargement dans un registre de conteneurs.
+- Les registres populaires incluent Docker Hub, GitHub Container Registry, Amazon Elastic Container Registry, Azure Container Registry et Google Artifact Registry.
+
+= Gestion des clusters de conteneurs
+
+== Introduction
+- La gestion des clusters de conteneurs est essentielle pour déployer des applications sur plusieurs hôtes afin d'assurer la robustesse et la continuité du service.
+- Les besoins clés incluent la surveillance de la santé des conteneurs, le placement optimal des conteneurs et la gestion efficace des pannes.
+
+== Orchestration des conteneurs
+- L'orchestration détermine le placement des conteneurs d'application sur les nœuds du cluster en fonction des besoins en ressources et des contraintes comme l'affinité et l'anti-affinité.
+- Les objectifs sont d'augmenter l'utilisation du cluster tout en répondant aux exigences des applications.
+
+== YAML (Yet Another Markup Language)
+- L'opérateur peut créer des objets K8s avec la ligne de commande ou décrire les objets dans des fichiers manifestes.
+ - `kubectl` create -f file.yaml
+ - Le format de fichier est JSON, qui peut également être écrit en YAML
+
+=== Structure
+- Seulement deux structures de données de base : tableaux et dictionnaires, qui peuvent être imbriqués
+- YAML est un sur-ensemble de JSON
+- Plus facile à lire et écrire pour les humains que JSON
+- L'indentation est significative
+- Spécification à http://yaml.org/
+
+=== Exemple de YAML
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+  labels:
+    component: redis
+    app: todo
+spec:
+  containers:
+  - name: redis
+    image: redis
+    ports:
+  - containerPort: 6379
+    resources:
+      limits:
+        cpu: 100m
+  args:
+  - redis-server
+  - --requirepass ccp2
+  - --appendonly yes
+```
+
+== Kubernetes
+=== Introduction
+- Kubernetes est une plateforme open-source pour automatiser le déploiement, la mise à l'échelle et la gestion des applications conteneurisées.
+- Développé à l'origine par Google, il est maintenant maintenu par la Cloud Native Computing Foundation (*CNCF*).
+
+#colbreak()
+
+=== Anatomie d'un cluster
+
+#image("/_src/img/docs/image copy 85.png")
+
+==== Composants du nœud maître
+- *etcd* : Un magasin clé/valeur pour les données de configuration du cluster.
+- *API Server* : Sert l'API de Kubernetes.
+- *Scheduler* : Décide des nœuds sur lesquels les pods doivent fonctionner.
+- *Controller Manager* : Exécute les contrôleurs principaux comme le Replication Controller.
+
+==== Composants du nœud de travail
+- *Kubelet* : Gère l'état des conteneurs sur un nœud.
+- *Kube-proxy* : Gère le routage réseau et l'équilibrage de charge.
+- *cAdvisor* : Surveille l'utilisation des ressources et la performance.
+- *Réseau superposé* : Connecte les conteneurs entre les nœuds.
+
+=== Concepts principaux
+- *Cluster* : Un ensemble de machines (nœuds) où les pods sont déployés et gérés.
+- *Pod* : La plus petite unité déployable, composée d'un ou plusieurs conteneurs.
+- *Controller* : Gère l'état du cluster.
+- *Service* : Définit un ensemble de pods et facilite la découverte de services et l'équilibrage de charge.
+- *Label* : Paires clé-valeur attachées aux objets pour la gestion et la sélection.
+
+=== Concepts communs
+- Les objets Kubernetes peuvent être créés et gérés en utilisant des fichiers YAML ou JSON.
+- YAML est un format lisible par l'homme utilisé pour décrire les objets Kubernetes dans les fichiers de configuration.
+
+=== Déployer une application : IaaS vs Kubernetes
+- L'IaaS traditionnel implique des étapes manuelles comme le lancement de VMs, leur configuration et la mise en place d'équilibreurs de charge.
+- Kubernetes simplifie ce processus avec des images de conteneur et des manifestes, permettant un déploiement et une mise à l'échelle automatisés.
+
+=== Exemple de YAML Kubernetes
+#columns(2)[
+- Chaque description d'objet Kubernetes commence par deux champs :
+ - *kind* : une chaîne qui identifie le schéma que cet objet doit avoir
+ - *apiVersion* : une chaîne qui identifie la version du schéma que l'objet doit avoir
+- Chaque objet a deux structures de base : Métadonnées de l'objet et Spécification (ou Spec).
+- La structure des Métadonnées de l'objet est la même pour tous les objets dans le système
+ - *name* : identifie de manière unique cet objet dans l'espace de noms actuel
+ - *labels* : une carte de clés et de valeurs de chaîne qui peut être utilisée pour organiser et catégoriser les objets
+- *Spec* est utilisé pour décrire l'état désiré de l'objet
+#colbreak()
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+  labels:
+    component: redis
+    app: todo
+spec:
+  containers:
+  - name: redis
+    image: redis
+    ports:
+    - containerPort: 6379
+    resources:
+      limits:
+        cpu: 100m
+    args:
+    - redis-server
+    - --requirepass ccp2
+    - --appendonly yes
+```
+]
