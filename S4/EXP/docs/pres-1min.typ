@@ -23,4 +23,4 @@
 
 - Une gourde est un investissement à faible cout pour votre porte-monnaie pour la planète et pour votre santé!
 
-- Buvez de l'eau dans 20/30 ans il y en aura plus!
+- Et comme l'a dit un jour un grand sage, buvez de l'eau car dans 20/30 ans il y en aura plus!
