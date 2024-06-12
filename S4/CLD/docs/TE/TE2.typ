@@ -494,3 +494,64 @@ spec:
     - --appendonly yes
 ```
 ]
+
+=== Pods
+*Le pod est l'unité atomique de déploiement dans Kubernetes.*
+- L'unité atomique de déploiement dans Kubernetes est le Pod.
+- Un Pod contient un ou plusieurs conteneurs, le cas le plus courant étant un seul conteneur.
+
+*Si un Pod a plusieurs conteneurs :*
+- Kubernetes garantit qu'ils sont programmés sur le même nœud du cluster.
+- Les conteneurs partagent le même environnement du Pod :
+ - Espace de noms IPC, mémoire partagée, volumes de stockage, pile réseau, etc.
+ - Adresse IP.
+- Si les conteneurs doivent communiquer entre eux au sein du Pod, ils peuvent simplement utiliser l'interface *localhost*.
+
+==== Loosely vs Tightly Coupled Containers
+#columns(2)[
+*Loosely Coupled Containers*
+
+*Définition* :
+  - Les conteneurs faiblement couplés fonctionnent de manière indépendante, avec peu ou pas de dépendances directes entre eux. Ils sont conçus pour effectuer des tâches autonomes et ne nécessitent pas une interaction continue avec d'autres conteneurs pour fonctionner correctement.
+
+#colbreak()
+
+#image("/_src/img/docs/image copy 119.png")
+]
+
+#colbreak()
+
+*Caractéristiques* :
+  - *Indépendance* : Chaque conteneur peut être géré, mis à l'échelle et redéployé indépendamment des autres.
+  - *Isolation* : Moins de partage de ressources, comme la mémoire et le stockage, ce qui minimise l'impact des erreurs d'un conteneur sur les autres.
+  - *Flexibilité* : Adapté aux microservices où chaque service peut être développé, déployé et mis à jour indépendamment.
+  - *Communication* : Les conteneurs communiquent souvent via des réseaux internes ou des API externes.
+
+*Exemples d'utilisation* :
+  - Services de microservices où chaque service a sa propre base de code, cycle de déploiement et peut évoluer indépendamment des autres services.
+  - Applications où des composants indépendants traitent des tâches distinctes, comme un service de facturation séparé d'un service de gestion des utilisateurs.
+
+*Tightly Coupled Containers*
+
+*Définition* :
+  - Les conteneurs étroitement couplés travaillent ensemble de manière plus intégrée et partagent souvent des ressources communes. Ils sont conçus pour collaborer étroitement, où l'un peut dépendre directement de l'autre pour fournir une fonctionnalité complète.
+
+*Caractéristiques* :
+  - *Interdépendance* : Les conteneurs sont fortement dépendants les uns des autres pour accomplir leurs tâches.
+  - *Partage de ressources* : Les conteneurs partagent des ressources telles que l'espace de noms IPC, la mémoire, les volumes de stockage et la pile réseau.
+  - *Coordination* : Souvent utilisés dans des scénarios où une application principale est assistée par des conteneurs secondaires qui fournissent des services supplémentaires comme le traitement des journaux ou la mise à jour du contenu.
+  - *Communication locale* : Les conteneurs peuvent utiliser l'interface localhost pour une communication rapide et directe.
+
+*Exemples d'utilisation* :
+  - Un serveur web conteneurisé qui dépend d'un conteneur d'assistance pour mettre à jour dynamiquement le contenu ou gérer les journaux.
+  - Une application où un conteneur exécute l'application principale tandis qu'un autre conteneur gère des tâches auxiliaires telles que la surveillance ou la sauvegarde des données en temps réel.
+
+#table(
+  columns: (0.5fr, 1fr, 1fr),
+  [*Caractéristique*], [*Faiblement couplés (Loosely Coupled)*], [*Étroitement couplés (Tightly Coupled)*],
+  "Indépendance", "Haute", "Faible",
+  "Partage de ressources", "Minimum", "Élevé",
+  "Flexibilité de déploiement", "Haute", "Moyenne",
+  "Communication", "Réseau ou API externe", "Interface localhost",
+  "Utilisation typique", "Microservices", "Applications complexes et intégrées",
+)
