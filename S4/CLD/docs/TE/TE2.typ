@@ -35,14 +35,14 @@ Google App Engine est un PaaS qui permet de déployer des applications web et mo
 #image("/_src/img/docs/image copy 99.png")
 
 === Architecture
-- Multi-tenant : La plateforme de Google déploie automatiquement le code de votre application et ajuste l'échelle pour s'adapter à la charge.
-- Pas de contrôle des serveurs, équilibreurs de charge ou groupes de mise à l'échelle automatique.
-- La plateforme contrôle et partage les ressources entre tous les locataires.
-- Frontend : Reçoit les requêtes HTTP, identifie le locataire et l'application, et route la requête.
-- Effectue des vérifications de l'état des instances d'application et assure l'équilibrage de la charge.
-- Serveurs d'application : Exécutent le code de l'application dans des instances contenaires ou machines virtuelles.
-- Fournit le système d'exploitation et l'environnement d'exécution (Java, Python, etc.).
-- App master : Gère les instances d'application, déploie le code, remplace les instances défaillantes et ajuste automatiquement le nombre d'instances.
+- *Multi-tenant* : La plateforme de Google déploie automatiquement le code de votre application et ajuste l'échelle pour s'adapter à la charge.
+ - Pas de contrôle des serveurs, équilibreurs de charge ou groupes de mise à l'échelle automatique.
+ - La plateforme contrôle et partage les ressources entre tous les locataires.
+- *Frontend* : Reçoit les requêtes HTTP, identifie le locataire et l'application, et route la requête.
+ - Effectue des vérifications de l'état des instances d'application et assure l'équilibrage de la charge.
+- *Serveurs d'application* : Exécutent le code de l'application dans des instances contenaires ou machines virtuelles.
+ - Fournit le système d'exploitation et l'environnement d'exécution (Java, Python, etc.).
+- *App master* : Gère les instances d'application, déploie le code, remplace les instances défaillantes et ajuste automatiquement le nombre d'instances.
 
 #columns(2)[
 === Request handler
@@ -57,6 +57,8 @@ Google App Engine est un PaaS qui permet de déployer des applications web et mo
 
 #image("/_src/img/docs/image copy 100.png")
 ]
+
+
 
 - Lorsque le nombre de requêtes augmente, App Engine alloue des Request Handlers supplémentaires.
 - Tous les Request Handlers traitent les requêtes en parallèle (mise à l'échelle automatique).
@@ -422,45 +424,45 @@ spec:
   - --appendonly yes
 ```
 
-== Kubernetes
-=== Introduction
+= Kubernetes
+== Introduction
 - Kubernetes est une plateforme open-source pour automatiser le déploiement, la mise à l'échelle et la gestion des applications conteneurisées.
 - Développé à l'origine par Google, il est maintenant maintenu par la Cloud Native Computing Foundation (*CNCF*).
 
 #colbreak()
 
-=== Anatomie d'un cluster
+== Anatomie d'un cluster
 
 #image("/_src/img/docs/image copy 85.png")
 
-==== Composants du nœud maître
+=== Composants du nœud maître
 - *etcd* : Un magasin clé/valeur pour les données de configuration du cluster.
 - *API Server* : Sert l'API de Kubernetes.
 - *Scheduler* : Décide des nœuds sur lesquels les pods doivent fonctionner.
 - *Controller Manager* : Exécute les contrôleurs principaux comme le Replication Controller.
 
-==== Composants du nœud de travail
+=== Composants du nœud de travail
 - *Kubelet* : Gère l'état des conteneurs sur un nœud.
 - *Kube-proxy* : Gère le routage réseau et l'équilibrage de charge.
 - *cAdvisor* : Surveille l'utilisation des ressources et la performance.
 - *Réseau superposé* : Connecte les conteneurs entre les nœuds.
 
-=== Concepts principaux
+== Concepts principaux
 - *Cluster* : Un ensemble de machines (nœuds) où les pods sont déployés et gérés.
 - *Pod* : La plus petite unité déployable, composée d'un ou plusieurs conteneurs.
 - *Controller* : Gère l'état du cluster.
 - *Service* : Définit un ensemble de pods et facilite la découverte de services et l'équilibrage de charge.
 - *Label* : Paires clé-valeur attachées aux objets pour la gestion et la sélection.
 
-=== Concepts communs
+== Concepts communs
 - Les objets Kubernetes peuvent être créés et gérés en utilisant des fichiers YAML ou JSON.
 - YAML est un format lisible par l'homme utilisé pour décrire les objets Kubernetes dans les fichiers de configuration.
 
-=== Déployer une application : IaaS vs Kubernetes
+== Déployer une application : IaaS vs Kubernetes
 - L'IaaS traditionnel implique des étapes manuelles comme le lancement de VMs, leur configuration et la mise en place d'équilibreurs de charge.
 - Kubernetes simplifie ce processus avec des images de conteneur et des manifestes, permettant un déploiement et une mise à l'échelle automatisés.
 
-=== Exemple de YAML Kubernetes
+== Exemple de YAML Kubernetes
 #columns(2)[
 - Chaque description d'objet Kubernetes commence par deux champs :
  - *kind* : une chaîne qui identifie le schéma que cet objet doit avoir
@@ -495,7 +497,7 @@ spec:
 ```
 ]
 
-=== Pods
+== Pods
 *Le pod est l'unité atomique de déploiement dans Kubernetes.*
 - L'unité atomique de déploiement dans Kubernetes est le Pod.
 - Un Pod contient un ou plusieurs conteneurs, le cas le plus courant étant un seul conteneur.
@@ -507,7 +509,7 @@ spec:
  - Adresse IP.
 - Si les conteneurs doivent communiquer entre eux au sein du Pod, ils peuvent simplement utiliser l'interface *localhost*.
 
-==== Loosely vs Tightly Coupled Containers
+=== Loosely vs Tightly Coupled Containers
 #columns(2)[
 *Loosely Coupled Containers*
 
@@ -555,3 +557,39 @@ spec:
   "Communication", "Réseau ou API externe", "Interface localhost",
   "Utilisation typique", "Microservices", "Applications complexes et intégrées",
 )
+
+== Volumes
+Un pod peut avoir besoin de stockage persistant ou pas pour stocker des données. Kubernetes fournit des volumes pour gérer le stockage.
+
+*Stockage supportés*
+- *emptyDir*: an empty directory the app can put files into, erased at Pod deletion
+- *hostPath*: path from host machine, persisted with machine lifetime
+- gcePersistentDisk, awsElasticBlockStore, azureFileVolume: cloud vendor volumes, independent lifecycle
+- *secret*: used to pass sensitive information, such as passwords, to Pods. You can store secrets in the Kubernetes API and mount them as files for use by Pods without coupling to Kubernetes directly. secret volumes are backed by tmpfs (a RAM-backed filesystem) so they are never written to nonvolatile storage
+- *nfs*: network file system, persisted
+- Many more: iscsi, flocker, glusterfs, rbd, gitRepo ...
+
+=== Monter un volume persistant
+K8s propose 2 manières de monter un volume persistant :
+- *Directement*
+- Avec *PersistentVolumeClaim (PVC)*
+
+#image("/_src/img/docs/image copy 120.png")
+
+== Replication Controller
+Permet de déploier automatiquement un nombre spécifique de réplicas identiques d'un pod. Si un pod échoue, le Replication Controller en crée un nouveau pour le remplacer.
+
+Cependant les *Replication Controllers* sont gentiement remplacés par les deploiements.
+
+== Services
+Un service Kubernetes est une abstraction qui définit un ensemble de pods et une politique d'accès à ces pods. Les services permettent de définir un ensemble de pods et de les exposer au sein du cluster.
+
+- L'interface utilisateur communique avec l'adresse IP fiable du Service.
+- Le Service dispose également d'un nom de domaine identique à son nom.
+- Le Service répartit la charge de toutes les requêtes sur les Pods de l'arrière-plan qui le composent.
+- Le Service garde une trace des Pods qui se trouvent derrière lui.
+
+=== Type de services
+- *ClusterIP* : Expose le Service sur une adresse IP interne du cluster. C'est le type de Service par défaut.
+- *NodePort* : Expose le Service sur un port statique sur chaque nœud du cluster.
+- *LoadBalancer* : Expose le Service via un équilibreur de charge externe.
