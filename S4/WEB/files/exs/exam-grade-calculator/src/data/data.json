@@ -1,0 +1,50 @@
+{
+  "modules": [
+    {
+      "name": "WEB",
+      "coefficient": 62.5,
+      "theoryCoefficient": 30,
+      "practicalCoefficient": 20,
+      "examCoefficient": 50
+    },
+    {
+      "name": "CLD",
+      "coefficient": 37.5,
+      "theoryCoefficient": 33,
+      "practicalCoefficient": 67,
+      "examCoefficient": 0
+    }
+  ],
+  "unites": [
+    "TCW"
+  ],
+  "unitModuleAssignments": {
+    "TCW": [
+      {
+        "name": "WEB",
+        "coefficient": 62.5,
+        "theoryCoefficient": 30,
+        "practicalCoefficient": 20,
+        "examCoefficient": 50
+      },
+      {
+        "name": "CLD",
+        "coefficient": 37.5,
+        "theoryCoefficient": 33,
+        "practicalCoefficient": 67,
+        "examCoefficient": 0
+      }
+    ]
+  },
+  "notes": {
+    "WEB": {
+      "theorie": "5.4",
+      "pratique": "5.8",
+      "examen": "2"
+    },
+    "CLD": {
+      "theorie": "5.3",
+      "pratique": "5.4"
+    }
+  }
+}
