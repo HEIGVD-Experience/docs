@@ -13,10 +13,25 @@
       "theoryCoefficient": 33,
       "practicalCoefficient": 67,
       "examCoefficient": 0
+    },
+    {
+      "name": "ISI",
+      "coefficient": 50,
+      "theoryCoefficient": 30,
+      "practicalCoefficient": 20,
+      "examCoefficient": 50
+    },
+    {
+      "name": "ARO",
+      "coefficient": 50,
+      "theoryCoefficient": 30,
+      "practicalCoefficient": 20,
+      "examCoefficient": 50
     }
   ],
   "unites": [
-    "TCW"
+    "TCW",
+    "ASI"
   ],
   "unitModuleAssignments": {
     "TCW": [
@@ -34,17 +49,44 @@
         "practicalCoefficient": 67,
         "examCoefficient": 0
       }
+    ],
+    "ASI": [
+      {
+        "name": "ISI",
+        "coefficient": 50,
+        "theoryCoefficient": 30,
+        "practicalCoefficient": 20,
+        "examCoefficient": 50
+      },
+      {
+        "name": "ARO",
+        "coefficient": 50,
+        "theoryCoefficient": 30,
+        "practicalCoefficient": 20,
+        "examCoefficient": 50
+      }
     ]
   },
   "notes": {
     "WEB": {
       "theorie": "5.4",
       "pratique": "5.8",
-      "examen": "2"
+      "examen": "4"
     },
     "CLD": {
       "theorie": "5.3",
-      "pratique": "5.4"
+      "pratique": "5.4",
+      "examen": "0"
+    },
+    "ISI": {
+      "theorie": "4.4",
+      "pratique": "5.6",
+      "examen": "2.4"
+    },
+    "ARO": {
+      "theorie": "4.7",
+      "pratique": "4.8",
+      "examen": "3"
     }
   }
 }
