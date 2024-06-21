@@ -69,9 +69,9 @@
   },
   "notes": {
     "WEB": {
-      "theorie": "5.4",
+      "theorie": "5.3",
       "pratique": "5.8",
-      "examen": "4"
+      "examen": "0.1"
     },
     "CLD": {
       "theorie": "5.3",
@@ -80,13 +80,13 @@
     },
     "ISI": {
       "theorie": "4.4",
-      "pratique": "5.6",
-      "examen": "2.4"
+      "pratique": "5.1",
+      "examen": "2.8"
     },
     "ARO": {
       "theorie": "4.7",
       "pratique": "4.8",
-      "examen": "3"
+      "examen": "2.8"
     }
   }
 }
