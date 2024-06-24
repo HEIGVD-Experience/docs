@@ -27,30 +27,30 @@ Pour qu'un nombre soit concidéré comme non-normalisé il doit forcement avoir 
 
 == Binary8 (quarter precision)
 - nombre de bits : 8
-- mantisse sur 3 bits
 - exposant sur 4 bits
+- mantisse sur 3 bits
 - biais : 7 ($2^(4-1) - 1$)
 
 == Binary16 (half precision)
 - nombre de bits : 16
-- mantisse sur 10 bits
 - exposant sur 5 bits
+- mantisse sur 10 bits
 - biais : 15 ($2^(5-1) - 1$)
 
-== Binary32 (single precision)
+== Binary32 (simple precision)
 - nombre de bits : 32
-- mantisse sur 23 bits
 - exposant sur 8 bits
+- mantisse sur 23 bits
 - biais : 127 ($2^(8-1) - 1$)
 
 == Binary64 (double precision)
 - nombre de bits : 64
-- mantisse sur 52 bits
 - exposant sur 11 bits
+- mantisse sur 52 bits
 - biais : 1023 ($2^(11-1) - 1$)
 
 == Binary128 (quadruple precision or Quad)
 - nombre de bits : 128
-- mantisse sur 112 bits
 - exposant sur 15 bits
+- mantisse sur 112 bits
 - biais : 16383 ($2^(15-1) - 1$)
