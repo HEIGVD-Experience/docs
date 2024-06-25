@@ -62,6 +62,10 @@ $
 "Adr" = "PC" + "extension_16bits"("offset"_8 * 2) + 4
 $
 
+== Endianess
+- *Big Endian*: lecture de gauche à droite
+- *Little Endian*: lecture de droite à gauche
+
 #colbreak()
 
 == Instructions
@@ -166,6 +170,52 @@ Lors d'une interruption on stocke la valeur actuelle du PC dans le LR et on met 
   $2^9$, "512",
 )
 
+= Réels
+
+== Standard IEEE 754 (virgule flottante)
+
+=== Binary8 (quarter precision)
+- nombre de bits : 8
+- exposant sur 4 bits
+- mantisse sur 3 bits
+- biais : 7 ($2^(4-1) - 1$)
+
+=== Binary16 (half precision)
+- nombre de bits : 16
+- exposant sur 5 bits
+- mantisse sur 10 bits
+- biais : 15 ($2^(5-1) - 1$)
+
+=== Binary32 (simple precision)
+- nombre de bits : 32
+- exposant sur 8 bits
+- mantisse sur 23 bits
+- biais : 127 ($2^(8-1) - 1$)
+
+== Décimal vers binaire (float)
+1. Partie entière : conversion de la partie entière en binaire
+2. Partie décimale : conversion de la partie décimale en binaire en utilisant le tableau ci-dessous
+#table(
+  columns: (1fr, 1fr),
+  [*Binaire*], [*Valeur*],
+  $0.1$, $2^(-1) = 1/2^1 = 0.5$,
+  $0.01$, $2^(-2) = 1/2^2 = 0.25$,
+  $0.001$, $2^(-3) = 0.125$,
+  $0.0001$, $2^(-4) = 0.0625$,
+  $0.00001$, $2^(-5) = 0.03125$,
+  $0.000001$, $2^(-6) = 0.015625$,
+)
+
+== Binaire IEEE754 vers décimal (ex sur 32 bits)
+1. Signe : le premier bit est le signe
+2. Exposant : les 8 bits suivants sont l'exposant
+3. Mantisse : les 23 bits suivants sont la mantisse
+
+== Règles importantes
+- Si l'exposant est à 0 ou hors de la plage $2^(k-1) - 1$ à $2^(k-1)$ pour $k$ le nombre de bits de l'exposant, alors le nombre est un nombre non-normalisé.
+
+
+#pagebreak()
 
 = Pipeline
 == Découpage des instructions
@@ -196,13 +246,23 @@ $
 T_t / T_e = n + m - 1
 $
 
-=== Débit
-Nombre d’opérations (tâches, instructions) exécutées par unités de temps.
-#image("/_src/img/docs/image copy 43.png")
-
 === Latence
 Temps écoulé entre le début et la fin d’exécution de la tâche (instruction).
-#image("/_src/img/docs/image copy 42.png")
+
+$ n * 1 / "Frequence (temps de cycle)" $
+
+==== Exemple
+Frequence = 1 GHz / 1 instruction par nanoseconde / $10^(-9)$
+$n$ = nombre d'étapes = 5
+$ "Latence" = 5 * 1 / 10^(9) = 5 / 10^(9) = 5 * 10^(-9) = 5 "ns" $
+
+=== Débit
+Nombre d’opérations (tâches, instructions) exécutées par unités de temps.
+==== Sans pipeline
+$ 1 / "Latence" $
+
+==== Avec pipeline
+$ 1 / "Frequence (temps de cycle)" $
 
 === IPC
 Instructions Per Cycle : nombre d’instructions exécutées par cycle d’horloge.
@@ -218,6 +278,7 @@ $
 
 - $T_t$ : temps total
 - $m$ : nombre d'instructions fournies au pipeline
+ - *Attention*: si le nombre d'instruction est *très grand*, il sera égal au nombre d'étages du pipeline.
 - $n$ : nombre d'étages du pipeline (MIPS, ARM = 5)
 - $T_e$ : temps de cycle d'horloge ($= 1 / "Fréquence horloge"$)
 
@@ -255,7 +316,7 @@ Classification basée sur les notions de flot de contrôle
 
 == SISD
 Machine SISD (Single Instruction Single Data) = Machine de «Von Neuman».
-- Une seule instruction exécutée et une seule donnée (simple, non‐structurée) traitée.
+- Une seule instruction exécutée et une seule donnée (simple, non-structurée) traitée.
 
 == SIMD
 Plusieurs types de machine SIMD : parallèle ou systolique.
@@ -267,3 +328,100 @@ Exécution de plusieurs instructions en même temps sur la même donnée.
 Machines multi-processeurs où chaque processeur exécute son code de manière asynchrone et indépendante.
 - S’assurer la cohérence des données,
  - Synchroniser les processeurs entre eux, les techniques de synchronisation dépendent de l'organisation de la mémoire.
+
+#colbreak()
+
+= Memoire cache
+== Calcul accès mémoire
+=== Calcul temps moyenne d’accès
+Temps moyenne d’accès a mem = $T_"MAM"$
+
+$T_"MAM" = T_"succes" + (1 - H) * T_"penal"$
+
+$H = "fréquence de succès"$
+
+=== Fréquence de succès
+- Dépend de la taille de la cache et des politiques de placement
+- Miss penalty >> Hit time
+
+#table(
+  columns: (0.5fr, 1fr, 1fr),
+  [], [*Rate*], [*Time*],
+  "Cache Hit", "Hit rate =Nombre de hits/Nombre d’accès", "Temps d’accès à la cache (hit time)",
+  "Cache Miss", "1 - Hit rate", "Temps d’accès à la mémoire principale + temps de chargement cache (miss penalty)"
+)
+
+== Recherche dans le cache
+Consiste à trouver quelle est la ligne de cache dont le tag correspond à l’adresse de base demandée au répertoire.
+
+*3 stratégies (cablées, non logicielles)* :
+1. Fully Associative – Complètement associative
+2. Direct Mapped – Associative par ensembles
+3. Set Associative – Associative par voies
+
+=== Fully Associative
+#columns(2)[
+- un mot de la mémoire principale peut être stocké n’importe où dans la cache
+- Avantages : taux de succès très élevé (pas de conflit)
+- Désavantages : trop lent (séquentiel, toutes les lignes à regarder)
+#colbreak()
+#image("/_src/img/docs/image copy 79.png")
+]
+
+=== Direct Mapped
+#columns(2)[
+- un mot de la mémoire principale est chargé dans une ligne de cache prédéfinie (toujours la même)
+- Avantages : accès rapide, car il faut vérifier qu’une ligne
+- Désavantages : défaut par conflit, taux de succès mauvais
+#colbreak()
+#image("/_src/img/docs/image copy 80.png")
+]
+#columns(2)[
+
+L’adresse physique (32 bits) est divisée en deux parties :
+- Bits de poids faible permettent de spécifier un index, qui indique à quelle ligne de la cache l’information se trouve, ainsi que la position dans la ligne
+- Bits de poids fort forment un tag, qui est à comparer avec la valeur stockée dans le répertoire
+  - Bit de validité inclus
+
+#colbreak()
+
+#image("/_src/img/docs/image copy 82.png")
+]
+
+#linebreak()
+
+=== Set Associative
+#columns(2)[
+- Caches composés de plusieurs «caches» directement adressés accessibles en parallèle
+- Chaque cache est appelé une voie
+- Un mot de la mémoire peut être stocké en N positions différentes de la cache
+- Diminution de la fréquence d’échec:
+- $"Associativité" * 2$ = diminution de 20%
+- $"Taille cache" * 2$ = diminution de 69%
+
+#colbreak()
+
+#image("/_src/img/docs/image copy 83.png")
+]
+
+#colbreak()
+
+== Map avec Fully associative
+#image("/_src/img/docs/image copy 121.png")
+1. Nbr bits mémoire cache donné dans la consigne
+2. Calculer le nbr de bits d'une ligne de la mémoire
+3. LSB = puissance de 2 calculée de la taille de la ligne
+4. MSB = puissance de 2 calculée par -> $"taille mémoire" / "taille ligne"$ 
+5. Cacluler le nombre de répertoire -> $"taille mémoire" / "taille ligne"$
+6. Comparateur et Tag = $"taille du bus" - "LSB"$
+
+== Map avec Direct Mapped
+#image("/_src/img/docs/image copy 122.png")
+1. Nbr bits mémoire cache donné dans la consigne
+2. Calculer le nbr de bits d'une ligne de la mémoire
+3. Adressage par octet dans une ligne = puissance de 2 calculée de la taille de la ligne
+4. Cacluler le nombre de tag dans les repertoires -> $"taille mémoire" / "taille ligne"$
+5. MSB et Tag = $"taille du bus" - "LSB"$
+6 Index = $"LSB" - "puissance de 2 calculée de la taille de la ligne"$
+
+*Attention*: si c'est une mémoire cache à voie multiple, il faut multiplier le nombre de tag par le nombre de voies.
