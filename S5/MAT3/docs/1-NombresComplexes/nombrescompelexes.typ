@@ -41,3 +41,20 @@ $
 $
 (a + "bj") * (c + "dj") = ("ac" - "bd") + ("ad" + "bc")j
 $
+
+= Conjugé complexes
+Le conjugué d'un nombre complexe est obtenu en changeant le signe de la partie imaginaire. Il est noté: $overline(s)$. De ce fait on peut dire que :
+$
+z * overline(z) = a^2 + b^2
+$
+cela signifie que nous pouvons obtenir *un nombre réel* en multipliant un nombre complexe par son conjugué.
+
+== Propriétés
+#image("/_src/img/docs/image copy 129.png")
+
+$
+"Module 1" = a^2 + b^2 = 1
+$
+
+
+= Plan complexe
