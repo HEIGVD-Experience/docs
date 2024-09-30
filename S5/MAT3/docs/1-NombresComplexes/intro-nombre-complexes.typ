@@ -10,6 +10,23 @@
   doc,
 )
 
+= Rappel
+== Série / suite géométrique infinie
+La formule pour calculer la valeur d'une série géométrique infinie est:
+$
+S(infinity) = frac("terme initial", 1 - "raison")
+$
+
+== Tableau cercle trigonométrique
+#table(
+  align: center + horizon,
+  columns: (0.16fr, 0.16fr, 0.16fr, 0.16fr, 0.16fr, 0.16fr),
+  "",[0],[$pi/6$],[$pi/4$],[$pi/3$],[$pi/2$],
+  "cos", [$1$], [$sqrt(3)/2$], [$sqrt(2)/2$], [$1/2$], [$0$],
+  "sin", [$0$], [$1/2$], [$sqrt(2)/2$], [$sqrt(3)/2$], [$1$],
+  "tan", [$0$], [$frac(sqrt(3),3)$], [$1$], [$sqrt(3)$], [non défini]
+)
+
 = Nomenclature
 Pour pouvoir résoudre la fonction:
 $
