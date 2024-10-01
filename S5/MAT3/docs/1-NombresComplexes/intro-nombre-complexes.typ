@@ -1,7 +1,7 @@
 #import "/_settings/typst/template-note.typ": conf
 #show: doc => conf(
   title: [
-    Nombres complexes
+    Introductiona aux nombres complexes
   ],
   lesson: "MAT3",
   chapter: "1 - Nombres Complexes",
@@ -39,8 +39,8 @@ $
 Nous aurons la formule suivante:
 $
 z = a + "bj" \
-a = "Partie réelle et notée" Re(z) \
-b = "Partie imaginaire et notée" Im(z)
+a = "Partie réelle et notée" "Re"(z) \
+b = "Partie imaginaire et notée" "Im"(z)
 $
 
 = Forme cartésienne
@@ -62,7 +62,7 @@ $
 = Conjugé complexes
 Le conjugué d'un nombre complexe est obtenu en changeant le signe de la partie imaginaire. Il est noté: $overline(s)$. De ce fait on peut dire que :
 $
-z * overline(z) = a^2 + b^2
+z * z^* = a^2 + b^2
 $
 cela signifie que nous pouvons obtenir *un nombre réel* en multipliant un nombre complexe par son conjugué.
 
@@ -73,5 +73,23 @@ $
 "Module 1" = a^2 + b^2 = 1
 $
 
+Soit $z$ un nombre compelxe, alors:
+$
+z " est un nombre réel si et seulement si " z = z^* \
+"Re"(z) = frac(z + z^*, 2) \
+"Im"(z) = frac(z - z^*, 2j)
+$
 
-= Plan complexe
+== Utilisation du discriminant
+Regardons maintenant une application aux racines d'un polynôme à coefficients réels d'ordre 2.
+$
+Delta = b^2 - 4"ac"
+$
+On considère uniquement les cas ou $Delta < 0$. Le polymôme est donc irreductible sur $R$ mais est réductible sur $C$. Ses racines sont des nombres comlexes valant:
+$
+z_1 = frac(-b + j*sqrt(-Delta), 2a) " et " z_2 = frac(-b - j*sqrt(-Delta), 2a)
+$
+La décomposition de $P(x)$ sur les complexes donne:
+$
+P(x) = (z - z_1)(z - z_2)
+$
