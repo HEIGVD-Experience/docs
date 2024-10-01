@@ -4,7 +4,7 @@
     Introductiona aux nombres complexes
   ],
   lesson: "MAT3",
-  chapter: "1 - Nombres Complexes",
+  chapter: "2 - Le corps des nombres complexes",
   definition: "",
   col: 1,
   doc,

@@ -4,7 +4,7 @@
     Représentation géométrique et plan de Gauss
   ],
   lesson: "MAT3",
-  chapter: "1 - Nombres Complexes",
+  chapter: "3 - Représentation géométrique et plan de Gauss",
   definition: "Definition",
   col: 1,
   doc,
