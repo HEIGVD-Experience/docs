@@ -44,7 +44,7 @@ avec *$z_2$ non nul*!
 
 Nous aurons la formule suivante:
 $
-frac(r_1,r_2) = frac(r_1,r_2)(cos(Theta_1 - Theta_2) + j*sin(Theta_1 - Theta_2))
+frac(z_1,z_2) = frac(r_1,r_2)(cos(Theta_1 - Theta_2) + j*sin(Theta_1 - Theta_2))
 $
 
 = Puissance avec la forme trigonométrique

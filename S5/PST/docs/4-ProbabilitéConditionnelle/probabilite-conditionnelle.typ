@@ -23,7 +23,32 @@ $
 P(A | B)
 $
 
+= Probabilité conditionnelle
 La formule de base permettant de calculer cette probabilité est:
 $
-P(A | B) = frac(P(A sect B), P(B))
+P(A bar B) = frac(P(A sect B), P(B)), " "P(B) eq.not 0
+$
+
+== Remarques
+$
+P(B bar B) = 1
+$
+
+si $A$ est inclus dans $B$, alors $A sect B = A$ et donc
+$
+P(A bar B) = frac(P(A), P(B))
+$
+
+= Théorème de multiplication
+En utilisant l'inverse de la formule présentée au point 2 nous pouvons retrouver $P(A sect B)$, pour cela nous aurons la formule suivante:
+$
+P(A sect B) =& P(A bar B) * P(B) \
+=& P(B bar A) * P(A)
+$
+
+== Théorème des probabilités totales
+Soient $A$ et $B$ deux événements quelconques. Comme $B$ et $overline(B)$ forment une partition de $Omega$, on aura selon le théorème des probabilités totales,
+$
+P(A) &= P(A bar B) * P(B) + P(A bar overline(B)) * P(overline(B)) \
+&= P(A bar B) * P(B) + P(A bar overline(B)) * P(1 - P(B))
 $
