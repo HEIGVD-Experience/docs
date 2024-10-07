@@ -9,3 +9,10 @@
   col: 1,
   doc,
 )
+
+= Rappel
+À noter que si $"Arg"(z) = alpha$ alors,
+$
+"Arg"(z * j) = "on fait une rotation de " frac(pi, 2) \
+"Arg"(frac(z, j)) = "on fait une rotation de " frac(-pi, 2)
+$
