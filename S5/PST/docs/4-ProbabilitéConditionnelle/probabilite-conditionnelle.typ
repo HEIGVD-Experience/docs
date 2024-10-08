@@ -68,3 +68,57 @@ $
 P(H_j bar B) &= frac(P(H_j sect B), P(B)) \
 &= frac(P(B bar H_j) * P(H_j), P(B bar H_1) * P(H_1) + ... + P(B bar H_k) * P(H_k))
 $
+
+== Filtre bayesien anti-spam
+$
+p_i : "probabilité qu'un mot choisi au hasard dans un message électronique " \ " est le mot " i " en sachat que le mot est un spam." \
+q_i : "probabilité qu'un mot choisi au hasard dans un message électronique " \ " est le mot " i " en sachant que le message n'est pas un spam"
+$
+
+=== Exemple
+$
+M_i : "le mot choisi au hasard dans le message électronique est le mot" i; \
+S : "le message électronique est un spam"
+$
+
+Ainsi,
+$
+p_i = P(M_i bar S) " et " q_i = P(M_i bar overline(S))
+$
+
+Pour illustrer le fonctionnement du filtre bayesien, supposons que la proportion de messages spam d'une certaine compagnie vaut $0.9$ et que pour le mot "hypothèque" noté $1, p_1 = 0.05 " et " q_1 = 0.001$.
+
+Pour ce mot, on a alors
+$
+p_1 = P(M_1 bar S) = 0.05 " et " q_1 = P(M bar overline(S)) = 0.001
+$
+
+Un nouveau message électronique vient d'arriver et le mot "hypothèque" y apparaît exactement une fois. En appliquant le théroème de Bayes, la probabilité que le message électronique soit un spam est
+$
+P(S bar M_1) &= frac(P(M_1 bar S) * P(S), P(M_1 bar S) * P(S) + P(M_1 bar overline(S)) * P(overline(S))) = 0.998
+$
+
+= Indépendance
+L'événement $A$ est *indépendant* de l'événement B si le fait de savoir que $B$ s'est déroulé n'influence pas la probabilité de $A$.
+
+Nous aurons donc
+$
+P(A bar B) = P(A)
+$
+
+Or, par définition d'une probabilité conditionnelle,
+$
+P(A bar B) = frac(P(A sect B), P(B))
+$
+
+Ainsi, on obtient
+$
+P(A) = frac(P(A sect B),P(B)) 
+$
+
+On peut donc dire que $A$ est indépendant de $B$ si
+$
+P(A sect B) = P(A) * P(B)
+$
+
+*Deux événements sont dépendants s'ils ne sont pas indépendants.*
