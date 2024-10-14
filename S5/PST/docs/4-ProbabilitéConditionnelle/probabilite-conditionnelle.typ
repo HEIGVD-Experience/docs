@@ -98,6 +98,15 @@ $
 P(S bar M_1) &= frac(P(M_1 bar S) * P(S), P(M_1 bar S) * P(S) + P(M_1 bar overline(S)) * P(overline(S))) = 0.998
 $
 
+#colbreak()
+
+=== Formules utiles
+Dans le cas ou les événements $M_1$ et $M_2$ sont dit *indépendants* nous aurons,
+$
+P(S bar M_1 sect M_2) &= frac(P(M_1 sect M_2 bar S) * P(S), P(M_1 sect M_2 bar S) * P(S) + P(M_1 sect M_2 bar overline(S)) * P(overline(S))) \ \
+&= frac(P(M_1 bar S) * P(M_2 bar S) * P(S), P(M_1 bar S) * P(M_2 bar S) * P(S) + P(M_1 bar overline(S)) * P(M_2 bar overline(S)) * P(overline(S)))
+$
+
 = Indépendance
 L'événement $A$ est *indépendant* de l'événement B si le fait de savoir que $B$ s'est déroulé n'influence pas la probabilité de $A$.
 
