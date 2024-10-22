@@ -111,7 +111,7 @@ $
 #table(
   align: center + horizon,
   columns: (1fr, 1fr),
-  [$a + "bj"$], [$-a - "bj"$],
+  [$3 + 2j$], [$-3 - 2j$],
   image("/_src/img/docs/image copy 145.png"), image("/_src/img/docs/image copy 146.png")
 )
 
@@ -132,7 +132,7 @@ cela signifie que nous pouvons obtenir *un nombre réel* en multipliant un nombr
 #table(
   align: center + horizon,
   columns: (1fr, 1fr),
-  [$a + "bj"$], [$a - "bj"$],
+  [$3 + 2j$], [$3 - 2j$],
   image("/_src/img/docs/image copy 145.png"), image("/_src/img/docs/image copy 147.png")
 )
 
