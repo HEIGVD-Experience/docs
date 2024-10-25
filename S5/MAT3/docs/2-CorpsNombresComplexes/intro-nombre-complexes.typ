@@ -163,3 +163,70 @@ La décomposition de $P(x)$ sur les complexes donne:
 $
 P(x) = (z - z_1)(z - z_2)
 $
+
+== Discriminant avec $j$
+Dans la situation ou notre $Delta$ est un nombre complexe, nous devons calculer la racine de ce nombre complexe pour avoir les deux possibilités. Pour cela nous devons poser $w^2 = Delta$ puis utiliser les propriétés des nombres complexes pour résoudre une équation à deux inconnues.
+
+=== Exemple
+Cherchons à résoudre l'équation suivante dans $CC$ :
+$
+(1-j)z^2 - 2z + 4-8j = 0 \
+$
+Première chose à faire, cherchons $Delta$ :
+$
+Delta = b^2 - 4a c "ici nous avons " \ 
+a = 1-j, " " b = -2 " et " c = 4-8j \
+Delta = -2^2 - 4(1-j)(4-8j) = 20 + 48j
+$
+Maintenant en déduisant de l'équation $w^2 = 20 + 48j$, nous pouvons en tirer les racines carrées du nombre complexe :
+
+#columns(3)[
+$
+cases(
+"Re"(w^2) &= "Re"(20 + 48j),
+"Im"(w^2) &= "Im"(20 + 48j),
+|w^2| &= |20 + 48j|
+)
+$
+#colbreak()
+#align(center)[
+c.-à-d.
+]
+#colbreak()
+$
+cases(
+a^2 - b^2 &= 20,
+2a b &= 48,
+a^2 + b^2 &= sqrt(20^2 + 48^2) = 52
+)
+$
+]
+#linebreak()
+De ça nous pouvons additionner la première et la dernière équation :
+$
+a^2-b^2+a^2+b^2 &= 20 + 52 \
+2a^2 &= 72 \
+a^2 &= 36 \
+a_(1,2) &= plus.minus 6
+$
+
+Remplacer $a$ dans la deuxième équation :
+$
+2 * 6 * b_1 &= 48 \
+b_1 &= 4 \
+"et" \
+b_2 &= -4
+$
+
+Nous trouvons donc nos deux racines du nombre $w^2$
+$
+delta_1  = 6 + 4j " et " delta_2 = -6 - 4j
+$
+
+Puis utilisons la formule du $Delta$ en remplaçant la partie $sqrt(- Delta)$ par nos deux nombres complexes $delta_1$ et $delta_2$ :
+$
+z_1 = (2+6+4j)/(2-2j) = (8+4j)/(2-2j) = (4+2j)/(1-j) = 1+3j \
+z_2 = (2-6-4j)/(2-2j) = (-4-4j)/(2-2j) = (-2-2j)/(1-j) = (-4j)/2 = -2j
+$
+
+Nous trouvons donc les deux solutions de l'équation $(1-j)z^2 - 2z + 4-8j = 0$ avec les valeurs $z_1 = 1+3j$ et $z_2 = -2j$.
