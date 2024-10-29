@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "exercice_5_synchro_tests",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "exercice_5_synchro_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-exercice_5_synchro_tests-Debug-f9accad0ad32aec2a0b6.json",
+					"name" : "exercice_5_synchro_tests",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/guillaume/Library/CloudStorage/OneDrive-HESSO/HEIG-VD/S5/PCO/files/exercices/ex5/code/cmake-build-debug",
+		"source" : "/Users/guillaume/Library/CloudStorage/OneDrive-HESSO/HEIG-VD/S5/PCO/files/exercices/ex5/code"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

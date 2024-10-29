@@ -1,10 +1,16 @@
-.DS_Store
+# Ignorer tous les fichiers et dossiers dans le dossier files
+*/*/files/*
 
+# Inclure le dossier exercices dans files
+!*/*/files/exercices/
+
+# Ignorer les dossiers spécifiques et fichiers
+.DS_Store
 */*/labs
 */*/*/lectures
 */*/*/project
 */*/vms
-*/*/files
 HEIGVD.code-workspace
 
+# Ignorer les fichiers et dossiers de GitHub
 .github

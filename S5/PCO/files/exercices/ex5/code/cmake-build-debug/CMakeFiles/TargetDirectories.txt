@@ -1,0 +1,3 @@
+/Users/guillaume/Library/CloudStorage/OneDrive-HESSO/HEIG-VD/S5/PCO/files/exercices/ex5/code/cmake-build-debug/CMakeFiles/exercice_5_synchro_tests.dir
+/Users/guillaume/Library/CloudStorage/OneDrive-HESSO/HEIG-VD/S5/PCO/files/exercices/ex5/code/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/guillaume/Library/CloudStorage/OneDrive-HESSO/HEIG-VD/S5/PCO/files/exercices/ex5/code/cmake-build-debug/CMakeFiles/rebuild_cache.dir
