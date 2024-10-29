@@ -9,8 +9,11 @@
 static int nbRuns = 0;
 static PcoMutex mutex;
 
+PcoSemaphore synchroSemaphore(0);
+
 void taskRunSemaphore(int id) {
     // TODO : Wait here to start
+    synchroSemaphore.acquire();
 
     mutex.lock();
     nbRuns ++;
@@ -34,8 +37,9 @@ TEST(Synchro, Semaphore)
     EXPECT_EQ(nbRuns, 0);
 
     // TODO : Release the threads
-
-
+    for(int i = 0; i < NB_THREADS; i++) {
+        synchroSemaphore.release();
+    }
 
     for (int i = 0; i < NB_THREADS; i++) {
         threads[i]->join();
@@ -44,8 +48,12 @@ TEST(Synchro, Semaphore)
     EXPECT_EQ(nbRuns, NB_THREADS);
 }
 
+PcoMutex synchroMutex;
+
 void taskRunMutex(int id) {
     // TODO : Wait here to start
+    synchroMutex.lock();
+    synchroMutex.unlock();
 
     mutex.lock();
     nbRuns ++;
@@ -60,6 +68,8 @@ TEST(Synchro, Mutex)
 
     nbRuns = 0;
 
+    synchroMutex.lock();
+
     for (int i = 0; i < NB_THREADS; i++) {
         threads[i] = std::make_unique<PcoThread>(taskRunMutex, i);
     }
@@ -69,7 +79,7 @@ TEST(Synchro, Mutex)
     EXPECT_EQ(nbRuns, 0);
 
     // TODO : Release the threads
-
+    synchroMutex.unlock();
 
 
     for (int i = 0; i < NB_THREADS; i++) {

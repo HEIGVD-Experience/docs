@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="exercice_5_synchro_tests"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="exercice_5_synchro_tests">
+				<Option output="/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/exercice_5_synchro_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 exercice_5_synchro_tests"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="exercice_5_synchro_tests/fast">
+				<Option output="/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/exercice_5_synchro_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 exercice_5_synchro_tests/fast"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/code/main.cpp">
+			<Option target="exercice_5_synchro_tests"/>
+		</Unit>
+		<Unit filename="/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/code/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

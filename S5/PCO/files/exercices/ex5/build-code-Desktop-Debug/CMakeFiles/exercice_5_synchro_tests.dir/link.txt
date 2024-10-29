@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/exercice_5_synchro_tests.dir/main.cpp.o -o exercice_5_synchro_tests  -lpcosynchro -lgtest 
