@@ -52,6 +52,7 @@
     }
 
   if(toc) {
+    colbreak()
     outline(title: "Table des matières", indent: auto)
   }
 
