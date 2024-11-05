@@ -1,3 +1,0 @@
-/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/CMakeFiles/exercice_5_synchro_tests.dir
-/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/CMakeFiles/edit_cache.dir
-/home/reds/Desktop/docs/S5/PCO/files/exercices/ex5/build-code-Desktop-Debug/CMakeFiles/rebuild_cache.dir
