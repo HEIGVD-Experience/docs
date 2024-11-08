@@ -5,7 +5,7 @@
   ],
   lesson: "AMT",
   chapter: "2 - Advanced Java",
-  definition: "Ce document présente des fonctionnalités avancées de Java couramment utilisées dans les environnements d’applications multi-tiers, comme les chargeurs de classes, la réflexion, les proxys, les annotations au moment de l’exécution et les annotations au moment de la compilation.",
+  definition: "Ce document présente des fonctionnalités avancées de Java couramment utilisées dans les environnements d'applications multi-tiers, comme les chargeurs de classes, la réflexion, les proxys, les annotations au moment de l'exécution et les annotations au moment de la compilation.",
   col: 1,
   doc,
 )
