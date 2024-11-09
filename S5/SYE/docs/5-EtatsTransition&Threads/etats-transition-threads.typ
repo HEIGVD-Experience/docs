@@ -97,3 +97,25 @@ void pthread_exit(void *retval);
 ```
 
 = Exécution de threads
+Pour exécuter un thread il faut dans un premier temps créer un identifiant pour le thread avec la ligne de code suivante:
+
+```c
+pthread_t hello_thread;
+```
+
+Pour ensuite démarrer le thread il faut écrire:
+
+```c
+retour = pthread_create(&hello_thread, NULL, fonction, (void *) args)
+```
+
+La commande suivante permet au programme principal d'attendre la fin du thread crée:
+
+```c
+pthread_join(hello_thread, NULL)
+```
+
+== Séquençage des threads
+#image("/_src/img/docs/image copy 169.png")
+
+Dans cet exemple, on remarque que le thread T2 se termine avant le thread T1. Cependant, le premier appel à `pthread_join()` concerne bien le premier thread. Par conséquent, lorsque le thread T2 se termine, le thread principal reste bloqué jusqu'à ce que le thread T1 se termine. Le second appel à `pthread_join()` se fera sans suspension du thread principal, car le thread T2 aura déjà terminé son exécution, et la fonction retournera immédiatement.
