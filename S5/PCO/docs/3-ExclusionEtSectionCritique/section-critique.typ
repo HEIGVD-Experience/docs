@@ -1,7 +1,7 @@
 #import "/_settings/typst/template-note.typ": conf
 #show: doc => conf(
   title: [
-    Exlusion
+    Exclusion et section critiques
   ],
   lesson: "PCO",
   chapter: "3 - Exlusion et Section critique",
