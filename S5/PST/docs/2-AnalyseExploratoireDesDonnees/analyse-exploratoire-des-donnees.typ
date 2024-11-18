@@ -87,3 +87,21 @@ Pour construire les moustache nous devons:
 2. multiplier cette longeur par $1.5$
 3. se placer à la distance calculée des deux extrémités de la boite puis se rapprocher de la boite jusqu'à tomber sur une valeur de l'ensemble de donnée
 
+= Visualisation pour deux variables
+== Covariance
+En prenant 2 variables $X, Y$ dont on dispose de $n$ observations présentées sous la forme de couple de nombre:
+$
+mat(x_1;y_1), mat(x_2;y_2), ..., mat(x_n;y_n)
+$
+
+Pour quantifier le lien existatn entre deux variables, on utilise la *covariance* définie par:
+$
+1 / (n-1) sum_(i=1)^n (x_i - overline(x)) * (y_i - overline(y))
+$
+avec $overline(x)$ vaut la moyenne arithmétique de $x$ et $overline(y)$ vaut la moyenne arithmétique de $y$.
+
+== Coefficiant de corrélation
+Le degré de dépendance linéaire existant entre deux grandeurs $X, Y$ noté $r$ est défini par 
+$
+r = (sum_(i=1)^n (x_i - overline(x)) * (y_i - overline(y))) / sqrt((sum_(i=1)^n x_i^2 - overline(x)^2) * (sum_(i=1)^n y_i^2 - overline(y)^2))
+$
