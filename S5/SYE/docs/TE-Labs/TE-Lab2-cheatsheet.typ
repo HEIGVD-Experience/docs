@@ -104,5 +104,6 @@ int server_create(const int port)
 #linebreak()
 
 7. On ferme le file descriptor `listenfd` car notre connexion est désormais établie et celui-ci ne sert plus. Une fois les affichages fait, on retourne donc la variable `connfd` qui permettera au serveur de discuter avec le client connecté.
-
 ]
+
+= Laboratoire ordonnanceur
