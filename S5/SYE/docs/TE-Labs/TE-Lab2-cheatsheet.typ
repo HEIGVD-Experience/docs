@@ -10,6 +10,42 @@
   doc,
 )
 
+= Théroie
+== Faire un syscall
+=== Fichiers modifiés
+
+so3/include/syscall.h :
+Rôle : Définit les identifiants des appels système.
+Ajout : Ajoutez `#define SYSCALL_FORK2 24`.
+
+so3/include/process.h :
+Rôle : Déclare les fonctions liées à la gestion des processus.
+Ajout : Ajoutez un prototype pour la nouvelle fonction.
+
+so3/kernel/process.c :
+Rôle : Implémente la logique des appels système.
+Ajout : Créez la fonction qui traite la demande. (En faisant comme pour la fonction do_fork)
+
+so3/kernel/syscalls.c :
+Rôle : Gère le dispatch des appels système.
+Ajout : Ajoutez l'association entre l'identifiant et la fonction. (un CASE dans le switch)
+
+usr/lib/libc/include/syscall.h :
+Rôle : Définit les appels système côté utilisateur.
+Ajout : Déclarez une fonction pour l'appel système.
+
+usr/lib/libc/crt0.S :
+Rôle : Code de démarrage des programmes.
+Ajout : Vérifiez le mécanisme d'appel pour votre nouvel identifiant.
+
+=== Cheminement
+
+Définir l'appel système.
+Modifier les fichiers d'en-tête pour ajouter l'identifiant et les prototypes.
+Implémenter la fonction dans process.c.
+Dispatcher l'appel dans syscalls.c.
+Rendre l'appel accessible dans syscall.h.
+Tester le nouvel appel système.
 
 = Laboratoire pipelining
 Ce laboratoire est découpé en deux parties. La première consiste à compter le nombre de lettres dans un texte en utilisant du multi-threading. La seconde partie consiste à implémenter le tag `|` pour utliser des commandes chainées.
