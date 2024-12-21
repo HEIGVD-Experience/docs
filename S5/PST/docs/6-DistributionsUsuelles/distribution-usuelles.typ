@@ -60,6 +60,12 @@ En posant $n = 1$, on obtient la loi de Bernoulli.
 - lancer d'une pièce de monnaie $n$ fois
 - tirage de $n$ cartes
 
+=== Combinaison
+La combinaison de $n$ éléments par $k$ est notée $binom(n, k)$ et est définie par:
+$
+binom(n,k) = frac(n!,k! dot (n-k)!)
+$
+
 #colbreak()
 
 == Loi géométrique
