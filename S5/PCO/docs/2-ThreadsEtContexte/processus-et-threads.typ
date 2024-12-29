@@ -36,7 +36,7 @@
 )
 
 = Anatomie d'un thread
-#rect(fill: gray, width: 100%)[*Un thread est un fil d'exécution dans un processus*]
+#rect(fill: silver, width: 100%)[*Un thread est un fil d'exécution dans un processus*]
 
 - Les threads d'un même processus se partagent l'espace d'adressage du
 processus

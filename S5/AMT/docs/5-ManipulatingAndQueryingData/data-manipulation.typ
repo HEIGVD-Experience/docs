@@ -56,7 +56,7 @@ Voici le schéma construit grâce aux différentes entitées:
 
 Cependant nous remarquons que des tables intermédiraires ont été crée au lieu de faire des relations directes lors ce que nous avons utilisé l'annotation `@OneToMany` ou `@ManyToOne`.
 
-#rect(fill: gray, width: 100%)[*C'est pourquoi il est primordial de dire précisement à l'ORM ce que l'on souhaite comme comportement!*]
+#rect(fill: silver, width: 100%)[*C'est pourquoi il est primordial de dire précisement à l'ORM ce que l'on souhaite comme comportement!*]
 
 Pour corriger l'erreur de création d'une table `person_orders` nous devons préciser sur quelle colonne faire la jointure! Pour cela il faut ajouter l'annotation:
 

@@ -62,7 +62,7 @@ On fera une copie intégrale du processus parent dans le processus fils y compri
   - Pendant l'attente, le processus fils se trouve dans un état « zombie » jusqu'à ce que `waitpid()` soit appelé.
   - *Obligation pour le parent* : le parent doit exécuter `waitpid()` pour supprimer proprement le processus fils du système.
 
-#rect(fill: gray, width: 100%)[*Afin d'éviter l'apparition de processus orphelins, il est nécessaire d'attendre la terminaison des processus-enfants dans tous les cas avec l'appel système «waitpid()», comme le montre le code ci-dessus.*]
+#rect(fill: silver, width: 100%)[*Afin d'éviter l'apparition de processus orphelins, il est nécessaire d'attendre la terminaison des processus-enfants dans tous les cas avec l'appel système «waitpid()», comme le montre le code ci-dessus.*]
 
 == exec()
 - *Appel système `exec()` :*
