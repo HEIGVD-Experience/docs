@@ -5,7 +5,7 @@
   ],
   lesson: "AMT",
   chapter: "8 - Dependency Inversion Principle",
-  definition: "Definition",
+  definition: "Cette note présente le principe d'inversion de dépendance, qui vise à réduire le couplage entre modules en les reliant à des abstractions. Elle met en avant l'importance de l'injection de dépendances pour améliorer la flexibilité et la testabilité des objets. Enfin, elle explique l'inversion de contrôle, où un framework gère la création et le flux des objets.",
   col: 1,
   doc,
 )
