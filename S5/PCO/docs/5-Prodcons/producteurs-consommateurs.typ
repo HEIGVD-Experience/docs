@@ -94,6 +94,7 @@ protected:
  - un pointeur `readPointer` pour la lecture
   - initialisé à 0
 
+== Exemple
 Voici un exemple qui prend en compte la protection de l'accès multiple à la section critique modifiant les variables `readPointer` ainsi que `writePointer`. Pour cela il faut rajouter un sémaphore initalisé à `1`.
 
 ```cpp
@@ -136,3 +137,87 @@ public:
     }
 };
 ```
+
+#colbreak()
+
+== Exemple optimisé
+Dans cet exemple, nous avons une version optimisé en mettant en place un passage de `mutex` entre la méthode `put` et `get`.
+
+```cpp
+#include "abstractbuffer.h"
+#include <pcosynchro/pcosemaphore.h>
+
+template<typename T> class BufferN : public AbstractBuffer<T> {
+protected:
+    std::vector<T> elements;
+    int writePointer, readPointer, nbElements, bufferSize;
+    PcoSemaphore mutex, waitProd, waitConso;
+    unsigned nbWaitingProd, nbWaitingConso;
+
+public:
+
+    BufferN(unsigned int size) : elements(size), writePointer(0),
+                                  readPointer(0), nbElements(0),
+                                  bufferSize(size),
+                                  mutex(1), waitProd(0),waitConso(0),
+                                  nbWaitingProd(0), nbWaitingConso(0) {
+       }
+
+    virtual ~BufferN() {}
+
+    virtual void put(T item) {}
+
+    virtual T get(void) {}
+};
+```
+#linebreak()
+
+#columns(2)[
+  ```cpp
+  virtual void put(T item) {
+    mutex.acquire();
+    if (nbElements == bufferSize) {
+        nbWaitingProd += 1;
+        mutex.release();
+        waitProd.acquire();
+    }
+    elements[writePointer] = item;
+    writePointer = (writePointer + 1)
+                    % bufferSize;
+    nbElements ++;
+    if (nbWaitingConso > 0) {
+        nbWaitingConso -= 1;
+        waitConso.release();
+    }
+    else {
+        mutex.release();
+    }
+  }
+  ```
+  #colbreak()
+  ```cpp
+  virtual T get(void) {
+    T item;
+    mutex.acquire();
+    if (nbElements == 0) {
+        nbWaitingConso += 1;
+        mutex.release();
+        waitConso.acquire();
+    }
+    item = elements[readPointer];
+    readPointer = (readPointer + 1)
+                  % bufferSize;
+    nbElements --;
+    if (nbWaitingProd > 0) {
+        nbWaitingProd -= 1;
+        waitProd.release();
+    }
+    else {
+        mutex.release();
+    }
+    return item;
+  }
+  ```
+]
+
+Dans cet exemple on peut voir que la méthode `put`dans le cas ou des consommateurs attendent, on libère un consommateur et on ne libère pas le mutex. Cela s'applique aussi pour la méthode `get` dans le cas ou des producteurs attendent. Cela permet de réduire le *vérouillage / déverrouillage du mutex*.
