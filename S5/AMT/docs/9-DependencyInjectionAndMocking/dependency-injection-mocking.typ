@@ -218,28 +218,28 @@ Le type de l'événement est défini par le type générique de la classe `Event
 = Mocking
 
 == Concepts clés
-- *Classe sous test :* La classe principale dont le comportement est testé.  
-- *Dépendance :* Une classe dont la classe sous test a besoin pour fonctionner.  
-- *Unit tests :* Vérifient le comportement et les interactions de la classe sous test avec ses dépendances.  
-- *Stub :* Remplacement simplifié d'une dépendance, retournant des valeurs contrôlées pour isoler la classe sous test.  
-- *Mock :* Remplacement avancé d'une dépendance, permettant de vérifier les interactions avec la classe sous test.  
-- *Patron AAA :* Structure typique pour écrire des tests unitaires :  
-  - *Arrange :* Préparation des objets nécessaires.  
-  - *Act :* Invocation de la méthode à tester.  
-  - *Assert :* Vérification des résultats.  
+- *Classe sous test* La classe principale dont le comportement est testé.  
+- *Dépendance* Une classe dont la classe sous test a besoin pour fonctionner.  
+- *Unit tests* Vérifient le comportement et les interactions de la classe sous test avec ses dépendances.  
+- *Stub* Remplacement simplifié d'une dépendance, retournant des valeurs contrôlées pour isoler la classe sous test.  
+- *Mock* Remplacement avancé d'une dépendance, permettant de vérifier les interactions avec la classe sous test.  
+- *Patron AAA* Structure typique pour écrire des tests unitaires :  
+  - *Arrange* Préparation des objets nécessaires.  
+  - *Act* Invocation de la méthode à tester.  
+  - *Assert* Vérification des résultats.  
 
-== *Stubbing :*
-- *Définition :* Technique consistant à remplacer une dépendance par un stub.  
-- *Objectif :* Isoler la classe sous test en contrôlant ses dépendances via des valeurs prédéfinies.  
-- *Exemple :*  
+== *Stubbing*
+- *Définition* Technique consistant à remplacer une dépendance par un stub.  
+- *Objectif* Isoler la classe sous test en contrôlant ses dépendances via des valeurs prédéfinies.  
+- *Exemple*  
   - La classe `GreetingService` dépend de `HelloService`.  
   - Lors du test, `HelloService` est remplacée par un stub qui retourne "Hello".  
   - Cela permet de tester `GreetingService` en isolation.  
 
-== *Mocking :*
-- *Définition :* Technique consistant à remplacer une dépendance par un mock.  
-- *Objectif :* Vérifier les interactions entre la classe sous test et ses dépendances.  
-- *Exemple :*  
+== *Mocking*
+- *Définition* Technique consistant à remplacer une dépendance par un mock.  
+- *Objectif* Vérifier les interactions entre la classe sous test et ses dépendances.  
+- *Exemple*  
   - La classe `NotificationService` dépend de `EmailSender`.  
   - Lors du test, `EmailSender` est remplacé par un mock.  
   - Le test vérifie que `NotificationService` appelle correctement la méthode `sendEmail` du mock.  
