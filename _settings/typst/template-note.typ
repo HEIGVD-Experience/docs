@@ -41,7 +41,7 @@
   
   par(justify: true)[
     #v(15pt)
-    #text(14pt, "Résumé du document", weight: "bold") \
+    #text(14pt, "Abstract", weight: "bold") \
     #text(12pt, definition)
   ]
 
