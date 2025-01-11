@@ -1,10 +1,10 @@
 #import "/_settings/typst/template-note.typ": conf
 #show: doc => conf(
   title: [
-    Title
+    Stockage et système de fichiers
   ],
-  lesson: "Lesson",
-  chapter: "Chapter",
+  lesson: "SYE",
+  chapter: "13 - Stockage et Système de fichiers",
   definition: "Definition",
   col: 1,
   doc,
@@ -48,6 +48,31 @@ L'espace d'adressage d'un FS correspond à un *partition* sur le disque dur.
 #image("../img/image copy 9.png")
 
 = Allocation contiguë
+L'allocation contiguë consiste à allouer un espace de stockage contigu pour un fichier. Cette méthode est simple et efficace, mais elle peut entraîner une fragmentation du disque.
 
+Les blocs sont attribués séquentiellement :
+- Accès aléatoire rapide.
+- Fragmentation externe problématique.
+- Croissance des fichiers impossible.
 
 = Allocation par listes chaînées
+
+Les blocs sont reliés par des pointeurs internes :
+- Optimise l'utilisation de l'espace disque.
+- Adapté à l'accès séquentiel, mais accès direct limité.
+- Risque accru si un bloc est corrompu.
+
+== FAT (File Allocation Table)
+
+La FAT utilise une table pour stocker les pointeurs en dehors des blocs. Elle offre :
+- Une meilleure gestion des pointeurs.
+- Une sécurité accrue en isolant les métadonnées des données utilisateur.
+
+Il existe plusieurs versions de FAT :
+- FAT12 : 12 bits encoder l'adresse du bloc
+- FAT16 : 16 bits encoder l'adresse du bloc
+- FAT32 : 28 bits encoder l'adresse du bloc
+- exFAT
+ - limite théorique pour la taille d'un fichier : $2^64$ octets
+ - taille de grappe maximale : $2^255$ octets
+ - présence d'uen bitmap pour les blocs libres
