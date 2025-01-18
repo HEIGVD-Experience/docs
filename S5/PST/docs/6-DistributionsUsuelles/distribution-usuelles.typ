@@ -122,5 +122,128 @@ Si $lambda = n p$ avec $n$ grand et $p$ petit, alors la loi de Poisson est une a
 
 = Loi continues
 == Loi uniforme
+La loi uniforme est utilisée pour représenter une variable aléatoire continue qui prend ses valeurs dans un intervalle $[a,b]$. On définit une variable aléatoire $X$ qui prend ses valeurs dans l'intervalle $[a,b]$.
+
+La loi uniforme est composée de:
+- deux paramètres $a$ et $b$ qui représentent les bornes de l'intervalle $[a,b]$ avec $a lt b$
+- $H$ l'ensemble des valeurs possibles de $X$ qui est $H = [a,b]$
+- fonction de densité de probabilité
+$
+f_x (u) =
+cases(
+  1/(b-a) &"si " a lt.eq u lt.eq b \
+  0 &"sinon"
+)
+$
+- fonction de répartition
+$
+F_x (x) =
+cases(
+  0 &"si " x lt a \
+  (x-a)/(b-a) &"si " a lt.eq x lt.eq b \
+  1 &"si " x gt b
+)
+$
+
+L'espérance et la variance de la loi uniforme sont respectivement:
+$
+E(X) &= (a+b)/2 \
+"Var"(X) &= (b-a)^2/12
+$
+
+*Notation:* $UU(a,b)$
+
+=== Exemples
+- heure indiquant la fin d'un batch informatique entre son heure de début et une durée maximale de 8 heures
+- choix d'un point sur un segment
+- distance de l'endroit d'une panne à une ville donnée
+
 == Loi exponentielle
+La loi exponentielle est utilisée pour représenter le temps entre deux événements rares consécutifs. On définit une variable aléatoire $X$ qui représente le temps entre deux événements rares consécutifs.
+
+La loi exponentielle est composée de:
+- un paramètre $lambda$ qui représente le taux d'occurrence des événements rares
+- $H$ l'ensemble des valeurs possibles de $X$ qui est $H = [0, +infinity[$
+- fonction de densité de probabilité
+$
+f_x (u) =
+cases(
+  lambda e^(-lambda u) &"si " u gt.eq 0 \
+  0 &"sinon"
+)
+$
+- fonction de répartition
+$
+F_x (x) =
+cases(
+  1 - e^(-lambda x) &"si " x gt.eq 0 \
+  0 &"sinon"
+)
+$
+
+L'espérance et la variance de la loi exponentielle sont respectivement:
+$
+E(X) &= 1/lambda \
+"Var"(X) &= 1/lambda^2
+$
+
+*Notation:* $EE(lambda)$
+
+=== Propriété sans mémoire
+
+- Une variable aléatoire est dite *sans mémoire* si pour tous $s$ et $t$ positifs, 
+$
+P(X gt s + t | X gt t) = P(X gt s)
+$
+
+- Selon la définition des probabilités conditionnelles, la relation est équivalente à
+$
+(P(X gt s + t, X gt t))/(P(X gt t)) = P(X gt s)
+$
+ou encore
+$
+P(X gt s + t) = P(X gt s) dot P(X gt t)
+$
+Puisque 
+$
+e^(-lambda dot (s + t)) =  e^(-lambda s) dot e^(-lambda t)
+$
+
+=== Exemples
+- temps d'attente d'un phénomène poissonnien de taux $lambda$ : temps d'attente du premier événement ou temps entre deux événements consécutifs
+- durée de vie d'un composant électronique
+- durée d'une conversation téléphonique
+
 == Loi normale (Laplace - Gauss)
+La loi normale est utilisée pour représenter une variable aléatoire continue qui suit une distribution symétrique en forme de cloche. On définit une variable aléatoire $X$ qui suit une distribution normale.
+
+La loi normale est composée de:
+- deux paramètres $mu in RR$ et $sigma^2 in RR^+$ qui représentent respectivement la moyenne et l'écart-type de la distribution au carré
+- $H$ l'ensemble des valeurs possibles de $X$ qui est $H = RR$
+- fonction de densité de probabilité
+$
+f_x (u) = 1/(sqrt(2 pi sigma^2)) e^(-((u-mu)^2)/(2sigma^2)), " " -infinity lt u lt infinity
+$
+- fonction de répartition
+$
+F_x (x) = integral_(-infinity)^x f_x (u) d u, " " -infinity lt x lt infinity
+$
+
+L'espérance et la variance de la loi normale sont respectivement:
+$
+E(X) &= mu \
+"Var"(X) &= sigma^2
+$
+
+*Notation:* $NN(mu, sigma^2)$
+
+=== Propriétés
+Les aires des surfaces des graphes de densité valent:
+- 0.683 pour $mu - sigma$ et $mu + sigma$
+- 0.954 pour $mu - 2 sigma$ et $mu + 2 sigma$
+- 0.997 pour $mu - 3 sigma$ et $mu + 3 sigma$
+
+Pour centrer et réduire une variable aléatoire $X$ suivant une loi normale $NN(mu, sigma^2)$, on utilise la variable aléatoire $Z$ suivant une loi normale centrée réduite $NN(0, 1)$:
+$
+Z = (X - mu)/sigma
+$
