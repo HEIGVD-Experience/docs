@@ -55,7 +55,6 @@ Si $sum w_i x_i gt.eq Theta$ alors y = 1, sinon y = -1
 #image("../img/image copy 2.png")
 ]
 
-
 == Séparation Linéaire
 - Le perceptron sépare les données par un hyperplan :
   - 2D : une ligne.
