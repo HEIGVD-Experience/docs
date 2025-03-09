@@ -35,5 +35,5 @@ L'algorithme de Kruskal consisite à  partir d'une forêt vide ne contenant que 
 ==== Algorithme de Prim (1957)
 L'algorithme de Prim consiste à partir d'un arbre vide ne contenant qu'un sommet du graphe puis ajouter progressivement des sommets au graphe en choisissant à chaque fois le sommet le plus proche de l'arbre actuel.
 
-==== Algorithme de Borůvka (1926)
+====q Algorithme de Borůvka (1926)
 L'algorithme de Borůvka consiste à partir d'une forêt vide ne contenant que les sommets du graphe puis diminuer progressivement le nombre de composantes connexes en reliant à chaque fois de la façon la plus économique possible deux composantes de la forêt actuelle.
