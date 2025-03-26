@@ -47,7 +47,7 @@ Si (x1 + x2 + ... + xn) ≥ Θ alors y = 1, sinon y = 0
 
 #columns(2)[
   #linebreak()
-Si $sum w_i x_i gt.eq Theta$ alors y = 1, sinon y = -1
+Si $sum w_i x_i gt.eq Theta "alors" y = 1, "sinon" y = -1$
 
 - Somme pondérée des entrées.
 - Fonction d'activation : discontinue.
@@ -64,7 +64,7 @@ Si $sum w_i x_i gt.eq Theta$ alors y = 1, sinon y = -1
 == Biais
 - Se débarrasse du seuil en ajoutant un poids supplémentaire appelé "biais" :
 
-Si ∑ wixi + w0 ≥ 0 alors y = 1, sinon y = 0
+Si $sum w_i x_i + w_0 gt.eq 0 "alors" y = 1, "sinon" y = 0$
 
 
 == Algorithme d'Apprentissage du Perceptron
@@ -72,23 +72,23 @@ Si ∑ wixi + w0 ≥ 0 alors y = 1, sinon y = 0
 2. Calcul de la sortie `y` pour une entrée `x`.
 3. Mise à jour des poids :
 
-Wj(t+1) = Wj(t) + η(d - y)xj
+$"Wj"(t+1) = "Wj"(t) + mu (d - y)"xj"$
 
 4. Répéter jusqu'à ce que l'erreur soit inférieure à un seuil.
 
 == Descente de Gradient (Widrow-Hoff / Delta Rule)
 - Minimise la fonction d'erreur :
 
-E = 1/2 ∑ (yi - di)²
+$E = frac(1,2) sum ("yi" - "di")^2$
 
 - Mise à jour des poids :
 
-Δwj = η(d - y)xj
+$Delta "wj" = mu(d - y) "xj"$
 
 
 == Fonction d'Activation Sigmoïde
 
-y = 1 / (1 + e^(-Sj))
+$y = frac(1, (1 + e^(-"Sj")))$
 
 - Activation non linéaire souvent utilisée.
 - Autres fonctions courantes : tanh, ReLU.
@@ -99,6 +99,3 @@ y = 1 / (1 + e^(-Sj))
 
 == Problèmes Non-Linéairement Séparables
 - Le perceptron ne peut pas séparer certaines classes avec une ligne simple.
-
-
-Dis-moi si tu veux que j’ajoute ou clarifie des parties spécifiques ! 🚀
