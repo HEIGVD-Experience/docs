@@ -37,6 +37,10 @@ $
 - *Milieu*: nous avons la *couche cachée* avec ses neurones chaqu'un ayant des entrées avec un poid $w$ ainsi qu'un biais $b$.
 - *Droite*: nous avons la *sortie* $y$ qui est le résultat de la somme des entrées multipliées par leurs poids respectifs plus le biais $b$.
 
+= Fonction du MLP
+
+$ Y_k = f  sum_(i) (X_i dot W_"ik" + b_k)  $
+
 == Total des poids
 On somme:
 - Poids d'entrée: $"nb entrée" * "nb neurones"$
@@ -51,6 +55,13 @@ Le nombre d'entrées reflète la complexité du problème (2D x,y = 2 entrées).
 $
 y &= f(w_1 x_1 + w_2 x_2 + w_3 x_3 + b)
 $
+
+= Concept de Momentum
+
+Le momentum est une propriété physique qui permet à un objet ayant une masse de continuer sa trajectoire même lorsqu'une force externe opposée est appliquée.
+
+Dans le contexte des réseaux de neurones, l'idée derrière ce "truc" est d'ajouter un terme de momentum à l'adaptation des poids. Cela permet d'accélérer la convergence du modèle et d'éviter les oscillations lorsque le gradient fluctue de manière importante d'une itération à l'autre.
+
 
 == Backpropagation
 *1. Initialiser aléatoirement les poids.*
@@ -88,14 +99,8 @@ La fonction tangeante hyperbolique est bornée entre $[-1;1]$
 La fonction ReLU est bornée entre $[0;+infinity]$
 
 #important-note[
-  Si plus de deux classes alors il faut utiliser la fonction de sortie *softmax*!
+  Si plus de deux classes en sortie alors il faut utiliser la fonction *softmax*!
 ]
-
-= Concept de Momentum
-
-Le momentum est une propriété physique qui permet à un objet ayant une masse de continuer sa trajectoire même lorsqu'une force externe opposée est appliquée.
-
-Dans le contexte des réseaux de neurones, l'idée derrière ce "truc" est d'ajouter un terme de momentum à l'adaptation des poids. Cela permet d'accélérer la convergence du modèle et d'éviter les oscillations lorsque le gradient fluctue de manière importante d'une itération à l'autre.
 
 = Variantes du calcul du gradient
 
@@ -103,7 +108,7 @@ Dans le contexte des réseaux de neurones, l'idée derrière ce "truc" est d'ajo
 
 2. *Descente de gradient stochastique* : Le gradient est calculé à partir d'un seul échantillon, ce qui accélère les mises à jour mais peut rendre la convergence moins stable.
 
-#image("../img/image copy 5.png")
+#image("../img/image copy 5.png", width: 80%)
 
 = Descente de gradient par mini-batch
 
@@ -135,3 +140,38 @@ L'objectif est de trouver un équilibre entre biais et variance pour minimiser l
 - *Régularisation* : L'ajout d'une pénalité sur la complexité du modèle (comme la régularisation L1 ou L2) aide à limiter les valeurs des poids, réduisant ainsi le risque de surajustement et améliorant la généralisation.
 
 - *Augmentation des données* : En générant artificiellement plus de données d'entraînement par des transformations telles que la rotation, le redimensionnement ou le bruit, on permet au modèle de mieux généraliser en apprenant à partir d'une plus grande variété d'exemples.
+
+
+= Effet du taux d'apprentissage
+#grid(
+  columns: (2fr, 1.5fr),
+  gutter: 10pt,
+  [
+    - Faible taux d'apprentissage (ligne bleue) : Les améliorations semblent linéaires, avec des mises à jour plus petites à chaque itération. Cela permet au modèle de converger lentement, mais avec plus de précision, réduisant le risque de sauter par-dessus un minimum optimal.
+    
+
+  ],
+  image("../img/image copy 9.png", width: 100%)
+)
+    - Haut taux d'apprentissage (ligne verte) : Un taux d'apprentissage élevé permet de réduire rapidement la perte, mais il peut entraîner une convergence trop rapide et "sauter" des minima locaux, ce qui peut conduire à des résultats sous-optimaux. Les mises à jour importantes peuvent faire osciller la perte et l'empêcher d'atteindre un minimum global.
+
+= Cross-Validation
+*Données et Configuration*
+- Total de 1 000 observations
+- 20% réservés pour l'ensemble de test (200 observations)
+- 800 observations pour entraînement et validation
+- Validation croisée 10-fold
+
+*Caractéristiques Principales*
+- Division de la base d'entraînement/validation 10 fois
+- Taille des batchs constante
+- Batch de 80 observations
+- Un batch pour validation, reste pour entraînement
+- Séparation typique : 80/720 observations
+
+*Calculs de Mise à Jour des Poids*
+- Mise à jour des poids : 720 fois
+- Avec un batch de 10 observations : 720/10 = 72 mises à jour
+  
+= Matrice de confusion
+  #image("../img/image copy 10.png")
