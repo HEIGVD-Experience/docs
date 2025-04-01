@@ -61,6 +61,12 @@
     #colbreak()
     #it
   ]
-  
   columns(col, doc)
 }
+
+#let note(body) = block(
+  fill: luma(240),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+)[*Note* #linebreak() #body]
