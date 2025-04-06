@@ -88,8 +88,14 @@ On utilise 3 tableaux :
 - _dfsnum_ : numéros de découverte des sommets
 - _low_ : stocke le plus petit numéro que l'on peut attenindre depuis _u_ *pour l'instant*
 - _scc_ : numéro de la composante fortement connexe du sommet _u_
-1. On numérote les sommets au fur et à mesure de leur visite (_dfsnum_ correspond à la date de début de traitement)
 
+1. Utiliser trois tableaux : _dfsnum_, _low_, et _scc_.
+2. Numéroter les sommets au fur et à mesure de leur visite (_dfsnum_).
+3. Stocker le plus petit numéro atteignable depuis chaque sommet (_low_).
+4. Utiliser une pile pour suivre les sommets de la composante actuelle.
+5. Mettre à jour _low_ pour chaque sommet et ses voisins.
+6. Lorsqu'un sommet est la racine d'une composante fortement connexe, attribuer un numéro de composante (_scc_) et retirer les sommets de la pile.
+7. Répéter jusqu'à ce que tous les sommets soient visités.
 
 == Applications
 - Calcul des composantes fortement connexes d'un graphe orienté
