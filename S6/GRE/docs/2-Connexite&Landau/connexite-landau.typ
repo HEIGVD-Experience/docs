@@ -4,7 +4,7 @@
     Connexité et connexité forte
   ],
   lesson: "GRE",
-  chapter: "3 - Connexité",
+  chapter: "2 - Connexité",
   definition: "Definition",
   col: 1,
   doc,

@@ -4,7 +4,7 @@
     Explorattion des graphes et applications
   ],
   lesson: "GRE",
-  chapter: "4 - Exploration des graphes et application",
+  chapter: "3 - Exploration des graphes et application",
   definition: "Definition",
   col: 1,
   doc,

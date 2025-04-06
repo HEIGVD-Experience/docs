@@ -4,7 +4,7 @@
     Introduction aux graphes
   ],
   lesson: "GRE",
-  chapter: "2 - Représentation et stockage d'un graphe",
+  chapter: "1 - Représentation et stockage d'un graphe",
   definition: "Definition",
   col: 1,
   doc,

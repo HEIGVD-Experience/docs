@@ -4,7 +4,7 @@
     Introduction aux graphes
   ],
   lesson: "GRE",
-  chapter: "1 - Introduction",
+  chapter: "0 - Introduction",
   definition: "Definition",
   col: 1,
   doc,
