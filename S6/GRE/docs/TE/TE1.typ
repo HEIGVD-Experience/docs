@@ -1,7 +1,7 @@
 #import "/_settings/typst/template-te.typ": *
 
 #show: resume.with(
-  "Résumé ARN TE1",
+  "Résumé GRE TE1",
   "Guillaume Trüeb",
   cols: 3
 )
@@ -161,6 +161,8 @@ On utilise 3 tableaux :
 6. Lorsqu'un sommet est la racine d'une composante fortement connexe, attribuer un numéro de composante (_scc_) et retirer les sommets de la pile.
 7. Répéter jusqu'à ce que tous les sommets soient visités.
 
+#image("../img/image copy 22.png")
+
 = Arbre et forêts
 #image("../img/image.png")
 
@@ -193,7 +195,7 @@ Pour appliquer cet algorithme, il faut:
 
 === Complexité
 $
-O (m log n + m n) = = (m n)
+O (m log n + m n) = (m n)
 $
 
 == Algorithme de Prim (1957)
@@ -234,11 +236,12 @@ Une arborescence recouvrante d'un graphe orienté est un arbre recouvrant de $G$
 Une arborescence de poids minimum est une arborescence recouvrante d'un graphe orienté dont le poids est minimal.
 
 == Chu-Liu
+Si anti-arborescence on doit inverser les arcs de l'arborescence recouvrante pour obtenir une anti-arborescence.
 === Idée
-1. Identifier les circuits du graphe
-2. Les regroupers en un seul sommet
+1. Identifier les circuits du graphe en prenant pour chaque sommet le plus petit arc entrant
+2. Si on trouve un circuit, les regroupers en un seul sommet
 3. Tracer les arcs en partant du principe qu'un noeud ne peut avoir qu'un seul arc entrant
- - Pour cela il faut déduire du cout de l'arc entrant dans la composante fortement connexe le poids de l'arc interne à la entrant sur le sommet choisi
+ - Pour cela il faut déduire du cout de l'arc entrant dans la composante fortement connexe le poids de l'arc interne à la entrant sur le sommet choisi *uniquement si on entre dans un circuit*
 4. Répéter jusqu'à ce qu'il n'y ait plus de circuits
 5. Regonfler le graphe au fur et à mesure en gardant uniquement les arcs nécessaires
 
@@ -276,20 +279,16 @@ liste L et les différentes marques. Elle est donc en $O(n)$.
 L'algorithme de Floyd-Warshall se construit avec deux matrices:
 - $W$ qui contient les poids des arcs et $infinity$ si aucune relation n'éxiste entre deux sommets
 - $P$ qui contient les prédécesseurs immédiats de chaque sommet
-
+Si une valeur de la diagonale de $W$ est négative alors il y a circuit négatif, on arrête l'itération.
 === Idée
 1. Initialisation: On initialise la matrice $W$ avec les poids des arcs et la matrice $P$ avec les prédécesseurs immédiats
-2. On fixe la k-ième ligne et colonne de la matrice avec le numéro du sommet puis on regarde si on peut améliorer le poids d'un sommet en passant par le sommet k
+2. On fixe la k-ième ligne et colonne de la matrice avec le numéro du sommet puis on aditionne la valeur de ligne et colonne et si elle est plus petite que la valeur dans la matrice, on la mets à jour.
 3. On répète cette opération pour tous les sommets
 
 === Complexité
 La complexité de l'algorithme de Floyd-Warshall est en $O(n^3)$, où n est le nombre de sommets du graphe. Cette complexité est due à la nécessité d'examiner chaque paire de sommets pour chaque sommet intermédiaire.
 
-== Algorithme de Dantzig
-L'algorithme de Dantzig, comme celui de Floyd-Warshall, calcule les plus courts chemins entre tous les sommets avec une complexité en O(n³) et un espace mémoire en O(n²). Il diffère en calculant les chemins pour un sous-graphe à chaque itération, utilisant les résultats précédents, jusqu'à couvrir tout le graphe.
-
 == Algorithme de Johnson
-
 L'algorithme de Johnson permet le calcul de tous les plus courts chemins dans un réseau, même en présence d'arcs de poids négatif, tout en étant plus efficace que les méthodes de Floyd-Warshall ou Dantzig pour les graphes peu denses.
 
 === Idée
@@ -300,6 +299,8 @@ L'algorithme de Johnson permet le calcul de tous les plus courts chemins dans un
 3. Utiliser cette fonction potentiel pour recalculer les poids des arcs avec une formule qui garantit:
    - Que tous les nouveaux poids sont non négatifs
    - Que les plus courts chemins sont préservés
+   - $c'i j = c i j - (δ j - δ i) = c i j + δ i - δ j$
+   - poids + départ - arrivée
 4. Appliquer l'algorithme de Dijkstra sur ce graphe repondéré pour chaque sommet source
 5. Corriger les distances obtenues pour retrouver les distances réelles dans le graphe d'origine
 
