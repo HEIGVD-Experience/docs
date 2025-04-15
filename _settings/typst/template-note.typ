@@ -70,3 +70,10 @@
   radius: 4pt,
   width: 100%,
 )[*Note* #linebreak() #body]
+
+#let note(title: "Note", body) = block(
+  fill: luma(240),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+)[*#title* #linebreak() #body]
