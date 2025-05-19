@@ -57,10 +57,23 @@
   }
   outline(title: "Table of content", indent: auto)
 
-  show heading.where(level: 1): it => block[
-    #colbreak()
-    #it
-  ]
-  
+  show heading.where(level: 1): it => {
+    colbreak()
+    block[#it]
+  }
   columns(col, doc)
 }
+
+#let note(body) = block(
+  fill: luma(240),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+)[*Note* #linebreak() #body]
+
+#let note(title: "Note", body) = block(
+  fill: luma(240),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+)[*#title* #linebreak() #body]
