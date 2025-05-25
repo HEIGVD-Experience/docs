@@ -39,7 +39,7 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 - *Poids* : durée $d_i$ de la tâche i
 - *Ajouts* : sommet début $a$ et fin $w$ (poids 0)
 
-#image("../img/image copy 30.png", width: 80%)
+#image("../img/image copy 30.png")
 
 == Méthode du chemin critique
 *But* : Identifier les tâches critiques dont tout retard retarde le projet entier
@@ -61,12 +61,14 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 - *Durée projet* : $t_w$ (date plus tôt de fin)
 - *Marge libre tâche i* : $T_i - t_i$ (retard possible sans impact)
 
+#colbreak()
+
 == Composition d'un nœud
 #table(
   align: center + horizon,
   columns: (1fr, 1fr),
-  "Nom/Numéro topologique", "Dates début",
-  "Au plus tôt", "Au plus tard",
+  "Nom des tâches", "Numéros topologiques",
+  "Date de début au plus tôt", "Date de début au plus tard",
 )
 
 = Flots dans un réseau
@@ -76,14 +78,14 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 *Flot compatible* : Respecte capacités et conservation
 *Loi de conservation* : $sum_("entrant") = sum_("sortant")$ (sauf source/puits)
 
-#image("../img/image copy 27.png", width: 70%)
+#image("../img/image copy 27.png")
 
 == Réseau d'augmentation
 *Principe* : Construire graphe permettant d'augmenter le flot
 - *Arcs directs* : $(i,j)$ si $x_(i j) < u_(i j)$, capacité résiduelle = $u_(i j) - x_(i j)$
 - *Arcs inverses* : $(j,i)$ si $x_(i j) > 0$, capacité = $x_(i j)$ (annuler flot)
 
-#image("../img/image copy 28.png", width: 70%)
+#image("../img/image copy 28.png")
 
 == Algorithmes de flot maximum
 
@@ -113,7 +115,7 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 *Capacité coupe* : $sum_((i,j): i in S, j in T) u_(i j)$
 *Théorème Ford-Fulkerson* : Valeur flot max = capacité coupe min
 
-#image("../img/image copy 32.png", width: 70%)
+#image("../img/image copy 32.png")
 
 = Flot maximum à coût minimum
 
@@ -128,7 +130,7 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 *Coût réduit* : $c'_(i j) = c_(i j) + lambda_i - lambda_j$
 *Condition* : Réseau de base sans circuits de coût négatif
 
-#image("../img/image copy 35.png", width: 70%)
+#image("../img/image copy 35.png")
 
 = Applications des flots
 
@@ -139,7 +141,7 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 3. Ajouter puits t relié depuis B (capacité 1)
 4. Flot max = taille couplage max
 
-#image("../img/image copy 34.png", width: 70%)
+#image("../img/image copy 34.png")
 
 == Problème d'affectation linéaire
 *Contexte* : n personnes, n tâches, coût $c_(i j)$ pour personne i sur tâche j
@@ -163,7 +165,7 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 - *Transport* : graphe biparti complet (sources vers puits)
 - *Affectation* : transport avec offres = demandes = 1
 
-#image("../img/image copy 36.png", width: 70%)
+#image("../img/image copy 36.png")
 
 = Types de graphes
 
@@ -179,7 +181,7 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 - $overline(E) = {{u,v} | {u,v} in.not E, u != v "et" u,v in V}$
 - Propriété : $G$ et $overline(G)$ forment partition complète des arêtes
 
-#image("../img/image copy 37.png", width: 60%)
+#image("../img/image copy 37.png")
 
 == Tournois
 *Définition* : Graphe orienté simple où chaque paire sommets reliée par exactement un arc
@@ -195,9 +197,9 @@ Tournoi sans circuits ⟺ matrice adjacence définit ordre strict total
 *Applications* : Modélisation compétitions, classements, votes
 
 == Graphes bipartis
-*Définition* : Graphe $G = (V,E)$ avec $V = A ∪ B$ (A,B disjoints) 
+*Définition* : Graphe $G = (V,E)$ avec $V = A union B$ (A,B disjoints) 
 tel que toute arête relie sommet de A à sommet de B
-*Notation* : $G = (A,B,E)$ ou $G = (A ∪ B, E)$
+*Notation* : $G = (A,B,E)$ ou $G = (A union B, E)$
 
 *Théorème caractérisation* : 
 Graphe biparti ⟺ ne contient aucun cycle de longueur impaire
@@ -208,7 +210,7 @@ Graphe biparti ⟺ ne contient aucun cycle de longueur impaire
 - Nombre arêtes = $r × s$
 - Applications : modélisation relations complètes entre deux ensembles
 
-#image("../img/image copy 38.png", width: 60%)
+#image("../img/image copy 38.png")
 
 == Couplages et chaînes augmentantes
 *Couplage* : Ensemble M ⊆ E d'arêtes sans extrémités communes
@@ -228,7 +230,7 @@ Couplage M maximum ⟺ graphe ne contient aucune chaîne augmentante relative à
 
 *Applications algorithmes* : Base algorithmes hongrois, Blossom
 
-#image("../img/image copy 40.png", width: 70%)
+#image("../img/image copy 40.png")
 
 == Recouvrements et complexité
 *Recouvrement* : Arêtes couvrant tous les sommets
@@ -242,7 +244,7 @@ Couplage M maximum ⟺ graphe ne contient aucune chaîne augmentante relative à
 *Faces* : Régions délimitées par les arêtes (incluant face extérieure)
 *Formule d'Euler* : $n - m + f = 2$ (graphe connexe planaire)
 
-#image("../img/image copy 41.png", width: 70%)
+#image("../img/image copy 41.png")
 
 == Bornes et non-planarité
 *Inégalité générale* (graphes simples connexes, $n >= 3$) :
