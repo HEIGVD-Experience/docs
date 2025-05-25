@@ -3,6 +3,10 @@
   set par(leading: 0.45em)
   set block(above: 0.5em)
 
+  show heading.where(level: 1): it => block[
+    #underline(it)
+  ]
+
   show heading.where(level: 2): it => block[
     #set text(size: 1.1em) 
     #it
