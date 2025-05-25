@@ -10,7 +10,7 @@
   doc,
 )
 
-= Graophes sans circuits et applications
+= Graphes sans circuits et applications
 Les graphes sans circuits parfois appelé *graphes orienté acycliques* jouent un rôle important dans de nombreux problèmes tel que de la gestion de projets complexe, compilation séparée ou encore de l'ordonnancement d'activités.
 
 == Rang
