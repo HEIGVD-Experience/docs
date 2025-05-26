@@ -15,21 +15,27 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 - Permettent d'introduire une notion de *rang* : $"rang"(u) < "rang"(v)$
 
 == Tri topologique (Kahn) - $O(n + m)$
-*But* : Ordonner les sommets en respectant les relations d'ordre (indispensable pour ordonnancement)
-*Applications* : Compilation, gestion projets, détection cycles
-*Principe* : Répéter jusqu'à épuisement des sommets
+- *But* : Ordonner les sommets en respectant les relations d'ordre (indispensable pour ordonnancement)
+- *Applications* : Compilation, gestion projets, détection cycles
+- *Principe* : Répéter jusqu'à épuisement des sommets
 1. Identifier un sommet sans prédécesseurs dans le graphe résiduel
 2. Le numéroter dans l'ordre croissant (rang topologique)
 3. Le supprimer du graphe avec tous ses arcs sortants
-*Propriété* : Si le graphe contient un cycle, l'algorithme s'arrête avant d'avoir numéroté tous les sommets
+- *Propriété* : Si le graphe contient un cycle, l'algorithme s'arrête avant d'avoir numéroté tous les sommets
 
 == Plus court/long chemin - Équation de Bellman
-*Applications* : Ordonnancement projets, optimisation, planification
-*Avantage DAG* : Traitement dans l'ordre topologique, pas d'itérations multiples comme Bellman-Ford classique
-*Plus court chemin* : $lambda_j = min_(i in "Pred"[j])(lambda_i + c_(i j))$ avec $lambda_s = 0$
-*Plus long chemin* : $lambda_j = max_(i in "Pred"[j])(lambda_i + c_(i j))$ avec $lambda_s = 0$
-*Algorithme* : Traiter sommets dans ordre topologique, appliquer équation
-*Complexité* : $O(n + m)$ (une seule passe suffit grâce au DAG)
+- *Applications* : Ordonnancement projets, optimisation, planification
+- *Avantage DAG* : Traitement dans l'ordre topologique, pas d'itérations multiples comme Bellman-Ford classique
+- *Plus court chemin* : 
+ - $
+  lambda_j = min_(i in "Pred"[j])(lambda_i + c_(i j))$ avec $lambda_s = 0
+$
+- *Plus long chemin* : 
+ - $
+ lambda_j = max_(i in "Pred"[j])(lambda_i + c_(i j))$ avec $lambda_s = 0
+ $
+- *Algorithme* : Traiter sommets dans ordre topologique, appliquer équation
+- *Complexité* : $O(n + m)$ (une seule passe suffit grâce au DAG)
 
 = Graphes potentiels-tâches
 
@@ -40,10 +46,11 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 - *Ajouts* : sommet début $a$ et fin $w$ (poids 0)
 
 #image("../img/image copy 30.png")
+#image("../img/image copy 42.png")
 
 == Méthode du chemin critique
-*But* : Identifier les tâches critiques dont tout retard retarde le projet entier
-*Applications* : Gestion de projets, planification industrielle, optimisation
+- *But* : Identifier les tâches critiques dont tout retard retarde le projet entier
+- *Applications* : Gestion de projets, planification industrielle, optimisation
 
 *Phase 1 - Calcul dates au plus tôt* (forward pass) :
 - $t_a = 0$ (début projet)
@@ -61,7 +68,6 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 - *Durée projet* : $t_w$ (date plus tôt de fin)
 - *Marge libre tâche i* : $T_i - t_i$ (retard possible sans impact)
 
-#colbreak()
 
 == Composition d'un nœud
 #table(
@@ -74,9 +80,9 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 = Flots dans un réseau
 
 == Concepts fondamentaux
-*Réseau* : $R = (V, E, c, u)$ avec capacités $u_(i j)$ et coûts $c_(i j)$
-*Flot compatible* : Respecte capacités et conservation
-*Loi de conservation* : $sum_("entrant") = sum_("sortant")$ (sauf source/puits)
+- *Réseau* : $R = (V, E, c, u)$ avec capacités $u_(i j)$ et coûts $c_(i j)$
+- *Flot compatible* : Respecte capacités et conservation
+- *Loi de conservation* : $sum_("entrant") = sum_("sortant")$ (sauf source/puits)
 
 #image("../img/image copy 27.png")
 
@@ -90,29 +96,32 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 == Algorithmes de flot maximum
 
 === Ford-Fulkerson - $O(m f*)$
-*But* : Trouver flot de valeur maximale de source s vers puits t
-*Applications* : Réseau transport, affectation ressources, couplage
-*Principe général* :
+- *But* : Trouver flot de valeur maximale de source s vers puits t
+- *Applications* : Réseau transport, affectation ressources, couplage
+- *Principe général* :
 1. Partir d'un flot initial (souvent flot nul)
 2. Construire réseau d'augmentation du flot actuel
 3. Chercher chemin augmentant de s à t (DFS par exemple)
 4. Si chemin existe : augmenter flot et retour étape 2
 5. Si aucun chemin : flot actuel est optimal
 
-*Terminaison* : Algorithme se termine quand aucun chemin augmentant
-*Complexité* : $O(m f*)$ où $f*$ = valeur flot maximum (non polynomial)
+- *Terminaison* : Algorithme se termine quand aucun chemin augmentant
+- *Complexité* : $O(m f*)$ où $f*$ = valeur flot maximum (non polynomial)
 
 === Edmonds-Karp - $O(m^2 n)$
-*Amélioration de Ford-Fulkerson* : Choix du chemin augmentant
-*Stratégie* : Choisir plus court chemin (nombre d'arcs) via BFS
-*Avantages* :
+- *Amélioration de Ford-Fulkerson* : Choix du chemin augmentant
+- *Stratégie* : Choisir plus court chemin (nombre d'arcs) via BFS
+- *Avantages* :
 - Complexité polynomiale garantie
 - Évite cas pathologiques de Ford-Fulkerson
 - Plus efficace en pratique sur graphes denses
 
 == Coupe et théorème max-flow min-cut
 *Coupe $(S,T)$* : Partition de V avec $s in S, t in T$
-*Capacité coupe* : $sum_((i,j): i in S, j in T) u_(i j)$
+*Capacité coupe* : 
+$
+  sum_((i,j): i in S, j in T) u_(i j)
+$
 *Théorème Ford-Fulkerson* : Valeur flot max = capacité coupe min
 
 #image("../img/image copy 32.png")
@@ -120,15 +129,15 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 = Flot maximum à coût minimum
 
 == Algorithme de Busacker-Gowen
-*But* : Flot de valeur maximale avec coût total minimal
-*Principe* : À chaque itération, saturer le plus court chemin (coût) dans réseau d'augmentation
-*Problème* : Arcs inverses ont coûts négatifs → impossibilité d'utiliser Di jkstra
+- *But* : Flot de valeur maximale avec coût total minimal
+- *Principe* : À chaque itération, saturer le plus court chemin (coût) dans réseau d'augmentation
+- *Problème* : Arcs inverses ont coûts négatifs → impossibilité d'utiliser Dijkstra
 
 == Fonction de potentiel (Edmonds-Karp)
-*Solution* : Transformer les coûts pour éliminer les valeurs négatives
-*Potentiel* : $lambda_i$ = distance depuis s dans réseau actuel
-*Coût réduit* : $c'_(i j) = c_(i j) + lambda_i - lambda_j$
-*Condition* : Réseau de base sans circuits de coût négatif
+- *Solution* : Transformer les coûts pour éliminer les valeurs négatives
+- *Potentiel* : $lambda_i$ = distance depuis s dans réseau actuel
+- *Coût réduit* : $c'_(i j) = c_(i j) + lambda_i - lambda_j$
+- *Condition* : Réseau de base sans circuits de coût négatif
 
 #image("../img/image copy 35.png")
 
@@ -144,9 +153,9 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 #image("../img/image copy 34.png")
 
 == Problème d'affectation linéaire
-*Contexte* : n personnes, n tâches, coût $c_(i j)$ pour personne i sur tâche j
-*Objectif* : Affecter chaque personne à une tâche (coût minimum)
-*Méthode* : Couplage parfait de coût minimum → flot max-coût min
+- *Contexte* : n personnes, n tâches, coût $c_(i j)$ pour personne i sur tâche j
+- *Objectif* : Affecter chaque personne à une tâche (coût minimum)
+- *Méthode* : Couplage parfait de coût minimum → flot max-coût min
 
 == Problème de transbordement
 *Modélisation* : Réseau $R = (V, E, c, u)$
@@ -154,8 +163,14 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 - *Puits* : demande $b_i > 0$  
 - *Transit* : $b_i = 0$
 
-*Équation conservation* : $sum_(j in "Pred"(i)) x_(j i) - sum_(j in "Succ"(i)) x_(i j) = b_i$
-*Condition équilibre* : $sum_(i in V) b_i = 0$
+*Équation conservation* : 
+$
+  sum_(j in "Pred"(i)) x_(j i) - sum_(j in "Succ"(i)) x_(i j) = b_i
+$
+*Condition équilibre* : 
+$
+  sum_(i in V) b_i = 0
+  $
 
 *Transformation en flot max-coût min* :
 1. Source artificielle s → sources (coût 0, capacité = |offre|)
@@ -167,7 +182,7 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 
 #image("../img/image copy 36.png")
 
-= Types de graphes
+= Autres types de graphes
 
 == Graphes complets et complémentaires
 *Graphe complet* $K_n$ : Graphe simple où toute paire sommets distincts reliée
@@ -184,9 +199,9 @@ Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonna
 #image("../img/image copy 37.png")
 
 == Tournois
-*Définition* : Graphe orienté simple où chaque paire sommets reliée par exactement un arc
-*Construction* : Orientation complète d'un graphe complet
-*Propriétés fondamentales* :
+- *Définition* : Graphe orienté simple où chaque paire sommets reliée par exactement un arc
+- *Construction* : Orientation complète d'un graphe complet
+- *Propriétés fondamentales* :
 - Graphe sous-jacent = graphe complet $K_n$  
 - Nombre total d'arcs = $binom(n,2)$
 - Au plus 1 sommet sans prédécesseurs (source)
@@ -212,10 +227,22 @@ Graphe biparti ⟺ ne contient aucun cycle de longueur impaire
 
 #image("../img/image copy 38.png")
 
+== Recouvrements et transversaux
+- *Recouvrement* : Sous-ensemble $R subset.eq E$ d'arêtes tel que chaque sommet du graphe est extrémité d'au moins une arête de R
+- *Problème du recouvrement minimum* : Trouver recouvrement R de cardinal minimal
+
+- *Transversal* : Sous-ensemble $T subset.eq V$ de sommets tel que chaque arête du graphe est incidente avec au moins un sommet de T
+- *Problème du transversal minimum* : Trouver transversal T de cardinal minimal
+
+*Complexité algorithmique* :
+- Recouvrement minimum : *Polynomial* (problème "facile")
+- Transversal minimum : *NP-difficile* (problème "difficile")
+
 == Couplages et chaînes augmentantes
 *Couplage* : Ensemble M ⊆ E d'arêtes sans extrémités communes
 - *Couplage parfait* : Sature tous les sommets du graphe
 - *Couplage maximum* : Cardinal maximal parmi tous couplages possibles
+- *Couplage maximal* : Ne peut être étendu (≠ maximum)
 - *Sommet saturé* : Incident à arête du couplage
 
 *Chaînes alternées* (relativement à couplage M) :
@@ -228,21 +255,33 @@ Chaîne alternée avec extrémités NON saturées par M
 *Théorème de Berge (1957)* - Condition optimalité :
 Couplage M maximum ⟺ graphe ne contient aucune chaîne augmentante relative à M
 
+*Démonstration* :
+- *(⟹)* Si C chaîne augmentante, alors $M' = M triangle.small C$ (différence symétrique) est couplage de cardinal $|M| + 1$
+- *(⟸)* Si M non maximum, ∃ couplage M' avec |M'| > |M|. Dans $M triangle.small M'$, il existe une chaîne alternée avec plus d'arêtes de M' que de M → chaîne augmentante
+
+*Algorithme général de recherche couplage maximum* :
+1. Partir d'un couplage M (souvent vide)
+2. Tant qu'il existe une chaîne augmentante C :
+   a) Trouver chaîne augmentante C
+   b) Remplacer M par $M triangle.small C$ (différence symétrique)
+3. M est maximum
+
+*Cas graphes bipartis* - Construction graphe orienté :
+- Arêtes de M : orientées de B vers A
+- Arêtes hors M : orientées de A vers B
+- Explorer depuis sommets non saturés de A vers sommets non saturés de B
+- Complexité : $O(m n)$ (Hopcroft-Karp : $O(m sqrt(n))$)
+
 *Applications algorithmes* : Base algorithmes hongrois, Blossom
 
 #image("../img/image copy 40.png")
 
-== Recouvrements et complexité
-*Recouvrement* : Arêtes couvrant tous les sommets
-*Transversal* : Sommets couvrant toutes les arêtes  
-*Complexité* : Recouvrement min = polynomial, Transversal min = NP-difficile
-
 = Graphes planaires
 
 == Définitions et formule d'Euler
-*Planaire* : Représentable sur le plan sans croisements d'arêtes
-*Faces* : Régions délimitées par les arêtes (incluant face extérieure)
-*Formule d'Euler* : $n - m + f = 2$ (graphe connexe planaire)
+- *Planaire* : Représentable sur le plan sans croisements d'arêtes
+- *Faces* : Régions délimitées par les arêtes (incluant face extérieure)
+- *Formule d'Euler* : $n - m + f = 2$ (graphe connexe planaire)
 
 #image("../img/image copy 41.png")
 
@@ -267,5 +306,31 @@ $m <= 2n - 4$
 - $K_(3,3)$ : $n=6, m=9$ mais $9 not<= 2(6)-4 = 8$ → non planaire
 
 *Théorème de Kuratowski (1930)* :
-*Subdivision* : Graphe obtenu en insérant sommets au milieu d'arêtes
-*Théorème* : Graphe planaire ⟺ ne contient aucune subdivision de $K_5$ ou $K_(3,3)$
+- *Subdivision* : Graphe obtenu en insérant sommets au milieu d'arêtes
+- *Théorème* : Graphe planaire ⟺ ne contient aucune subdivision de $K_5$ ou $K_(3,3)$
+
+== Contraintes graphes potentiels-tâches
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#rotate(image("../img/image copy 43.png", width: 130%), 270deg)
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#linebreak()
+#rotate(image("../img/image copy 44.png", width: 150%), 270deg)
