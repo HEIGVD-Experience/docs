@@ -69,11 +69,24 @@
   inset: 8pt,
   radius: 4pt,
   width: 100%,
-)[*Note* #linebreak() #body]
+)[*#underline(title)* #linebreak() #body]
 
 #let note(title: "Note", body) = block(
   fill: luma(240),
   inset: 8pt,
   radius: 4pt,
   width: 100%,
-)[*#title* #linebreak() #body]
+)[*#underline(title)* #linebreak() #body]
+
+#let attention(title: "Attention", body) = block(
+  fill: rgb("#fffacd"),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+)[
+  #set text(fill: rgb("ff9500"))
+  *#underline(title)*
+  #set text(fill: black)
+  #linebreak() 
+  #body
+]
