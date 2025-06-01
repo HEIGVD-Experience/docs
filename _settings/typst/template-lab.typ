@@ -33,8 +33,8 @@
   set align(center + horizon)
 
   par()[
-    #text(18pt, title) \
-    #text(14pt, lesson, weight: "bold") \
+    #text(14pt, lesson, weight: "bold") \ \
+    #text(18pt, title) \ \
     #text(14pt, lab)
   ]
 
@@ -56,10 +56,10 @@
     outline(title: "Table des matières", indent: auto)
   }
 
-  show heading.where(level: 1): it => block[
-    #colbreak()
-    #it
-  ]
+  show heading.where(level: 1): it => {
+    colbreak()
+    block[#it]
+  }
   
   columns(col, doc)
 }
