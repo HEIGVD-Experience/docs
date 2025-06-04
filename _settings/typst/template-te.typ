@@ -3,24 +3,29 @@
   set par(leading: 0.45em)
   set block(above: 0.5em)
 
-  show heading.where(level: 1): it => block[
-    #underline(it)
+  show heading.where(level: 1): it => block(
+    fill: luma(240),
+    stroke: 0.5pt + black,
+    inset: 4pt,
+    width: 100%,
+    radius: 3pt,
+    breakable: true
+    )[
+    #it
   ]
 
-  show heading.where(level: 2): it => block[
+  show heading.where(level: 2): it => block(breakable: true)[
     #set text(size: 1.1em) 
     #it
   ]
 
-  show heading.where(level: 3): it => [
+  show heading.where(level: 3): it => block(breakable: true)[
     #set text(size: 1.1em)
-    #set par(leading: 0pt)
     #set block(above: 0.5em)
     #it
   ]
-  show heading.where(level: 4): it => [
+  show heading.where(level: 4): it => block(breakable: true)[
     #set text(size: 1em)
-    #set par(leading: 0pt)
     #set block(above: 0.5em)
     #it
   ]
@@ -46,29 +51,13 @@
       #v(5pt)
     ],
     header-ascent: 0%,
-    footer-descent: 20%,
-    columns: cols,
-    margin: (x: 8mm, top: 14mm, bottom: 14mm),
+    footer-descent: 40%,
+    columns: (cols),
+    margin: (x: 5mm, top: 14mm, bottom: 14mm),
     numbering: "1/1"
   )
 
   doc
-}
-
-#let plus = (content) => {
-  set list(marker: block(width: 0.5em)[
-    #set align(center)
-    #text(green.darken(50%))[*+*]
-  ])
-  content
-}
-
-#let bad = (content) => {
-  set list(marker: block(width: 0.5em)[
-    #set align(center)
-    #text(red.darken(50%))[*-*]
-  ])
-  content
 }
 
 #let note(body) = block(
@@ -96,4 +85,16 @@
   #set text(fill: black)
   #linebreak() 
   #body
+]
+
+#let zone(content) = block(
+  stroke: 0.5pt + black,
+  inset: 8pt,
+  radius: 3pt,
+  width: 100%,
+  above: 0.8em,
+  below: 0.8em,
+  breakable: true,
+)[
+  #content
 ]

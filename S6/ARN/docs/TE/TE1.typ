@@ -6,13 +6,6 @@
   cols: 2
 )
 
-#let important-note(body) = block(
-  fill: luma(240),
-  inset: 8pt,
-  radius: 4pt,
-  width: 100%,
-)[*Note* #linebreak() #body]
-
 = Pré-traitement
 Lorsque les variables ont des plages de valeurs très différentes (par exemple $"VAR1" in [-2, 4]$ et $"VAR2" in [0.7, 1.3]$), la normalisation devient cruciale pour éviter qu'une variable ne domine excessivement l'analyse, en rééquilibrant leur influence relative.
 
@@ -98,7 +91,7 @@ La fonction tangeante hyperbolique est bornée entre $[-1;1]$
 ==== ReLU
 La fonction ReLU est bornée entre $[0;+infinity]$
 
-#important-note[
+#note[
   Si plus de deux classes en sortie alors il faut utiliser la fonction *softmax*!
 ]
 
