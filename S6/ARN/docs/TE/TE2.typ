@@ -30,6 +30,10 @@ Permet de détecter des motifs sur toutes les images d'entrées
 Statistiques récapitulatives de la détection des motifs
 #image("../img/image copy 14.png", width: 90%)
 
+#attention[
+Dans le cas d'un *Global average pooling*, on calcule la moyenne de chaque carte de caractéristiques au lieu de prendre le maximum.
+]
+
 
 == CNN shallow
 - *Structure* : 1 à 3 couches convolutionnelles et de pooling.
@@ -50,6 +54,11 @@ Statistiques récapitulatives de la détection des motifs
   [*ReLU*], [*Leaky ReLU*],
   [$g(z) = max(0, z)$], [$g(z) = max(0.01 times z, z)$]
 )
+
+#note[
+  Dès 2006, l'utilisation de la fonction *Leaky ReLU* à été popularisée pour les CNN, car elle permet de résoudre le problème de la disparition du gradient (Vanishing gradient) rencontré avec les fonctions d'activation sigmoïde et tanh.
+]
+
 == Stride et padding
 - *Stride*: déplacement du filtre lors de la convolution. Un stride de 1 signifie que le filtre se déplace d'un pixel à la fois, tandis qu'un stride de 2 signifie qu'il se déplace de deux pixels.
 - *Padding*: ajout de pixels autour de l'image pour contrôler la taille de la sortie.
@@ -66,6 +75,7 @@ Statistiques récapitulatives de la détection des motifs
 5. Dernière couche L3, il y a 64 images de 7x7 pixels
 6. Nb neurones cachés en L4 _Dense_ = 25
 7. Nb poids reliant L4 à L5 = 14425
+9. Taille du filtre en L1 = 5x5 pixels
 
 Nb paramètres en L1
 - il y a un filtre de 5x5 pixels (9), avec 16 images d'entrée (10) + 16 donc $5 * 5 * 16 + 16 = 416$
@@ -105,6 +115,7 @@ Nb paramètres en L4
 - *Comment* : Classification d'images, reconnaissance d'objets
 - *Contexte* : Applications nécessitant une haute précision et une efficacité computationnelle
 - *Pourquoi* : Efficacité et capacité à capturer des motifs à différentes échelles
+- *Inception* : Utilisation de plusieurs tailles de filtres en parallèle pour capturer des motifs à différentes échelles
 
 *ResNet (2015)*\ 
 - *Quoi* : Un CNN très profond avec des connexions résiduelles pour éviter la dégradation des performances
@@ -128,38 +139,39 @@ Nb paramètres en L4
 #zone[
 = Transfert learning
 == Principe du Transfer Learning
-Réutiliser un modèle pré-entraîné (ex: sur ImageNet) pour une nouvelle tâche.
-Motivation : Un modèle entraîné sur une grande base de données a appris des caractéristiques générales utiles pour d'autres tâches.
+- Réutiliser un modèle pré-entraîné (ex: sur ImageNet) pour une nouvelle tâche.
+- Motivation : Un modèle entraîné sur une grande base de données a appris des caractéristiques générales utiles pour d'autres tâches.
 == Étapes du Transfer Learning
 === 1. Chargement du modèle pré-entraîné
 
-Utiliser un modèle entraîné sur une grande base (ImageNet : 1000 objets, 1000 images/catégorie)
-Garder l'architecture des couches convolutionnelles
+- Utiliser un modèle entraîné sur une grande base (ImageNet : 1000 objets, 1000 - images/catégorie)
+- Garder l'architecture des couches convolutionnelles
 
 === 2. Freeze des couches
 
-Geler les premières couches (caractéristiques générales)
-Les poids ne sont pas mis à jour pendant l'entraînement
-Garde les détecteurs de caractéristiques de bas niveau
+- Geler les premières couches (caractéristiques générales)
+- Les poids ne sont pas mis à jour pendant l'entraînement
+- Garde les détecteurs de caractéristiques de bas niveau
 
 === 3. Modification de la sortie
 
-Remplacer la dernière couche dense
-Adapter au nombre de classes de la nouvelle tâche
-Exemple : ImageNet (1000 classes) → COVID detection (2 classes)
+- Remplacer la dernière couche dense
+- Adapter au nombre de classes de la nouvelle tâche
+- Exemple : ImageNet (1000 classes) → COVID detection (2 classes)
 
 === 4. Fine-tuning
-Option A : Entraîner seulement les dernières couches
-Option B : Dégeler quelques couches et entraîner avec un petit learning rate
-Stratégie : Plus on a de données, plus on peut dégeler de couches
+- Option A : Entraîner seulement les dernières couches
+- Option B : Dégeler quelques couches et entraîner avec un petit learning rate
+- Stratégie : Plus on a de données, plus on peut dégeler de couches
 == Avantages du Transfer Learning
 
-Moins de données nécessaires : Peut fonctionner avec des milliers au lieu de millions d'images
-Convergence plus rapide : Initialisation intelligente des poids
-Meilleures performances sur petits datasets
-Économie de ressources : Pas besoin de réentraîner depuis zéro
+- Moins de données nécessaires : Peut fonctionner avec des milliers au lieu de millions d'images
+- Convergence plus rapide : Initialisation intelligente des poids
+- Meilleures performances sur petits datasets
+- Économie de ressources : Pas besoin de réentraîner depuis zéro
 
 #image("../img/image copy 12.png")
+#image("../img/image copy 21.png")
 ]
 
 #zone[
@@ -186,43 +198,38 @@ Les attaques adversariales exploitent les faiblesses des CNN en ajoutant des per
 
 == Techniques Contre le Surapprentissage
 === 1. Réduction du Nombre de Paramètres
-Principe : Modèle plus simple → moins de risque de surapprentissage
-Méthodes :
-
-Réduire le nombre de couches
-Réduire le nombre de filtres par couche
-Utiliser des filtres plus petits
-Architectures plus efficaces (EfficientNet)
+- Principe : Modèle plus simple → moins de risque de surapprentissage
+- Méthodes :
+ - Réduire le nombre de couches
+ - Réduire le nombre de filtres par couche
+ - Utiliser des filtres plus petits
+ - Architectures plus efficaces (EfficientNet)
 
 === 2. Data Augmentation
-Transformations géométriques :
+- Transformations géométriques :
+ - Rotation : $[x', y'] = [x cos θ - y sin θ, x sin θ + y cos θ]$
+ - Translation : $[x', y'] = [x + Delta x, y + Delta y]$
+ - Zoom/Recadrage et retournement
 
-Rotation : $[x', y'] = [x cos θ - y sin θ, x sin θ + y cos θ]$
-Translation : $[x', y'] = [x + Delta x, y + Delta y]$
-Zoom/Recadrage et retournement
-
-Transformations colorimétriques :
-
-Modification luminosité/contraste
-Perturbation des canaux RGB
-Ajout de bruit
+- Transformations colorimétriques :
+ - Modification luminosité/contraste
+ - Perturbation des canaux RGB
+ - Ajout de bruit
 
 Effet : Augmente artificiellement la taille du dataset d'entraînement
 === 3. Dropout
-Principe : Désactiver aléatoirement des neurones pendant l'entraînement
-Implémentation : Avec probabilité p (ex: 0.5), mettre le neurone à 0
-Effet : Force le réseau à ne pas dépendre d'un seul neurone, améliore la généralisation
-Usage : Principalement dans les couches denses, moins dans les couches convolutionnelles
+- Principe : Désactiver aléatoirement des neurones pendant l'entraînement
+- Implémentation : Avec probabilité p (ex: 0.5), mettre le neurone à 0
+- Effet : Force le réseau à ne pas dépendre d'un seul neurone, améliore la généralisation
+- Usage : Principalement dans les couches denses, moins dans les couches convolutionnelles
 === 4. Early Stopping
-Principe : Arrêter l'entraînement quand la performance sur validation cesse de s'améliorer
-Surveillance : Suivre l'erreur de validation à chaque époque
+- Principe : Arrêter l'entraînement quand la performance sur validation cesse de s'améliorer
+- Surveillance : Suivre l'erreur de validation à chaque époque
 Implémentation : Patience (nombre d'époques sans amélioration avant arrêt)
 === 5. Régularisation L1/L2
-L1 : $"Loss" = "Loss_original" + lambda sum |w_i|$
-L2 : $"Loss" = "Loss_original" + lambda sum w_i^2$
-Effet : Pénalise les poids trop importants, favorise la simplicité
-
-
+- L1 : $"Loss" = "Loss_original" + lambda sum |w_i|$
+- L2 : $"Loss" = "Loss_original" + lambda sum w_i^2$
+- Effet : Pénalise les poids trop importants, favorise la simplicité
 ]
 
 #zone[
@@ -271,5 +278,4 @@ Dans le cas ou nous souhaitons calculer le nombre de paramètres d'un MLP pour t
 $
   "Total" = 28 * 28 * 25 + 25 ("biais") \ + 25 * 10 + 10 ("biais") = 19885
 $
-
 ]
