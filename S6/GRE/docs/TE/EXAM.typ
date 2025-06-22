@@ -240,28 +240,32 @@ Dans des réseaux, il se peut que l'on trouve des circuits à coût négaitf. Pa
 L'algorithme de Bellman-Ford est un algorithme de recherche d'un plus court chemin dans un graphe orienté. Il est capable de gérer les circuits absorbants.
 
 === Idée
-1. Initialisation: La distance de la source à elle-même est 0, et la distance vers tous les autres sommets est considérée comme infinie au départ
-2. Relaxation des arêtes: Pour chaque arête du graphe, vérifier si on peut améliorer le chemin connu vers sa destination en passant par cette arête
-3. Répéter cette vérification (n-1) fois, où n est le nombre de sommets, pour garantir que tous les plus courts chemins sont trouvés
-4. Détection des circuits problématiques: Si après toutes ces vérifications on peut encore améliorer un chemin, cela signifie qu'il existe un circuit de poids négatif dans le graphe
+1. *Initialisation*: distance source à elle-même est 0, distance vers autres = infinie au départ
+2. *Relaxation des arêtes*: pour chaque arête du graphe, vérifier si on peut améliorer le chemin connu vers sa destination en passant par cette arête
+ - Répéter cette vérification (n-1) fois, où n est le nombre de sommets, pour garantir que tous les plus courts chemins sont trouvés
+4. *Détection des circuits problématiques*: Si après toutes ces vérifications on peut encore améliorer un chemin, cela signifie qu'il existe un circuit de poids négatif dans le graphe
 
 #image("../img/image copy 20.png")
+
+== #highlight(fill: yellow)[Algorithme de Belleman-Ford-Yens]
+Au lieu de traiter les arcs nous traitons les sommets. L'algorithme s'arrête lors-ce que la *File* est vide ou que l'on a fait $n$ itérations.
+
+=== Idée
+1. On part du sommet 0 (la source) distance vers 1 est 0, vers les autres sommets infinie
+2. On utilise 0 comme sentinelle pour ajouter les prochains sommets à traiter après la sentinelle
+3. On traite les sommets un par un en mettant à jour la distance vers les sommets voisins jusqu'à atteindre la sentinelle, itération + 1, on remet la sentinelle à 0 et on résume le traitement de l'itération avant de passer à l'itération suivante
+
+#image("../img/image copy 46.png")
+#image("../img/image copy 47.png")
 
 == #highlight(fill: yellow)[Algorithme de Dijkstra]
 L'algorithme de Dijkstra se rapproche de l'algorithme de Prim il existe cependant une différence majeure: 
 - *Prim* coût depuis le parent direct
 - *Dijkstra* coût depuis la source en comprenant tous les sommets intermédiaires qui sont déjà dans l'arborescence actuelle
-
-
 === Complexité
-La similitude entre les algorithmes de Prim et de Dijkstra s'étend également à la complexité des deux algorithmes qui est la même et dépend, rappelons-le, de la structure utilisée pour stocker et gérer la liste L.
-
-- La complexité de l'algorithme de Dijkstra est en $O(n²)$ si L est gérée à l'aide d'un tableau contenant les priorités λ, les prédécesseurs immédiats p et une marque précisant si un sommet est encore dans L ou non.
+- La complexité de l'algorithme de Dijkstra est en $O(n²)$ si L est gérée à l'aide de tableaux.
 - Elle est en $O(m log n)$ si L est une queue de priorité simple (un tas binaire).
 - Elle est en $O(m + n log n)$ si L est gérée à l'aide d'un tas de Fibonacci.
-
-La complexité spatiale additionnelle est égale à l'espace nécessaire pour stocker la
-liste L et les différentes marques. Elle est donc en $O(n)$.
 
 == #highlight(fill: yellow)[Algorithme de Floyd-Warshall]
 L'algorithme de Floyd-Warshall se construit avec deux matrices:
@@ -274,7 +278,7 @@ Si une valeur de la diagonale de $W$ est négative alors il y a circuit négatif
 3. On répète cette opération pour tous les sommets
 
 === Complexité
-La complexité de l'algorithme de Floyd-Warshall est en $O(n^3)$, où n est le nombre de sommets du graphe. Cette complexité est due à la nécessité d'examiner chaque paire de sommets pour chaque sommet intermédiaire.
+La complexité de l'algorithme de Floyd-Warshall est en $O(n^3)$.
 
 == #highlight(fill: yellow)[Algorithme de Johnson]
 L'algorithme de Johnson permet le calcul de tous les plus courts chemins dans un réseau, même en présence d'arcs de poids négatif, tout en étant plus efficace que les méthodes de Floyd-Warshall ou Dantzig pour les graphes peu denses.
@@ -293,17 +297,7 @@ L'algorithme de Johnson permet le calcul de tous les plus courts chemins dans un
 5. Corriger les distances obtenues pour retrouver les distances réelles dans le graphe d'origine
 
 === Complexité
-- Construction du réseau auxiliaire: $O(n)$
-- Calcul des potentiels avec Bellman-Ford: $O(m n)$
-- Calcul des nouveaux poids: $O(m)$
-- Calcul des plus courts chemins avec Dijkstra: $O(m n + n² log n)$
-- Correction des distances: $O(n²)$
 - Complexité totale: $O(m n + n² log n)$
-
-=== Avantages
-- Particulièrement efficace pour les graphes peu denses ($m ∈ O(n)$) avec une complexité de $O(n² log n$)
-- Capable de gérer les arcs de poids négatif (tant qu'il n'y a pas de circuit absorbant)
-- Combine les avantages de Bellman-Ford (pour gérer les arcs négatifs) et de Dijkstra (pour l'efficacité)
 
 = Graphes sans circuits et applications
 Les graphes sans circuits (*DAG*) sont essentiels en gestion de projets, ordonnancement et compilation.
@@ -570,20 +564,20 @@ Couplage M maximum ⟺ graphe ne contient aucune chaîne augmentante relative à
 
 #image("../img/image copy 40.png")
 
-= Graphes planaires
+= Graphes Planaires
+- *Graphe planaire* : Graphe admettant une représentation sur le plan où les arêtes ne se coupent pas (sauf aux extrémités).
+- *Faces* : Régions connexes créées par le découpage du plan par les arêtes d'un graphe planaire.
+== Formule d'Euler
+Pour tout graphe planaire connexe : $ n - m + f = 2 $
+$n$ = nombre de sommets, $m$ = nombre d'arêtes , $f$ = nombre de faces
 
-== Définitions et formule d'Euler
-- *Planaire* : Représentable sur le plan sans croisements d'arêtes
-- *Faces* : Régions délimitées par les arêtes (incluant face extérieure)
-- *Formule d'Euler* : $n - m + f = 2$ (graphe connexe planaire)
+=== Graphes simples connexes
+Pour $n >= 3$ sommets : $ m <= 3n - 6 $
+
+=== Graphes bipartis connexes
+Pour $n >= 4$ sommets : $ m <= 2n - 4 $
 
 #image("../img/image copy 41.png")
-
-== Bornes et non-planarité
-- *Inégalité générale* (graphes simples connexes, $n >= 3$) :
-$m <= 3n - 6$
-- *Formule Euler *: $f = 2 - n + m$
-- *Substitution* : $3(2-n+m) <= 2m$ → $m <= 3n-6$
 
 = Graphes Eulériens
 *Définitions:* 
@@ -591,7 +585,7 @@ $m <= 3n - 6$
 - Chemin/circuit eulérien passe 1 fois par chaque arc. 
 - Graphe eulérien possède cycle/circuit eulérien.
 
-*Observation:* Cycle arrive/repart même nb fois → tous sommets degré ***pair*** si eulérien.
+*Observation:* Cycle arrive/repart même nb fois → tous sommets degré *pair* si eulérien.
 
 == Caractérisations
 #note(title: "Non orienté")[
@@ -619,15 +613,8 @@ Sinon → dédoubler certaines arêtes, minimiser somme longueurs dédoublées.
 
 = Graphes Hamiltoniens
 *Définitions:* Chaîne/chemin hamiltonien passe 1 fois par chaque sommet. Cycle/circuit hamiltonien idem fermé. Graphe hamiltonien possède cycle/circuit hamiltonien.
-
-Chaîne hamiltonienne = chaîne élémentaire longueur n-1 (n sommets).
-
-#note[
-Recherche chemin hamiltonien: problèmes ordonnancement n tâches avec contraintes antériorité (pas exécution simultanée).
-]
-
-== Voyageur de commerce (TSP)
-Plus court circuit hamiltonien dans graphe (généralement complet) pondéré. Optimisation combinatoire.
+- Graphes $K_n$ est hamiltonien pour $n >= 3$.
+- Graphes bipartis complets $K_(r,s)$ est hamiltonien si $min(r,s) >= 2$ et $r = s$
 
 == Contraintes graphes potentiels-tâches
 #linebreak()
@@ -640,7 +627,6 @@ Plus court circuit hamiltonien dans graphe (généralement complet) pondéré. O
 #linebreak()
 #linebreak()
 #rotate(image("../img/image copy 43.png", width: 130%), 270deg)
-#linebreak()
 #linebreak()
 #linebreak()
 #linebreak()
