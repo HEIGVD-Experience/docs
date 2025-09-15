@@ -26,6 +26,22 @@
     numbering: "1/1"
   )
 
+  set align(left)
+  set heading(numbering: "1.")
+  show outline.entry.where(
+      level: 1
+    ): it => {
+      v(10pt, weak: true)
+      strong(it)
+  }
+
+  outline(title: "Table des matières", indent: auto)
+
+  show heading.where(level: 1): it => {
+    colbreak()
+    block[#it]
+  }
+
   doc
 }
 
