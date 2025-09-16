@@ -1,7 +1,7 @@
 #import "/_settings/typst/template-qk-note.typ": *
 #show: doc => conf(
   title: [
-    Introduction au Machine Learning
+    Sécurité logicielle haut niveau
   ],
   lesson: "SLH",
   col: 1,

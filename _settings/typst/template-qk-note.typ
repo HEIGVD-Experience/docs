@@ -16,7 +16,7 @@
         #author
         #colbreak()
         #set align(right)
-        #datetime.today().display("[month]-[year]")
+        #lesson - #title
       ]
       #v(13pt)
     ],
