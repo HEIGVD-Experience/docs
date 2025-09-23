@@ -89,3 +89,13 @@
 )[
   #content
 ]
+
+#let img(path, title, width: 100%) = figure(caption: title)[
+  #image("../../" + path, width: width)
+]
+
+#let heigimg(path, title, width: 100%) = img(
+  path,
+  "Capture des slides de cours correspondant - " + title,
+  width: width
+)
