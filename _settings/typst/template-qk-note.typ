@@ -96,6 +96,6 @@
 
 #let heigimg(path, title, width: 100%) = img(
   path,
-  "Capture des slides de cours correspondant - " + title,
+  "Capture des slides du cours - " + title,
   width: width
 )
