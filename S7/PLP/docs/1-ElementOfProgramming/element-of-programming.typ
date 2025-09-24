@@ -131,7 +131,7 @@ L'opérateur `:` est associatif à droite, donc `1 : 2 : 3 : []` est équivalent
   - *Homogènes*: Tous les éléments d'une liste doivent être du même type.
 ]
 
-== Operateur de construction
+== List construction
 L'opérateur de construction de liste `:` (cons) est utilisé pour ajouter un élément au début d'une liste. Il prend un élément et une liste, et retourne une nouvelle liste avec l'élément ajouté en tête.
 
 ```hs
@@ -140,7 +140,7 @@ numbers = 1 : (2 : (3 : (4 : [])))
 empty = []
 ```
 
-== Operateur standard
+== Standard list operators
 Haskell fournit plusieurs opérateurs standard pour manipuler les listes:
 
 - `length xs` : Retourne la longueur de la liste `xs`.
@@ -240,8 +240,53 @@ Les déclarations locales dans les compréhensions de liste permettent de défin
 ```
 
 = Pattern Matching
+Le pattern matching (ou correspondance de motifs) est une technique utilisée en programmation fonctionnelle pour décomposer des structures de données et extraire leurs composants. En Haskell, le pattern matching est souvent utilisé dans les définitions de fonctions pour traiter différents cas en fonction de la forme des arguments.
 
+```haskell
+fib 0 = 0
+fib 1 = 1
+fib n = fib (n-1) + fib (n-2)
+```
 
+Quand on parle de `Pattern Matching`, on parle principalement d'équations. Dans la cas de fibonnaci, nous avons trois équations. Les deux premières sont des cas triviales (cas de base), tandis que la troisième est un cas récursif.
+
+#hint[
+  Les différentes équations doivent toutes être définies avec les mêmes paramètres (ici `n`) et être de même type de retour (ici `Int`).
+]
+
+== Default case
+Il est possible de définir un cas par défaut en utilisant la variable `_`, qui peut correspondre à n'importe quelle valeur. Cela est utile pour gérer les cas non spécifiés explicitement.
+
+```haskell
+vowel 'a' = True
+vowel 'e' = True
+vowel 'i' = True
+vowel 'o' = True
+vowel 'u' = True
+vowel 'y' = True
+vowel _ = False
+```
+
+== Pattern Matching avec les listes
+Le pattern matching peut également être utilisé pour décomposer des listes en utilisant les opérateurs `:` (cons) et `[]` (liste vide).
+
+```haskell
+head (x:_) = x
+tail (_:xs) = xs
+```
+
+== Case expressions
+Les expressions `case` permettent de faire du pattern matching de manière plus explicite et flexible.
+
+```haskell
+describeList xs = case xs of
+  [] -> "The list is empty."
+  [x] -> "The list has one element: " ++ show x
+  (x:y:_) -> "The list has multiple elements, starting with: " ++ show x ++ " and " ++ show y
+```
+
+== Non-exhaustive patterns
+Lorsque le pattern matching ne couvre pas tous les cas possibles, une erreur d'exécution peut se produire. Il est important de s'assurer que toutes les possibilités sont prises en compte pour éviter des comportements inattendus.
 
 = Recursion
 == Fonction a recursivité terminale
