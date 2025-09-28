@@ -49,7 +49,7 @@ où
 <name> := <value>
 ```
 
-#attention()[
+#warning()[
 	La seconde méthode fonctionne uniquement pour une variable locale muable.
 ]
 
@@ -168,7 +168,7 @@ func divide(a int, b int) (int, error) {
 }
 ```
 
-#note()[
+#info()[
 	En Go, il est aussi possible d'utiliser de donner qu'un seul type à plusieurs paramètres consécutifs:
 	```Go
 	func add(a, b int) int {
@@ -254,7 +254,7 @@ var fred = Person{age: 99, name: "fred"} // {"fred", 99}
 var fred = Person{name: "fred"} // {"fred", 0}
 ```
 
-#note[
+#info[
 	*Note*: les règles d'export s'appliquent aux champs: pour qu'un champ soit public en dehors du package, il doit commencer par une majuscule.
 ]
 
@@ -272,4 +272,14 @@ func (p Person) Majeur() bool {
 }
 
 if fred.Majeur() {}
+```
+
+== Interfaces
+Une interface est un ensemble de méthodes. Un type implémente une interface s'il possède toutes les méthodes de l'interface.
+```Go
+type <interface_name> interface {
+	<method1>(<parameters>) <return_types>
+	<method2>(<parameters>) <return_types>
+	//...
+}
 ```
