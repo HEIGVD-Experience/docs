@@ -8,7 +8,7 @@
   doc,
 )
 
-= 15.09.2025
+= Simulation
 == Pourquoi simuler un système?
 La simulation permet de modéliser le comportement d'un système réel, souvent complexe. Cependant, elle présente plusieurs difficultés:
 - le choix, la conception et la validation d’un modèle sont autant d’étapes délicates
@@ -18,9 +18,13 @@ La simulation permet de modéliser le comportement d'un système réel, souvent 
 - l’analyse statistique des résultats doit être faite avec rigueur
 - la convergence est parfois (voire souvent) lente
 
-#note[
+#info[
   Pour obtenir des résultats corrects et suffisamment précis, la simulation est *gourmande en temps* de conception, de développement, de validation et de calcul.
 ]
 
 == Génération de nombres aléatoires
 Un ordinateur étant déterministe, il ne peut pas générer de nombres aléatoires. On utilise donc des *pseudo-nombres aléatoires* (PRNG: Pseudo-Random Number Generator) qui sont générés par des algorithmes à partir d'une *graine* (seed). Si on utilise la même graine, on obtient la même séquence de nombres pseudo-aléatoires.
+
+= Génération de nombres aléatoires
+
+= Génération de varibales aléatoires
