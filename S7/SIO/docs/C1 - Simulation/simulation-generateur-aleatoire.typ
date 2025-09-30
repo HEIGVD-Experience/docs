@@ -28,3 +28,6 @@ Un ordinateur étant déterministe, il ne peut pas générer de nombres aléatoi
 = Génération de nombres aléatoires
 
 = Génération de varibales aléatoires
+
+== Méthode des rejets
+La méthode des rejets permet de générer des variables aléatoires suivant une distribution donnée en utilisant une distribution de référence plus simple. On génère des points aléatoires dans un espace englobant la fonction de densité cible et on rejette ceux qui ne satisfont pas la condition.
