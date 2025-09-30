@@ -1,14 +1,14 @@
 #import "/_settings/typst/template-qk-note.typ": *
 #show: doc => conf(
   title: [
-    Sécurité logicielle haut niveau
+    Introduction
   ],
   lesson: "SLH",
   col: 1,
   doc,
 )
 
-= 15.09.2025
+= Introduction
 == Risque sur validation mot de passe
 ```java
 boolean isEqual = userhash.length() == hash.length();
@@ -18,7 +18,7 @@ for (int i = 0; i != userhash.length(); i++) {
 return isEqual;
 ```
 
-#attention[
+#warning[
   - Le code `indexOf` fait une recherche il aurait fallut utiliser `charAt`
 ]
 
@@ -30,7 +30,7 @@ On développe sans se soucier de la sécurité, puis on corrige les failles au f
 Utilisation de couche de sécurité pour protéger les systèmes critiques. Par exemple, un pare-feu pour protéger un réseau interne. Firewall, WAF, SIEM, zerotrust...
 
 === Meilleur approche
-#image("img/image.png")
+#image("../img/image.png")
 Plus les erreurs arrivent tôt dans le cycle de développement, plus elles sont couteuses à corriger.
 
 === 7 royaumes
