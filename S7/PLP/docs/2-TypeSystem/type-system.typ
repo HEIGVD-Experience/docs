@@ -90,3 +90,12 @@ head :: [a] -> a
 head (x:_) = x
 ```
 Si on appelle `head []`, cela entraînera une erreur d'exécution.
+
+= Classes de types
+Les classes de types en Haskell sont un mécanisme qui permet de définir des interfaces pour les types. Une classe de type est une collection de types qui partagent certaines opérations ou comportements. Par exemple, la classe de type `Num` regroupe tous les types numériques et définit des opérations comme l'addition et la multiplication.
+
+```haskell
+(==) :: Eq a => a -> a -> Bool   // doit être une instance de la classe Eq
+(+) :: Num a => a -> a -> a      // doit être une instance de la classe Num (Int, Float)
+show :: Show a => a -> String    // doit être une instance de la classe Show
+```
