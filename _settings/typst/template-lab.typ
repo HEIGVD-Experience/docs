@@ -1,3 +1,5 @@
+#import "infobox.typ": *
+
 #let conf(
   title: none,
   lesson: none,
