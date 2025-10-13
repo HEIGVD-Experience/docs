@@ -2,100 +2,237 @@
 
 #let conf(
   title: none,
-  lesson: none,
-  author: "Guillaume T.",
+  course: none,
+  author: "Guillaume Trüeb",
+  date: none,
+  toc: true,
   col: 1,
   doc,
 ) = {
-  set text(font: "Times New Roman")
-  set page("a4",
-    header: [
-      #columns(2)[
-        #set align(left)
-        #set text(size: 12pt)
-        #author
-        #colbreak()
-        #set align(right)
-        #lesson - #title
-      ]
-      #v(13pt)
-    ],
-    header-ascent: 0%,
-    footer-descent: 20%,
-    margin: (x: 14mm, top: 14mm, bottom: 14mm),
-    numbering: "1/1"
+  
+  // Configuration de base du document
+  set text(
+    font: "New Computer Modern",  // ou "Times New Roman"
+    size: 11pt,
+    lang: "fr"
   )
+  
+  set document(
+    title: title,
+    author: author
+  )
+  
+  // Configuration de la page
+  set page(
+    "a4",
+    margin: (x: 2cm, top: 2cm, bottom: 2cm),
+    numbering: "1 / 1",
+    number-align: center,
+    
+    // En-tête
+    header: context {
+      set text(size: 9pt, style: "italic")
+      grid(
+        columns: (1fr, 1fr),
+        align: (left, right),
+        [#author],
+        [#course -- #title]
+      )
+      line(length: 100%, stroke: 0.5pt)
+    },
+    header-ascent: 15%,
+    footer-descent: 15%,
+  )
+  
+  // Configuration des paragraphes
+  set par(justify: true, leading: 0.65em)
+  
+  // ============================================
+  // EN-TÊTE DU DOCUMENT
+  // ============================================
+  
+  set align(center)
+  
+  // Cours
+  if course != none {
+    v(1em)
+    text(size: 12pt, weight: "semibold")[#course]
+    v(0.3em)
+  }
+  
+  // Titre
+  if title != none {
+    text(size: 16pt, weight: "bold")[#title]
+    v(0.4em)
+  }
+  
+  // Date
+  if date != none {
+    text(size: 10pt, style: "italic")[#date]
+  } else {
+    text(size: 10pt, style: "italic")[
+      #datetime.today().display("[day] [month repr:long] [year]")
+    ]
+  }
+  
+  v(1.5em)
   
   set align(left)
-  set heading(numbering: "1.")
   
-  // Stylisation des blocs de code inline
+  // ============================================
+  // CONFIGURATION DES TITRES
+  // ============================================
+  
+  set heading(numbering: "1.1")
+  
+  show heading.where(level: 1): it => {
+    if it.body != [Table des matières] and col == 1 {
+      colbreak()
+    }
+
+    set text(size: 14pt, weight: "bold")
+    block(above: 1.2em, below: 0.8em)[
+      #if it.numbering != none {
+        counter(heading).display(it.numbering)
+        h(0.5em)
+      }
+      #it.body
+    ]
+  }
+  
+  show heading.where(level: 2): it => {
+    set text(size: 12pt, weight: "semibold")
+    block(above: 1em, below: 0.6em)[
+      #if it.numbering != none {
+        counter(heading).display(it.numbering)
+        h(0.5em)
+      }
+      #it.body
+    ]
+  }
+  
+  show heading.where(level: 3): it => {
+    set text(size: 11pt, weight: "semibold", style: "italic")
+    block(above: 0.8em, below: 0.5em)[
+      #if it.numbering != none {
+        counter(heading).display(it.numbering)
+        h(0.5em)
+      }
+      #it.body
+    ]
+  }
+  
+  // ============================================
+  // CODE INLINE ET BLOCS
+  // ============================================
+  
+  // Code inline
   show raw.where(block: false): it => box(
-    fill: rgb("#f7f6f6"), // Gris solide sans transparence
-    inset: (x: 3pt, y: 1pt),
-    radius: 4pt,
-    text(
-      font: "Courier New", // Police monospace
-      size: 1em,
-      fill: rgb("#000000"), // Noir pur et opaque
-      it
-    )
+    fill: luma(245),
+    inset: (x: 3pt, y: 0pt),
+    outset: (y: 3pt),
+    radius: 2pt,
+    text(font: "Fira Code", size: 0.9em)[#it]
   )
   
-  // Stylisation des blocs de code multiligne
+  // Blocs de code
   show raw.where(block: true): it => block(
-    fill: rgb("#f7f6f6"), // Gris très clair solide
-    stroke: 1pt + rgb("#d0d0d0"), // Bordure grise solide
+    fill: luma(245),
+    stroke: 0.5pt + luma(200),
     inset: 10pt,
-    radius: 4pt,
+    radius: 3pt,
     width: 100%,
     above: 0.8em,
     below: 0.8em,
     breakable: true,
   )[
-    #set text(
-      font: "Courier New", // Police monospace
-      size: 1em,
-      fill: rgb("#000000") // Noir pur et opaque
-    )
+    #set text(font: "Fira Code", size: 0.9em)
     #it
   ]
   
-  show outline.entry.where(
-    level: 1
-  ): it => {
-    v(10pt, weak: true)
-    strong(it)
+  // ============================================
+  // CONFIGURATION DES LISTES
+  // ============================================
+  
+  set list(indent: 1em, body-indent: 0.5em)
+  set enum(indent: 1em, body-indent: 0.5em)
+  
+  // ============================================
+  // CONFIGURATION DES FIGURES
+  // ============================================
+  
+  show figure: it => {
+    set align(center)
+    it.body
+    v(0.5em)
+    set text(size: 10pt, style: "italic")
+    it.caption
   }
   
-  outline(title: "Table des matières", indent: auto)
+  // ============================================
+  // TABLE DES MATIÈRES
+  // ============================================
   
-  show heading.where(level: 1): it => {
-    colbreak()
-    block[#it]
+  if toc {
+    show outline.entry.where(level: 1): it => {
+      v(10pt, weak: true)
+      strong(it)
+    }
+    
+    outline(
+      title: [Table des matières],
+      indent: auto,
+      depth: 3
+    )
+
+    if( col > 1 ) {
+      pagebreak()
+    }
+
+    
+    v(1.5em)
   }
   
-  doc
+  // ============================================
+  // CONTENU PRINCIPAL
+  // ============================================
+  
+  if col > 1 {
+    columns(col, doc)
+  } else {
+    doc
+  }
 }
 
-#let zone(content) = block(
-  stroke: 0.5pt + black,
-  inset: 8pt,
+// ============================================
+// FONCTIONS UTILITAIRES
+// ============================================
+
+// Zone de texte encadrée simple
+#let zone(body) = block(
+  fill: luma(250),
+  stroke: 0.5pt + luma(180),
+  inset: 10pt,
   radius: 3pt,
   width: 100%,
   above: 0.8em,
   below: 0.8em,
   breakable: true,
-)[
-  #content
-]
+)[#body]
 
-#let img(path, title, width: 100%) = figure(caption: title)[
-  #image("../../" + path, width: width)
-]
-
-#let heigimg(path, title, width: 100%) = img(
-  path,
-  "Capture des slides du cours - " + title,
-  width: width
+// Insertion d'image avec légende
+#let img(path, caption, width: 100%) = figure(
+  image(path, width: width),
+  caption: caption
 )
+
+// Image depuis les slides de cours HEIG
+#let heigimg(path, caption, width: 100%) = figure(
+  image("../../" + path, width: width),
+  caption: [Capture des slides du cours -- #caption]
+)
+
+// Référence à une figure
+#let figref(label) = {
+  link(label)[Figure~@#label]
+}
