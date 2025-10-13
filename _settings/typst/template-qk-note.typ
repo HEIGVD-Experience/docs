@@ -121,6 +121,17 @@
       #it.body
     ]
   }
+
+  show heading.where(level: 4): it => {
+    set text(size: 11pt, weight: "semibold", style: "italic")
+    block(above: 0.6em, below: 0.4em)[
+      #if it.numbering != none {
+        counter(heading).display(it.numbering)
+        h(0.5em)
+      }
+      #it.body
+    ]
+  }
   
   // ============================================
   // CODE INLINE ET BLOCS
@@ -182,7 +193,7 @@
     outline(
       title: [Table des matières],
       indent: auto,
-      depth: 3
+      depth: 10
     )
 
     if( col > 1 ) {
