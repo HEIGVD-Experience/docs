@@ -1,9 +1,10 @@
 #import "/_settings/typst/template-qk-note.typ": *
 #show: doc => conf(
-  title: [
-    Simulation et optimisation
-  ],
-  lesson: "SIO",
+  title: "Simulation et générateurs",
+  course: "SIO - Simulation et optimisation",
+  author: "Guillaume Trüeb",
+  date: "15 septembre 2025",
+  toc: true,
   col: 1,
   doc,
 )
@@ -31,3 +32,7 @@ Un ordinateur étant déterministe, il ne peut pas générer de nombres aléatoi
 
 == Méthode des rejets
 La méthode des rejets permet de générer des variables aléatoires suivant une distribution donnée en utilisant une distribution de référence plus simple. On génère des points aléatoires dans un espace englobant la fonction de densité cible et on rejette ceux qui ne satisfont pas la condition.
+
+= Méthode de Monte-Carlo
+
+= Intégration et réducation de variance
