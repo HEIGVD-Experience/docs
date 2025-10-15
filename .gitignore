@@ -4,8 +4,9 @@
 # Ignorer les dossiers spécifiques et fichiers
 .DS_Store
 */*/labs
-*/*/*/lectures
-*/*/*/project
+*/*/files/lectures
+*/*/files/project
+*/*/files/other
 */*/vms
 HEIGVD.code-workspace
 SE
