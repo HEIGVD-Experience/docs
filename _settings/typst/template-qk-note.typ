@@ -143,7 +143,7 @@
     inset: (x: 3pt, y: 0pt),
     outset: (y: 3pt),
     radius: 2pt,
-    text(font: "Fira Code", size: 0.9em)[#it]
+    text(font: "Courier New", size: 0.9em)[#it]
   )
   
   // Blocs de code
@@ -157,7 +157,7 @@
     below: 0.8em,
     breakable: true,
   )[
-    #set text(font: "Fira Code", size: 0.9em)
+    #set text(font: "Courier New", size: 0.9em)
     #it
   ]
   
