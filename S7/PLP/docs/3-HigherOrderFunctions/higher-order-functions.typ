@@ -1,9 +1,7 @@
 #import "/_settings/typst/template-qk-note.typ": *
 #show: doc => conf(
-  title: [
-    Higher Order Functions
-  ],
-  lesson: "PLP",
+  title: "Higher Order Functions",
+  course: "PLP",
   col: 1,
   doc,
 )

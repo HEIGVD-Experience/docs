@@ -1,9 +1,7 @@
 #import "/_settings/typst/template-qk-note.typ": *
 #show: doc => conf(
-  title: [
-    Element of Programming
-  ],
-  lesson: "PLP",
+  title: "Element of Programming",
+  course: "PLP",
   col: 1,
   doc,
 )
