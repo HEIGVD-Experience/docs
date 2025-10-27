@@ -1,9 +1,10 @@
 #import "/_settings/typst/template-qk-note.typ": *
 #show: doc => conf(
-  title: [
-    Mutex par jetons
-  ],
-  lesson: "SDR",
+  title: "Mutex par jetons",
+  course: "SDR - Systèmes Distribués et Repartis",
+  author: "Guillaume Trüeb",
+  date: "13 octobre 2025",
+  toc: true,
   col: 1,
   doc,
 )

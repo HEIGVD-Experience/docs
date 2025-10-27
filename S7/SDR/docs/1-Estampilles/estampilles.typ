@@ -1,9 +1,10 @@
 #import "/_settings/typst/template-qk-note.typ": *
 #show: doc => conf(
-  title: [
-    Horloges logiques
-  ],
-  lesson: "SDR",
+  title: "Horloges logiques",
+  course: "SDR - Systèmes Distribués et Repartis",
+  author: "Guillaume Trüeb",
+  date: "13 octobre 2025",
+  toc: true,
   col: 1,
   doc,
 )
@@ -42,6 +43,7 @@ Une idée serait d'utiliser une horloge locale pour chaque processus, qui s'incr
 
 #heigimg("S7/SDR/docs/img/image copy 3.png", "Risque d'utilisation d'horloges locales")
 
+#colbreak()
 == Horloge de Lamport
 Pour résoudre ce problème, Lamport propose un algorithme d'horloge logique qui utilise des horloges locales, mais ajoute des règles pour garantir l'ordre des événements à travers les processus.
 
