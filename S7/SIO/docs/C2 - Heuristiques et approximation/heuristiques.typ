@@ -70,6 +70,67 @@ Les heuristiques d'amélioration ou dite d'échange, partent d'une solution admi
 == Coloration d'un graphe
 Soit $G = (V, E)$ un graphe non orienté. Une *coloration* de $G$ est une affectation de couleurs aux sommets de $G$ telle que deux sommets adjacents n'ont pas la même couleur. Le but est de minimiser le nombre de couleurs utilisées.
 
+== Heuristique LF (largest-first)
+Cette heuristique consiste à ordonner les sommets par ordre décroissant de degré et à les colorier dans cet ordre.
+
+Il s'agit d'une des approches algorithmiques les plus simples.
+
+#warning[
+  *Comme toutes les colorations gloutonnes*, cette heuristique utilise au plus $Delta(G) + 1$ couleurs pour un graphe G dont le degré maximal des sommets est $Delta(G)$.
+]
+
+=== Exemple
+#heigimg("S7/SIO/docs/img/image.png", "Exemple de la heuristique LF")
+
+== Heuristique SL (smallest-last)
+Cette heuristique consiste à colorier le plus petit sommet (de degré minimal) dans le sous-graphe restant, puis à le retirer du graphe. On répète ce processus jusqu'à ce que tous les sommets soient colorés.
+
+La coloration séquentielle du graphe s'effectue ensuite dans l'ordre inverse de suppression des sommets.
+
+=== Exemple
+#heigimg("S7/SIO/docs/img/image copy.png", "Exemple de la heuristique SL")
+
+== Heuristiques DSATUR
+L'heuristique DSATUR (Degree of Saturation) consiste à colorier les sommets en fonction de leur degré de saturation, c'est-à-dire le nombre de couleurs différentes déjà utilisées par leurs voisins.
+
+#info[
+  L'algorithme commence par affecter une couleur au sommet de degré maximal. Ensuite, à chaque étape, il choisit le sommet non colorié avec le plus grand degré de saturation et lui attribue la couleur la plus basse possible.
+]
+
+#quote[
+  Le degré de saturation d'un sommet est le nombre de *couleurs différentes* utilisées par ses *voisins déjà coloriés*.
+]
+
+=== Exemple
+#heigimg("S7/SIO/docs/img/image copy 2.png", "Exemple de la heuristique DSATUR")
+
+#heigimg("S7/SIO/docs/img/image copy 3.png", "Exemple 2 de la heuristique DSATUR")
+
+== Heuristiques RLF (recursive largest-first)
+L'heuristique RLF (Recursive Largest First) est une méthode de coloration de graphe qui construit séquentiellement une partition du graphe en sous-ensembles stables ${C_1,...,C_k}$, chaque ensemble $C_i$ stable recevant la couleur $i$
+
+=== Pseudo-code
+```
+Debut
+(1) Déterminer le sommet v ∈ V de degré maximal dans G
+(2) Poser C := {v}, U := Adj[v] et
+      W := V \ (Adj[v] ∪ {v}) // Retirer v et ses voisins de l’ensemble V
+(3) Tant que W n’est pas vide faire
+(4)   Déterminer le sommet w ∈ W ayant un nombre maximal de voisins dans U
+        // w est le sommet ayant le plus de voisins communs
+        // avec les sommets déjà dans C =⇒ on l’ajoute à C
+(5)   Poser C := C ∪ {w}, U := U ∪ Adj[w] et
+        W := W \ (Adj[w] ∪ {w}) // Retirer w et ses voisins de W
+(6) Retourner C
+Fin
+```
+
+== Remarques sur les performances
+1. Les quatre heuristiques de coloration séquentielle présentées utilisent au plus ∆(G) + 1 couleurs pour un graphe G dont le degré maximal des sommets est ∆(G).
+2. Cette performance n’est pas spécifique aux méthodes présentées mais est vérifiée par tous les algorithmes de coloration gloutonne.
+3. Les heuristiques DSATUR et RLF sont optimales pour les graphes bipartis (elles n’utilisent jamais plus de deux couleurs pour colorier de tels graphes).
+4. Les performances empiriques des quatre méthodes correspondent à leur ordre de présentation, les deux dernières étant souvent clairement supérieures aux deux premières en pratique mais également plus lentes à s’exécuter et plus gourmandes en espace mémoire.
+
 = Heuristiques pour le TSP
 
 = Heuristiques d'échanges
