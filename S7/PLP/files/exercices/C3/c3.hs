@@ -16,3 +16,18 @@ sortBy' comparator xs = foldl insertBy [] xs
 all' :: (a -> Bool) -> [a] -> Bool
 all' _ [] = True
 all' comp (x:xs) = comp x && all' comp xs
+
+-- Exercice 4
+-- Implement the following standard higher-order functions in Haskell using the foldr and foldl functions
+-- map
+map' :: (a -> b) -> [a] -> [b]
+map' fn = foldr (\x acc -> fn x : acc) []
+
+-- filter
+filter' :: (a -> Bool) -> [a] -> [a]
+filter' fn = foldr (\x acc -> if fn x then x : acc else acc) []
+
+-- reverse
+reverse' :: [a] -> [a]
+reverse' = foldl (\x acc -> acc : x) []
+
