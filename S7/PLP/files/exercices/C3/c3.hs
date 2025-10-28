@@ -27,7 +27,22 @@ map' fn = foldr (\x acc -> fn x : acc) []
 filter' :: (a -> Bool) -> [a] -> [a]
 filter' fn = foldr (\x acc -> if fn x then x : acc else acc) []
 
--- reverse
+-- reverse  
 reverse' :: [a] -> [a]
 reverse' = foldl (\x acc -> acc : x) []
 
+-- maximum
+maximum' :: (Ord a) => [a] -> a
+maximum' (x:xs) = foldl max x xs
+
+
+-- Exercice 5
+f :: Eq a => a -> [a] -> Int
+f x = length . filter (== x)
+
+-- Exercice 6
+-- Reimplement the minimum function from the Haskell standard library using continuation-passing style (CPS).
+minimum' :: Ord a => [a] -> (a -> r) -> r
+minimum' [] k = error "Empty list has no minimum"
+minimum' [x] k = k x
+minimum' (x:xs) k = minimum' xs (\minRest -> k (min x minRest))

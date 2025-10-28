@@ -148,3 +148,13 @@ La composition de fonctions est une technique qui permet de combiner plusieurs f
 filter (odd . fst) [(65, "A"), (66, "B"), (67, "C")]
 // Résultat : [(65,"A"),(67,"C")]
 ```
+
+= Continuation-passing style (CPS)
+Le style de passage de continuation (CPS) est une technique de programmation où les fonctions ne retournent pas directement des valeurs, mais prennent une fonction supplémentaire (la continuation) qui spécifie ce qu'il faut faire avec le résultat. Par exemple, une fonction `add` en CPS pourrait être définie comme suit :
+
+```haskell
+addCPS :: Int -> Int -> (Int -> r) -> r
+addCPS x y cont = cont (x + y)
+```
+
+Un des gros avantages du CPS est qu'il permet de faire que n'importe quelle fonction devienne tail-recursive, ce qui peut améliorer les performances et éviter les dépassements de pile dans certains cas.
