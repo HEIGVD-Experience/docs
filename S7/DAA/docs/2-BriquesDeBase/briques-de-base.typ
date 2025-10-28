@@ -1,9 +1,7 @@
 #import "/_settings/typst/template-qk-note.typ": *
 #show: doc => conf(
-  title: [
-    Briques de base
-  ],
-  lesson: "DAA",
+  title: "Briques de base",
+  course: "DAA - Développement d'applications Android",
   col: 1,
   doc,
 )
