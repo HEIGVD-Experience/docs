@@ -243,6 +243,11 @@
   caption: [Capture des slides du cours -- #caption]
 )
 
+#let himg(path, caption, width: 100%) = figure(
+  image("../../" + path, width: width),
+  caption: [Capture des slides du cours -- #caption]
+)
+
 // Référence à une figure
 #let figref(label) = {
   link(label)[Figure~@#label]
