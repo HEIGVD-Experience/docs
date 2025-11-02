@@ -9,10 +9,12 @@
 )
 
 = Introduction
-Note: on a vu 4 concepts de synchronisation
-- Lamport --> horloge logique
-- Ricart & Agrawala --> je demande la permission à tout le monde
-- Carvalho et Roucairol --> je demande la permission à un sous-ensemble qui ne m'ont pas encore donné leur jeton
+Jusqu'à maintenant, nous avons vu des algorithmes de synchronisation basés sur des horloges logiques et des demandes de permission. Cependant, une autre approche intéressante pour gérer l'accès à une section critique dans un système distribué est l'utilisation de jetons uniques.
+
+== Petit rappel
+- *Lamport*: horloge logique pour ordonner les événements
+- *Ricart & Agrawala*: demande de permission à tous les processus avant d'entrer en section critique
+- *Carvalho et Roucairol*: demande de permission à un sous-ensemble de processus (passage de témoin entre 2 processus)
 
 = Algorithme par jeton
 Jusqu'à maintenant les algorithmes que nous avons vu, nécessistait plusieurs jetons pour fonctionner.
@@ -105,8 +107,11 @@ Nous pouvons donc déduire les propriétés suivantes:
 - *Complexity*: $4 log(n)$ par demande *si l'arbre est équilibré*
 
 === Pseudo-code
-#himg("S7/SDR/docs/img/image copy 29.png", "Pseudo-code de l'algorithme de Raymond")
-#himg("S7/SDR/docs/img/image copy 30.png", "Pseudo-code de l'algorithme de Raymond - suite")
-#himg("S7/SDR/docs/img/image copy 31.png", "Pseudo-code de l'algorithme de Raymond - suite")
-#himg("S7/SDR/docs/img/image copy 32.png", "Pseudo-code de l'algorithme de Raymond - suite")
-#himg("S7/SDR/docs/img/image copy 33.png", "Pseudo-code de l'algorithme de Raymond - fin")
+#columns(2)[
+  #himg("S7/SDR/docs/img/image copy 29.png", "Pseudo-code de l'algorithme de Raymond")
+  #himg("S7/SDR/docs/img/image copy 30.png", "Pseudo-code de l'algorithme de Raymond - suite")
+  #himg("S7/SDR/docs/img/image copy 31.png", "Pseudo-code de l'algorithme de Raymond - suite")
+  #colbreak()
+  #himg("S7/SDR/docs/img/image copy 32.png", "Pseudo-code de l'algorithme de Raymond - suite")
+  #himg("S7/SDR/docs/img/image copy 33.png", "Pseudo-code de l'algorithme de Raymond - fin")
+]
