@@ -132,6 +132,96 @@ Fin
 4. Les performances empiriques des quatre méthodes correspondent à leur ordre de présentation, les deux dernières étant souvent clairement supérieures aux deux premières en pratique mais également plus lentes à s’exécuter et plus gourmandes en espace mémoire.
 
 = Heuristiques pour le TSP
+Lors-ce que l'on parle de heuristiques pour le TSP on parle du problème du voyageur de commerce (Traveling Salesman Problem).
+
+*Objectif*: Trouver la tournée la plus courte visitant chacune des villes une et une seule fois.
+
+Mathématiquement, le problpme du voyageur de commerce consiste à trouver une permutation $sigma$ des $n$ villes qui minimise la longueur totale de la tournée.
+
+#info[
+  Le problème du voyageur de commerce est NP-difficile et à l'heure actuelle, on ne connaît pas d'algorithme de complexité polynomiale (dans tous les cas) permettant de trouver la meilleure tournée.
+]
+
+== Plus proche voisin
+L'heuristique du plus proche voisin est une méthode simple pour construire une solution approximative au problème du voyageur de commerce. Elle consiste à partir d'une ville initiale et à visiter à chaque étape la ville la plus proche non encore visitée jusqu'à ce que toutes les villes aient été visitées.
+
+=== Algorithme
+```
+1. Choisir une ville de départ aléatoirement.
+2. Choisir pour la prochaine destination la ville la plus proche non encore visitée.
+3. Répéter l'étape 2 jusqu'à ce que toutes les villes aient été visitées.
+4. Retourner à la ville de départ pour compléter la tournée.
+```
+
+#himg("S7/SIO/docs/img/image copy 4.png", "Exemple de l'heuristique du plus proche voisin")
+
+== Heuristique gloutonne
+L'heuristique gloutonne pour le TSP consiste à construire une tournée en ajoutant à chaque étape l'arête de coût minimal qui ne crée pas de cycle prématuré et qui n'augmente pas le degré des sommets au-delà de 2, jusqu'à ce que toutes les villes soient connectées.
+
+=== Algorithme
+```
+1. Initialiser un ensemble vide d'arêtes pour la tournée.
+2. Trier toutes les arêtes du graphe par ordre croissant de coût.
+3. Pour chaque arête dans l'ordre trié:
+    a. Si l'ajout de l'arête ne crée pas de cycle prématuré
+        et n'augmente pas le degré des sommets au-delà de 2,
+        ajouter l'arête à la tournée.
+4. Répéter jusqu'à ce que toutes les villes soient connectées.
+5. Retourner la tournée construite.
+```
+
+#himg("S7/SIO/docs/img/image copy 5.png", "Exemple de l'heuristique gloutonne")
+
+== Heuristiques d'insertion (la moins coûteuse)
+L'heuristique d'insertion la moins coûteuse pour le TSP consiste à construire une tournée en insérant à chaque étape la ville non encore incluse qui entraîne l'augmentation de coût la plus faible lorsqu'elle est insérée entre deux villes déjà présentes dans la tournée.
+
+=== Algorithme
+```
+1. Construire une tournée partielle en choisissant une ville et sa plus proche voisine.
+2. Déterminer l'arête {i,j} de la tournée actuelle et calculer le coût d'insertion de la ville candidate entre i et j.
+3. Insérer la ville candidate entre i et j si cela entraîne l'augmentation de coût la plus faible.
+4. Répéter jusqu'à ce que toutes les villes soient incluses dans la tournée.
+```
+
+== Heuristique d'insertion (la plus coûteuse)
+L'heuristique d'insertion la plus coûteuse pour le TSP consiste à construire une tournée en insérant à chaque étape la ville non encore incluse qui entraîne l'augmentation de coût la plus élevée lorsqu'elle est insérée entre deux villes déjà présentes dans la tournée.
+
+=== Algorithme
+```
+1. Construire une tournée partielle en choisissant une ville et sa plus proche voisine.
+2. Déterminer l'arête {i,j} de la tournée actuelle et calculer le coût d'insertion de la ville candidate entre i et j.
+3. Insérer la ville candidate entre i et j si cela entraîne l'augmentation de coût la plus élevée.
+4. Répéter jusqu'à ce que toutes les villes soient incluses dans la tournée.
+```
+
+== Christofides
+L'algorithme de Christofides est une heuristique pour le problème du voyageur de commerce (TSP) qui garantit une solution dont le coût est au plus 1,5 fois le coût optimal, à condition que la distance entre les villes satisfasse l'inégalité triangulaire.
+
+*Principe de base*: Transformer un cycle eulérien (pas trop long) en un cycle hamiltonien (qui, on l'espère, ne soit pas trop long non plus).
+
+=== Algorithme
+```
+1. Déterminer un arbre recouvrat T de poids minimum dans le graphe pondéré complet.
+2. Dans el sous-graphe de G induit par les sommets de degré impair dans T, détereminer un couplage parfait M de poids minimum.
+3. Ajouter les arêtes de M à l'arbre optimal T (en dupliquant les arêtes appartenant à M et à T). Le graphe obtenu a tous ses sommets de degré pair et possède donc un cycle eulérien.
+4. Construire la tournée en parcourant ce cycle tout en prenant des raccourcis afin d'éviter de visiter une ville plus d'une fois.
+```
+
+#himg("S7/SIO/docs/img/image copy 6.png", "Exemple de l'heuristique de Christofides")
+
+== Heuristique "Meilleurs fusions"
+L'heuristique des meilleurs fusions pour le TSP consiste à construire une tournée en fusionnant à chaque étape les deux sous-tours dont la fusion entraîne la plus faible augmentation de coût, jusqu'à ce qu'un seul tour reste.
+
+=== Algorithme
+```
+1. Initialiser chaque ville comme un sous-tour individuel.
+2. Calculer le coût de fusion pour chaque paire de sous-tours.
+3. Fusionner la paire de sous-tours avec le coût de fusion le plus faible.
+4. Répéter les étapes 2 et 3 jusqu'à ce qu'il ne reste qu'un seul sous-tour.
+5. Retourner la tournée construite.
+```
+
+#himg("S7/SIO/docs/img/image copy 7.png", "Exemple de l'heuristique des meilleurs fusions")
 
 = Heuristiques d'échanges
 
