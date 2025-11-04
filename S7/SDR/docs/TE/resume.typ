@@ -9,7 +9,232 @@
   doc,
 )
 
+= Introduction aux Systèmes Distribués
+
+== Définition d'un système distribué
+
+#definition[
+  Un *système distribué* est un ensemble de machines autonomes et indépendantes qui apparaissent à l'utilisateur comme un système unique et cohérent.
+]
+
+Les systèmes distribués permettent de répartir le traitement et les données sur plusieurs machines interconnectées, offrant ainsi des avantages en termes de performance, de fiabilité et de scalabilité.
+
+#heigimg("S7/SDR/docs/img/1.png", "Architecture d'un système distribué")
+
+=== Enjeux des systèmes distribués
+
+#heigimg("S7/SDR/docs/img/2.png", "Enjeux des systèmes distribués")
+
+Les principaux enjeux incluent :
+- La coordination entre les différentes machines
+- La gestion des pannes et de la tolérance aux fautes
+- La cohérence des données réparties
+- La performance et la scalabilité
+
+== Parallélisme vs Concurrence
+
+=== Parallélisme
+
+#definition[
+  Le *parallélisme* se produit lorsque deux tâches sont en cours d'exécution *au même instant* sur différentes unités de traitement.
+]
+
+#heigimg("S7/SDR/docs/img/3.png", "Parallélisme")
+
+#warning[
+  *Difficulté principale :* Coordonner les unités de traitement pour garantir un résultat correct.
+]
+
+=== Concurrence
+
+#definition[
+  La *concurrence* se produit lorsque deux tâches ont progressé dans un *intervalle de temps commun*, sans nécessairement s'exécuter au même instant.
+]
+
+#heigimg("S7/SDR/docs/img/4.png", "Concurrence")
+
+#note[
+  T1, T2 et T3 s'exécutent de manière concurrente, mais pas toujours en parallèle.
+]
+
+=== Unités de traitement
+
+Les unités de traitement exécutant ces tâches peuvent être :
+
+- *Threads :* Système multi-threaded (ex: CPU multi-cœur)
+- *Machines :* Système distribué (ex: réseau de PC interconnectés)
+
+== Classification de Flynn
+
+La classification de Flynn catégorise les architectures de machines selon deux axes :
+- Flots de *données*
+- Flots d'*instructions*
+
+#heigimg("S7/SDR/docs/img/5.png", "Classification de Flynn")
+
+=== SISD (Single Instruction, Single Data)
+
+Architecture Von Neumann classique avec un seul processeur exécutant une instruction à la fois.
+
+#heigimg("S7/SDR/docs/img/6.png", "Architecture SISD", width: 70%)
+
+=== SIMD (Single Instruction, Multiple Data)
+
+Une seule instruction s'applique simultanément à plusieurs données (ex: processeurs vectoriels, GPU).
+
+#heigimg("S7/SDR/docs/img/7.png", "Architecture SIMD")
+
+=== MISD (Multiple Instruction, Single Data)
+
+Architecture théorique rarement utilisée en pratique.
+
+#heigimg("S7/SDR/docs/img/8.png", "Architecture MISD")
+
+=== MIMD (Multiple Instruction, Multiple Data)
+
+Plusieurs processeurs exécutent différentes instructions sur différentes données. C'est l'architecture des systèmes distribués modernes.
+
+#heigimg("S7/SDR/docs/img/9.png", "Architecture MIMD de base")
+
+On distingue deux types de MIMD :
+
+==== MIMD - Shared Memory (Mémoire partagée)
+
+#heigimg("S7/SDR/docs/img/10.png", "MIMD avec mémoire partagée")
+
+==== MIMD - Distributed Memory (Mémoire distribuée)
+
+#heigimg("S7/SDR/docs/img/11.png", "MIMD avec mémoire distribuée")
+
+== Couplage : Matériel vs Logiciel
+
+=== Couplage matériel
+
+#definition[
+  Le *couplage matériel* désigne la quantité et qualité des liens entre les éléments matériels d'un système.
+]
+
+#heigimg("S7/SDR/docs/img/12.png", "Couplage matériel")
+
+#warning[
+  En fonction du couplage de l'architecture matérielle ciblée, une même application devra être conçue très différemment.
+]
+
+=== Couplage logiciel
+
+#definition[
+  Le *couplage logiciel* désigne la quantité et qualité des liens entre les modules logiciels d'un système.
+]
+
+#heigimg("S7/SDR/docs/img/14.png", "Couplage logiciel")
+
+#info[
+  Généralement, *on vise un couplage logiciel faible* :
+  - Interfaces plus claires
+  - Risque de bugs moindre
+]
+
+=== Couplage logiciel et exécution réseau
+
+Dans un contexte d'*exécution réseau* :
+- Couplage matériel faible
+- Donc coût de communication élevé
+- Donc couplage logiciel fort devient coûteux
+
+#heigimg("S7/SDR/docs/img/15.png", "Couplage et exécution réseau")
+
+Avec un couplage logiciel faible, moins d'échanges sont nécessaires entre modules, donc moins de communication sur le réseau. Puisque la communication est coûteuse, c'est un avantage significatif.
+
+=== Exécution réseau vs Programme réparti
+
+#heigimg("S7/SDR/docs/img/16.png", "Exécution réseau vs Programme réparti")
+
+=== Couche logicielle de répartition
+
+#heigimg("S7/SDR/docs/img/17.png", "Couche logicielle de répartition")
+
+=== Système réparti
+
+#definition[
+  Un *système réparti* est l'exécution d'une logique nécessitant un *couplage logiciel fort*, sur du matériel limité à un *couplage matériel faible*.
+]
+
+#note[
+  Le challenge est d'optimiser le couplage logiciel effectif pour assurer une performance élevée.
+]
+
+== Propriétés d'un bon système réparti
+
+=== Abstraction (Transparence)
+
+*Emplacement* des processus et données
+- Pas d'adresses physiques des machines ou des données
+
+*Migration* des processus et données
+- Déplacement de ressource (processus, données) invisible
+
+*Duplication* des données
+- Gestion implicite des copies éventuelles
+
+*Cohérence* des données
+- Gestion implicite de la concurrence
+
+=== Fiabilité
+
+*Disponibilité*
+- Résilience aux pannes de machines et de réseau
+
+*Cohérence*
+- État toujours correct (récupération après panne, résistance aux attaques)
+
+=== Performance
+
+*Parallélisme maximal*
+- Tirer profit du parallélisme, éviter qu'une machine soit en attente de travail
+
+*Communication minimale*
+- Diminuer le nombre d'échanges de messages
+
+*Tradeoff Performance-Fiabilité*
+- Garantir la fiabilité nécessite des protocoles limitant les performances
+
+=== Dimensionnement (Scalability)
+
+*Extensibilité*
+- Ajouter une machine doit être possible et peu coûteux
+
+*Complexité algorithmique faible*
+- Avoir plus de machines ne doit pas rendre le service notablement plus lent
+
+== Gestion des erreurs réseau
+
+=== Garanties du réseau
+
+#heigimg("S7/SDR/docs/img/18.png", "Garanties du réseau")
+
+=== Responsabilités du système réparti
+
+#warning[
+  Le système réparti doit :
+  - Maintenir les garanties du réseau
+  - *Assurer la résilience aux pannes* (de serveur et du client)
+  - Implémenter différents *protocoles de fiabilité*
+]
+
+== Protocole Request-Reply-Acknowledge
+
+Le protocole RRA (Request-Reply-Acknowledge) est un protocole de fiabilité permettant de garantir la bonne réception et le traitement des messages dans un système distribué.
+
+#heigimg("S7/SDR/docs/img/19.png", "Protocole RRA - Fonctionnement de base")
+
+#heigimg("S7/SDR/docs/img/20.png", "Protocole RRA - Gestion des erreurs")
+
 = Notion de pannes
+
+== Couplage
+Dans les systèmes distribués, le couplage fait référence au degré d'interdépendance entre les différents composants ou processus du système. Un couplage faible signifie que les composants sont indépendants les uns des autres, tandis qu'un couplage fort indique une forte dépendance entre eux.
+
+Dans un système distribué, nous souhaiterons plutôt avoir un couplage faible, car cela permet une meilleure tolérance aux pannes et une plus grande flexibilité dans la gestion des ressources. L'objectif est de ne rien partager entre les processus et de profiter au maximum de la communication pour partager les ressources.
 
 == Types de pannes
 

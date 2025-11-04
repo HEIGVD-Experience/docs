@@ -102,7 +102,7 @@
 )
 
 // Definition box - Pour des définitions académiques
-#let definition(title: "Définition", body) = infobox(
+#let definition(title: "Definition", body) = infobox(
   title: title,
   body,
   bg: rgb("#f3e5f5"),
