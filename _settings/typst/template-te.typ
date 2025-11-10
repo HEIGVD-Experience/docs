@@ -1,3 +1,5 @@
+#import "infobox.typ": *
+
 #let resume(title, name, cols: 2, doc) = {
   set text(size:7.5pt, font: "Times New Roman")
   set par(leading: 0.45em)
