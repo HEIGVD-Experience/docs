@@ -224,5 +224,50 @@ L'heuristique des meilleurs fusions pour le TSP consiste à construire une tourn
 #himg("S7/SIO/docs/img/image copy 7.png", "Exemple de l'heuristique des meilleurs fusions")
 
 = Heuristiques d'échanges
+== Heuristique d'amélioration
+Les heuristiques se basent sur les observations suivantes, valable pour de nombreux problèmes d'optimisation combinatoire:
+- Il est souvent facile d’obtenir une solution admissible (éventuellement de mauvaise qualité) à un problème d’optimisation combinatoire donné.
+- Il est souvent possible de modifier légèrement et localement une solution tout en conservant son admissibilité.
+
+Les structures de ces techniques sont les suivantes:
+1. Générer une solution initiale admissible initiale
+2. Modifier localement cette solution pour obtenir une nouvelle solution admissible, meilleure que l'actuelle
+3. Répéter l'étape 2 tant qu'on trouve des améliorations possibles
+
+#info[
+  Une modification locale d'une solution est appelée un *mouvemment*.
+]
+
+=== Algorithme de descente (structure générale)
+```
+Répéter
+  Parcourir toutes les solutions voisines de la solution actuelle s, autrement dit considérer 
+  tous les mouvements de M (s) jusqu’à
+    Variante 1 : premier voisin améliorant
+    Trouver un mouvement m tel que f (s ⊕ m) < f (s)
+    Remplacer alors s par s ⊕ m
+    Variante 2 : meilleur voisin améliorant
+    Trouver le mouvement m qui minimise f (s ⊕ m)
+    Remplacer alors s par s ⊕ m si f (s ⊕ m) < f (s)
+Tant que l’on trouve au moins un mouvement améliorant.
+```
+== Heuristique k-opt
+L'heuristique k-opt est une méthode d'amélioration pour le problème du voyageur de commerce (TSP) qui consiste à échanger k arêtes dans une tournée pour obtenir une nouvelle tournée de coût inférieur. On répète ce processus jusqu'à ce qu'aucun échange k-opt n'améliore davantage la solution.
+
+En pratique, les heurisitques k-opt les plus utilisées sont les heuristiques 2-opt et 3-opt ou des variantes intermédiaires (2.5-opt ou Or-opt). Des valeurs plus grandes de k n'apportent que de faibles améliorations alors que le coût de calcul augmente rapidement.
+
+== Heuristique 2-opt
+L'heuristique 2-opt pour le TSP consiste à améliorer une tournée en supprimant deux arêtes et en reconnectant les segments résultants de manière à réduire la longueur totale de la tournée. Ce processus est répété jusqu'à ce qu'aucun échange 2-opt n'améliore davantage la solution.
+
+#himg("S7/SIO/docs/img/image copy 8.png", "Exemple de l'heuristique 2-opt")
+
+#warning[
+  Le « *coût* » d’une modification peut être calculé en temps constant mais la modification de la tournée nécessite l’utilisation d’une « bonne » structure de données (une approche directe peut demander un temps $O(n)$ par modification car le sens de parcours entre b et c, ou entre a et d, est inversé après la modification)
+]
+
+== Heuristique 3-opt
+L'heuristique 3-opt pour le TSP consiste à améliorer une tournée en supprimant trois arêtes et en reconnectant les segments résultants de manière à réduire la longueur totale de la tournée. Ce processus est répété jusqu'à ce qu'aucun échange 3-opt n'améliore davantage la solution.
+
+#himg("S7/SIO/docs/img/image copy 9.png", "Exemple de l'heuristique 3-opt")
 
 = Métaheuristiques
