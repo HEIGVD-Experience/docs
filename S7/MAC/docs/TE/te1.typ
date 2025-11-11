@@ -7,129 +7,73 @@
 
 = Introduction NoSQL
 
-*Impedance mismatch*: décalage entre modèle relationnel (tables) et modèles objets/flexibles. Solutions: ORM (mappage objets-tables) ou approche Document (JSON).
+*Impedance mismatch*: décalage modèle relationnel vs objets. Solutions: ORM ou Document (JSON). *Problème*: multiples jointures. *Solution*: tout en JSON. Relations 1:N faciles, M:N complexes.
 
-*Problème relationnel*: CV LinkedIn nécessite multiples jointures (users, positions, education, etc.). *Solution Document*: tout dans un seul JSON, structure arborescente naturelle. Relations 1:N faciles, M:N plus complexes.
+*Scalabilité*: Verticale (↑ CPU/RAM, limites) vs Horizontale (↑ serveurs, économique, complexe avec relationnel).
 
-*Scalabilité*: Verticale (↑ CPU/RAM d'un serveur, limites prix/matériel) vs Horizontale (↑ nombre serveurs, économique, résilient, complexe avec relationnel).
+*Caractéristiques*: pas relationnel, scalabilité horizontale, schéma flexible, open-source, réplication, API simples, *eventually consistent*.
 
-== Caractéristiques NoSQL
-
-- Pas de modèle relationnel ni SQL
-- Scalabilité horizontale
-- Schéma flexible (ajout/suppression champs dynamique)
-- Open-source, réplication aisée
-- API simples, *eventually consistent* (pas ACID)
-
-== Catégories NoSQL
-
-*Documents* (MongoDB, Couchbase): JSON/BSON, index sur champs, examinables. Cas: CMS, apps web/mobile, ML, réseaux sociaux.
-
-*Colonnes* (Cassandra, HBase): map 2 niveaux, efficace pour analytics. Cas: logs, comptage, reporting.
-
-*Graphes* (Neo4j): nœuds + arêtes, exploration relations. Cas: réseaux sociaux, SIG, recommandations.
-
-*Clé-valeur* (Redis, Riak): hash distribué, lecture/écriture rapides. Cas: sessions, cache, préférences, recommandations.
+*Catégories*: Documents (MongoDB, Couchbase), Colonnes (Cassandra, HBase), Graphes (Neo4j), Clé-valeur (Redis, Riak).
 
 = BD Documents & Couchbase
 
-*Stockage*: format natif JSON, tout dans un document (pas de jointures multiples). *Schéma flexible*: auto-descriptif, dynamique, champs variables, pas de migration. Distribution facile (unité indépendante).
-
-*Couchbase*: orientée documents + clé-valeur. Langage *N1QL* (syntaxe SQL-like pour JSON). Architecture distribuée.
+*Stockage*: JSON natif, tout dans un document. *Schéma flexible*: dynamique, champs variables. *Couchbase*: documents + clé-valeur, langage *N1QL* (SQL-like).
 
 == Modélisation
 
-*2 approches*: Séparation (normalisé, docs séparés avec références, type comme clé étrangère) vs Imbrication (dénormalisé, tout dans un doc parent).
+*Imbrication*: + vitesse, tolérance pannes. - incohérence, docs volumineux.
 
-*Imbrication*: + vitesse (1 recherche), tolérance pannes. - incohérence (redondance), requêtes complexes, docs volumineux.
+*Séparation*: + cohérence, cache efficace. - jointures multiples.
 
-*Séparation*: + cohérence (copie canonique), requêtes simples, cache efficace. - recherches multiples, jointures nécessaires.
+*Règles*: 1:1/1:N → imbriqué. M:N → séparés. Lectures parent+enfant → imbriqué. Cohérence prioritaire → séparés.
 
-*Règles*: 1:1 ou 1:N → imbriqué. M:N → séparés. Lectures parents+enfants → imbriqué. Cohérence prioritaire → séparés.
-
-*Concepts physiques*: Bucket (database), Collection (table), Scope (regroupement collections), Item (clé unique + valeur JSON/binaire).
+*Physique*: Bucket (DB), Collection (table), Scope (regroupement), Item (clé + JSON).
 
 == N1QL Mots-clés
 
-*Base*: `SELECT`, `FROM`, `WHERE`, `ORDER BY`, `LIMIT`. `RAW` (sans wrapper), `DISTINCT` (éliminer doublons).
+*Base*: `SELECT`, `FROM`, `WHERE`, `ORDER BY`, `LIMIT`, `RAW`, `DISTINCT`.
 
-*Découverte*: `INFER` (métadonnées schéma: nb docs, % docs, types).
+*Découverte*: `INFER`. *Accès*: `.`, `[]`, `LIKE`, `META().id`, `USE KEYS`.
 
-*Champs*: `.` (enfants), `[]` (tableaux), `LIKE` (pattern). `META().id` (clé document). `USE KEYS` (recherche directe par clé).
+*Collections*: `IN/NOT IN`, `WITHIN/NOT WITHIN`, `ANY...SATISFIES...END`, `EVERY...SATISFIES...END`.
 
-*Collections*: `IN/NOT IN` (contenu direct), `WITHIN/NOT WITHIN` (direct/indirect), `ANY...SATISFIES...END` (au moins un), `EVERY...SATISFIES...END` (tous).
+*Tableaux*: `ARRAY...FOR...WHEN...END`, `FIRST...FOR...WHEN...END`.
 
-*Tableaux*: `ARRAY...FOR...WHEN...END` (construire), `FIRST...FOR...WHEN...END` (premier élément).
+*Agrégation*: `GROUP BY`, `HAVING`, `COUNT`, `ARRAY_AGG`, `ARRAY_COUNT`, `ARRAY_MAX/MIN`.
 
-*Agrégation*: `GROUP BY`, `HAVING` (filtre après agrégation), `COUNT`, `ARRAY_AGG` (valeurs→tableau), `ARRAY_COUNT` (compte non-NULL), `ARRAY_MAX/MIN`.
+*NULL*: `IS VALUED`, `IS NULL`, `IS MISSING`.
 
-*NULL/MISSING*: `IS VALUED` (a valeur), `IS NULL` (explicitement null), `IS MISSING` (absent), `IS NOT MISSING`.
+*Index*: `CREATE PRIMARY INDEX`, `CREATE INDEX`, composite, couvrant. `DISTINCT ARRAY...FOR...END` (tableaux).
 
-*Index*: `CREATE PRIMARY INDEX` (sur clé), `CREATE INDEX` (secondaire sur champs), index composite (plusieurs champs), index couvrant (tous champs requête). Index sur tableaux: `DISTINCT ARRAY...FOR...END`.
+*Jointures*: `INNER JOIN`, `LEFT/RIGHT OUTER JOIN`, `ON`. `NEST` (imbrique), `UNNEST` (aplatit).
 
-*Jointures*: `INNER JOIN`, `LEFT/RIGHT OUTER JOIN` (ANSI recommandé), `ON` (condition). `NEST` (imbrique résultats en tableau, pas ligne par match). `UNNEST` (aplatit tableau→lignes).
-
-*Sous-requêtes*: dans WHERE, FROM, SELECT. `LET` (variables locales), `LETTING` (après GROUP BY).
-
-*Optimisation*: `EXPLAIN` (plan exécution), index couvrants (évite récupération docs).
+*Avancé*: Sous-requêtes, `LET`, `LETTING`, `EXPLAIN`.
 
 = BD Graphes
 
-*Structure*: Graphe = sommets (nœuds) + arêtes (relations). Omniprésent: réseaux sociaux, recommandations, détection fraudes.
+*Property Graph*: Nœuds (propriétés, labels) + Relations (dirigées, nommées, propriétés). Relations stockées (*index-free adjacency*) → temps constant vs JOIN.
 
-*Property Graph*: 
-- *Nœuds*: entités avec propriétés (clé-valeur) et labels (0 à N catégories)
-- *Relations*: dirigées, nommées, avec propriétés. Toujours entre 2 nœuds (source→destination). Citoyens 1ère classe (stockées, pas calculées)
-- *Index-free adjacency*: relations stockées avec nœuds → traversée temps constant (vs JOIN coûteux)
+*Perf*: constante quelle que soit taille. RDBMS dégrade. Ex: 1M personnes, prof. 5: RDBMS 1543s, Neo4j 2.1s.
 
-*Graphes vs Relationnel*: Performance BD graphe constante quelle que soit taille données. RDBMS dégrade avec données connectées (JOINs). Ex: amis profondeur 5 sur 1M personnes: RDBMS 1543s (prof. 4), Neo4j 2.1s (prof. 5).
+*Neo4j*: BD native, langage *Cypher*. Convention: labels `CamelCase`, relations `MAJUSCULES_TIRETS`.
 
-*Neo4j*: BD graphe native NoSQL (Java/Scala). Stockage natif graphes dès conception. Langage *Cypher* déclaratif (projet openCypher). Éditions communautaire + entreprise.
+== Cypher
 
-*Convention nommage*: Labels nœuds `CamelCase` (`:VehicleOwner`), Relations `MAJUSCULES_TIRETS` (`:OWNS_VEHICLE`), propriétés/variables `camelCase` (`businessAddress`).
+*Nœuds*: `()`, `(p:Person)`, `(p:Person {name: 'Alice'})`.
 
-== Syntaxe Cypher
+*Relations*: `(a)-->(b)`, `(a)-[r:TYPE]->(b)`, `(a)-[r {p: v}]->(b)`.
 
-*Nœuds*: `()` (anonyme), `(p:Person)` (label+var), `(:Tech)` (label seul), `(p:Person {name: 'Alice'})` (avec propriété).
+*CRUD*: `CREATE`, `MATCH...RETURN`, `WHERE`, `WHERE NOT`, `IS NOT NULL`, `SET`, `DELETE`, `DETACH DELETE`, `REMOVE`, `MERGE`, `ON CREATE/MATCH`.
 
-*Relations*: `(a)-->(b)` (dirigée), `(a)-[r:TYPE]->(b)` (type+var), `(a)-[r {prop: val}]->(b)` (propriété). Direction obligatoire création, optionnelle recherche.
+*Index*: `CREATE INDEX FOR (a:Actor) ON (a.name)`, composite. `SHOW indexes`.
 
-*CRUD*: 
-- `CREATE (m:Movie {title: 'Matrix'})` 
-- `MATCH (m:Movie) RETURN m.title`
-- `WHERE m.released >= 1990 AND m.released < 2000`
-- `WHERE NOT p.name = 'X'`, `WHERE p.birth IS NOT NULL`
-- `SET p.birthdate = date('1980-01-01')`
-- `DELETE r` (relation), `DETACH DELETE m` (nœud+relations)
-- `REMOVE n.birthdate` ou `SET n.birthdate = null`
-- `MERGE (m:Person {name: 'Mark'})` (évite doublons)
-- `ON CREATE SET x.created = timestamp()`
-- `ON MATCH SET x.lastSeen = timestamp()`
+*Contraintes*: `CREATE CONSTRAINT...REQUIRE...IS UNIQUE`. `SHOW constraints`.
 
-*Index*: `CREATE INDEX FOR (a:Actor) ON (a.name)` (simple), `ON (a.name, a.born)` (composite). Accélère recherche points départ parcours. `SHOW indexes`.
+*Agrégations*: `count()`, `collect()`, `avg()`, `max()`, `min()`, `sum()`, `count(DISTINCT x)`.
 
-*Contraintes*: `CREATE CONSTRAINT FOR (m:Movie) REQUIRE m.title IS UNIQUE`. Crée implicitement index. `SHOW constraints`.
+*Avancé*: `WITH`, `UNWIND`, `ORDER BY`, `DISTINCT`.
 
-== Requêtes avancées
-
-*Agrégations*: `count()`, `collect()`, `avg()`, `max()`, `min()`, `sum()`. `count(DISTINCT x)` (dédoublonnage). `RETURN collect(p2.name)` (tableau).
-
-*WITH*: calculs intermédiaires, filtrage sur agrégation. `WITH other, count(*) AS conn WHERE conn > 1 RETURN other.name`.
-
-*UNWIND*: liste→lignes. `UNWIND ['A','B'] AS x MATCH (p)-[:LIKES]-(t:Tech {type: x})`. `WITH DISTINCT x` puis `collect(x)` (liste unique).
-
-*ORDER BY*: tri résultats. `ORDER BY p.exp DESC`. 
-
-*DISTINCT*: résultats uniques. `RETURN DISTINCT user.name`.
-
-*Chemins variables*: 
-- `[:KNOWS*]` (1+ sauts)
-- `[:KNOWS*3]` (exactement 3)
-- `[:KNOWS*3..5]` (entre 3 et 5)
-- `[:KNOWS*3..]` (3+), `[:KNOWS*..5]` (≤5)
-- `p = (a)-[:KNOWS*3..5]->(b)` (nommer chemin)
-
-*Plus courts chemins*: `shortestPath((a)-[*]-(b))` (Bacon number).
+*Chemins*: `[:TYPE*]` (1+), `[:TYPE*3]`, `[:TYPE*3..5]`, `[:TYPE*3..]`, `[:TYPE*..5]`, `shortestPath()`.
 
 = Distribution & Cohérence
 
