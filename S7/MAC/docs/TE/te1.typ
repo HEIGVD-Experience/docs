@@ -9,9 +9,9 @@
 
 *Impedance mismatch*: décalage modèle relationnel vs objets. Solutions: ORM ou Document (JSON). *Problème*: multiples jointures. *Solution*: tout en JSON. Relations 1:N faciles, M:N complexes.
 
-*Scalabilité*: Verticale (↑ CPU/RAM, limites) vs Horizontale (↑ serveurs, économique, complexe avec relationnel).
+*Scalabilité*: Verticale (↑ CPU/RAM, limites physiques, coûteux) vs Horizontale (↑ serveurs, économique, complexe avec relationnel).
 
-*Caractéristiques*: pas relationnel, scalabilité horizontale, schéma flexible, open-source, réplication, API simples, *eventually consistent*.
+*Caractéristiques NoSQL*: pas relationnel, scalabilité horizontale, schéma flexible, open-source, réplication, API simples, *eventually consistent*.
 
 *Catégories*: Documents (MongoDB, Couchbase), Colonnes (Cassandra, HBase), Graphes (Neo4j), Clé-valeur (Redis, Riak).
 
@@ -21,11 +21,15 @@
 
 == Modélisation
 
-*Imbrication*: + vitesse, tolérance pannes. - incohérence, docs volumineux.
+*Imbrication*: 
+- Avantages: vitesse (1 seule requête, pas jointures), tolérance pannes (données sur même nœud/machine)
+- Inconvénients: incohérence (duplication données), docs volumineux, requêtes complexes sur parties imbriquées
 
-*Séparation*: + cohérence, cache efficace. - jointures multiples.
+*Séparation*: 
+- Avantages: cohérence (pas duplication), cache efficace (docs canoniques fréquemment accédés), requêtes simples
+- Inconvénients: jointures multiples, recherches multiples
 
-*Règles*: 1:1/1:N → imbriqué. M:N → séparés. Lectures parent+enfant → imbriqué. Cohérence prioritaire → séparés.
+*Règles décision*: 1:1/1:N → imbriqué. M:N → séparés. Lectures parent+enfant fréquentes → imbriqué. Cohérence prioritaire → séparés.
 
 *Physique*: Bucket (DB), Collection (table), Scope (regroupement), Item (clé + JSON).
 
@@ -45,7 +49,7 @@
 
 *Index*: `CREATE PRIMARY INDEX`, `CREATE INDEX`, composite, couvrant. `DISTINCT ARRAY...FOR...END` (tableaux).
 
-*Jointures*: `INNER JOIN`, `LEFT/RIGHT OUTER JOIN`, `ON`. `NEST` (imbrique), `UNNEST` (aplatit).
+*Jointures*: `INNER JOIN`, `LEFT/RIGHT OUTER JOIN`, `ON`. `NEST` (imbrique résultat), `UNNEST` (aplatit tableau).
 
 *Avancé*: Sous-requêtes, `LET`, `LETTING`, `EXPLAIN`.
 
@@ -53,17 +57,19 @@
 
 *Property Graph*: Nœuds (propriétés, labels) + Relations (dirigées, nommées, propriétés). Relations stockées (*index-free adjacency*) → temps constant vs JOIN.
 
-*Perf*: constante quelle que soit taille. RDBMS dégrade. Ex: 1M personnes, prof. 5: RDBMS 1543s, Neo4j 2.1s.
+*Perf*: constante quelle que soit taille. RDBMS dégrade exponentiellement. Ex: 1M personnes, prof. 5: RDBMS 1543s, Neo4j 2.1s.
 
-*Neo4j*: BD native, langage *Cypher*. Convention: labels `CamelCase`, relations `MAJUSCULES_TIRETS`.
+*Neo4j*: BD native graphe, langage *Cypher*. Convention: labels `CamelCase`, relations `MAJUSCULES_TIRETS`.
+
+*Cas d'usage*: réseaux sociaux, recommandations, détection fraude, gestion dépendances, chemins/routage.
 
 == Cypher
 
 *Nœuds*: `()`, `(p:Person)`, `(p:Person {name: 'Alice'})`.
 
-*Relations*: `(a)-->(b)`, `(a)-[r:TYPE]->(b)`, `(a)-[r {p: v}]->(b)`.
+*Relations*: `(a)-->(b)`, `(a)-[r:TYPE]->(b)`, `(a)-[r:TYPE {p: v}]->(b)`, `(a)<-[:TYPE]-(b)`.
 
-*CRUD*: `CREATE`, `MATCH...RETURN`, `WHERE`, `WHERE NOT`, `IS NOT NULL`, `SET`, `DELETE`, `DETACH DELETE`, `REMOVE`, `MERGE`, `ON CREATE/MATCH`.
+*CRUD*: `CREATE`, `MATCH...RETURN`, `WHERE`, `WHERE NOT`, `IS NOT NULL`, `SET`, `DELETE`, `DETACH DELETE` (avec relations), `REMOVE`, `MERGE`, `ON CREATE/MATCH`.
 
 *Index*: `CREATE INDEX FOR (a:Actor) ON (a.name)`, composite. `SHOW indexes`.
 
@@ -71,77 +77,107 @@
 
 *Agrégations*: `count()`, `collect()`, `avg()`, `max()`, `min()`, `sum()`, `count(DISTINCT x)`.
 
-*Avancé*: `WITH`, `UNWIND`, `ORDER BY`, `DISTINCT`.
+*Avancé*: `WITH` (pipeline résultats), `UNWIND` (transforme liste en lignes), `ORDER BY`, `DISTINCT`, `LIMIT`.
 
-*Chemins*: `[:TYPE*]` (1+), `[:TYPE*3]`, `[:TYPE*3..5]`, `[:TYPE*3..]`, `[:TYPE*..5]`, `shortestPath()`.
+*Chemins*: `[:TYPE*]` (1+), `[:TYPE*3]` (exactement 3), `[:TYPE*3..5]` (3 à 5), `[:TYPE*3..]` (3+), `[:TYPE*..5]` (max 5), `shortestPath()`.
+
+*OPTIONAL MATCH*: comme LEFT JOIN, retourne NULL si pas match.
 
 = Distribution & Cohérence
 
-*Pourquoi distribuer*: évolutivité (↑ charge), haute disponibilité (pannes), latence réduite (centres proches).
+*Pourquoi distribuer*: scalabilité (↑ charge), haute disponibilité (tolérance pannes), latence réduite (centres proches utilisateurs).
 
-*Architectures*: Mémoire partagée (SMP, coûteux), Disques partagés (conflits), Sans partage/Scale Out (nœuds indépendants, matériel standard, coordination logicielle).
+*Architectures*: 
+- Mémoire partagée (SMP): coûteux, limites scalabilité
+- Disques partagés: conflits accès
+- *Sans partage/Scale Out*: nœuds indépendants, matériel standard, coordination logicielle (modèle privilégié)
 
 *Modèles*: Partitionnement (sharding: diviser données) + Réplication (copies multiples). Souvent combinés.
 
 == Réplication
 
-*3 types*: 
-- *Leader unique* (PostgreSQL, MySQL): leader écrit, followers répliquent. Lecture: leader ou followers
-- *Multi-leader*: plusieurs acceptent écritures. Cas: offline, multi-DC, collaborative editing. Problème: conflits, vecteurs de version
-- *Sans leader* (Dynamo: Cassandra, Riak): toute réplique accepte écritures
+*3 types principaux*:
 
-*Sync vs Async*: Synchrone (lent, données garanties) vs Asynchrone (rapide, risque perte). *Semi-synchrone*: 1 follower sync, autres async (compromis courant).
+*1. Leader unique* (PostgreSQL, MySQL): 
+- Leader écrit, followers répliquent
+- Lecture: leader ou followers
+- *Sync*: lent, données garanties. *Async*: rapide, risque perte
+- *Semi-sync*: 1 follower sync, autres async (compromis courant)
+- *Failover* (panne leader): timeout (30s) → élection nouveau leader (consensus: Raft, Paxos) → reconfiguration clients
 
-*Failover* (panne leader): timeout (30s) → élection nouveau leader (consensus: Raft, Paxos) → reconfiguration clients.
-
-*Logs réplication*: 
+*Logs réplication*:
 - Statement-based (SQL): problème fonctions non-déterministes (`NOW()`, `RAND()`)
 - WAL shipping (octets disque): couplage moteur, incompatibilité versions
 - Logical/row-based (lignes): découplage, rétrocompatible
 - Trigger-based: flexible, coûteux
 
-*Replication lag*: délai leader→follower. *Cohérence éventuelle*: incohérence temporaire. Problèmes: 
-- Read-your-owns-writes (ne pas voir ses modifs): lire du leader pour données modifiables, suivre timestamp
-- Lectures monotones (régression): même réplique par utilisateur (hash ID)
+*Replication lag*: délai leader→follower. *Cohérence éventuelle*: incohérence temporaire. 
 
-*Sans leader - Quorums*: n répliques, w écritures confirmées, r lectures interrogées. *w + r > n* garantit données à jour. Ex: n=5, w=3, r=3 → tolérance 2 nœuds. Ajustement: w=n, r=1 (lectures rapides, écritures bloquées si panne).
+*Problèmes lag*:
+- *Read-your-writes* (ne pas voir ses modifs): lire du leader pour données modifiables, suivre timestamp
+- *Lectures monotones* (régression temps): même réplique par utilisateur (hash ID)
+
+*2. Multi-leader*: 
+- Plusieurs acceptent écritures
+- Cas d'usage: offline, multi-datacenter, collaborative editing
+- *Problème*: conflits d'écriture
+- *Solutions*: last write wins, vecteurs de version, résolution applicative
+
+*3. Sans leader* (Dynamo: Cassandra, Riak): 
+- Toute réplique accepte écritures
+- *Quorums*: n répliques, w écritures confirmées, r lectures interrogées
+- *w + r > n* garantit données à jour
+- Ex: n=5, w=3, r=3 → tolérance 2 nœuds
+- Ajustement possible: w=n, r=1 (lectures rapides, écritures bloquées si panne)
 
 == Partitionnement
 
-*Objectif*: diviser données volumineuses/débit élevé. Terminologies: shard (MongoDB), region (HBase), tablet (Bigtable), vnode (Cassandra), vBucket (Couchbase).
+*Objectif*: diviser données volumineuses/débit élevé. 
 
-*Partitionnement équitable* évite hotspots (charge disproportionnée). Chaque partition: leader + followers.
+*Terminologies*: shard (MongoDB), region (HBase), tablet (Bigtable), vnode (Cassandra), vBucket (Couchbase).
 
-*Stratégies*: 
-- *Intervalle de clé* (range): plages continues, données triées, range queries OK. Risque: hotspots (ex: timestamp → partition aujourd'hui)
-- *Hachage de clé*: répartition équitable, pas de range queries (toutes partitions interrogées)
+*Partitionnement équitable* évite hotspots (charge disproportionnée sur partition). Chaque partition: leader + followers.
 
-*Rééquilibrage*: Ne PAS utiliser `hash(key) mod N` (changement N → tout bouge). *Partitions fixes*: nombre >> nœuds, déplacement partitions entières, nombre constant. Ex: Riak, Elasticsearch, Couchbase. Automatique vs manuel (spectre, ex: Couchbase suggère, admin approuve).
+*Stratégies*:
+- *Intervalle de clé* (range): plages continues, données triées, range queries OK. *Risque*: hotspots (ex: timestamp → tout sur partition aujourd'hui)
+- *Hachage de clé*: répartition équitable, *pas* de range queries (interroge toutes partitions)
 
-*Service discovery*: 3 approches:
+*Rééquilibrage*: 
+- NE PAS `hash(key) mod N` (changement N → tout bouge)
+- *Partitions fixes*: nombre >> nœuds, déplacement partitions entières, nombre constant
+- Ex: Riak, Elasticsearch, Couchbase
+- Automatique vs manuel (spectre: Couchbase suggère, admin approuve)
+
+*Service discovery*: comment clients trouvent bonne partition?
 1. Client contacte n'importe quel nœud (round-robin), transmet si besoin
 2. Couche routage (load balancer conscient partitions)
-3. Client conscient (connexion directe)
+3. Client conscient (connexion directe partition)
 
-Défi: apprendre changements affectations. *ZooKeeper*: coordination, mappage partitions↔nœuds, nœuds s'enregistrent, routage s'abonne.
+*ZooKeeper*: coordination, mappage partitions↔nœuds, nœuds s'enregistrent, routage s'abonne changements.
 
 == Cohérence
 
 *Cohérence*: absence contradiction. SGBDR centralisé: forte cohérence. NoSQL distribué: assouplissement → cohérence à terme.
 
 *Problèmes SGBD centralisé*:
-- *Dirty Write*: 2 transactions MAJ simultanées (ex: Alice facture, Bob listing → incohérent). Solutions: verrous (pessimiste) ou détection (optimiste)
+- *Dirty Write*: 2 transactions MAJ simultanées → incohérent. Solutions: verrous (pessimiste) ou détection conflits (optimiste)
 - *Dirty Read*: lire écritures non-validées (ex: message inséré, compteur pas encore incrémenté)
 
 *Niveaux isolation*: read uncommitted (permet dirty reads), read committed, repeatable reads, serializable (complet).
 
-*Transactions NoSQL*: Centralisé: journalisation (log modifications, rollback). Distribué: plus délicat (logs séparés).
+*Transactions NoSQL*: 
+- Centralisé: journalisation (log modifications, rollback si échec)
+- Distribué: plus complexe (logs séparés, coordination nécessaire)
 
-*Cohérence réplication*: même valeur sur répliques différentes. Cohérence à terme (propagation temps), données périmées (stale). *Read-your-writes*: sticky session (affinité nœud).
+*Cohérence réplication*: même valeur sur répliques différentes. 
+- Cohérence à terme: propagation prend temps, données périmées (stale) temporairement
+- *Read-your-writes*: sticky session (affinité nœud) ou lire leader
 
-*Théorème CAP*: système distribué ne peut avoir les 3:
-- *Consistency*: tous voient mêmes données
-- *Availability*: chaque requête → réponse
-- *Partition tolerance*: fonctionne malgré isolation
+*Théorème CAP*: système distribué ne peut garantir simultanément les 3:
+- *Consistency*: tous nœuds voient mêmes données au même moment
+- *Availability*: chaque requête → réponse (succès/échec)
+- *Partition tolerance*: système fonctionne malgré isolation réseau (coupure)
 
-Face au partitionnement réseau: choisir cohérence (rejeter requêtes) OU disponibilité (données périmées). Compromis cohérence ↔ temps de réponse selon opérations.
+Face au partitionnement réseau (inévitable): choisir *cohérence* (rejeter requêtes jusqu'à résolution) OU *disponibilité* (accepter données périmées).
+
+Compromis cohérence ↔ temps de réponse selon besoins opérations.
