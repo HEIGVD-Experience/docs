@@ -291,8 +291,6 @@ Les layouts définissent la structure et l'organisation des éléments d'interfa
 ==== Legacy Layouts
 Avec le SDK seul, nous utilisons principalement des `LinearLayout` et des `RelativeLayout` pour organiser notre interface utilisateur.
 
-#colbreak()
-
 ===== LinearLayout
 Le `LinearLayout` organise les vues enfants en une seule direction (horizontale ou verticale).
 
@@ -320,6 +318,8 @@ Le `LinearLayout` organise les vues enfants en une seule direction (horizontale 
 
   #heigimg("S7/DAA/docs/img/image copy 12.png", "Exemple de LinearLayout")
 ]
+
+#pagebreak()
 
 ===== RelativeLayout
 Le `RelativeLayout` permet de positionner les vues enfants par rapport aux autres vues ou par rapport au parent.
@@ -350,14 +350,15 @@ Le `RelativeLayout` permet de positionner les vues enfants par rapport aux autre
   #colbreak()
 
   #heigimg("S7/DAA/docs/img/image copy 13.png", "Exemple de RelativeLayout")
-
-  - Le bouton 1 est centré par rapport au parent
-  - Le bouton 2 est positionné au-dessus du bouton 1 et aligné à droite du parent
 ]
+
+- Le bouton 1 est centré par rapport au parent
+- Le bouton 2 est positionné au-dessus du bouton 1 et aligné à droite du parent
 
 ==== ConstraintLayout
 Le `ConstraintLayout` est un layout plus flexible et puissant qui permet de créer des interfaces utilisateur complexes en définissant des contraintes entre les vues.
 
+#columns(2)[
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -377,12 +378,107 @@ Le `ConstraintLayout` est un layout plus flexible et puissant qui permet de cré
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
+#colbreak()
+
+#himg("S7/DAA/docs/img/image copy 18.png", "Exemple de ConstraintLayout", width: 70%)
+]
+
+
 - Comme il s’agit d’une librairie, les options ne font pas partie du namespace Android
 - On ajoute des contraintes aux 4 bords de l'écran
 - L'élément se centrera automatiquement
 
-== Code
+=== Widgets
+Les widgets sont des composants d'interface utilisateur réutilisables qui peuvent être ajoutés aux layouts pour fournir des fonctionnalités spécifiques. Android fournit une variété de widgets intégrés, tels que:
 
-== Scripts de build
+- TextView: pour afficher du texte
+```xml
+<TextView
+  android:id="@+id/my_button_1"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:text="Mon titre"/>
+```
+- EditText: pour saisir du texte
+```xml
+<EditText
+  android:id="@+id/my_button_1"
+  android:layout_width="180dp"
+  android:layout_height="wrap_content"
+  android:hint="Prénom" />
+```
+- Button: pour créer des boutons cliquables
+```xml
+<Button
+  android:id="@+id/my_button_1"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:text="Click 1"/>
+```
+- ImageView: pour afficher des images
+```xml
+<ImageView
+  android:id="@+id/my_button_1"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:src="@drawable/android_logo" />
+```
+
+=== Contextualisation des ressources
+Android permet de fournir des variantes de ressources pour différentes configurations d'appareils, telles que la langue, la taille de l'écran, l'orientation, etc. Cela permet à l'application de s'adapter automatiquement au contexte d'exécution.
+
+Il existe de nombreuses configurations possibles, voici les plus courantes:
+#himg("S7/DAA/docs/img/image copy 19.png", "Configurations courantes des ressources")
+
+#colbreak()
+
+On peut aussi, par exemple, définir des valeurs en fonction de l'orientation de l'écran (portrait/paysage):
+#columns(2)[
+
+```xml
+-- values-fr/string.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="main_welcome">Bienvenue !</string>
+</resources>
+```
+
+#colbreak()
+
+```xml
+-- values-fr-land/string.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="main_welcome">Je vous souhaite la bienvenue !</string>
+</resources>
+```
+
+]
+== Code et scripts de build
+Un projet Android contient du code, celui-ci se trouve dans le dossier `Kotlin + Java`. Ce dossier va également contenir les procédures de tests automatisés.
+
+Android utilise Gradle comme système de build. Il existe deux fichiers `build.gradle` un pour le projet complet et un pour l'app, un module du projet.
+
+=== Script de build
+
+#himg("S7/DAA/docs/img/image copy 20.png", "Exemple de script de build Gradle")
+
+#info[
+  Gradle utilise Maven pour récuprer et gérer les dépendances. Maven identifie les librairies selon 3 éléments:
+  - Group ID: identifiant unique de l'organisation ou du projet (ex: com.android.tools)
+  - Artifact ID: nom de la librairie (ex: build-gradle)
+  - Version: version spécifique de la librairie (ex: 7.4.2)
+
+  ```xml
+  <dependency>
+    <groupId>androidx.core</groupId>
+    <artifactId>core-ktx</artifactId>
+    <version>1.17.0</version>
+    <scope>runtime</scope>
+  </dependency>
+  ```
+]
 
 == Fichiers de configuration
