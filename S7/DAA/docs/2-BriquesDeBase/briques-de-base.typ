@@ -480,5 +480,3 @@ Android utilise Gradle comme système de build. Il existe deux fichiers `build.g
   </dependency>
   ```
 ]
-
-== Fichiers de configuration
