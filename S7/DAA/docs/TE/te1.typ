@@ -64,6 +64,13 @@
 - RelativeLayout : positionnement relatif (`layout_above`, `layout_alignParent*`)
 - ConstraintLayout : contraintes flexibles (recommandé), `app:layout_constraint*`
 
+*Classe R*
+- *Génération automatique* : générée par Gradle/KSP lors de la compilation
+- *But* : référencer ressources de façon typesafe (R.string.app_name, R.drawable.icon, R.id.button)
+- *Unicité* : une classe R par module/package (app, librairies)
+- *Accès* : `R.layout.activity_main`, `R.id.my_button`
+- Ne jamais modifier manuellement R.java (régénéré à chaque build)
+
 == Activités
 
 *Déclaration* : `AndroidManifest.xml`
@@ -85,6 +92,15 @@ class MainActivity : AppCompatActivity() {
     }
 }
 ```
+
+*AppCompatActivity vs Activity*
+- *Rétrocompatibilité* : fonctionnalités modernes sur anciennes versions Android
+- *Material Design* : support Material Components sur API < 21
+- *ActionBar* : getSupportActionBar() pour ActionBar moderne
+- *Themes AppCompat* : thèmes compatibles toutes versions
+- *Fragment Support* : FragmentManager moderne
+- *Vector Drawables* : support sur anciennes versions
+- Toujours hériter de AppCompatActivity (sauf cas très spécifiques)
 
 *Cycle de vie*
 
@@ -362,11 +378,49 @@ API 26+ : restrictions background importantes. WorkManager préféré pour tâch
 
 *Principes* : Contrôle, Transparence, Minimisation
 
-*Implémentation*
-1. Déclarer dans Manifest (`<uses-permission android:name="..." />`)
-2. Vérifier : `ContextCompat.checkSelfPermission()`
-3. Demander : `registerForActivityResult(RequestPermission()) { granted -> }`
-4. Annoter : `@SuppressLint("MissingPermission")` après vérification
+*Implémentation complète*
+```kotlin
+// 1. Déclarer dans Manifest
+<uses-permission android:name="android.permission.CAMERA" />
+
+// 2. Vérifier et demander
+private val requestPermission = registerForActivityResult(
+    ActivityResultContracts.RequestPermission()
+) { granted ->
+    if (granted) {
+        // Permission accordée
+        openCamera()
+    } else {
+        // Permission refusée
+        Toast.makeText(this, "Permission refusée", Toast.LENGTH_SHORT).show()
+    }
+}
+
+fun checkAndRequestPermission() {
+    when {
+        ContextCompat.checkSelfPermission(
+            this, Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED -> {
+            // Permission déjà accordée
+            openCamera()
+        }
+        shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+            // Expliquer pourquoi la permission est nécessaire
+            showRationaleDialog()
+        }
+        else -> {
+            // Demander la permission
+            requestPermission.launch(Manifest.permission.CAMERA)
+        }
+    }
+}
+
+// 3. Utiliser avec annotation si vérification faite
+@SuppressLint("MissingPermission")
+fun openCamera() {
+    // Code utilisant la caméra
+}
+```
 
 = Interfaces graphiques
 
@@ -687,6 +741,10 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
     }
 }
 ```
+
+*ScrollView vs RecyclerView*
+- *ScrollView* : contenu statique limité, pas de recyclage, toutes vues en mémoire. Usage: formulaires, pages infos courtes.
+- *RecyclerView* : listes dynamiques longues, recyclage ViewHolder, performant. Usage: feeds, catalogues, contacts.
 
 *Types multiples*
 ```kotlin
@@ -1118,9 +1176,13 @@ implementation("androidx.fragment:fragment-ktx:1.6.1")
 
 == Solutions disponibles
 
-- Fichiers : interne/externe, privé/partagé
-- Préférences : clé-valeur (SharedPreferences, DataStore)
-- Bases de données : SQLite via Room (recommandé)
+*Tableau comparatif*
+
+| Méthode | Usage | Avantages | Inconvénients |
+|---------|-------|-----------|---------------|
+| *Fichiers* | Données brutes, fichiers volumineux, médias | Flexibilité totale, gros fichiers | Pas de structure, complexe |
+| *SharedPreferences* | Préférences utilisateur, clé-valeur simple | Simple, léger, synchrone | Limité aux types primitifs |
+| *Room* | Données structurées, relations, requêtes complexes | SQL typesafe, migrations, LiveData | Setup initial, overhead |
 
 == Stockage fichiers
 
@@ -1299,6 +1361,23 @@ abstract class MyDatabase : RoomDatabase() {
                 INSTANCE = instance
                 instance
             }
+        }
+    }
+}
+```
+
+*exportSchema = true*
+- *Génère JSON* : schéma base de données dans `projectDir/schemas/`
+- *Tracking versions* : historique complet des changements de schéma
+- *Facilite migrations* : voir différences entre versions pour écrire migrations
+- *Débogage* : comprendre structure exacte de la BD
+- *Documentation* : schéma versionné dans contrôle de source
+- Configuration Gradle nécessaire :
+```gradle
+android {
+    defaultConfig {
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
     }
 }
