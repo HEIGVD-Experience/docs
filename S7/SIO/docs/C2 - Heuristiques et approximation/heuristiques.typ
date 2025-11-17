@@ -66,6 +66,9 @@ Les heuristiques constructives construisent une solution réalisable pas à pas 
 ==== Heuristiques d'amélioration
 Les heuristiques d'amélioration ou dite d'échange, partent d'une solution admissible et cherchent à l'améliorer en explorant son voisinage. Ces modifications, souvent appelés échanges, sont enchaînées tant que des améliorations sont possibles.
 
+== Problème du bin packing
+Le problème du bin packing (ou problème de l'emballage dans des conteneurs) consiste à regrouper un ensemble d'objets de tailles différentes dans un nombre minimal de conteneurs (ou "bins") de capacité fixe, de manière à ce que la somme des tailles des objets dans chaque conteneur ne dépasse pas la capacité de celui-ci.
+
 = Heuristiques de coloration
 == Coloration d'un graphe
 Soit $G = (V, E)$ un graphe non orienté. Une *coloration* de $G$ est une affectation de couleurs aux sommets de $G$ telle que deux sommets adjacents n'ont pas la même couleur. Le but est de minimiser le nombre de couleurs utilisées.
