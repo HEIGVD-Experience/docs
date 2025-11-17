@@ -1,9 +1,10 @@
 #import "/_settings/typst/template-qk-note.typ": *
 #show: doc => conf(
-  title: [
-    Introduction
-  ],
-  lesson: "SLH",
+  title: "Introduction",
+  course: "SLH - Sécurité logicielle haut niveau",
+  author: "Guillaume Trüeb",
+  date: "13 octobre 2025",
+  toc: true,
   col: 1,
   doc,
 )
