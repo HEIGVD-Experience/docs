@@ -2,722 +2,457 @@
 #show: resume.with(
   "Résumé DAA TE1",
   "Guillaume Trüeb",
-  cols: 3
+  cols: 2
 )
 
-= Briques de base
-
-== Structure d'un projet
-
-*Manifest* : fichier obligatoire décrivant l'application
-- Composants (activités, services, receivers, providers)
-- Permissions requises
-- Fonctionnalités hardware/software
-- Point d'entrée (LAUNCHER activity avec intent-filter MAIN)
-
-*Ressources (res/)* : séparation code/contenu
-- `values/` : strings, dimensions, couleurs, thèmes
-- `drawable/` : images (bitmap, vector, nine-patch)
-- `layout/` : interfaces graphiques
-- `menu/` : menus d'action
-- `anim/` : animations
-- Contextualisation : `-fr`, `-night`, `-sw600dp`, `-land`, etc.
-
-*Gradle* : système de build
-- `build.gradle` (projet et app)
-- Dépendances Maven (groupId:artifactId:version)
-- Configuration minSdk, targetSdk, compileSdk
-
-== Ressources essentielles
-
-*Strings* : `strings.xml`
-```xml
-<string name="app_name">My App</string>
-<string name="welcome">Hello %1$s!</string>
-<plurals name="clicks">
-  <item quantity="one">%d click</item>
-  <item quantity="other">%d clicks</item>
-</plurals>
-<!-- Tableaux -->
-<string-array name="countries">
-  <item>@string/switzerland</item>
-</string-array>
-```
-
-*Dimensions* : privilégier `dp` et `sp`
-```xml
-<dimen name="margin">16dp</dimen>      <!-- Layout -->
-<dimen name="text_size">14sp</dimen>   <!-- Texte -->
-```
-- `dp` (density-independent) : 1dp = 1px à 160dpi
-- `sp` (scale-independent) : s'adapte aux préférences utilisateur
-
-*Drawables*
-- Bitmap : PNG, WEBP, JPEG (densités : mdpi=1x, hdpi=1.5x, xhdpi=2x, xxhdpi=3x, xxxhdpi=4x)
-- Vector : SVG Android, scalable, `<vector>` XML
-- Nine-Patch : zones extensibles (bordures 1px), éviter distorsions
-- State List : états (pressed, focused, hovered, default)
-- Level List : niveaux numériques (0-n), ex: signal wifi
-
-*Layouts*
-- LinearLayout : direction unique (vertical/horizontal), `orientation`, `layout_weight`
-- RelativeLayout : positionnement relatif (`layout_above`, `layout_alignParent*`)
-- ConstraintLayout : contraintes flexibles (recommandé), `app:layout_constraint*`
-
-*Classe R*
-- *Génération automatique* : générée par Gradle/KSP lors de la compilation
-- *But* : référencer ressources de façon typesafe (R.string.app_name, R.drawable.icon, R.id.button)
-- *Unicité* : une classe R par module/package (app, librairies)
-- *Accès* : `R.layout.activity_main`, `R.id.my_button`
-- Ne jamais modifier manuellement R.java (régénéré à chaque build)
+= Architecture et composants Android
 
 == Activités
 
-*Déclaration* : `AndroidManifest.xml`
-```xml
-<activity android:name=".MainActivity" android:exported="true">
-  <intent-filter>
-    <action android:name="android.intent.action.MAIN"/>
-    <category android:name="android.intent.category.LAUNCHER"/>
-  </intent-filter>
-</activity>
-```
+*Cycle de vie* (voir Ressources)
 
-*Implémentation minimale*
-```kotlin
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
-}
-```
+*États d'une Activité*
+- *Active (Running)* : au premier plan, utilisateur interagit → `onResume()`
+- *Visible (Paused)* : visible mais sans focus (dialog, split-screen) → `onPause()`
+- *Arrêtée (Stopped)* : invisible, état conservé en mémoire, peut être tuée → `onStop()`
+- *Détruite (Destroyed)* : doit être recréée, mémoire libérée → `onDestroy()`
 
-*AppCompatActivity vs Activity*
+*Méthodes de cycle de vie*
+- `onCreate()` : création, initialisation, `setContentView()`
+- `onStart()` : activité devient visible
+- `onResume()` : au premier plan, interactive, reprendre animations
+- `onPause()` : perd focus, sauvegarder brouillons, pause opérations
+- `onStop()` : invisible, libérer ressources lourdes
+- `onDestroy()` : destruction définitive, nettoyage final
+
+*Transitions courantes*
+- Lancement : `onCreate()` → `onStart()` → `onResume()`
+- Rotation : `onPause()` → `onStop()` → `onDestroy()` → `onCreate()` → `onStart()` → `onResume()`
+- Dialog affiché : `onPause()` (activité visible mais sans focus)
+- Retour arrière : `onPause()` → `onStop()` → `onDestroy()`
+
+*Activity vs AppCompatActivity* : *Activity* offre une *rétrocompatibilité limitée* et supporte Material Design uniquement sur *API 21+*, tandis que *AppCompatActivity* garantit une *excellente compatibilité* sur *toutes versions* avec support complet de Material Design, ActionBar moderne et Fragments. Toujours utiliser *AppCompatActivity*.
+
+*Pourquoi hériter d'AppCompatActivity plutôt que d'Activity ?*
+
+On n'hérite jamais directement de la classe *Activity* du SDK car elle offre une compatibilité limitée. *AppCompatActivity* (de AndroidX) fournit :
+
 - *Rétrocompatibilité* : fonctionnalités modernes sur anciennes versions Android
-- *Material Design* : support Material Components sur API < 21
-- *ActionBar* : getSupportActionBar() pour ActionBar moderne
-- *Themes AppCompat* : thèmes compatibles toutes versions
-- *Fragment Support* : FragmentManager moderne
-- *Vector Drawables* : support sur anciennes versions
-- Toujours hériter de AppCompatActivity (sauf cas très spécifiques)
+- *Material Design* : composants visuels modernes sur toutes versions (API 14+)
+- *ActionBar moderne* : `getSupportActionBar()` avec fonctionnalités étendues
+- *Support des Fragments* : FragmentManager moderne et fiable
+- *Vector Drawables* : support images vectorielles sur anciennes versions
+- *Thèmes AppCompat* : thèmes cohérents multi-versions
+- *Bug fixes* : corrections de bugs sans attendre mise à jour système
 
-*Cycle de vie*
+*Principe* : AppCompatActivity encapsule Activity et ajoute une couche de compatibilité, permettant d'utiliser les dernières fonctionnalités Android tout en restant compatible avec d'anciennes versions.
 
-#image("../img/image copy 23.png", width: 90%)
+*Démarrer une Activité*
 
-- `onCreate(savedInstanceState)` : création, initialisation, setContentView(). Appelé une seule fois.
-- `onStart()` : activité devient visible, pas encore interactive
-- `onResume()` : activité au premier plan, interactive. Reprendre animations, caméra, capteurs.
-- `onPause()` : activité perd le focus (dialog, split-screen). Sauvegarder brouillons, pause animations. Exécution rapide (< 1s).
-- `onStop()` : activité invisible (autre activité). Libérer ressources lourdes. Peut être tuée par système.
-- `onDestroy()` : destruction définitive ou rotation. Libérer toutes ressources.
+On ne crée jamais directement une instance d'Activité. Android gère le cycle de vie. Les différentes manières :
 
-*États* : 
-- *Active* (Running) : premier plan, utilisateur interagit
-- *En pause* (Paused) : visible mais pas focus, conserve état
-- *Arrêtée* (Stopped) : invisible, conserve état, peut être tuée
-- *Inactive* : détruite, doit être recréée
+1. *Activité principale* : déclarée avec `LAUNCHER` dans le manifeste, point d'entrée de l'app
+2. *Intent explicite* : `startActivity(Intent(this, SecondActivity::class.java))`
+3. *Intent implicite* : `startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://...")))`
 
-#info[
-En multi-fenêtres, activité visible (onStart) mais pas focus (onPause).
-Rotation écran → onPause → onStop → onDestroy → onCreate → onStart → onResume
-]
+*View Binding*
+- Activer : `buildFeatures { viewBinding = true }`
+- Usage : `binding = ActivityMainBinding.inflate(layoutInflater)`
+- Accès : `binding.myButton.setOnClickListener { }`
 
-*View Binding* (recommandé)
+*Intents Explicite vs Implicite* : Un *Intent explicite* cible une *classe précise* pour la *navigation interne* de l'app avec une *sécurité contrôlée* (`Intent(this, Activity::class.java)`), alors qu'un *Intent implicite* définit une *action générique* pour appeler des *apps externes* comme le navigateur ou la caméra, où le *système choisit l'app* (`Intent(ACTION_VIEW)`).
+
+*Les 2 types d'Intents avec exemples*
+
+1. *Intent Explicite* : spécifie la classe exacte de l'Activity à démarrer
 ```kotlin
-// build.gradle
-android { buildFeatures { viewBinding = true } }
-
-// Activity
-private lateinit var binding: ActivityMainBinding
-
-override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    binding = ActivityMainBinding.inflate(layoutInflater)
-    setContentView(binding.root)
-    
-    binding.myButton.setOnClickListener { }
-}
+// Exemple : ouvrir un écran de détails dans votre app
+val intent = Intent(this, DetailActivity::class.java)
+intent.putExtra("USER_ID", userId)
+startActivity(intent)
 ```
 
-*Intents*
+2. *Intent Implicite* : spécifie une action, le système choisit l'app appropriée
 ```kotlin
-// Explicite (interne) - classe spécifique
-val intent = Intent(this, SecondActivity::class.java)
-intent.putExtra("KEY", "value")
-intent.putExtra("USER_ID", 42)
-intent.putExtra("IS_PREMIUM", true)
+// Exemple : ouvrir une URL dans le navigateur
+val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://heig-vd.ch"))
 startActivity(intent)
 
-// Implicite (externe) - action générique
-val intent = Intent(Intent.ACTION_VIEW)
-intent.data = Uri.parse("https://heig-vd.ch")
-if (intent.resolveActivity(packageManager) != null) {
-    startActivity(intent)
-}
-
-// Autres actions courantes
-Intent(Intent.ACTION_DIAL, Uri.parse("tel:0123456789")) // Téléphone
-Intent(Intent.ACTION_SEND).apply { // Partage
-    type = "text/plain"
-    putExtra(Intent.EXTRA_TEXT, "Message à partager")
-}
-Intent(MediaStore.ACTION_IMAGE_CAPTURE) // Caméra
-
-// Réception
-val value = intent.getStringExtra("KEY")
-val age = intent.getIntExtra("AGE_KEY", -1) // défaut si absent
-val user = intent.getParcelableExtra<User>("USER") // Objet Parcelable
-val users = intent.getParcelableArrayListExtra<User>("USERS") // Liste
+// Exemple : composer un numéro de téléphone
+val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:+41123456789"))
+startActivity(intent)
 ```
 
-*Activity Result* (moderne)
+*Actions implicites courantes*
+- `ACTION_VIEW` : afficher URL/image
+- `ACTION_DIAL` : composer numéro
+- `ACTION_SEND` : partager contenu
+- `ACTION_IMAGE_CAPTURE` : prendre photo
+
+*Activity Result API*
 ```kotlin
-// Contrat personnalisé
-class PickNameContract : ActivityResultContract<Void?, String?>() {
-    override fun createIntent(context: Context, input: Void?) =
-        Intent(context, PickActivity::class.java)
-    
-    override fun parseResult(resultCode: Int, result: Intent?) =
-        if (resultCode == RESULT_OK) result?.getStringExtra("NAME") else null
+val launcher = registerForActivityResult(StartActivityForResult()) { result ->
+    if (result.resultCode == RESULT_OK) {
+        val data = result.data?.getStringExtra("KEY")
+    }
 }
-
-// Enregistrement (avant onCreate)
-private val getName = registerForActivityResult(PickNameContract()) { name ->
-    // Traiter résultat (peut être null)
-}
-
-// Lancement
-getName.launch(null)
-
-// Retour depuis PickActivity
-setResult(RESULT_OK, Intent().putExtra("NAME", name))
-finish()
+launcher.launch(intent)
 ```
 
-*Sauvegarde d'état* (rotation, manque mémoire)
-```kotlin
-override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-    outState.putInt("COUNTER", counter)
-}
+*Sauvegarde état*
+- `onSaveInstanceState(Bundle)` : sauvegarder avant rotation
+- `onRestoreInstanceState(Bundle)` : restaurer après recréation
+- Sauvegarder : position scroll, texte saisie, sélections
+- Ne pas sauvegarder : objets complexes, préférences
 
-override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-    super.onRestoreInstanceState(savedInstanceState)
-    counter = savedInstanceState.getInt("COUNTER", 0)
-}
-```
+*Cas de destruction de l'Activité*
+
+1. *Rotation écran* : `onSaveInstanceState()` appelé → Activity détruite et recréée → état restauré
+2. *Manque de mémoire* : système tue l'Activity en arrière-plan → `onSaveInstanceState()` appelé → état sauvegardé
+3. *Multi-fenêtres* : Activity visible mais pas au premier plan → `onSaveInstanceState()` appelé si risque de destruction
+4. *Retour arrière (Back)* : utilisateur quitte définitivement → `onSaveInstanceState()` *NON appelé* car destruction intentionnelle
+5. *finish() explicite* : code appelle `finish()` → `onSaveInstanceState()` *NON appelé* car destruction programmée
+6. *Processus tué par système* : app en arrière-plan, système libère mémoire → `onSaveInstanceState()` *peut ne pas être appelé* si kill brutal
+
+*Principe* : `onSaveInstanceState()` est appelé pour les *destructions temporaires/involontaires* où l'utilisateur s'attend à retrouver l'état. Elle n'est *pas appelée* pour les *destructions définitives/intentionnelles*.
 
 #warning[
-Le système sauvegarde automatiquement les widgets avec `android:id`. Pour données complexes, sauvegarder manuellement.
+  Dans le cas ou on utilise un view model pour sauvegarder l'état, il n'est pas nécessaire d'utiliser onSaveInstanceState et onRestoreInstanceState car le view model survit aux changements de configuration comme la rotation de l'écran.
 ]
 
 == Fragments
 
-*Avantages* : modulaires, réutilisables, cycle de vie propre, multi-écrans (tablette/smartphone), navigation back stack
+*Cycle de vie* (voir Ressources)
 
-#image("../img/image copy 25.png", width: 90%)
+- `onAttach()` : attachement à activité
+- `onCreate()` : initialisation fragment
+- `onCreateView()` : création interface (inflate layout)
+- `onViewCreated()` : vues accessibles, initialisation
+- `onDestroyView()` : destruction vues
+- `onDestroy()` : nettoyage ressources
+- `onDetach()` : détachement activité
 
-*Cycle de vie spécifique*
-- `onAttach()` : attaché à l'activité, accès context
-- `onCreate()` : initialisation (pas de vue)
-- `onCreateView()` : création vue, inflate layout, retourner View
-- `onViewCreated()` : vue créée, initialiser UI (View Binding ici)
-- `onDestroyView()` : vue détruite (rotation), libérer binding
-- `onDetach()` : détaché de l'activité
+*Caractéristiques*
+- Portion réutilisable d'UI avec cycle de vie propre
+- Plusieurs fragments par activité
+- Modularité et réutilisabilité
+- Back stack indépendant
 
-*Implémentation complète*
+*Transactions*
 ```kotlin
-class MyFragment : Fragment() {
-    private var _binding: FragmentMyBinding? = null
-    private val binding get() = _binding!!
-    
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        _binding = FragmentMyBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-    
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.button.setOnClickListener { /* ... */ }
-    }
-    
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null // IMPORTANT : éviter fuites mémoire
-    }
+fragmentManager.commit {
+    add(R.id.container, fragment)
+    replace(R.id.container, fragment)
+    remove(fragment)
+    addToBackStack(null)
 }
-```
-
-*Gestion* : `FragmentManager`, transactions
-```kotlin
-supportFragmentManager.beginTransaction()
-    .replace(R.id.fragment_container, MyFragment())
-    .addToBackStack(null) // Ajouter à la pile retour
-    .commit()
-
-// Avec arguments
-val fragment = MyFragment().apply {
-    arguments = Bundle().apply {
-        putString("KEY", "value")
-        putInt("ID", 42)
-    }
-}
-
-// Dans Fragment : récupération
-val value = requireArguments().getString("KEY")
 ```
 
 *Communication*
-- Activité → Fragment : arguments (`Bundle`), éviter méthodes directes
-- Fragment → Activité : interfaces callback ou ViewModels (recommandé)
-- Fragment ↔ Fragment : ViewModels partagés (`activityViewModels()`)
-
-*ViewModel partagé*
-```kotlin
-// Dans plusieurs fragments
-private val sharedViewModel: SharedViewModel by activityViewModels()
-
-override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    sharedViewModel.data.observe(viewLifecycleOwner) { data ->
-        // Mise à jour UI
-    }
-}
-```
+- Fragment → Activité : interfaces callback
+- Activité → Fragment : méthodes publiques
+- Fragment ↔ Fragment : ViewModel partagé (`activityViewModels()`)
 
 #warning[
-Toujours utiliser `viewLifecycleOwner` pour observer LiveData dans les fragments, pas `this`.
-Fragments peuvent être recréés mais leurs vues détruites (rotation).
+Observer LiveData avec `viewLifecycleOwner` dans fragments, jamais `this`.
 ]
 
 == Services
 
-*Types*
-- *Foreground* : notification obligatoire, tâches visibles (lecteur audio, navigation GPS). Priorité haute.
-- *Background* : limités API 26+, tâches courtes. Restrictions importantes.
-- *Bounded* : liés à un composant, détruits quand plus de liens. Communication bidirectionnelle.
+*Services Started vs Bound vs Foreground* : Un *Started Service* démarre avec `startService()` pour une *durée indéfinie* (upload, sync) *sans notification*, un *Bound Service* utilise `bindService()` et vit *lié au client* pour une *communication* bidirectionnelle *sans notification*, tandis qu'un *Foreground Service* nécessite `startForeground()` avec une *notification obligatoire* pour des tâches longues comme la *musique ou GPS* avec *haute priorité*.
 
 *Cycle de vie*
-- `onCreate()` : création, initialisation une fois
-- `onStartCommand(intent, flags, startId)` : chaque appel startService()
-  - `START_STICKY` : redémarre si tué (lecteur musique)
-  - `START_NOT_STICKY` : ne redémarre pas
-  - `START_REDELIVER_INTENT` : redémarre avec dernier intent
-- `onBind(intent)` : retourne IBinder pour communication
-- `onUnbind(intent)` : tous clients déconnectés
-- `onDestroy()` : nettoyage, libérer ressources
+- `onCreate()` : création, initialisation
+- `onStartCommand()` : chaque appel `startService()`
+- `onBind()` : retourne IBinder pour communication
+- `onDestroy()` : nettoyage ressources
 
-*Foreground Service*
-```kotlin
-class MusicService : Service() {
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val notification = createNotification()
-        startForeground(NOTIFICATION_ID, notification)
-        
-        thread {
-            // Tâche longue
-            stopSelf() // Arrêter quand terminé
-        }
-        
-        return START_STICKY
-    }
-    
-    override fun onBind(intent: Intent?) = null
-}
-
-// Manifest
-<service android:name=".MusicService" 
-         android:foregroundServiceType="mediaPlayback" />
-<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-<uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
-
-// Démarrer
-if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-    startForegroundService(Intent(this, MusicService::class.java))
-} else {
-    startService(Intent(this, MusicService::class.java))
-}
-```
-
-*WorkManager* (recommandé pour tâches différées)
-```kotlin
-val workRequest = OneTimeWorkRequestBuilder<MyWorker>()
-    .setConstraints(Constraints.Builder()
-        .setRequiredNetworkType(NetworkType.CONNECTED)
-        .setRequiresCharging(true)
-        .build())
-    .setInputData(workDataOf("key" to "value"))
-    .build()
-
-WorkManager.getInstance(context).enqueue(workRequest)
-
-// Worker
-class MyWorker(context: Context, params: WorkerParameters) 
-    : Worker(context, params) {
-    override fun doWork(): Result {
-        val data = inputData.getString("key")
-        // Tâche (thread séparé automatique)
-        return Result.success(workDataOf("result" to "value"))
-    }
-}
-```
+*WorkManager (recommandé)*
+- Tâches différées/périodiques garanties
+- Contraintes : réseau, batterie, stockage
+- Survit aux redémarrages
+- Remplace JobScheduler et AlarmManager
 
 #warning[
-Services = UI-Thread. Créer thread séparé pour tâches longues.
-API 26+ : restrictions background importantes. WorkManager préféré pour tâches différées.
+Services exécutent sur UI-Thread. Créer thread séparé pour tâches longues.
 ]
 
 == Permissions
 
-*Niveaux*
-- Installation : automatiques (Internet, Bluetooth)
-- Exécution : demande popup (localisation, caméra, contacts)
-- Spéciales : système/constructeur uniquement
+*Types*
+- *Normal* : accordées automatiquement (Internet, vibration)
+- *Dangerous* : demande explicite (localisation, caméra, contacts)
+- *Spéciales* : paramètres système (overlay, usage stats)
 
-*Principes* : Contrôle, Transparence, Minimisation
-
-*Implémentation complète*
+*Workflow runtime permissions*
 ```kotlin
-// 1. Déclarer dans Manifest
-<uses-permission android:name="android.permission.CAMERA" />
+// 1. Vérifier
+if (checkSelfPermission(permission) == PERMISSION_GRANTED) { }
 
-// 2. Vérifier et demander
-private val requestPermission = registerForActivityResult(
-    ActivityResultContracts.RequestPermission()
-) { granted ->
-    if (granted) {
-        // Permission accordée
-        openCamera()
-    } else {
-        // Permission refusée
-        Toast.makeText(this, "Permission refusée", Toast.LENGTH_SHORT).show()
-    }
+// 2. Demander
+val launcher = registerForActivityResult(RequestPermission()) { granted ->
+    if (granted) { /* utiliser */ }
 }
-
-fun checkAndRequestPermission() {
-    when {
-        ContextCompat.checkSelfPermission(
-            this, Manifest.permission.CAMERA
-        ) == PackageManager.PERMISSION_GRANTED -> {
-            // Permission déjà accordée
-            openCamera()
-        }
-        shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
-            // Expliquer pourquoi la permission est nécessaire
-            showRationaleDialog()
-        }
-        else -> {
-            // Demander la permission
-            requestPermission.launch(Manifest.permission.CAMERA)
-        }
-    }
-}
-
-// 3. Utiliser avec annotation si vérification faite
-@SuppressLint("MissingPermission")
-fun openCamera() {
-    // Code utilisant la caméra
-}
+launcher.launch(permission)
 ```
 
-= Interfaces graphiques
+*Best practices*
+- Demander au moment d'usage, pas au lancement
+- Expliquer pourquoi permission nécessaire
+- Fonctionnalité dégradée si refusée
+- Respecter refus définitif
 
-== Composants de base
+= Interface utilisateur de base
 
-*Visibilité* : `VISIBLE`, `INVISIBLE` (espace réservé), `GONE` (pas d'espace)
+== Ressources et classe R
 
-*Vues*
-- TextView : `text`, `textSize`, `textColor`, `textStyle`
-- EditText : `getText().toString()`, `inputType` (clavier adapté), `TextWatcher`
-- Button : `setOnClickListener`, `setOnLongClickListener`
-- ImageView : `scaleType` (fitCenter, centerCrop, fitXY, centerInside)
+*Manifest (AndroidManifest.xml)*
+- Déclare composants : activités, services, receivers, providers
+- Liste permissions requises
+- Définit point d'entrée : LAUNCHER activity
 
-*Sélection*
-- CheckBox/Switch : `isChecked`, `setOnCheckedChangeListener`
-- RadioGroup : sélection unique, `setOnCheckedChangeListener`
-- Spinner : `ArrayAdapter` + `onItemSelectedListener`
+*Ressources (res/)*
+- `values/` : strings, dimensions, couleurs
+- `drawable/` : images (bitmap, vector)
+- `layout/` : interfaces XML
+- Qualificateurs : `-fr`, `-night`, `-sw600dp`, `-land`
 
-*Progression*
-- ProgressBar : indéterminée (animation) ou déterminée (0-max)
-- SeekBar : `setOnSeekBarChangeListener` (onProgressChanged, onStartTracking, onStopTracking)
+*Classe R*
 
-*WebView* : permission INTERNET, `settings.javaScriptEnabled = true`, `webViewClient = WebViewClient()`
+La classe *R* permet d'accéder de manière typesafe aux ressources définies dans le projet Android. Par exemple, pour accéder à une chaîne de caractères définie dans `res/values/strings.xml`, on utilise `R.string.nom_de_la_chaine`. De même, pour une image dans `res/drawable/`, on utilise `R.drawable.nom_de_l_image`. Cela évite les erreurs de frappe et facilite la maintenance du code. Cela permet aussi de gérer facilement les ressources pour différentes configurations (langues, tailles d'écran, modes sombre/clair) en utilisant des qualificateurs de dossiers.
 
-== UI-Thread
+*Unités de mesure* : *dp (density-independent pixels)* est une unité *indépendante de la densité écran* (1dp = 1px à 160dpi) pour les *dimensions de layout*, tandis que *sp (scale-independent pixels)* s'adapte en plus aux *préférences de taille de texte* de l'utilisateur et doit *toujours être utilisé pour le texte*.
 
-*Règle d'or* : opérations longues → thread séparé, UI → UI-Thread uniquement
-```kotlin
-thread {
-    val result = downloadData() // Thread séparé
-    runOnUiThread { textView.text = result } // UI-Thread
-}
-```
+*Drawables Bitmap vs Vector* : Les *Bitmap* (PNG, WEBP, JPEG) nécessitent *plusieurs densités* (mdpi=1x, hdpi=1.5x, xhdpi=2x, xxhdpi=3x, xxxhdpi=4x) et se *pixellisent* lors du redimensionnement, alors que les *Vector* (SVG Android) sont *scalables sans perte de qualité* avec un *fichier unique* pour toutes densités.
 
-#warning[
-Modifier l'UI hors UI-Thread → `CalledFromWrongThreadException` ou ANR (Application Not Responding).
-]
+*Afficher une image dans une Activité*
 
-Alternatives modernes : Coroutines, RxJava, WorkManager
+Trois approches principales :
+1. *XML avec ImageView* : définir `android:src="@drawable/image"` dans le layout
+2. *Programmatique* : `imageView.setImageResource(R.drawable.image)` pour ressources ou `imageView.setImageBitmap(bitmap)` pour images dynamiques
+3. *Librairies* : Glide, Picasso, Coil pour chargement asynchrone, cache, et gestion mémoire
+
+*Précautions JPEG/PNG* : Les images bitmap (JPEG, PNG) doivent être fournies en *plusieurs densités* (drawable-mdpi, drawable-hdpi, drawable-xhdpi, etc.) pour éviter la *pixellisation* ou la *surconsommation de mémoire*. Android sélectionne automatiquement la densité appropriée selon l'écran. JPEG est préféré pour photos (compression), PNG pour transparence et graphiques nets.
+
+*Autres types*
+- *Nine-Patch* : zones extensibles sans distorsion
+- *State List* : change selon état (pressed, focused)
+- *Level List* : varie selon niveau numérique
+
+== Composants graphiques (Views)
+
+*Visibilité*
+- `VISIBLE` : visible et occupe espace
+- `INVISIBLE` : invisible mais espace réservé
+- `GONE` : invisible sans espace
+
+*Composants de base*
+- *TextView* : affichage texte avec `text`, `textSize`, `textColor`
+- *EditText* : saisie avec `inputType` (text, number, email, password), `hint`
+- *Button* : déclenchement actions avec `setOnClickListener`
+- *ImageView* : affichage image avec `scaleType` (fitCenter, centerCrop)
+- *CheckBox/Switch* : choix multiples avec `isChecked`
+- *RadioGroup* : choix unique parmi options
+- *Spinner* : menu déroulant avec `ArrayAdapter`
+- *ProgressBar* : indéterminée ou déterminée (0-100)
+- *SeekBar* : curseur ajustable
+
+== Layouts et widgets
+
+*LinearLayout vs RelativeLayout vs ConstraintLayout* : *LinearLayout* offre une *direction unique* (vertical ou horizontal) avec `layout_weight` pour répartition proportionnelle, simple pour formulaires. *RelativeLayout* permet un *positionnement relatif* entre vues (above, below, alignParent) plus flexible mais complexe. *ConstraintLayout* (recommandé) utilise des *contraintes multiples* par vue avec chains, guidelines et barriers pour un *layout plat performant* qui *remplace les deux autres*.
+
+*FrameLayout*
+- Vues empilées
+- Bon pour fragments
+- Un enfant généralement
+
+*ScrollView*
+- Défilement vertical
+- Un seul enfant direct
+- `NestedScrollView` pour coordination
 
 == Vues personnalisées
 
-*Extension*
-```kotlin
-class MyView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
-    init {
-        attrs?.let {
-            val ta = context.obtainStyledAttributes(it, R.styleable.MyView)
-            // val color = ta.getColor(R.styleable.MyView_customColor, Color.BLACK)
-            ta.recycle() // IMPORTANT : libérer ressources
-        }
-    }
-}
-```
+*Création*
+- Hériter `View` ou sous-classe existante
+- `onDraw(Canvas)` : dessin custom
+- `onMeasure()` : calcul dimensions
+- `onTouchEvent()` : gestion tactile
 
-*From scratch* : `onDraw(canvas)`, `onMeasure(widthMeasureSpec, heightMeasureSpec)`, `onTouchEvent()`, `invalidate()` (redessiner)
+*Attributs XML personnalisés*
+```kotlin
+// res/values/attrs.xml
+<declare-styleable name="MyView">
+    <attr name="customColor" format="color"/>
+</declare-styleable>
+
+// Constructeur
+val attrs = context.obtainStyledAttributes(attrs, R.styleable.MyView)
+val color = attrs.getColor(R.styleable.MyView_customColor, defaultColor)
+attrs.recycle()
+```
 
 == Material Design
 
-*TextInputLayout* : label flottant, erreurs, compteur, icônes
+*Composants principaux*
+- *MaterialButton* : bouton avec variantes (outlined, text)
+- *TextInputLayout* : label flottant, erreurs, compteur
+- *Chip* : étiquettes interactives (filtres, tags)
+- *FloatingActionButton* : action principale écran
+- *BottomNavigationView* : navigation barre basse
+- *TabLayout* : onglets horizontaux
+- *CardView* : conteneur avec ombres
+
+*TextInputLayout*
 ```kotlin
-inputLayout.error = "message" // Afficher erreur
-inputLayout.error = null // Effacer erreur
+// Afficher erreur
+inputLayout.error = "Message d'erreur"
+// Effacer
+inputLayout.error = null
+// Compteur
 inputLayout.isCounterEnabled = true
-inputLayout.counterMaxLength = 50
+inputLayout.counterMaxLength = 100
 ```
 
-*Autres* : MaterialButton, Chip, BottomNavigationView, TabLayout, CardView, FloatingActionButton
+= Interaction utilisateur
 
-== Feedback utilisateur
+== Gestures et animations
+
+*Types de gestures*
+- *Tap* : toucher simple
+- *Double tap* : double toucher
+- *Long press* : appui long
+- *Swipe* : glisser
+- *Pinch* : pincer (zoom)
+- *Fling* : projection rapide
+
+*GestureDetector*
+```kotlin
+val detector = GestureDetector(context, object : SimpleOnGestureListener() {
+    override fun onDown(e: MotionEvent) = true
+    override fun onSingleTapUp(e: MotionEvent) = true
+    override fun onLongPress(e: MotionEvent) { }
+    override fun onFling(e1: MotionEvent, e2: MotionEvent, 
+                        velocityX: Float, velocityY: Float) = true
+})
+view.setOnTouchEvent { detector.onTouchEvent(it) }
+```
+
+*Animations*
+```kotlin
+// Programmatique
+view.animate()
+    .alpha(0f)
+    .translationY(100f)
+    .rotation(360f)
+    .setDuration(1000)
+    .start()
+
+// XML (res/anim/)
+val anim = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+view.startAnimation(anim)
+```
+
+== Feedback utilisateur (Toast, Snackbar, Dialog)
+
+*Toast vs Snackbar vs Dialog* : *Toast* affiche un message *court* (2-3.5s) *sans interaction* de manière *flottante* pour des *infos simples*, *Snackbar* apparaît en *bas d'écran* avec une *action optionnelle* (undo, retry) et *durée configurable*, tandis que *Dialog* au *centre* nécessite une *interaction obligatoire* jusqu'à action utilisateur pour des *confirmations importantes*.
 
 *Toast*
 ```kotlin
-Toast.makeText(this, "msg", Toast.LENGTH_SHORT).show() // 2s
-// Toast.LENGTH_LONG // 3.5s
+Toast.makeText(context, "Message", Toast.LENGTH_SHORT).show()
 ```
 
-*Snackbar* (Material, avec action)
+*Snackbar*
 ```kotlin
-Snackbar.make(view, "msg", Snackbar.LENGTH_SHORT)
-    .setAction("Annuler") { /* undo */ }
+Snackbar.make(view, "Message", Snackbar.LENGTH_LONG)
+    .setAction("Annuler") { /* action */ }
     .show()
 ```
 
-*Dialog*
+*AlertDialog*
 ```kotlin
-AlertDialog.Builder(this)
+AlertDialog.Builder(context)
     .setTitle("Titre")
     .setMessage("Message")
     .setPositiveButton("OK") { _, _ -> }
     .setNegativeButton("Annuler", null)
-    .setNeutralButton("Plus tard", null)
     .show()
-```
-
-Variantes : `.setItems(items) { _, which -> }`, `.setSingleChoiceItems(items, checked) { _, which -> }`, `.setMultiChoiceItems(items, checked) { _, which, isChecked -> }`, `.setView(customView)`
-
-*DatePickerDialog / TimePickerDialog* : sélection date/heure native
-
-*DialogFragment* : dialogues complexes, survit rotation, réutilisable
-
-== Notifications
-
-*Canal requis (API 26+)*
-```kotlin
-val channel = NotificationChannel(
-    CHANNEL_ID, 
-    "Nom visible", 
-    NotificationManager.IMPORTANCE_DEFAULT
-)
-channel.description = "Description du canal"
-notificationManager.createNotificationChannel(channel)
-```
-
-*Création*
-```kotlin
-val notif = NotificationCompat.Builder(this, CHANNEL_ID)
-    .setSmallIcon(R.drawable.icon) // OBLIGATOIRE
-    .setContentTitle("Titre")
-    .setContentText("Message")
-    .setContentIntent(pendingIntent) // Action au tap
-    .setAutoCancel(true) // Disparaît au tap
-    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-    .addAction(icon, "Action", pendingIntent) // Max 3
-    .build()
-
-NotificationManagerCompat.from(this).notify(notificationId, notif)
-```
-
-*PendingIntent* : `PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)`
-
-#warning[
-API 31+ : FLAG_IMMUTABLE obligatoire pour PendingIntent.
-]
-
-*Styles étendus*
-
-*BigTextStyle* (texte long)
-```kotlin
-val style = NotificationCompat.BigTextStyle()
-    .bigText("""Texte très long qui sera affiché en entier 
-        lorsque l'utilisateur déploie la notification.""")
-    .setBigContentTitle("Titre détaillé")
-    .setSummaryText("Résumé")
-
-notificationBuilder.setStyle(style)
-```
-
-*BigPictureStyle* (image)
-```kotlin
-val bitmap = BitmapFactory.decodeResource(resources, R.drawable.photo)
-val style = NotificationCompat.BigPictureStyle()
-    .bigPicture(bitmap)
-    .bigLargeIcon(null) // Cache large icon quand déployé
-    .setBigContentTitle("Nouvelle photo")
-
-notificationBuilder.setLargeIcon(bitmap).setStyle(style)
-```
-
-*InboxStyle* (liste)
-```kotlin
-val style = NotificationCompat.InboxStyle()
-    .addLine("Email 1: Sujet important")
-    .addLine("Email 2: Confirmation")
-    .addLine("Email 3: Newsletter")
-    .setBigContentTitle("3 nouveaux emails")
-    .setSummaryText("inbox@example.com")
-
-notificationBuilder.setStyle(style)
-```
-
-*MessagingStyle* (conversation)
-```kotlin
-val style = NotificationCompat.MessagingStyle("Moi")
-    .addMessage("Salut!", System.currentTimeMillis(), "Jean")
-    .addMessage("Ça va?", System.currentTimeMillis(), "Jean")
-    .addMessage("Très bien!", System.currentTimeMillis(), null) // Moi
-    .setConversationTitle("Conversation avec Jean")
-
-notificationBuilder.setStyle(style)
-```
-
-*Actions avec input*
-```kotlin
-val remoteInput = RemoteInput.Builder("KEY_TEXT_REPLY")
-    .setLabel("Répondre")
-    .build()
-
-val replyAction = NotificationCompat.Action.Builder(
-    R.drawable.ic_reply,
-    "Répondre",
-    replyPendingIntent
-).addRemoteInput(remoteInput).build()
-
-notificationBuilder.addAction(replyAction)
-
-// Récupération dans Activity
-val input = RemoteInput.getResultsFromIntent(intent)
-val reply = input?.getCharSequence("KEY_TEXT_REPLY")?.toString()
-```
-
-*Groupes* : `.setGroup(GROUP_KEY)`, `.setGroupSummary(true)` pour notification récapitulative
-
-*Canaux multiples*
-```kotlin
-val channels = listOf(
-    NotificationChannel("messages", "Messages", IMPORTANCE_HIGH),
-    NotificationChannel("updates", "Mises à jour", IMPORTANCE_LOW),
-    NotificationChannel("alerts", "Alertes", IMPORTANCE_DEFAULT)
-)
-notificationManager.createNotificationChannels(channels)
 ```
 
 == ActionBar et Menu
 
-*Configuration*
+*Configuration ActionBar*
 ```kotlin
 setSupportActionBar(toolbar)
 supportActionBar?.apply {
     title = "Titre"
-    setDisplayHomeAsUpEnabled(true) // Bouton retour
+    setDisplayHomeAsUpEnabled(true)
 }
 ```
 
-*Menu XML* (`res/menu/main_menu.xml`)
-```xml
-<menu xmlns:android="..." xmlns:app="...">
-  <item android:id="@+id/action_search"
-        android:title="Rechercher"
-        android:icon="@drawable/ic_search"
-        app:showAsAction="ifRoom|withText" />
-  <!-- showAsAction: never, ifRoom, always, withText, collapseActionView -->
-</menu>
-```
-
-*Gestion*
+*Menu*
 ```kotlin
-override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    menuInflater.inflate(R.menu.main_menu, menu)
-    return true
-}
+// onCreateOptionsMenu
+menuInflater.inflate(R.menu.menu_main, menu)
 
-override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
-    R.id.action_search -> { /* ... */; true }
-    android.R.id.home -> { 
-        onBackPressedDispatcher.onBackPressed()
-        true 
-    }
+// onOptionsItemSelected
+when (item.itemId) {
+    R.id.action_search -> true
+    android.R.id.home -> { finish(); true }
     else -> super.onOptionsItemSelected(item)
 }
 ```
 
-*SearchView* : `app:actionViewClass="androidx.appcompat.widget.SearchView"`, `setOnQueryTextListener`
+*Menu XML*
+- `showAsAction` : `always` (toujours visible), `ifRoom` (si place), `never` (overflow)
 
-*Menu contextuel* : clic long
+== Notifications
+
+*Structure*
 ```kotlin
-registerForContextMenu(view)
+val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+    .setSmallIcon(R.drawable.icon)
+    .setContentTitle("Titre")
+    .setContentText("Message")
+    .setContentIntent(pendingIntent)
+    .setAutoCancel(true)
+    .build()
 
-override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
-    menuInflater.inflate(R.menu.context_menu, menu)
-}
-
-override fun onContextItemSelected(item: MenuItem): Boolean {
-    return when(item.itemId) {
-        R.id.action_edit -> { /* ... */; true }
-        else -> super.onContextItemSelected(item)
-    }
-}
+notificationManager.notify(notificationId, notification)
 ```
 
-== RecyclerView
-
-*Avantages* : recyclage obligatoire, ViewHolder standardisé, animations, layouts flexibles, DiffUtil
-
-*Configuration*
+*Channels (API 26+)*
 ```kotlin
-recyclerView.apply {
-    adapter = MyAdapter()
-    layoutManager = LinearLayoutManager(context) // ou GridLayoutManager(context, 2)
-    addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-}
+val channel = NotificationChannel(
+    CHANNEL_ID,
+    "Nom du channel",
+    NotificationManager.IMPORTANCE_DEFAULT
+)
+notificationManager.createNotificationChannel(channel)
 ```
 
-*Adapter simple*
+*Styles étendus*
+- *BigTextStyle* : texte long déployable
+- *BigPictureStyle* : affiche grande image
+- *InboxStyle* : liste de lignes (5-6 max)
+- *MessagingStyle* : conversation avec messages
+
+= Affichage de données
+
+== Listes (ListView et RecyclerView)
+
+*ListView vs RecyclerView* : *ListView* offre des *performances moyennes* avec un *ViewHolder optionnel* et uniquement une *disposition verticale* avec des *animations limitées*, tandis que *RecyclerView* garantit d'*excellentes performances* avec *ViewHolder obligatoire*, supporte *Linear, Grid et Staggered* layouts, propose des *animations riches* et des *ItemDecoration*, rendant RecyclerView le *standard recommandé*.
+
+*RecyclerView composants*
+- *Adapter* : lie données aux vues, crée ViewHolders
+- *ViewHolder* : cache références vues (performances)
+- *LayoutManager* : disposition items (Linear, Grid, Staggered)
+- *ItemDecoration* : séparateurs, espacements
+- *ItemAnimator* : animations ajout/suppression
+
+*Adapter méthodes*
 ```kotlin
 class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
-    private var items = listOf<String>()
-    
-    fun updateItems(newItems: List<String>) {
-        items = newItems
-        notifyDataSetChanged() // Force tout redessiner
-    }
-    
-    override fun getItemCount() = items.size
-    
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item, parent, false)
@@ -728,638 +463,257 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         holder.bind(items[position])
     }
     
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val title: TextView = itemView.findViewById(R.id.title)
-        
-        fun bind(item: String) {
-            title.text = item
-            itemView.setOnClickListener { 
-                // adapterPosition donne la position actuelle
-                Toast.makeText(itemView.context, "Cliqué: $item", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
+    override fun getItemCount() = items.size
 }
 ```
 
-*ScrollView vs RecyclerView*
-- *ScrollView* : contenu statique limité, pas de recyclage, toutes vues en mémoire. Usage: formulaires, pages infos courtes.
-- *RecyclerView* : listes dynamiques longues, recyclage ViewHolder, performant. Usage: feeds, catalogues, contacts.
+*ScrollView vs RecyclerView* : *ScrollView* charge *toutes les vues* en mémoire *sans recyclage*, offre de *mauvaises performances* pour les longues listes, supporte uniquement le *vertical* avec des *animations manuelles*, idéal pour du *contenu statique court* (< 20 éléments). *RecyclerView* utilise un *recyclage automatique* des vues visibles uniquement, garantit d'*excellentes performances*, supporte *Linear, Grid et Staggered* avec des *animations intégrées*, parfait pour les *listes dynamiques longues* (feeds, catalogues).
 
-*Types multiples*
+*Exemples d'utilisation*
+- *ScrollView* : formulaire de connexion avec quelques champs, page "À propos" avec texte et images, écran de paramètres avec 10-15 options
+- *RecyclerView* : liste de contacts (centaines d'entrées), feed d'actualités, galerie photos, catalogue produits e-commerce, historique de messages
+
+*Optimisations*
+- `setHasFixedSize(true)` : si taille ne change pas
+- `setItemViewCacheSize(n)` : augmenter cache
+- Librairies images : Glide, Picasso, Coil
+
+== Adaptateurs
+
+*DiffUtil vs ListAdapter* : *DiffUtil* nécessite un *setup manuel* avec `calculateDiff()` puis `dispatchUpdatesTo(adapter)` offrant un *contrôle total* mais un *code plus complexe*, tandis que *ListAdapter* intègre *DiffUtil automatiquement* avec `submitList(newList)` pour un *code simplifié* adapté aux *cas standards*.
+
+*DiffUtil*
 ```kotlin
-class MultiTypeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    companion object {
-        const val TYPE_HEADER = 0
-        const val TYPE_ITEM = 1
-    }
+class DiffCallback : DiffUtil.ItemCallback<Item>() {
+    override fun areItemsTheSame(old: Item, new: Item) = 
+        old.id == new.id
     
-    override fun getItemViewType(position: Int) = when(items[position]) {
-        is Header -> TYPE_HEADER
-        is Item -> TYPE_ITEM
-        else -> throw IllegalArgumentException()
-    }
-    
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        when(viewType) {
-            TYPE_HEADER -> HeaderViewHolder(...)
-            TYPE_ITEM -> ItemViewHolder(...)
-            else -> throw IllegalArgumentException()
-        }
-    
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
-            is HeaderViewHolder -> holder.bind(items[position] as Header)
-            is ItemViewHolder -> holder.bind(items[position] as Item)
-        }
-    }
+    override fun areContentsTheSame(old: Item, new: Item) = 
+        old == new
 }
 ```
 
-*Optimisations performances*
+*ListAdapter*
 ```kotlin
-recyclerView.apply {
-    setHasFixedSize(true) // Si taille fixe
-    setItemViewCacheSize(20) // Cache vues hors écran
-    recycledViewPool.setMaxRecycledViews(TYPE_ITEM, 10)
+class MyAdapter : ListAdapter<Item, ViewHolder>(DiffCallback()) {
+    // Pas de liste interne, utiliser getItem(position)
 }
 
-// Dans ViewHolder : éviter findViewById répétés
-class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val title: TextView = itemView.findViewById(R.id.title)
-    private val image: ImageView = itemView.findViewById(R.id.image)
-    
-    fun bind(item: Item) {
-        title.text = item.title
-        // Glide.with(itemView).load(item.imageUrl).into(image)
-    }
-}
+// Usage
+adapter.submitList(newList)
 ```
 
-*DiffUtil* : calcul automatique des différences, animations optimales
-```kotlin
-class ItemDiffCallback(
-    private val oldList: List<Item>,
-    private val newList: List<Item>
-) : DiffUtil.Callback() {
-    override fun getOldListSize() = oldList.size
-    override fun getNewListSize() = newList.size
-    
-    override fun areItemsTheSame(oldPos: Int, newPos: Int) =
-        oldList[oldPos].id == newList[newPos].id // Même entité?
-    
-    override fun areContentsTheSame(oldPos: Int, newPos: Int) =
-        oldList[oldPos] == newList[newPos] // Même contenu?
-}
-
-// Utilisation
-fun updateItems(newItems: List<Item>) {
-    val diffResult = DiffUtil.calculateDiff(ItemDiffCallback(items, newItems))
-    items = newItems
-    diffResult.dispatchUpdatesTo(this) // Applique changements avec animations
-}
-```
-
-*ListAdapter* : DiffUtil intégré, plus simple
-```kotlin
-class MyAdapter : ListAdapter<Item, MyAdapter.ViewHolder>(
-    object : DiffUtil.ItemCallback<Item>() {
-        override fun areItemsTheSame(old: Item, new: Item) = old.id == new.id
-        override fun areContentsTheSame(old: Item, new: Item) = old == new
-    }
-) {
-    // ...
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)) // getItem() au lieu de items[position]
-    }
-}
-
-// Mise à jour ultra simple
-adapter.submitList(newItems) // DiffUtil automatique
-```
-
-== Animations
-
-*XML* (`res/anim/fade_in.xml`)
-```xml
-<set android:fillAfter="true">
-    <alpha android:fromAlpha="0.0" android:toAlpha="1.0" android:duration="300" />
-    <translate android:fromYDelta="100%" android:toYDelta="0%" android:duration="300" />
-    <scale android:fromXScale="0.5" android:toXScale="1.0" 
-           android:fromYScale="0.5" android:toYScale="1.0"
-           android:pivotX="50%" android:pivotY="50%" />
-    <rotate android:fromDegrees="0" android:toDegrees="360"
-            android:pivotX="50%" android:pivotY="50%" />
-</set>
-```
-
-*Application*
-```kotlin
-val animation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
-view.startAnimation(animation)
-
-animation.setAnimationListener(object : Animation.AnimationListener {
-    override fun onAnimationEnd(animation: Animation?) { /* Fin */ }
-    override fun onAnimationStart(animation: Animation?) {}
-    override fun onAnimationRepeat(animation: Animation?) {}
-})
-```
-
-*Programmatique*
-```kotlin
-view.animate()
-    .alpha(1f)
-    .translationY(100f)
-    .rotation(360f)
-    .scaleX(1.5f)
-    .setDuration(300)
-    .setInterpolator(AccelerateDecelerateInterpolator())
-    .start()
-```
-
-== Gestures
-
-*GestureDetector*
-```kotlin
-private val gestureDetector = GestureDetectorCompat(this, object : 
-    GestureDetector.SimpleOnGestureListener() {
-    
-    override fun onDown(e: MotionEvent) = true // OBLIGATOIRE
-    
-    override fun onSingleTapUp(e: MotionEvent): Boolean {
-        // Tap simple
-        return true
-    }
-    
-    override fun onLongPress(e: MotionEvent) {
-        // Appui long
-    }
-    
-    override fun onFling(
-        e1: MotionEvent?, e2: MotionEvent,
-        velocityX: Float, velocityY: Float
-    ): Boolean {
-        if (e1 == null) return false
-        val diffX = e2.x - e1.x
-        val diffY = e2.y - e1.y
-        
-        if (abs(diffX) > abs(diffY)) {
-            // Swipe horizontal
-            if (abs(diffX) > SWIPE_THRESHOLD && abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                if (diffX > 0) onSwipeRight() else onSwipeLeft()
-                return true
-            }
-        } else {
-            // Swipe vertical
-            if (abs(diffY) > SWIPE_THRESHOLD && abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                if (diffY > 0) onSwipeDown() else onSwipeUp()
-                return true
-            }
-        }
-        return false
-    }
-})
-
-override fun onTouchEvent(event: MotionEvent) =
-    gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
-
-companion object {
-    const val SWIPE_THRESHOLD = 100
-    const val SWIPE_VELOCITY_THRESHOLD = 100
-}
-```
-
-*Pinch-to-zoom*
-```kotlin
-private val scaleDetector = ScaleGestureDetector(context, object :
-    ScaleGestureDetector.SimpleOnScaleGestureListener() {
-    override fun onScale(detector: ScaleGestureDetector): Boolean {
-        scaleFactor *= detector.scaleFactor
-        scaleFactor = scaleFactor.coerceIn(0.1f, 5.0f) // Min/Max
-        invalidate()
-        return true
-    }
-})
-
-override fun onTouchEvent(event: MotionEvent): Boolean {
-    scaleDetector.onTouchEvent(event)
-    return true
-}
-```
-
-= Live Data & MVVM
+= Architecture MVVM
 
 == LiveData
 
-*Observable* respectant le cycle de vie
-- Mise à jour automatique de l'UI
-- Évite fuites mémoire
-- Observateur appelé dans UI-thread
+*Caractéristiques*
+- Observable respectant cycle de vie
+- Notifie seulement si composant actif (STARTED/RESUMED)
+- Évite fuites mémoire (dés-observation automatique)
+- Thread-safe
+- Notifie sur UI-thread
 
 *Utilisation*
 ```kotlin
-// Création
-val data = MutableLiveData(0)
+// ViewModel
+private val _data = MutableLiveData<String>()
+val data: LiveData<String> = _data
 
-// Mise à jour
-data.value = 42 // Synchrone, UI-thread uniquement
-data.postValue(42) // Asynchrone, tout thread (background ok)
-
-// Observation (Activité)
-data.observe(this) { value ->
-    textView.text = "$value"
+fun updateData(value: String) {
+    _data.value = value // UI thread
+    _data.postValue(value) // any thread
 }
 
-// Observation (Fragment)
-data.observe(viewLifecycleOwner) { value -> // IMPORTANT: viewLifecycleOwner
-    textView.text = "$value"
+// Activity
+viewModel.data.observe(this) { newValue ->
+    textView.text = newValue
+}
+
+// Fragment
+viewModel.data.observe(viewLifecycleOwner) { newValue ->
+    textView.text = newValue
 }
 ```
 
 #warning[
-LiveData ne sont pas modifiables. Utiliser `MutableLiveData`. 
-`value` peut retourner null (implémentation Java).
+Exposer LiveData immuable publiquement, MutableLiveData privée pour encapsulation.
 ]
-
-*Transformations*
-
-*map* : transformation synchrone
-```kotlin
-val userNames: LiveData<List<String>> = users.map { usersList ->
-    usersList.map { "${it.firstname} ${it.name}" }
-}
-
-val formattedDate: LiveData<String> = timestamp.map { millis ->
-    SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date(millis))
-}
-
-val isValid: LiveData<Boolean> = email.map { 
-    Patterns.EMAIL_ADDRESS.matcher(it).matches()
-}
-```
-
-*switchMap* : LiveData dépendante (changement source)
-```kotlin
-val userId = MutableLiveData<Long>()
-
-// Chaque changement de userId charge nouveau user
-val userDetails: LiveData<User> = userId.switchMap { id ->
-    repository.getUserById(id) // Retourne LiveData<User>
-}
-
-// Exemple recherche dynamique
-val searchQuery = MutableLiveData<String>()
-val searchResults: LiveData<List<Item>> = searchQuery.switchMap { query ->
-    if (query.isBlank()) MutableLiveData(emptyList())
-    else repository.search(query)
-}
-```
-
-*distinctUntilChanged* : éviter doublons
-```kotlin
-val filteredData: LiveData<String> = rawData.distinctUntilChanged()
-```
-
-*Combinaisons personnalisées*
-```kotlin
-val result: LiveData<String> = MediatorLiveData<String>().apply {
-    var firstName: String? = null
-    var lastName: String? = null
-    
-    fun update() {
-        value = "$firstName $lastName"
-    }
-    
-    addSource(firstNameLiveData) {
-        firstName = it
-        update()
-    }
-    addSource(lastNameLiveData) {
-        lastName = it
-        update()
-    }
-}
-```
-
-*MediatorLiveData* : fusion de sources
-```kotlin
-val ld = MediatorLiveData<Int>().apply {
-    addSource(ld1) { v -> value = v }
-    addSource(ld2) { v -> value = v.toInt() }
-    // removeSource() pour arrêter l'observation
-}
-```
-
-== MVVM Architecture
-
-*Séparation*
-- View : UI (Activities, Fragments), observe ViewModel
-- ViewModel : logique présentation, état UI, survit rotations
-- Model : logique métier, données (Repository, Room)
-
-*Avantages* : testabilité, maintenabilité, survie aux changements de configuration
 
 == ViewModel
 
-*Basique*
+*Rôle*
+- Stocke données UI
+- Survit rotations/recreations
+- Sépare logique métier de logique UI
+- Partage données entre fragments
+
+*Cycle de vie et relation avec Activity*
+- Créé au premier accès via `ViewModelProvider`
+- *Persiste pendant toute la durée de vie de l'Activity* (rotations, recreations)
+- Détruit uniquement au `finish()` définitif de l'activité
+- `onCleared()` : appelé juste avant destruction, nettoyage ressources
+
+*L'affirmation est CORRECTE* : Le ViewModel permet effectivement de se passer de `onSaveInstanceState()` pour sauvegarder l'état car il *survit aux destructions temporaires* (rotation écran). L'Activity peut être détruite et recréée (`onDestroy()` → `onCreate()`), mais le *ViewModel reste en mémoire* et conserve les données. Cependant, le ViewModel est détruit si le processus est tué par le système (manque mémoire), donc `onSaveInstanceState()` reste utile pour sauvegarder l'état critique dans ce cas.
+
+*Création*
 ```kotlin
 class MyViewModel : ViewModel() {
-    private val _counter = MutableLiveData(0)
-    val counter: LiveData<Int> get() = _counter // Read-only
-    
-    fun increment() {
-        _counter.postValue(_counter.value!! + 1)
-    }
+    private val _data = MutableLiveData<String>()
+    val data: LiveData<String> = _data
     
     override fun onCleared() {
-        super.onCleared()
-        // Nettoyage (annuler coroutines, fermer connexions)
+        // Nettoyage
     }
 }
 
-// Activité
-private val viewModel: MyViewModel by viewModels()
+// Activity/Fragment
+val viewModel: MyViewModel by viewModels()
 
-override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    
-    viewModel.counter.observe(this) { value ->
-        textView.text = "$value"
-    }
-    
-    button.setOnClickListener { viewModel.increment() }
-}
+// Fragment partagé
+val sharedViewModel: SharedViewModel by activityViewModels()
 ```
 
-*Avec paramètres (Factory)*
+*Règles importantes*
+- ❌ Jamais référencer View, Activity, Fragment
+- ❌ Pas de Context activité (fuites mémoire)
+- ✅ Exposer LiveData immuables
+- ✅ MutableLiveData privée
+- ✅ Logique métier dans ViewModel
+
+== Observers et transformations
+
+*map : transformation 1-à-1* : *map* transforme une *valeur* en une autre *valeur* de manière *synchrone* et *immédiate* (formater date, extraire propriété), alors que *switchMap* transforme une *valeur* en une nouvelle *LiveData* en *annulant l'observation précédente* automatiquement (recherche dynamique, chargement dépendant d'ID).
+
+*Transformations*
 ```kotlin
-class MyViewModel(defaultValue: Int) : ViewModel() {
-    private val _counter = MutableLiveData(defaultValue)
-    val counter: LiveData<Int> get() = _counter
+// map
+val userNames = users.map { list -> list.map { it.name } }
+
+// switchMap
+val userData = userId.switchMap { id -> 
+    repository.getUserById(id) 
 }
 
-class MyViewModelFactory(private val defaultValue: Int) : 
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MyViewModel::class.java))
-            return MyViewModel(defaultValue) as T
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
-
-// Utilisation
-private val viewModel: MyViewModel by viewModels { 
-    MyViewModelFactory(10) 
-}
+// distinctUntilChanged
+val filtered = data.distinctUntilChanged()
 ```
 
-*Partage entre Fragments*
+*MediatorLiveData*
 ```kotlin
-// Fragment
-private val sharedViewModel: MyViewModel by activityViewModels()
-
-override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    sharedViewModel.counter.observe(viewLifecycleOwner) { value ->
-        textView.text = "$value"
-    }
+val fullName = MediatorLiveData<String>().apply {
+    addSource(firstName) { value = "$it ${lastName.value}" }
+    addSource(lastName) { value = "${firstName.value} $it" }
 }
-```
-
-#warning[
-Fragments : toujours `viewLifecycleOwner` pour observer.
-Si plusieurs fragments utilisent Factory avec paramètres différents, une seule instance sera créée avec la première Factory.
-]
-
-*AndroidViewModel* : accès contexte Application
-```kotlin
-class MyViewModel(application: Application) : AndroidViewModel(application) {
-    private val prefs = application.getSharedPreferences("prefs", MODE_PRIVATE)
-    
-    private val _data = MutableLiveData<String>()
-    val data: LiveData<String> get() = _data
-    
-    init {
-        _data.value = prefs.getString("key", "default")
-    }
-}
-
-// Si seul paramètre = Application, pas de Factory nécessaire
-private val viewModel: MyViewModel by viewModels()
-```
-
-== Bonnes pratiques
-
-#warning[
-*NE JAMAIS* :
-- Référencer View, Activity, Fragment ou Context d'activité dans ViewModel
-- Exposer MutableLiveData publiques
-- Faire des opérations I/O directement dans ViewModel
-]
-
-*Recommandations*
-- Exposer LiveData (lecture seule), garder MutableLiveData privées
-- ViewModels ≠ persistance long terme → utiliser Room
-- ViewModel détruit uniquement quand activité terminée définitivement (`onCleared()`)
-- Utiliser Coroutines pour opérations asynchrones
-- Un ViewModel par écran, séparer responsabilités
-
-*Dépendances*
-```gradle
-implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
-implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-implementation("androidx.activity:activity-ktx:1.8.0")
-implementation("androidx.fragment:fragment-ktx:1.6.1")
 ```
 
 = Persistance des données
 
-== Solutions disponibles
+== Stockage de fichiers
 
-*Tableau comparatif*
+*Interne vs Externe* : Le stockage *interne* dans `filesDir` est *privé à l'app*, *chiffré automatiquement* (API 29+), *toujours disponible* et *supprimé à la désinstallation*, tandis que le stockage *externe* sur `getExternalFilesDir()` peut être sur *carte SD*, *non chiffré*, *accessible par d'autres apps*, nécessite de *vérifier le montage* et est *supprimé si privé*.
 
-| Méthode | Usage | Avantages | Inconvénients |
-|---------|-------|-----------|---------------|
-| *Fichiers* | Données brutes, fichiers volumineux, médias | Flexibilité totale, gros fichiers | Pas de structure, complexe |
-| *SharedPreferences* | Préférences utilisateur, clé-valeur simple | Simple, léger, synchrone | Limité aux types primitifs |
-| *Room* | Données structurées, relations, requêtes complexes | SQL typesafe, migrations, LiveData | Setup initial, overhead |
+*Stockage interne*
+- `filesDir` : données persistantes
+- `cacheDir` : cache, système peut supprimer
 
-== Stockage fichiers
+*Stockage externe*
+- `getExternalFilesDir(type)` : fichiers app
+- `externalCacheDir` : cache externe
+- Vérifier : `Environment.MEDIA_MOUNTED`
 
-*Interne privé*
+== Préférences (SharedPreferences)
+
+*Types supportés*
+- String, Int, Long, Float, Boolean, Set<String>
+
+*Point commun des 3 approches* : Toutes permettent de *persister des données localement* sur l'appareil qui *survivent à la fermeture de l'app* et aux redémarrages. Elles offrent un *accès hors ligne* aux données.
+
+*Quand utiliser chaque approche*
+
+*Fichiers (filesDir, cacheDir)* : pour stocker des *documents, images, vidéos, logs* ou tout contenu volumineux non structuré. 
+- Exemple : télécharger et sauvegarder un PDF, stocker des photos capturées par l'utilisateur, sauvegarder des logs d'application pour debugging
+
+*SharedPreferences* : pour des *préférences simples clé-valeur* comme paramètres utilisateur, settings d'app.
+- Exemple : sauvegarder le thème choisi (clair/sombre), langue de l'interface, préférence "rester connecté", dernière position de scroll
+
+*Room* : pour des *données structurées relationnelles* nécessitant requêtes complexes, relations entre tables.
+- Exemple : liste de tâches avec catégories, contacts avec numéros multiples, historique de transactions avec filtres/recherches, inventaire avec relations produit-catégorie
+
+*Opérations*
 ```kotlin
-val filesDir = filesDir // Données persistantes
-val cacheDir = cacheDir // Cache (système peut supprimer)
-
 // Écriture
-File(filesDir, "myfile.txt").writeText("contenu")
-
-// Lecture
-val content = File(filesDir, "myfile.txt").readText()
-```
-- Chiffré automatiquement (API 29+)
-- Supprimé à désinstallation
-- Jamais accessible par autres apps
-
-*Externe privé*
-```kotlin
-fun isExternalStorageWritable() = 
-    Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
-
-val externalRoot = getExternalFilesDir(null) // ou getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-val externalCache = externalCacheDir
-```
-- Carte SD (ou émulé)
-- Vérifier disponibilité
-- Jamais chemins en dur
-- Supprimé à désinstallation
-
-*Média partagés* : MediaStore, non supprimés à désinstallation, accessibles par autres apps
-
-== SharedPreferences
-
-*Utilisation*
-```kotlin
-// Obtenir
-val prefs = getSharedPreferences("fichier", Context.MODE_PRIVATE)
-
-// Écriture (commit synchrone, apply asynchrone)
-prefs.edit {
+getSharedPreferences("nom", MODE_PRIVATE).edit {
     putString("key", "value")
     putInt("count", 42)
-    putBoolean("flag", true)
-    putFloat("score", 9.5f)
-    putLong("timestamp", System.currentTimeMillis())
-    // putStringSet() pour Set<String>
+    putBoolean("enabled", true)
 }
 
-// Lecture (avec valeur par défaut si clé absente)
+// Lecture
+val prefs = getSharedPreferences("nom", MODE_PRIVATE)
 val value = prefs.getString("key", "default")
 val count = prefs.getInt("count", 0)
-
-// Supprimer
-prefs.edit { remove("key") }
-
-// Tout supprimer
-prefs.edit { clear() }
 ```
 
-#warning[
-Google recommande DataStore pour nouveaux projets (Flow, thread-safe, asynchrone).
-]
+*Commit vs Apply*
+- `commit()` : synchrone, retourne succès
+- `apply()` : asynchrone, recommandé
 
-== Room Database
+== Bases de données (Room)
 
 *Architecture* : Entity ↔ DAO ↔ Database ↔ Repository ↔ ViewModel ↔ UI
 
 *Avantages*
-- Vérification requêtes compilation
-- Génération code (KSP)
-- Gestion migrations
+- Vérification requêtes à la compilation
+- Conversion automatique objets ↔ tables
 - Support LiveData/Flow
-- Thread-safe
+- Gestion migrations
 
 *Entity*
 ```kotlin
-@Entity(tableName = "person") // Nom table optionnel
-data class Person(
-    @PrimaryKey(autoGenerate = true) var id: Long?,
-    @ColumnInfo(name = "person_name") var name: String, // Nom colonne optionnel
-    var birthday: Calendar,
-    @Ignore var tempValue: String = "" // Colonne ignorée
+@Entity(tableName = "users")
+data class User(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @ColumnInfo(name = "user_name") val name: String,
+    val age: Int,
+    @Ignore val temporary: String = ""
 )
 ```
 
 *DAO*
 ```kotlin
 @Dao
-interface PersonDao {
-    @Query("SELECT * FROM Person ORDER BY name ASC")
-    fun getAll(): LiveData<List<Person>>
-    
-    @Query("SELECT * FROM Person WHERE name LIKE :search")
-    fun search(search: String): LiveData<List<Person>>
-    
-    @Query("SELECT * FROM Person WHERE birthday > :date LIMIT :limit")
-    fun getYoungerThan(date: Long, limit: Int): LiveData<List<Person>>
-    
-    @Query("SELECT COUNT(*) FROM Person")
-    fun getCount(): LiveData<Int>
-    
-    @Query("SELECT * FROM Person WHERE id = :id")
-    fun getById(id: Long): LiveData<Person?>
-    
-    @Query("SELECT * FROM Person WHERE id IN (:ids)")
-    fun getByIds(ids: List<Long>): LiveData<List<Person>>
+interface UserDao {
+    @Query("SELECT * FROM users WHERE age > :minAge")
+    fun getUsersOlderThan(minAge: Int): LiveData<List<User>>
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(person: Person): Long // Coroutine
-    
-    @Insert
-    fun insertAll(vararg persons: Person): List<Long>
+    suspend fun insert(user: User)
     
     @Update
-    suspend fun update(person: Person)
+    suspend fun update(user: User)
     
     @Delete
-    suspend fun delete(person: Person)
-    
-    @Query("DELETE FROM Person WHERE id = :id")
-    suspend fun deleteById(id: Long)
-    
-    @Query("DELETE FROM Person")
-    suspend fun deleteAll()
-    
-    @Transaction // Garantit atomicité
-    suspend fun updatePersons(personsToDelete: List<Person>, 
-                              personsToInsert: List<Person>) {
-        personsToDelete.forEach { delete(it) }
-        personsToInsert.forEach { insert(it) }
-    }
+    suspend fun delete(user: User)
 }
-```
-
-*Requêtes JOIN*
-```kotlin
-@Query("""SELECT Person.*, COUNT(Phone.phoneId) as phoneCount 
-          FROM Person 
-          LEFT JOIN Phone ON Person.id = Phone.ownerId 
-          GROUP BY Person.id""")
-fun getPersonsWithPhoneCount(): LiveData<List<PersonWithCount>>
-
-data class PersonWithCount(
-    @Embedded val person: Person,
-    val phoneCount: Int
-)
 ```
 
 *Database*
 ```kotlin
-@Database(
-    entities = [Person::class], 
-    version = 1, 
-    exportSchema = true // Exporter schéma pour migrations
-)
-@TypeConverters(CalendarConverter::class)
-abstract class MyDatabase : RoomDatabase() {
-    abstract fun personDao(): PersonDao
+@Database(entities = [User::class], version = 1, exportSchema = true)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun userDao(): UserDao
     
     companion object {
-        @Volatile
-        private var INSTANCE: MyDatabase? = null
+        @Volatile private var INSTANCE: AppDatabase? = null
         
-        fun getDatabase(context: Context): MyDatabase {
+        fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    MyDatabase::class.java,
-                    "database.db"
-                )
-                .fallbackToDestructiveMigration() // ATTENTION: supprime données si migration absente
-                // .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
-                .build()
-                INSTANCE = instance
-                instance
+                Room.databaseBuilder(
+                    context,
+                    AppDatabase::class.java,
+                    "database"
+                ).build().also { INSTANCE = it }
             }
         }
     }
@@ -1367,203 +721,138 @@ abstract class MyDatabase : RoomDatabase() {
 ```
 
 *exportSchema = true*
-- *Génère JSON* : schéma base de données dans `projectDir/schemas/`
-- *Tracking versions* : historique complet des changements de schéma
-- *Facilite migrations* : voir différences entre versions pour écrire migrations
-- *Débogage* : comprendre structure exacte de la BD
-- *Documentation* : schéma versionné dans contrôle de source
-- Configuration Gradle nécessaire :
-```gradle
-android {
-    defaultConfig {
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
-    }
+
+Active l'exportation du schéma de la base de données au format JSON dans le dossier `schemas/` du projet.
+
+*Intérêt d'activer exportSchema*
+- *Historique des versions* : conserve un fichier JSON pour chaque version de la DB (v1.json, v2.json, etc.)
+- *Migrations facilitées* : permet de comparer les différences entre versions lors de l'écriture de migrations
+- *Documentation* : sert de documentation technique de la structure de la base
+- *Debugging* : aide à identifier les problèmes de structure
+- *Contrôle de version* : peut être versionné avec Git pour suivre l'évolution du schéma
+- *Tests* : permet de valider que les migrations transforment correctement le schéma
+
+*Configuration Gradle requise* :
+```kotlin
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 ```
 
 *TypeConverter*
 ```kotlin
-class CalendarConverter {
-    @TypeConverter
-    fun toCalendar(dateLong: Long) = 
-        Calendar.getInstance().apply { time = Date(dateLong) }
-    
-    @TypeConverter
-    fun fromCalendar(date: Calendar) = date.time.time
-}
-
-// Autres exemples
 class Converters {
     @TypeConverter
-    fun fromList(list: List<String>) = list.joinToString(",")
+    fun fromTimestamp(value: Long?): Date? = value?.let { Date(it) }
     
     @TypeConverter
-    fun toList(string: String) = string.split(",")
+    fun dateToTimestamp(date: Date?): Long? = date?.time
 }
+
+@Database(..., )
+@TypeConverters(Converters::class)
+abstract class AppDatabase : RoomDatabase()
 ```
 
-*Repository*
+== Repository pattern
+
+*Rôle*
+- Abstraction accès données
+- Combine sources multiples (Room + API)
+- Logique métier (cache, validation)
+- Gère threads (coroutines)
+
+*Implémentation*
 ```kotlin
-class Repository(private val dao: PersonDao) {
-    val allPersons = dao.getAll()
+class UserRepository(private val userDao: UserDao) {
+    val allUsers: LiveData<List<User>> = userDao.getAllUsers()
     
-    fun insert(person: Person) {
-        thread { dao.insert(person) } // Ou viewModelScope.launch
+    suspend fun insert(user: User) {
+        userDao.insert(user)
     }
     
-    fun delete(person: Person) {
-        thread { dao.delete(person) }
+    suspend fun refreshUsers() {
+        // Récupérer du réseau et sauvegarder
+        val users = apiService.fetchUsers()
+        userDao.insertAll(users)
     }
-    
-    fun search(query: String) = dao.search("%$query%")
 }
 ```
 
-#warning[
-Opérations I/O TOUJOURS asynchrones (thread, coroutines, ou WorkManager).
-]
+*Pattern recommandé*
+- Room est *single source of truth*
+- Réseau met à jour Room
+- UI observe Room uniquement
+- *Offline-first* : app fonctionne sans réseau
 
-*ViewModel intégration*
+= Gestion de la concurrence
+
+== UI-Thread
+
+*Règle d'or*
+- Modifications UI → uniquement UI-Thread
+- Opérations longues → thread séparé
+
+*Conséquences violations*
+- Modifier UI hors UI-Thread → `CalledFromWrongThreadException`
+- Bloquer UI-Thread → ANR (Application Not Responding)
+
+*Solutions*
 ```kotlin
-class MyViewModel(private val repository: Repository) : ViewModel() {
-    val persons = repository.allPersons
-    
-    fun addPerson(name: String) {
-        repository.insert(Person(null, name, Calendar.getInstance()))
-    }
+// runOnUiThread
+runOnUiThread {
+    textView.text = "Updated"
 }
 
-class MyViewModelFactory(private val repository: Repository) : 
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MyViewModel::class.java))
-            return MyViewModel(repository) as T
-        throw IllegalArgumentException("Unknown ViewModel")
-    }
-}
-
-// Application
-class MyApp : Application() {
-    val repository by lazy {
-        val database = MyDatabase.getDatabase(this)
-        Repository(database.personDao())
-    }
-}
-
-// Activité
-private val viewModel: MyViewModel by viewModels {
-    MyViewModelFactory((application as MyApp).repository)
+// Handler
+Handler(Looper.getMainLooper()).post {
+    textView.text = "Updated"
 }
 ```
 
-*Relations*
+== Opérations asynchrones
 
-One-to-Many
+*Coroutines (recommandé)*
 ```kotlin
-@Entity
-data class Phone(
-    @PrimaryKey val phoneId: Long,
-    val number: String,
-    val ownerId: Long // Foreign key
-)
-
-data class PersonWithPhones(
-    @Embedded val person: Person,
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "ownerId"
-    )
-    val phones: List<Phone>
-)
-
-@Dao
-interface PersonDao {
-    @Transaction
-    @Query("SELECT * FROM Person")
-    fun getPersonsWithPhones(): LiveData<List<PersonWithPhones>>
+// ViewModel
+viewModelScope.launch {
+    val data = withContext(Dispatchers.IO) {
+        // Opération background (réseau, DB)
+        repository.fetchData()
+    }
+    // Retour automatique sur Main thread
+    _data.value = data
 }
 ```
 
-Many-to-Many
+*Dispatchers*
+- *Main* : UI thread
+- *IO* : réseau, fichiers, base de données
+- *Default* : calculs intensifs CPU
+- *Unconfined* : non confiné (avancé)
+
+*WorkManager*
 ```kotlin
-@Entity(primaryKeys = ["playlistId", "songId"])
-data class PlaylistSongCrossRef(
-    val playlistId: Long,
-    val songId: Long
-)
-
-data class PlaylistWithSongs(
-    @Embedded val playlist: Playlist,
-    @Relation(
-        parentColumn = "playlistId",
-        entityColumn = "songId",
-        associateBy = Junction(PlaylistSongCrossRef::class)
-    )
-    val songs: List<Song>
-)
-
-@Transaction
-@Query("SELECT * FROM Playlist")
-fun getPlaylistsWithSongs(): LiveData<List<PlaylistWithSongs>>
-```
-
-*Migrations*
-```kotlin
-val MIGRATION_1_2 = object : Migration(1, 2) {
-    override fun migrate(db: SupportSQLiteDatabase) {
-        db.execSQL("ALTER TABLE Person ADD COLUMN email TEXT")
-    }
-}
-
-val MIGRATION_2_3 = object : Migration(2, 3) {
-    override fun migrate(db: SupportSQLiteDatabase) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS Phone (...)")
-    }
-}
-
-Room.databaseBuilder(...)
-    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+val workRequest = OneTimeWorkRequestBuilder<MyWorker>()
+    .setConstraints(Constraints.Builder()
+        .setRequiredNetworkType(NetworkType.CONNECTED)
+        .build())
     .build()
+
+WorkManager.getInstance(context).enqueue(workRequest)
 ```
 
-*Schéma export*
-```gradle
-// build.gradle (app)
-android {
-    defaultConfig {
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
-    }
-}
-```
+#pagebreak()
 
-== Bonnes pratiques
+= Ressources
 
-- Room > SQLite direct
-- Jamais I/O sur UI-thread
-- Exposer LiveData (lecture), garder MutableLiveData privées
-- Singleton Database dans Application
-- `distinctUntilChanged()` sur LiveData si nécessaire
-- DataStore pour préférences
-- `exportSchema = true` + versionner schémas
-- Utiliser Coroutines avec `suspend fun` dans DAO
-
-#warning[
-Jamais référencer View, Activity, Context dans ViewModel.
-]
-
-*Dépendances*
-```gradle
-// Room
-implementation("androidx.room:room-runtime:2.6.1")
-implementation("androidx.room:room-ktx:2.6.1")
-ksp("androidx.room:room-compiler:2.6.1")
-
-// KSP
-plugins {
-    id("com.google.devtools.ksp") version "1.9.20-1.0.14"
-}
-```
+#image("../img/image copy 23.png", width: 70%)
+#image("../img/image copy 25.png")
+#image("../img/image copy 30.png")
+#image("../img/image copy 31.png")
+#image("../img/image copy 29.png")
+#image("../img/image copy 11.png")
+#image("../img/image copy 14.png")
+#image("../img/image copy 21.png")
+#image("../img/image copy 26.png", width: 70%)
+#image("../img/image copy 32.png")
