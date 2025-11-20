@@ -28,7 +28,15 @@ Un ordinateur étant déterministe, il ne peut pas générer de nombres aléatoi
 
 = Génération de nombres aléatoires
 
-= Génération de varibales aléatoires
+= Génération de variables aléatoires
+La génération de variables aléatoires suivant une distribution donnée à pour objectif de représenter des phénomènes aléatoires réels dans une simulation. Plusieurs méthodes existent pour générer des variables aléatoires suivant une distribution spécifique.
+
+#info(title: "Exemple")[
+Imaginons que nous souhaitions simuler la taille des individus dans une population. Si nous savons que la taille suit une distribution normale avec une moyenne de 170 cm et un écart-type de 10 cm, nous souhaiterons donc générer des variables aléatoires suivant cette distribution normale pour représenter les tailles des individus dans notre simulation.
+]
+
+== Méthode des fonctions inverses
+
 
 == Méthode des rejets
 La méthode des rejets permet de générer des variables aléatoires suivant une distribution donnée en utilisant une distribution de référence plus simple. On génère des points aléatoires dans un espace englobant la fonction de densité cible et on rejette ceux qui ne satisfont pas la condition.
