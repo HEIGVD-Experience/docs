@@ -100,3 +100,8 @@
 )[
   #content
 ]
+
+#let himg(path, caption, width: 100%) = figure(
+  image("../../" + path, width: width),
+  caption: [Capture des slides du cours -- #caption]
+)
