@@ -5,82 +5,43 @@
   cols: 5
 )
 
+#set text(size: 8pt)
+
 = CWE, CVE, CVSS
 
-*CWE (Common Weakness Enumeration)*
-- Catalogue de faiblesses logicielles
-- Taxonomie des vulnérabilités
+*CWE*: Catalogue faiblesses logicielles, taxonomie vulnérabilités
 
-*CVE (Common Vulnerabilities and Exposures)*
-- Base de données de vulnérabilités connues
-- Documentées et référencées
+*CVE*: Base données vulnérabilités connues
 
-*CVSS (Common Vulnerability Scoring System)*
-- Notation de gravité des vulnérabilités
-- Score basé sur plusieurs dimensions
+*CVSS*: Notation gravité vulnérabilités
 
-*Dimensions CVSS*
-- *Vecteur d'Attaque (AV)* : Network, Adjacent, Local, Physical
-- *Complexité (AC)* : Low, High
-- *Privilèges Requis (PR)* : None, Low, High
-- *Interaction Utilisateur (UI)* : None, Passive, Active
-- *Impact CIA* : Confidentiality, Integrity, Availability (None/Low/High)
+*Dimensions*: AV (Network/Adjacent/Local/Physical), AC (Low/High), PR (None/Low/High), UI (None/Passive/Active), CIA (Confidentiality/Integrity/Availability)
 
 = Injections
 
-*Principe général* : L'attaquant insère du code malveillant dans une entrée utilisateur que l'application traite comme du code légitime.
+*Principe*: Code malveillant dans entrée traité comme code légitime
 
-*OS Command Injection (CWE-78)*
-- Commande système avec données utilisateur non validées
-- Exemple : `dig heig-vd.ch; rm -rf /`
-- Impact : Exécution arbitraire de commandes
+*OS Command (CWE-78)*: Données non validées dans commande système. Ex: `dig heig-vd.ch; rm -rf /` → exécution arbitraire
 
-*SQL Injection (CWE-89)*
-- Insertion de code SQL malveillant dans requêtes
-- Impact : Accès/modification/suppression de données
+*SQL (CWE-89)*: Code SQL malveillant → accès/modification données
 
-*Code Injection (CWE-94)*
-- Injection générique dans n'importe quel langage
-- Impact : Exécution de code arbitraire
+*Code (CWE-94)*: Injection tout langage → exécution arbitraire
 
-*Défenses*
-- Validation stricte des entrées
-- APIs sécurisées (sans shell)
-- Requêtes préparées (SQL)
-- Échappement adapté au contexte
+*Défenses*: Validation stricte, APIs sécurisées, requêtes préparées, échappement
 
 = Vulnérabilités générales
 
-*Null Pointer Dereference (CWE-476)*
-- Accès à pointeur nul/non initialisé
-- Impact : Crash (DoS), parfois RCE en kernel
-- Défense : Gestion explicite (Option, Maybe), smart pointers
+*Null Pointer (CWE-476)*: Accès pointeur nul → Crash/RCE. Défense: Gestion explicite, smart pointers
 
-*Unsafe Deserialization (CWE-502)*
-- Désérialiser données non fiables sans validation
-- Impact : RCE via constructeurs malveillants
-- Défense : Ne pas désérialiser sources non fiables, signer cryptographiquement, formats sûrs (JSON)
+*Unsafe Deserialization (CWE-502)*: Données non fiables → RCE. Défense: Signer, formats sûrs
 
-*Integer Overflow (CWE-190)*
-- Opération dépasse capacité du type
-- Impact : Bypass vérifications, buffer overflow
-- Défense : Valider entrées, arithmétique vérifiée (checked_add, addExact)
+*Integer Overflow (CWE-190)*: Dépasse capacité → Bypass, overflow. Défense: checked_add
 
-*Hardcoded Credentials (CWE-798)*
-- Secrets stockés en dur dans le code
-- Impact : Accès compromis si code accessible
-- Défense : Variables d'environnement, vaults
+*Hardcoded Credentials (CWE-798)*: Secrets en dur → accès compromis. Défense: Env vars, vaults
 
-*Incorrect Authorization (CWE-863)*
-- Contrôle d'accès basé sur données client modifiables
-- Impact : Escalade de privilèges
-- Défense : Vérifier autorisation côté serveur avec session sécurisée
+*Incorrect Authorization (CWE-863)*: Données client modifiables → escalade. Défense: Vérif serveur
 
-*Path Traversal (CWE-22)*
-- Chemins fichier construits avec données utilisateur
-- Exemple : `../../tmp/uploads/ws.php`
-- Impact : Accès fichiers hors répertoire autorisé
-- Défense : Valider chemin reste dans répertoire, whitelist, canonicaliser
+*Path Traversal (CWE-22)*: `../../tmp/ws.php` → accès hors répertoire. Défense: Whitelist
 
 = Attaques Web
 
