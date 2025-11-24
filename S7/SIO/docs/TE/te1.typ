@@ -294,3 +294,94 @@ Garantit solution ≤ 1,5× coût optimal (avec inégalité triangulaire).
 3. Fusionner paire avec plus faible augmentation
 4. Répéter jusqu'à un seul tour
 
+#colbreak()
+= Les Intégrales
+
+== Introduction
+
+Une intégrale est l'opération inverse de la dérivation. Elle permet de calculer l'aire sous une courbe ou d'accumuler une grandeur le long d'un intervalle. On distingue les intégrales indéfinies (primitives) et les intégrales définies.
+
+== Notation et Définition
+
+L'intégrale indéfinie d'une fonction $f(x)$ s'écrit :
+
+$ integral f(x) dif x = F(x) + C $
+
+où $F(x)$ est une primitive de $f(x)$ et $C$ est une constante d'intégration.
+
+L'intégrale définie entre $a$ et $b$ s'écrit :
+
+$ integral_a^b f(x) dif x = [F(x)]_a^b = F(b) - F(a) $
+
+== Propriétés Fondamentales
+
+- Linéarité : $ integral (alpha f(x) + beta g(x)) dif x = alpha integral f(x) dif x + beta integral g(x) dif x $
+- Additivité : $ integral_a^b f(x) dif x + integral_b^c f(x) dif x = integral_a^c f(x) dif x $
+- Intégration par parties : $ integral u dif v = u v - integral v dif u $
+
+== Formes Classiques et Transformations
+
+#figure(
+  table(
+    columns: (1fr, 1.5fr, 1.5fr),
+    align: (center, center, center),
+    
+    [*Fonction*], [*Primitive*], [*Notes/Cas particuliers*],
+    
+    $x^n (n eq.not -1)$, $display(frac(x^(n+1), n+1) + C)$, [n entier ou réel],
+    
+    $frac(1, x)$, $ln|x| + C$, [x ≠ 0],
+    
+    $e^x$, $e^x + C$, [exponentielle],
+    
+    $a^x (a > 0)$, $display(frac(a^x, ln(a)) + C)$, [a ≠ 1],
+    
+    $sin(x)$, $-cos(x) + C$, [argument en radians],
+    
+    $cos(x)$, $sin(x) + C$, [argument en radians],
+    
+    $tan(x)$, $-ln|cos(x)| + C$, [ou $ln|sec(x)| + C$],
+    
+    $frac(1, cos^2(x))$, $tan(x) + C$, [$sec^2(x)$],
+    
+    $frac(1, sqrt(1-x^2))$, $arcsin(x) + C$, [|x| < 1],
+    
+    $frac(1, 1+x^2)$, $arctan(x) + C$, [pour tout x],
+    
+    $sinh(x)$, $cosh(x) + C$, [sinus hyperbolique],
+    
+    $cosh(x)$, $sinh(x) + C$, [cosinus hyperbolique],
+    
+    $frac(1, sqrt(x^2+a^2))$, $display(sinh^(-1)(frac(x, a)) + C)$, [a > 0],
+  ),
+  caption: [Primitives des formes classiques]
+)
+
+== Techniques d'Intégration
+
+*Changement de variable :* Si $u = g(x)$, alors 
+$ integral f(g(x)) g'(x) dif x = integral f(u) dif u $
+
+*Intégration par parties :* Utile pour les produits de fonctions (polynômes, exponentielles, trigonométriques).
+
+*Décomposition en éléments simples :* Pour les fractions rationnelles, décomposer en somme de fractions simples.
+
+#colbreak()
+
+= Arbre recouvrant
+== Algorithme de Kruskal (1956)
+L'algorithme de Kruskal consisite à  partir d'une forêt vide ne contenant que les sommets du graphe puis diminuer progressivement le nombre de composantes connexes en reliant à chaque fois de la façon la plus économique possible deux composantes de la forêt actuelle.
+
+=== Application
+Pour appliquer cet algorithme, il faut:
+- construire un tableau contenant toutes les arêtes du graphe avec leurs poids respectifs
+- trier ce tableau par ordre croissant de poids
+- sélectionner les plus petites arêtes du tableau pour relier tous les sommets du graphe
+
+=== Exemple
+#image("../../../../S6/GRE/docs/img/image copy 17.png")
+
+=== Complexité
+$
+O (m log n + m n) = = (m n)
+$
