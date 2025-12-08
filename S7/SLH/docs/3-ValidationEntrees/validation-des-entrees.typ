@@ -3,7 +3,7 @@
   title: "Validation des entrées",
   course: "SLH - Sécurité logicielle haut niveau",
   author: "Guillaume Trüeb",
-  date: "13 octobre 2025",
+  date: "17 novembre 2025",
   toc: true,
   col: 1,
   doc,
