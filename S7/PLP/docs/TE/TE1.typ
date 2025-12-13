@@ -1,10 +1,10 @@
-#import "/_settings/typst/template-qk-note.typ": *
-#show: doc => conf(
-  title: "Résumé Complet - Test PLP",
-  course: "PLP",
-  col: 1,
-  doc,
+#import "/_settings/typst/template-te.typ": *
+#show: resume.with(
+  "Résumé PLP TE1",
+  "Guillaume Trüeb",
+  cols: 2
 )
+
 
 = Éléments de Programmation
 
