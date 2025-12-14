@@ -137,7 +137,73 @@ Les erreurs lexicales se produisent lorsque le lexer rencontre une séquence de 
 Ces erreurs doivent être signalées pour que le programme puisse être corrigé avant l'analyse syntaxique.
 
 = Regular Expressions
+Les expressions régulières (regex) sont une approche algébrique pour décrire un langage. Elles sont souvent utilisées pour spécifier des patterns de texte, comme les lexèmes dans l'analyse lexicale.
 
+== Basic operations
+Les opérations de base des expressions régulières incluent:
+1. *Alternation* (|) : Permet de choisir entre plusieurs options. Ex: `a|b` correspond à `a` ou `b`.
+2. *Concatenation* : Combine des séquences de caractères. Ex: `ab` correspond à `a` suivi de `b`.
+3. *Closure* (\*) : Permet de répéter une séquence zéro ou plusieurs fois. Ex: `a*` correspond à une séquence de `a` répétée zéro ou plusieurs fois.
+
+Les parenthèses peuvent être utilisées pour grouper des expressions et contrôler l'ordre des opérations. Elles ont les priorités les plus élevées.
+
+== Finite and posive closure
+Une *fermeture finie* (Kleene star) permet de répéter une séquence zéro ou plusieurs fois, tandis qu'une *fermeture positive* (Kleene plus) permet de répéter une séquence une ou plusieurs fois.
+- Finite closure (\*): `a*` correspond à ``, `a`, `aa`, `aaa`, ...
+- Positive closure (+): `a+` correspond à `a`, `aa`, `aaa`, ...
+
+=== Examples
+#himg("S7/PLP/docs/img/image copy 14.png", "Examples of finite and positive closure")
+
+== Notational shortcuts
+Quelques raccourcis notatifs couramment utilisés dans les expressions régulières incluent:
+- `r?` : Correspond à zéro ou une occurrence de `r` (équivalent à `r|ε`).
+- `[a-z]` : Correspond à n'importe quelle lettre minuscule de `a` à `z`.
+- `*` : Correspond à zéro ou plusieurs occurrences de l'élément précédent.
+
+== Lexical analysis with regex
+Les expressions régulières sont souvent utilisées pour définir les règles de l'analyse lexicale. Chaque type de token peut être spécifié à l'aide d'une expression régulière. Par exemple:
+
+#table(
+  columns: (1fr, 1fr, 1fr),
+  [*Token*], [*Lexeme*], [*Regex*],
+  "Keyword", "where", "where",
+  "Identifier", "A_123", "[a-zA-Z_][a-zA-Z0-9_]*",
+  "Integer", "123", "[+-]?[0-9]+",
+)
 = Finite Automata
+Les finite automata (automates finis) sont des modèles mathématiques utilisés pour reconnaître des patterns de langages. Ils sont similaires aux machines à états finis vu et discuté au cours d'ARO.
+
+== String recognition
+Un automate fini peut être utilisé pour reconnaître si une chaîne de caractères appartient à un langage défini. Pour ce faire, 3 étapes principales sont nécessaires:
+1. On commance à l'état initial.
+2. Dans chaque étape, nous faisons une des deux choses:
+  - Suivre une transition à un autre état
+  - Lire le caractère courant et suivre la transition correspondante
+3. Quadn tous les les caractères ont été lus, si l'état courant est un état d'acceptation, la chaîne est reconnue.
+  - Si l'état est bon, alors la chaîne lue est acceptée.
+  - Sinon, elle est rejetée.
+
+=== Example
+Voici un exemple d'automate fini qui reconnaît la chaîne décrite par la regex: `(a|b)ba*b`
+#himg("S7/PLP/docs/img/image copy 15.png", "String recognition with finite automata")
+
+== Types of finite automata
+Il existe deux types principaux d'automates finis:
+- *Deterministic Finite Automata (DFA)* : Chaque état a au plus une transition pour chaque symbole de l'alphabet.
+- *Nondeterministic Finite Automata (NFA)* : Un état peut avoir plusieurs transitions pour le même symbole, ou des transitions ε (sans lire de symbole).
+
+#info[
+  Chaque DFA peut-être converti en un NFA équivalent, cependant l'inverse n'est pas vrai. 
+]
+
+=== Converting NFA to DFA
+La conversion d'un NFA en un DFA peut être réalisée à l'aide de l'algorithme:
+1. On définit $Q' = emptyset$
+2. On ajoute l'état intial $q_0$ from $Q$ to $Q'$
+3. Pour chaque état $q$ dans $Q'$
+ - Trouve tous les états accessibles à partir de $q$ pour chaque symbole de l'alphabet
+  - Si un nouvel état est trouvé, l'ajouter à $Q'$
+4. L'état final `F'` sera l'ensemble des états qui ont `F` dedans.
 
 = Lexers
