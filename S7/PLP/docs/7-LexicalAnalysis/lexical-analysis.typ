@@ -207,3 +207,22 @@ La conversion d'un NFA en un DFA peut être réalisée à l'aide de l'algorithme
 4. L'état final `F'` sera l'ensemble des états qui ont `F` dedans.
 
 = Lexers
+Un *lexer* (ou analyseur lexical) est un composant logiciel qui effectue l'analyse lexicale. Il lit le code source et produit une séquence de tokens en utilisant des expressions régulières et des automates finis.
+
+Les lexers sont considérés comme générateur de stream de tokens avec état parce que l'état courant du lexer est sauvé.
+
+#info[
+  Le token final est souvent un token spécial appelé `EOF` (End Of File) pour indiquer la fin du flux de tokens.
+]
+
+== Single-pass process
+Les lexers fonctionnent généralement en un seul passage (single-pass), lisant le code source une seule fois pour produire les tokens. Cela permet une analyse rapide et efficace. Les étapes sont les suivantes:
+1. Lire les caractères du code source un par un.
+2. Grouper les caractères en lexèmes en fonction des règles définies par les expressions régulières.
+3. Catégoriser chaque lexème en un token.
+
+== Ambiguity and priority
+Dans le cas ou plusieurs règles correspondent à un même lexème, des règles de priorité sont appliquées pour déterminer quel token doit être généré. De manière générale nous utilisons la règle du *longest match* (le plus long correspondance) et la règle de priorité des tokens (certains tokens ont une priorité plus élevée que d'autres).
+
+- `Keyword` = int
+- `Identifier` = `[a-zA-Z_][0-9a-zA-Z_]*`
