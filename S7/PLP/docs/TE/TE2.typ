@@ -1,8 +1,9 @@
-#import "/_settings/typst/template-te.typ": *
+#import "/_settings/typst/template-te-land.typ": *
 #show: resume.with(
-  "Résumé PLP TE2",
-  "Guillaume Trüeb",
-  cols: 3
+    "Résumé PLP TE2",
+    "Guillaume Trüeb",
+    cols: 5,
+    header: false,
 )
 
 = Interactive Programming
@@ -28,6 +29,7 @@ getLine :: IO String
 putChar :: Char -> IO ()
 putStr  :: String -> IO ()
 putStrLn :: String -> IO ()
+readFile :: FilePath -> IO String
 ```
 
 == Do Blocks
@@ -43,6 +45,19 @@ getLine = do c <- getChar
 - Les actions sont exécutées dans l'ordre
 - `<-` capture le résultat d'une action I/O
 - `let` définit des variables locales sans I/O
+
+*Modules et Modules Importants*
+```haskell
+-- Export (optionnel)
+module MonModule (maFonction) where
+```
+`System.IO` -- Opérations fichiers avancées
+
+`System.Environment` -- getArgs, getProgName
+
+`Control.Monad` -- when, unless, forM_, mapM_
+
+`Data.Char` -- toUpper, isDigit, isSpace, etc.
 
 == Control Flow Actions
 ```haskell
@@ -96,49 +111,7 @@ class Functor f where
 Just "abc"
 ```
 
-== Applicative
-Permet d'appliquer un nombre illimité d'arguments dans un foncteur.
-```haskell
-class Functor f => Applicative f where
-    pure :: a -> f a
-    (<*>) :: f (a -> b) -> f a -> f b
-```
-
-*Exemple avec Maybe* :
-```haskell
-> pure (+) <*> Just 1 <*> Just 2
-Just 3
-> pure (+) <*> Nothing <*> Just 2
-Nothing
-```
-
-== Monads
-Les monades permettent de chaîner des opérations dépendantes.
-```haskell
-class Applicative m => Monad m where
-    return :: a -> m a
-    (>>=) :: m a -> (a -> m b) -> m b
-```
-
-*Lois* :
-1. Left identity : `return a >>= f == f a`
-2. Right identity : `m >>= return == m`
-3. Associativity : `(m >>= f) >>= g == m >>= (\x -> f x >>= g)`
-
-*Do Notation* :
-```haskell
-result :: Maybe Double
-result = do
-    a <- safeDivide 10 2
-    b <- safeDivide a 0
-    return b
-```
-
 == Lazy Evaluation
-
-=== Reduction Strategies
-#image("../img/image copy 11.png", width: 100%)
-
 *Innermost reduction* : réduit les expressions internes en premier.
 ```haskell
 square (3 + 4)
@@ -179,6 +152,92 @@ f $! x = x `seq` f x
 *** Exception: undefined
 ```
 
+= Lexical Analysis
+
+== Design of Programming Languages
+Un langage de programmation est défini par sa *syntaxe* et sa *sémantique*.
+- *Syntaxe* : structure des programmes (alphabet, vocabulaire, grammaire)
+- *Sémantique* : signification des constructions syntaxiques
+
+*Système de types* :
+- *Typage statique* : types vérifiés à la compilation (Java, C, Haskell)
+- *Typage dynamique* : types vérifiés à l'exécution (Python, JavaScript)
+- *Type inference* : le compilateur déduit les types automatiquement.
+
+== Tokens and Lexemes
+*Token* : unité lexicale avec type et valeur.
+
+Catégories de tokens :
+- *Identifiers* : `x, foo, PI`
+- *Keywords* : `if, return, while`
+- *Separators* : `(), {}, ;`
+- *Operators* : `+, -, =, ==`
+- *Literals* : `42, "hello", 3.14`
+- *Comments* : `// This is a comment`
+
+*Lexème* : séquence de caractères correspondant à un token.
+```
+x = 42;
+↓
+x (identifier), = (operator), 42 (literal), ; (separator)
+```
+
+== Regular Expressions
+Expressions régulières pour spécifier les patterns de lexèmes.
+
+*Opérations de base* :
+- *Alternation* (|) : `a|b` → `a` ou `b`
+- *Concatenation* : `ab` → `a` suivi de `b`
+- *Closure* (\*) : `a*` → zéro ou plusieurs `a`
+
+*Fermetures* :
+- Finite closure (\*) : `a*` → `ε, a, aa, aaa, ...`
+- Positive closure (+) : `a+` → `a, aa, aaa, ...`
+
+*Raccourcis* :
+- `r?` : zéro ou une occurrence (équivalent à `r|ε`)
+- `[a-z]` : caractère entre a et z
+- `[0-9]+` : un ou plusieurs chiffres
+
+*Exemples pour tokens* :
+- Identifier : `[a-zA-Z_][a-zA-Z0-9_]*`
+- Integer : `[+-]?[0-9]+`
+- Keyword : `where|if|else|return`
+
+== Finite Automata
+Modèles mathématiques pour reconnaître des patterns.
+
+*String recognition* :
+1. Commencer à l'état initial
+2. Lire caractère par caractère, suivre les transitions
+3. OK -> Si état final après lecture complète
+
+*Types d'automates* :
+- *DFA* (Deterministic) : une seule transition par symbole
+- *NFA* (Nondeterministic) : plusieurs transitions possibles, transitions ε
+
+*Conversion NFA → DFA* :
+1. $Q' = emptyset$
+2. Ajouter état initial à $Q'$
+3. Pour chaque état dans $Q'$, trouver tous les états accessibles
+4. États finaux $F'$ = ensemble des états contenant $F$
+
+== Lexers
+*Lexer* : composant effectuant l'analyse lexicale, génère un stream de tokens.
+
+*Single-pass process* :
+1. Lire caractères un par un
+2. Grouper en lexèmes selon regex
+3. Catégoriser en tokens
+4. Token final : `EOF` (End Of File)
+
+*Résolution d'ambiguïté* :
+- *Longest match* : choisir la correspondance la plus longue
+
+Exemple : `int` → keyword (priorité) plutôt qu'identifier
+
+#image("../img/image copy 13.png")
+
 = Syntax Analysis
 
 == Concrete vs Abstract Syntax
@@ -195,13 +254,6 @@ data Expr = Const Int
 
 == Abstract Syntax Tree (AST)
 #image("../img/image copy 5.png", width: 80%)
-
-== Context-Free Grammars
-Une grammaire $G = (V, Sigma, R, S)$ avec :
-- V : variables (non-terminaux)
-- $Sigma$ : symboles terminaux
-- R : règles de production
-- S : symbole de départ
 
 === Backus-Naur Form (BNF)
 #image("../img/image copy 6.png", width: 100%)
