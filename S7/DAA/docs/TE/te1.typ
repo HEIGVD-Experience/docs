@@ -23,7 +23,7 @@
 - `onResume()` : au premier plan, interactive, reprendre animations
 - `onPause()` : perd focus, sauvegarder brouillons, pause opérations
 - `onStop()` : invisible, libérer ressources lourdes
-- `onDestroy()` : destruction définitive, nettoyage final
+- `onDestroy()` : destruction définitive, nettoyage final 
 
 *Transitions courantes*
 - Lancement : `onCreate()` → `onStart()` → `onResume()`
