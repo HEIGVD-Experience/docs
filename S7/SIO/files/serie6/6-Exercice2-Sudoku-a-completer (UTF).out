@@ -1,0 +1,1290 @@
+Problem:    6
+Rows:       350
+Columns:    729 (729 integer, 729 binary)
+Non-zeros:  2941
+Status:     INTEGER OPTIMAL
+Objective:  Rien = 0 (MINimum)
+
+   No.   Row name        Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 ValeursFixees[1,3,5]
+                                   1             1             = 
+     2 ValeursFixees[1,5,4]
+                                   1             1             = 
+     3 ValeursFixees[1,9,6]
+                                   1             1             = 
+     4 ValeursFixees[2,1,8]
+                                   1             1             = 
+     5 ValeursFixees[2,4,5]
+                                   1             1             = 
+     6 ValeursFixees[3,1,2]
+                                   1             1             = 
+     7 ValeursFixees[3,3,7]
+                                   1             1             = 
+     8 ValeursFixees[3,4,6]
+                                   1             1             = 
+     9 ValeursFixees[3,6,3]
+                                   1             1             = 
+    10 ValeursFixees[4,1,4]
+                                   1             1             = 
+    11 ValeursFixees[4,5,5]
+                                   1             1             = 
+    12 ValeursFixees[4,7,2]
+                                   1             1             = 
+    13 ValeursFixees[4,9,7]
+                                   1             1             = 
+    14 ValeursFixees[5,6,2]
+                                   1             1             = 
+    15 ValeursFixees[5,8,6]
+                                   1             1             = 
+    16 ValeursFixees[5,9,1]
+                                   1             1             = 
+    17 ValeursFixees[6,4,1]
+                                   1             1             = 
+    18 ValeursFixees[6,7,3]
+                                   1             1             = 
+    19 ValeursFixees[6,8,8]
+                                   1             1             = 
+    20 ValeursFixees[7,8,5]
+                                   1             1             = 
+    21 ValeursFixees[8,1,1]
+                                   1             1             = 
+    22 ValeursFixees[8,6,7]
+                                   1             1             = 
+    23 ValeursFixees[8,9,2]
+                                   1             1             = 
+    24 ValeursFixees[9,7,6]
+                                   1             1             = 
+    25 ValeursFixees[9,9,3]
+                                   1             1             = 
+    26 SousCarre[1,1,1]
+                                   1             1             = 
+    27 SousCarre[1,1,2]
+                                   1             1             = 
+    28 SousCarre[1,1,3]
+                                   1             1             = 
+    29 SousCarre[1,2,1]
+                                   1             1             = 
+    30 SousCarre[1,2,2]
+                                   1             1             = 
+    31 SousCarre[1,2,3]
+                                   1             1             = 
+    32 SousCarre[1,3,1]
+                                   1             1             = 
+    33 SousCarre[1,3,2]
+                                   1             1             = 
+    34 SousCarre[1,3,3]
+                                   1             1             = 
+    35 SousCarre[2,1,1]
+                                   1             1             = 
+    36 SousCarre[2,1,2]
+                                   1             1             = 
+    37 SousCarre[2,1,3]
+                                   1             1             = 
+    38 SousCarre[2,2,1]
+                                   1             1             = 
+    39 SousCarre[2,2,2]
+                                   1             1             = 
+    40 SousCarre[2,2,3]
+                                   1             1             = 
+    41 SousCarre[2,3,1]
+                                   1             1             = 
+    42 SousCarre[2,3,2]
+                                   1             1             = 
+    43 SousCarre[2,3,3]
+                                   1             1             = 
+    44 SousCarre[3,1,1]
+                                   1             1             = 
+    45 SousCarre[3,1,2]
+                                   1             1             = 
+    46 SousCarre[3,1,3]
+                                   1             1             = 
+    47 SousCarre[3,2,1]
+                                   1             1             = 
+    48 SousCarre[3,2,2]
+                                   1             1             = 
+    49 SousCarre[3,2,3]
+                                   1             1             = 
+    50 SousCarre[3,3,1]
+                                   1             1             = 
+    51 SousCarre[3,3,2]
+                                   1             1             = 
+    52 SousCarre[3,3,3]
+                                   1             1             = 
+    53 SousCarre[4,1,1]
+                                   1             1             = 
+    54 SousCarre[4,1,2]
+                                   1             1             = 
+    55 SousCarre[4,1,3]
+                                   1             1             = 
+    56 SousCarre[4,2,1]
+                                   1             1             = 
+    57 SousCarre[4,2,2]
+                                   1             1             = 
+    58 SousCarre[4,2,3]
+                                   1             1             = 
+    59 SousCarre[4,3,1]
+                                   1             1             = 
+    60 SousCarre[4,3,2]
+                                   1             1             = 
+    61 SousCarre[4,3,3]
+                                   1             1             = 
+    62 SousCarre[5,1,1]
+                                   1             1             = 
+    63 SousCarre[5,1,2]
+                                   1             1             = 
+    64 SousCarre[5,1,3]
+                                   1             1             = 
+    65 SousCarre[5,2,1]
+                                   1             1             = 
+    66 SousCarre[5,2,2]
+                                   1             1             = 
+    67 SousCarre[5,2,3]
+                                   1             1             = 
+    68 SousCarre[5,3,1]
+                                   1             1             = 
+    69 SousCarre[5,3,2]
+                                   1             1             = 
+    70 SousCarre[5,3,3]
+                                   1             1             = 
+    71 SousCarre[6,1,1]
+                                   1             1             = 
+    72 SousCarre[6,1,2]
+                                   1             1             = 
+    73 SousCarre[6,1,3]
+                                   1             1             = 
+    74 SousCarre[6,2,1]
+                                   1             1             = 
+    75 SousCarre[6,2,2]
+                                   1             1             = 
+    76 SousCarre[6,2,3]
+                                   1             1             = 
+    77 SousCarre[6,3,1]
+                                   1             1             = 
+    78 SousCarre[6,3,2]
+                                   1             1             = 
+    79 SousCarre[6,3,3]
+                                   1             1             = 
+    80 SousCarre[7,1,1]
+                                   1             1             = 
+    81 SousCarre[7,1,2]
+                                   1             1             = 
+    82 SousCarre[7,1,3]
+                                   1             1             = 
+    83 SousCarre[7,2,1]
+                                   1             1             = 
+    84 SousCarre[7,2,2]
+                                   1             1             = 
+    85 SousCarre[7,2,3]
+                                   1             1             = 
+    86 SousCarre[7,3,1]
+                                   1             1             = 
+    87 SousCarre[7,3,2]
+                                   1             1             = 
+    88 SousCarre[7,3,3]
+                                   1             1             = 
+    89 SousCarre[8,1,1]
+                                   1             1             = 
+    90 SousCarre[8,1,2]
+                                   1             1             = 
+    91 SousCarre[8,1,3]
+                                   1             1             = 
+    92 SousCarre[8,2,1]
+                                   1             1             = 
+    93 SousCarre[8,2,2]
+                                   1             1             = 
+    94 SousCarre[8,2,3]
+                                   1             1             = 
+    95 SousCarre[8,3,1]
+                                   1             1             = 
+    96 SousCarre[8,3,2]
+                                   1             1             = 
+    97 SousCarre[8,3,3]
+                                   1             1             = 
+    98 SousCarre[9,1,1]
+                                   1             1             = 
+    99 SousCarre[9,1,2]
+                                   1             1             = 
+   100 SousCarre[9,1,3]
+                                   1             1             = 
+   101 SousCarre[9,2,1]
+                                   1             1             = 
+   102 SousCarre[9,2,2]
+                                   1             1             = 
+   103 SousCarre[9,2,3]
+                                   1             1             = 
+   104 SousCarre[9,3,1]
+                                   1             1             = 
+   105 SousCarre[9,3,2]
+                                   1             1             = 
+   106 SousCarre[9,3,3]
+                                   1             1             = 
+   107 Ligne[1,1]                  1             1             = 
+   108 Ligne[1,2]                  1             1             = 
+   109 Ligne[1,3]                  1             1             = 
+   110 Ligne[1,4]                  1             1             = 
+   111 Ligne[1,5]                  1             1             = 
+   112 Ligne[1,6]                  1             1             = 
+   113 Ligne[1,7]                  1             1             = 
+   114 Ligne[1,8]                  1             1             = 
+   115 Ligne[1,9]                  1             1             = 
+   116 Ligne[2,1]                  1             1             = 
+   117 Ligne[2,2]                  1             1             = 
+   118 Ligne[2,3]                  1             1             = 
+   119 Ligne[2,4]                  1             1             = 
+   120 Ligne[2,5]                  1             1             = 
+   121 Ligne[2,6]                  1             1             = 
+   122 Ligne[2,7]                  1             1             = 
+   123 Ligne[2,8]                  1             1             = 
+   124 Ligne[2,9]                  1             1             = 
+   125 Ligne[3,1]                  1             1             = 
+   126 Ligne[3,2]                  1             1             = 
+   127 Ligne[3,3]                  1             1             = 
+   128 Ligne[3,4]                  1             1             = 
+   129 Ligne[3,5]                  1             1             = 
+   130 Ligne[3,6]                  1             1             = 
+   131 Ligne[3,7]                  1             1             = 
+   132 Ligne[3,8]                  1             1             = 
+   133 Ligne[3,9]                  1             1             = 
+   134 Ligne[4,1]                  1             1             = 
+   135 Ligne[4,2]                  1             1             = 
+   136 Ligne[4,3]                  1             1             = 
+   137 Ligne[4,4]                  1             1             = 
+   138 Ligne[4,5]                  1             1             = 
+   139 Ligne[4,6]                  1             1             = 
+   140 Ligne[4,7]                  1             1             = 
+   141 Ligne[4,8]                  1             1             = 
+   142 Ligne[4,9]                  1             1             = 
+   143 Ligne[5,1]                  1             1             = 
+   144 Ligne[5,2]                  1             1             = 
+   145 Ligne[5,3]                  1             1             = 
+   146 Ligne[5,4]                  1             1             = 
+   147 Ligne[5,5]                  1             1             = 
+   148 Ligne[5,6]                  1             1             = 
+   149 Ligne[5,7]                  1             1             = 
+   150 Ligne[5,8]                  1             1             = 
+   151 Ligne[5,9]                  1             1             = 
+   152 Ligne[6,1]                  1             1             = 
+   153 Ligne[6,2]                  1             1             = 
+   154 Ligne[6,3]                  1             1             = 
+   155 Ligne[6,4]                  1             1             = 
+   156 Ligne[6,5]                  1             1             = 
+   157 Ligne[6,6]                  1             1             = 
+   158 Ligne[6,7]                  1             1             = 
+   159 Ligne[6,8]                  1             1             = 
+   160 Ligne[6,9]                  1             1             = 
+   161 Ligne[7,1]                  1             1             = 
+   162 Ligne[7,2]                  1             1             = 
+   163 Ligne[7,3]                  1             1             = 
+   164 Ligne[7,4]                  1             1             = 
+   165 Ligne[7,5]                  1             1             = 
+   166 Ligne[7,6]                  1             1             = 
+   167 Ligne[7,7]                  1             1             = 
+   168 Ligne[7,8]                  1             1             = 
+   169 Ligne[7,9]                  1             1             = 
+   170 Ligne[8,1]                  1             1             = 
+   171 Ligne[8,2]                  1             1             = 
+   172 Ligne[8,3]                  1             1             = 
+   173 Ligne[8,4]                  1             1             = 
+   174 Ligne[8,5]                  1             1             = 
+   175 Ligne[8,6]                  1             1             = 
+   176 Ligne[8,7]                  1             1             = 
+   177 Ligne[8,8]                  1             1             = 
+   178 Ligne[8,9]                  1             1             = 
+   179 Ligne[9,1]                  1             1             = 
+   180 Ligne[9,2]                  1             1             = 
+   181 Ligne[9,3]                  1             1             = 
+   182 Ligne[9,4]                  1             1             = 
+   183 Ligne[9,5]                  1             1             = 
+   184 Ligne[9,6]                  1             1             = 
+   185 Ligne[9,7]                  1             1             = 
+   186 Ligne[9,8]                  1             1             = 
+   187 Ligne[9,9]                  1             1             = 
+   188 Colonne[1,1]                1             1             = 
+   189 Colonne[1,2]                1             1             = 
+   190 Colonne[1,3]                1             1             = 
+   191 Colonne[1,4]                1             1             = 
+   192 Colonne[1,5]                1             1             = 
+   193 Colonne[1,6]                1             1             = 
+   194 Colonne[1,7]                1             1             = 
+   195 Colonne[1,8]                1             1             = 
+   196 Colonne[1,9]                1             1             = 
+   197 Colonne[2,1]                1             1             = 
+   198 Colonne[2,2]                1             1             = 
+   199 Colonne[2,3]                1             1             = 
+   200 Colonne[2,4]                1             1             = 
+   201 Colonne[2,5]                1             1             = 
+   202 Colonne[2,6]                1             1             = 
+   203 Colonne[2,7]                1             1             = 
+   204 Colonne[2,8]                1             1             = 
+   205 Colonne[2,9]                1             1             = 
+   206 Colonne[3,1]                1             1             = 
+   207 Colonne[3,2]                1             1             = 
+   208 Colonne[3,3]                1             1             = 
+   209 Colonne[3,4]                1             1             = 
+   210 Colonne[3,5]                1             1             = 
+   211 Colonne[3,6]                1             1             = 
+   212 Colonne[3,7]                1             1             = 
+   213 Colonne[3,8]                1             1             = 
+   214 Colonne[3,9]                1             1             = 
+   215 Colonne[4,1]                1             1             = 
+   216 Colonne[4,2]                1             1             = 
+   217 Colonne[4,3]                1             1             = 
+   218 Colonne[4,4]                1             1             = 
+   219 Colonne[4,5]                1             1             = 
+   220 Colonne[4,6]                1             1             = 
+   221 Colonne[4,7]                1             1             = 
+   222 Colonne[4,8]                1             1             = 
+   223 Colonne[4,9]                1             1             = 
+   224 Colonne[5,1]                1             1             = 
+   225 Colonne[5,2]                1             1             = 
+   226 Colonne[5,3]                1             1             = 
+   227 Colonne[5,4]                1             1             = 
+   228 Colonne[5,5]                1             1             = 
+   229 Colonne[5,6]                1             1             = 
+   230 Colonne[5,7]                1             1             = 
+   231 Colonne[5,8]                1             1             = 
+   232 Colonne[5,9]                1             1             = 
+   233 Colonne[6,1]                1             1             = 
+   234 Colonne[6,2]                1             1             = 
+   235 Colonne[6,3]                1             1             = 
+   236 Colonne[6,4]                1             1             = 
+   237 Colonne[6,5]                1             1             = 
+   238 Colonne[6,6]                1             1             = 
+   239 Colonne[6,7]                1             1             = 
+   240 Colonne[6,8]                1             1             = 
+   241 Colonne[6,9]                1             1             = 
+   242 Colonne[7,1]                1             1             = 
+   243 Colonne[7,2]                1             1             = 
+   244 Colonne[7,3]                1             1             = 
+   245 Colonne[7,4]                1             1             = 
+   246 Colonne[7,5]                1             1             = 
+   247 Colonne[7,6]                1             1             = 
+   248 Colonne[7,7]                1             1             = 
+   249 Colonne[7,8]                1             1             = 
+   250 Colonne[7,9]                1             1             = 
+   251 Colonne[8,1]                1             1             = 
+   252 Colonne[8,2]                1             1             = 
+   253 Colonne[8,3]                1             1             = 
+   254 Colonne[8,4]                1             1             = 
+   255 Colonne[8,5]                1             1             = 
+   256 Colonne[8,6]                1             1             = 
+   257 Colonne[8,7]                1             1             = 
+   258 Colonne[8,8]                1             1             = 
+   259 Colonne[8,9]                1             1             = 
+   260 Colonne[9,1]                1             1             = 
+   261 Colonne[9,2]                1             1             = 
+   262 Colonne[9,3]                1             1             = 
+   263 Colonne[9,4]                1             1             = 
+   264 Colonne[9,5]                1             1             = 
+   265 Colonne[9,6]                1             1             = 
+   266 Colonne[9,7]                1             1             = 
+   267 Colonne[9,8]                1             1             = 
+   268 Colonne[9,9]                1             1             = 
+   269 UnSeulChiffre[1,1]
+                                   1             1             = 
+   270 UnSeulChiffre[1,2]
+                                   1             1             = 
+   271 UnSeulChiffre[1,3]
+                                   1             1             = 
+   272 UnSeulChiffre[1,4]
+                                   1             1             = 
+   273 UnSeulChiffre[1,5]
+                                   1             1             = 
+   274 UnSeulChiffre[1,6]
+                                   1             1             = 
+   275 UnSeulChiffre[1,7]
+                                   1             1             = 
+   276 UnSeulChiffre[1,8]
+                                   1             1             = 
+   277 UnSeulChiffre[1,9]
+                                   1             1             = 
+   278 UnSeulChiffre[2,1]
+                                   1             1             = 
+   279 UnSeulChiffre[2,2]
+                                   1             1             = 
+   280 UnSeulChiffre[2,3]
+                                   1             1             = 
+   281 UnSeulChiffre[2,4]
+                                   1             1             = 
+   282 UnSeulChiffre[2,5]
+                                   1             1             = 
+   283 UnSeulChiffre[2,6]
+                                   1             1             = 
+   284 UnSeulChiffre[2,7]
+                                   1             1             = 
+   285 UnSeulChiffre[2,8]
+                                   1             1             = 
+   286 UnSeulChiffre[2,9]
+                                   1             1             = 
+   287 UnSeulChiffre[3,1]
+                                   1             1             = 
+   288 UnSeulChiffre[3,2]
+                                   1             1             = 
+   289 UnSeulChiffre[3,3]
+                                   1             1             = 
+   290 UnSeulChiffre[3,4]
+                                   1             1             = 
+   291 UnSeulChiffre[3,5]
+                                   1             1             = 
+   292 UnSeulChiffre[3,6]
+                                   1             1             = 
+   293 UnSeulChiffre[3,7]
+                                   1             1             = 
+   294 UnSeulChiffre[3,8]
+                                   1             1             = 
+   295 UnSeulChiffre[3,9]
+                                   1             1             = 
+   296 UnSeulChiffre[4,1]
+                                   1             1             = 
+   297 UnSeulChiffre[4,2]
+                                   1             1             = 
+   298 UnSeulChiffre[4,3]
+                                   1             1             = 
+   299 UnSeulChiffre[4,4]
+                                   1             1             = 
+   300 UnSeulChiffre[4,5]
+                                   1             1             = 
+   301 UnSeulChiffre[4,6]
+                                   1             1             = 
+   302 UnSeulChiffre[4,7]
+                                   1             1             = 
+   303 UnSeulChiffre[4,8]
+                                   1             1             = 
+   304 UnSeulChiffre[4,9]
+                                   1             1             = 
+   305 UnSeulChiffre[5,1]
+                                   1             1             = 
+   306 UnSeulChiffre[5,2]
+                                   1             1             = 
+   307 UnSeulChiffre[5,3]
+                                   1             1             = 
+   308 UnSeulChiffre[5,4]
+                                   1             1             = 
+   309 UnSeulChiffre[5,5]
+                                   1             1             = 
+   310 UnSeulChiffre[5,6]
+                                   1             1             = 
+   311 UnSeulChiffre[5,7]
+                                   1             1             = 
+   312 UnSeulChiffre[5,8]
+                                   1             1             = 
+   313 UnSeulChiffre[5,9]
+                                   1             1             = 
+   314 UnSeulChiffre[6,1]
+                                   1             1             = 
+   315 UnSeulChiffre[6,2]
+                                   1             1             = 
+   316 UnSeulChiffre[6,3]
+                                   1             1             = 
+   317 UnSeulChiffre[6,4]
+                                   1             1             = 
+   318 UnSeulChiffre[6,5]
+                                   1             1             = 
+   319 UnSeulChiffre[6,6]
+                                   1             1             = 
+   320 UnSeulChiffre[6,7]
+                                   1             1             = 
+   321 UnSeulChiffre[6,8]
+                                   1             1             = 
+   322 UnSeulChiffre[6,9]
+                                   1             1             = 
+   323 UnSeulChiffre[7,1]
+                                   1             1             = 
+   324 UnSeulChiffre[7,2]
+                                   1             1             = 
+   325 UnSeulChiffre[7,3]
+                                   1             1             = 
+   326 UnSeulChiffre[7,4]
+                                   1             1             = 
+   327 UnSeulChiffre[7,5]
+                                   1             1             = 
+   328 UnSeulChiffre[7,6]
+                                   1             1             = 
+   329 UnSeulChiffre[7,7]
+                                   1             1             = 
+   330 UnSeulChiffre[7,8]
+                                   1             1             = 
+   331 UnSeulChiffre[7,9]
+                                   1             1             = 
+   332 UnSeulChiffre[8,1]
+                                   1             1             = 
+   333 UnSeulChiffre[8,2]
+                                   1             1             = 
+   334 UnSeulChiffre[8,3]
+                                   1             1             = 
+   335 UnSeulChiffre[8,4]
+                                   1             1             = 
+   336 UnSeulChiffre[8,5]
+                                   1             1             = 
+   337 UnSeulChiffre[8,6]
+                                   1             1             = 
+   338 UnSeulChiffre[8,7]
+                                   1             1             = 
+   339 UnSeulChiffre[8,8]
+                                   1             1             = 
+   340 UnSeulChiffre[8,9]
+                                   1             1             = 
+   341 UnSeulChiffre[9,1]
+                                   1             1             = 
+   342 UnSeulChiffre[9,2]
+                                   1             1             = 
+   343 UnSeulChiffre[9,3]
+                                   1             1             = 
+   344 UnSeulChiffre[9,4]
+                                   1             1             = 
+   345 UnSeulChiffre[9,5]
+                                   1             1             = 
+   346 UnSeulChiffre[9,6]
+                                   1             1             = 
+   347 UnSeulChiffre[9,7]
+                                   1             1             = 
+   348 UnSeulChiffre[9,8]
+                                   1             1             = 
+   349 UnSeulChiffre[9,9]
+                                   1             1             = 
+   350 Rien                        0                             
+
+   No. Column name       Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 x[1,3,5]     *              1             0             1 
+     2 x[1,5,4]     *              1             0             1 
+     3 x[1,9,6]     *              1             0             1 
+     4 x[2,1,8]     *              1             0             1 
+     5 x[2,4,5]     *              1             0             1 
+     6 x[3,1,2]     *              1             0             1 
+     7 x[3,3,7]     *              1             0             1 
+     8 x[3,4,6]     *              1             0             1 
+     9 x[3,6,3]     *              1             0             1 
+    10 x[4,1,4]     *              1             0             1 
+    11 x[4,5,5]     *              1             0             1 
+    12 x[4,7,2]     *              1             0             1 
+    13 x[4,9,7]     *              1             0             1 
+    14 x[5,6,2]     *              1             0             1 
+    15 x[5,8,6]     *              1             0             1 
+    16 x[5,9,1]     *              1             0             1 
+    17 x[6,4,1]     *              1             0             1 
+    18 x[6,7,3]     *              1             0             1 
+    19 x[6,8,8]     *              1             0             1 
+    20 x[7,8,5]     *              1             0             1 
+    21 x[8,1,1]     *              1             0             1 
+    22 x[8,6,7]     *              1             0             1 
+    23 x[8,9,2]     *              1             0             1 
+    24 x[9,7,6]     *              1             0             1 
+    25 x[9,9,3]     *              1             0             1 
+    26 x[1,1,1]     *              0             0             1 
+    27 x[1,2,1]     *              1             0             1 
+    28 x[1,3,1]     *              0             0             1 
+    29 x[2,1,1]     *              0             0             1 
+    30 x[2,2,1]     *              0             0             1 
+    31 x[2,3,1]     *              0             0             1 
+    32 x[3,1,1]     *              0             0             1 
+    33 x[3,2,1]     *              0             0             1 
+    34 x[3,3,1]     *              0             0             1 
+    35 x[1,4,1]     *              0             0             1 
+    36 x[1,5,1]     *              0             0             1 
+    37 x[1,6,1]     *              0             0             1 
+    38 x[2,4,1]     *              0             0             1 
+    39 x[2,5,1]     *              0             0             1 
+    40 x[2,6,1]     *              1             0             1 
+    41 x[3,4,1]     *              0             0             1 
+    42 x[3,5,1]     *              0             0             1 
+    43 x[3,6,1]     *              0             0             1 
+    44 x[1,7,1]     *              0             0             1 
+    45 x[1,8,1]     *              0             0             1 
+    46 x[1,9,1]     *              0             0             1 
+    47 x[2,7,1]     *              0             0             1 
+    48 x[2,8,1]     *              0             0             1 
+    49 x[2,9,1]     *              0             0             1 
+    50 x[3,7,1]     *              0             0             1 
+    51 x[3,8,1]     *              1             0             1 
+    52 x[3,9,1]     *              0             0             1 
+    53 x[4,1,1]     *              0             0             1 
+    54 x[4,2,1]     *              0             0             1 
+    55 x[4,3,1]     *              1             0             1 
+    56 x[5,1,1]     *              0             0             1 
+    57 x[5,2,1]     *              0             0             1 
+    58 x[5,3,1]     *              0             0             1 
+    59 x[6,1,1]     *              0             0             1 
+    60 x[6,2,1]     *              0             0             1 
+    61 x[6,3,1]     *              0             0             1 
+    62 x[4,4,1]     *              0             0             1 
+    63 x[4,5,1]     *              0             0             1 
+    64 x[4,6,1]     *              0             0             1 
+    65 x[5,4,1]     *              0             0             1 
+    66 x[5,5,1]     *              0             0             1 
+    67 x[5,6,1]     *              0             0             1 
+    68 x[6,5,1]     *              0             0             1 
+    69 x[6,6,1]     *              0             0             1 
+    70 x[4,7,1]     *              0             0             1 
+    71 x[4,8,1]     *              0             0             1 
+    72 x[4,9,1]     *              0             0             1 
+    73 x[5,7,1]     *              0             0             1 
+    74 x[5,8,1]     *              0             0             1 
+    75 x[6,7,1]     *              0             0             1 
+    76 x[6,8,1]     *              0             0             1 
+    77 x[6,9,1]     *              0             0             1 
+    78 x[7,1,1]     *              0             0             1 
+    79 x[7,2,1]     *              0             0             1 
+    80 x[7,3,1]     *              0             0             1 
+    81 x[8,2,1]     *              0             0             1 
+    82 x[8,3,1]     *              0             0             1 
+    83 x[9,1,1]     *              0             0             1 
+    84 x[9,2,1]     *              0             0             1 
+    85 x[9,3,1]     *              0             0             1 
+    86 x[7,4,1]     *              0             0             1 
+    87 x[7,5,1]     *              0             0             1 
+    88 x[7,6,1]     *              0             0             1 
+    89 x[8,4,1]     *              0             0             1 
+    90 x[8,5,1]     *              0             0             1 
+    91 x[8,6,1]     *              0             0             1 
+    92 x[9,4,1]     *              0             0             1 
+    93 x[9,5,1]     *              1             0             1 
+    94 x[9,6,1]     *              0             0             1 
+    95 x[7,7,1]     *              1             0             1 
+    96 x[7,8,1]     *              0             0             1 
+    97 x[7,9,1]     *              0             0             1 
+    98 x[8,7,1]     *              0             0             1 
+    99 x[8,8,1]     *              0             0             1 
+   100 x[8,9,1]     *              0             0             1 
+   101 x[9,7,1]     *              0             0             1 
+   102 x[9,8,1]     *              0             0             1 
+   103 x[9,9,1]     *              0             0             1 
+   104 x[1,1,2]     *              0             0             1 
+   105 x[1,2,2]     *              0             0             1 
+   106 x[1,3,2]     *              0             0             1 
+   107 x[2,1,2]     *              0             0             1 
+   108 x[2,2,2]     *              0             0             1 
+   109 x[2,3,2]     *              0             0             1 
+   110 x[3,2,2]     *              0             0             1 
+   111 x[3,3,2]     *              0             0             1 
+   112 x[1,4,2]     *              0             0             1 
+   113 x[1,5,2]     *              0             0             1 
+   114 x[1,6,2]     *              0             0             1 
+   115 x[2,4,2]     *              0             0             1 
+   116 x[2,5,2]     *              1             0             1 
+   117 x[2,6,2]     *              0             0             1 
+   118 x[3,4,2]     *              0             0             1 
+   119 x[3,5,2]     *              0             0             1 
+   120 x[3,6,2]     *              0             0             1 
+   121 x[1,7,2]     *              0             0             1 
+   122 x[1,8,2]     *              1             0             1 
+   123 x[1,9,2]     *              0             0             1 
+   124 x[2,7,2]     *              0             0             1 
+   125 x[2,8,2]     *              0             0             1 
+   126 x[2,9,2]     *              0             0             1 
+   127 x[3,7,2]     *              0             0             1 
+   128 x[3,8,2]     *              0             0             1 
+   129 x[3,9,2]     *              0             0             1 
+   130 x[4,1,2]     *              0             0             1 
+   131 x[4,2,2]     *              0             0             1 
+   132 x[4,3,2]     *              0             0             1 
+   133 x[5,1,2]     *              0             0             1 
+   134 x[5,2,2]     *              0             0             1 
+   135 x[5,3,2]     *              0             0             1 
+   136 x[6,1,2]     *              0             0             1 
+   137 x[6,2,2]     *              1             0             1 
+   138 x[6,3,2]     *              0             0             1 
+   139 x[4,4,2]     *              0             0             1 
+   140 x[4,5,2]     *              0             0             1 
+   141 x[4,6,2]     *              0             0             1 
+   142 x[5,4,2]     *              0             0             1 
+   143 x[5,5,2]     *              0             0             1 
+   144 x[6,4,2]     *              0             0             1 
+   145 x[6,5,2]     *              0             0             1 
+   146 x[6,6,2]     *              0             0             1 
+   147 x[4,8,2]     *              0             0             1 
+   148 x[4,9,2]     *              0             0             1 
+   149 x[5,7,2]     *              0             0             1 
+   150 x[5,8,2]     *              0             0             1 
+   151 x[5,9,2]     *              0             0             1 
+   152 x[6,7,2]     *              0             0             1 
+   153 x[6,8,2]     *              0             0             1 
+   154 x[6,9,2]     *              0             0             1 
+   155 x[7,1,2]     *              0             0             1 
+   156 x[7,2,2]     *              0             0             1 
+   157 x[7,3,2]     *              1             0             1 
+   158 x[8,1,2]     *              0             0             1 
+   159 x[8,2,2]     *              0             0             1 
+   160 x[8,3,2]     *              0             0             1 
+   161 x[9,1,2]     *              0             0             1 
+   162 x[9,2,2]     *              0             0             1 
+   163 x[9,3,2]     *              0             0             1 
+   164 x[7,4,2]     *              0             0             1 
+   165 x[7,5,2]     *              0             0             1 
+   166 x[7,6,2]     *              0             0             1 
+   167 x[8,4,2]     *              0             0             1 
+   168 x[8,5,2]     *              0             0             1 
+   169 x[8,6,2]     *              0             0             1 
+   170 x[9,4,2]     *              1             0             1 
+   171 x[9,5,2]     *              0             0             1 
+   172 x[9,6,2]     *              0             0             1 
+   173 x[7,7,2]     *              0             0             1 
+   174 x[7,8,2]     *              0             0             1 
+   175 x[7,9,2]     *              0             0             1 
+   176 x[8,7,2]     *              0             0             1 
+   177 x[8,8,2]     *              0             0             1 
+   178 x[9,7,2]     *              0             0             1 
+   179 x[9,8,2]     *              0             0             1 
+   180 x[9,9,2]     *              0             0             1 
+   181 x[1,1,3]     *              1             0             1 
+   182 x[1,2,3]     *              0             0             1 
+   183 x[1,3,3]     *              0             0             1 
+   184 x[2,1,3]     *              0             0             1 
+   185 x[2,2,3]     *              0             0             1 
+   186 x[2,3,3]     *              0             0             1 
+   187 x[3,1,3]     *              0             0             1 
+   188 x[3,2,3]     *              0             0             1 
+   189 x[3,3,3]     *              0             0             1 
+   190 x[1,4,3]     *              0             0             1 
+   191 x[1,5,3]     *              0             0             1 
+   192 x[1,6,3]     *              0             0             1 
+   193 x[2,4,3]     *              0             0             1 
+   194 x[2,5,3]     *              0             0             1 
+   195 x[2,6,3]     *              0             0             1 
+   196 x[3,4,3]     *              0             0             1 
+   197 x[3,5,3]     *              0             0             1 
+   198 x[1,7,3]     *              0             0             1 
+   199 x[1,8,3]     *              0             0             1 
+   200 x[1,9,3]     *              0             0             1 
+   201 x[2,7,3]     *              0             0             1 
+   202 x[2,8,3]     *              1             0             1 
+   203 x[2,9,3]     *              0             0             1 
+   204 x[3,7,3]     *              0             0             1 
+   205 x[3,8,3]     *              0             0             1 
+   206 x[3,9,3]     *              0             0             1 
+   207 x[4,1,3]     *              0             0             1 
+   208 x[4,2,3]     *              0             0             1 
+   209 x[4,3,3]     *              0             0             1 
+   210 x[5,1,3]     *              0             0             1 
+   211 x[5,2,3]     *              1             0             1 
+   212 x[5,3,3]     *              0             0             1 
+   213 x[6,1,3]     *              0             0             1 
+   214 x[6,2,3]     *              0             0             1 
+   215 x[6,3,3]     *              0             0             1 
+   216 x[4,4,3]     *              1             0             1 
+   217 x[4,5,3]     *              0             0             1 
+   218 x[4,6,3]     *              0             0             1 
+   219 x[5,4,3]     *              0             0             1 
+   220 x[5,5,3]     *              0             0             1 
+   221 x[5,6,3]     *              0             0             1 
+   222 x[6,4,3]     *              0             0             1 
+   223 x[6,5,3]     *              0             0             1 
+   224 x[6,6,3]     *              0             0             1 
+   225 x[4,7,3]     *              0             0             1 
+   226 x[4,8,3]     *              0             0             1 
+   227 x[4,9,3]     *              0             0             1 
+   228 x[5,7,3]     *              0             0             1 
+   229 x[5,8,3]     *              0             0             1 
+   230 x[5,9,3]     *              0             0             1 
+   231 x[6,8,3]     *              0             0             1 
+   232 x[6,9,3]     *              0             0             1 
+   233 x[7,1,3]     *              0             0             1 
+   234 x[7,2,3]     *              0             0             1 
+   235 x[7,3,3]     *              0             0             1 
+   236 x[8,1,3]     *              0             0             1 
+   237 x[8,2,3]     *              0             0             1 
+   238 x[8,3,3]     *              1             0             1 
+   239 x[9,1,3]     *              0             0             1 
+   240 x[9,2,3]     *              0             0             1 
+   241 x[9,3,3]     *              0             0             1 
+   242 x[7,4,3]     *              0             0             1 
+   243 x[7,5,3]     *              1             0             1 
+   244 x[7,6,3]     *              0             0             1 
+   245 x[8,4,3]     *              0             0             1 
+   246 x[8,5,3]     *              0             0             1 
+   247 x[8,6,3]     *              0             0             1 
+   248 x[9,4,3]     *              0             0             1 
+   249 x[9,5,3]     *              0             0             1 
+   250 x[9,6,3]     *              0             0             1 
+   251 x[7,7,3]     *              0             0             1 
+   252 x[7,8,3]     *              0             0             1 
+   253 x[7,9,3]     *              0             0             1 
+   254 x[8,7,3]     *              0             0             1 
+   255 x[8,8,3]     *              0             0             1 
+   256 x[8,9,3]     *              0             0             1 
+   257 x[9,7,3]     *              0             0             1 
+   258 x[9,8,3]     *              0             0             1 
+   259 x[1,1,4]     *              0             0             1 
+   260 x[1,2,4]     *              0             0             1 
+   261 x[1,3,4]     *              0             0             1 
+   262 x[2,1,4]     *              0             0             1 
+   263 x[2,2,4]     *              1             0             1 
+   264 x[2,3,4]     *              0             0             1 
+   265 x[3,1,4]     *              0             0             1 
+   266 x[3,2,4]     *              0             0             1 
+   267 x[3,3,4]     *              0             0             1 
+   268 x[1,4,4]     *              0             0             1 
+   269 x[1,6,4]     *              0             0             1 
+   270 x[2,4,4]     *              0             0             1 
+   271 x[2,5,4]     *              0             0             1 
+   272 x[2,6,4]     *              0             0             1 
+   273 x[3,4,4]     *              0             0             1 
+   274 x[3,5,4]     *              0             0             1 
+   275 x[3,6,4]     *              0             0             1 
+   276 x[1,7,4]     *              0             0             1 
+   277 x[1,8,4]     *              0             0             1 
+   278 x[1,9,4]     *              0             0             1 
+   279 x[2,7,4]     *              0             0             1 
+   280 x[2,8,4]     *              0             0             1 
+   281 x[2,9,4]     *              0             0             1 
+   282 x[3,7,4]     *              1             0             1 
+   283 x[3,8,4]     *              0             0             1 
+   284 x[3,9,4]     *              0             0             1 
+   285 x[4,2,4]     *              0             0             1 
+   286 x[4,3,4]     *              0             0             1 
+   287 x[5,1,4]     *              0             0             1 
+   288 x[5,2,4]     *              0             0             1 
+   289 x[5,3,4]     *              0             0             1 
+   290 x[6,1,4]     *              0             0             1 
+   291 x[6,2,4]     *              0             0             1 
+   292 x[6,3,4]     *              0             0             1 
+   293 x[4,4,4]     *              0             0             1 
+   294 x[4,5,4]     *              0             0             1 
+   295 x[4,6,4]     *              0             0             1 
+   296 x[5,4,4]     *              1             0             1 
+   297 x[5,5,4]     *              0             0             1 
+   298 x[5,6,4]     *              0             0             1 
+   299 x[6,4,4]     *              0             0             1 
+   300 x[6,5,4]     *              0             0             1 
+   301 x[6,6,4]     *              0             0             1 
+   302 x[4,7,4]     *              0             0             1 
+   303 x[4,8,4]     *              0             0             1 
+   304 x[4,9,4]     *              0             0             1 
+   305 x[5,7,4]     *              0             0             1 
+   306 x[5,8,4]     *              0             0             1 
+   307 x[5,9,4]     *              0             0             1 
+   308 x[6,7,4]     *              0             0             1 
+   309 x[6,8,4]     *              0             0             1 
+   310 x[6,9,4]     *              1             0             1 
+   311 x[7,1,4]     *              0             0             1 
+   312 x[7,2,4]     *              0             0             1 
+   313 x[7,3,4]     *              0             0             1 
+   314 x[8,1,4]     *              0             0             1 
+   315 x[8,2,4]     *              0             0             1 
+   316 x[8,3,4]     *              0             0             1 
+   317 x[9,1,4]     *              0             0             1 
+   318 x[9,2,4]     *              0             0             1 
+   319 x[9,3,4]     *              1             0             1 
+   320 x[7,4,4]     *              0             0             1 
+   321 x[7,5,4]     *              0             0             1 
+   322 x[7,6,4]     *              1             0             1 
+   323 x[8,4,4]     *              0             0             1 
+   324 x[8,5,4]     *              0             0             1 
+   325 x[8,6,4]     *              0             0             1 
+   326 x[9,4,4]     *              0             0             1 
+   327 x[9,5,4]     *              0             0             1 
+   328 x[9,6,4]     *              0             0             1 
+   329 x[7,7,4]     *              0             0             1 
+   330 x[7,8,4]     *              0             0             1 
+   331 x[7,9,4]     *              0             0             1 
+   332 x[8,7,4]     *              0             0             1 
+   333 x[8,8,4]     *              1             0             1 
+   334 x[8,9,4]     *              0             0             1 
+   335 x[9,7,4]     *              0             0             1 
+   336 x[9,8,4]     *              0             0             1 
+   337 x[9,9,4]     *              0             0             1 
+   338 x[1,1,5]     *              0             0             1 
+   339 x[1,2,5]     *              0             0             1 
+   340 x[2,1,5]     *              0             0             1 
+   341 x[2,2,5]     *              0             0             1 
+   342 x[2,3,5]     *              0             0             1 
+   343 x[3,1,5]     *              0             0             1 
+   344 x[3,2,5]     *              0             0             1 
+   345 x[3,3,5]     *              0             0             1 
+   346 x[1,4,5]     *              0             0             1 
+   347 x[1,5,5]     *              0             0             1 
+   348 x[1,6,5]     *              0             0             1 
+   349 x[2,5,5]     *              0             0             1 
+   350 x[2,6,5]     *              0             0             1 
+   351 x[3,4,5]     *              0             0             1 
+   352 x[3,5,5]     *              0             0             1 
+   353 x[3,6,5]     *              0             0             1 
+   354 x[1,7,5]     *              0             0             1 
+   355 x[1,8,5]     *              0             0             1 
+   356 x[1,9,5]     *              0             0             1 
+   357 x[2,7,5]     *              0             0             1 
+   358 x[2,8,5]     *              0             0             1 
+   359 x[2,9,5]     *              0             0             1 
+   360 x[3,7,5]     *              0             0             1 
+   361 x[3,8,5]     *              0             0             1 
+   362 x[3,9,5]     *              1             0             1 
+   363 x[4,1,5]     *              0             0             1 
+   364 x[4,2,5]     *              0             0             1 
+   365 x[4,3,5]     *              0             0             1 
+   366 x[5,1,5]     *              0             0             1 
+   367 x[5,2,5]     *              0             0             1 
+   368 x[5,3,5]     *              0             0             1 
+   369 x[6,1,5]     *              1             0             1 
+   370 x[6,2,5]     *              0             0             1 
+   371 x[6,3,5]     *              0             0             1 
+   372 x[4,4,5]     *              0             0             1 
+   373 x[4,6,5]     *              0             0             1 
+   374 x[5,4,5]     *              0             0             1 
+   375 x[5,5,5]     *              0             0             1 
+   376 x[5,6,5]     *              0             0             1 
+   377 x[6,4,5]     *              0             0             1 
+   378 x[6,5,5]     *              0             0             1 
+   379 x[6,6,5]     *              0             0             1 
+   380 x[4,7,5]     *              0             0             1 
+   381 x[4,8,5]     *              0             0             1 
+   382 x[4,9,5]     *              0             0             1 
+   383 x[5,7,5]     *              1             0             1 
+   384 x[5,8,5]     *              0             0             1 
+   385 x[5,9,5]     *              0             0             1 
+   386 x[6,7,5]     *              0             0             1 
+   387 x[6,8,5]     *              0             0             1 
+   388 x[6,9,5]     *              0             0             1 
+   389 x[7,1,5]     *              0             0             1 
+   390 x[7,2,5]     *              0             0             1 
+   391 x[7,3,5]     *              0             0             1 
+   392 x[8,1,5]     *              0             0             1 
+   393 x[8,2,5]     *              1             0             1 
+   394 x[8,3,5]     *              0             0             1 
+   395 x[9,1,5]     *              0             0             1 
+   396 x[9,2,5]     *              0             0             1 
+   397 x[9,3,5]     *              0             0             1 
+   398 x[7,4,5]     *              0             0             1 
+   399 x[7,5,5]     *              0             0             1 
+   400 x[7,6,5]     *              0             0             1 
+   401 x[8,4,5]     *              0             0             1 
+   402 x[8,5,5]     *              0             0             1 
+   403 x[8,6,5]     *              0             0             1 
+   404 x[9,4,5]     *              0             0             1 
+   405 x[9,5,5]     *              0             0             1 
+   406 x[9,6,5]     *              1             0             1 
+   407 x[7,7,5]     *              0             0             1 
+   408 x[7,9,5]     *              0             0             1 
+   409 x[8,7,5]     *              0             0             1 
+   410 x[8,8,5]     *              0             0             1 
+   411 x[8,9,5]     *              0             0             1 
+   412 x[9,7,5]     *              0             0             1 
+   413 x[9,8,5]     *              0             0             1 
+   414 x[9,9,5]     *              0             0             1 
+   415 x[1,1,6]     *              0             0             1 
+   416 x[1,2,6]     *              0             0             1 
+   417 x[1,3,6]     *              0             0             1 
+   418 x[2,1,6]     *              0             0             1 
+   419 x[2,2,6]     *              0             0             1 
+   420 x[2,3,6]     *              1             0             1 
+   421 x[3,1,6]     *              0             0             1 
+   422 x[3,2,6]     *              0             0             1 
+   423 x[3,3,6]     *              0             0             1 
+   424 x[1,4,6]     *              0             0             1 
+   425 x[1,5,6]     *              0             0             1 
+   426 x[1,6,6]     *              0             0             1 
+   427 x[2,4,6]     *              0             0             1 
+   428 x[2,5,6]     *              0             0             1 
+   429 x[2,6,6]     *              0             0             1 
+   430 x[3,5,6]     *              0             0             1 
+   431 x[3,6,6]     *              0             0             1 
+   432 x[1,7,6]     *              0             0             1 
+   433 x[1,8,6]     *              0             0             1 
+   434 x[2,7,6]     *              0             0             1 
+   435 x[2,8,6]     *              0             0             1 
+   436 x[2,9,6]     *              0             0             1 
+   437 x[3,7,6]     *              0             0             1 
+   438 x[3,8,6]     *              0             0             1 
+   439 x[3,9,6]     *              0             0             1 
+   440 x[4,1,6]     *              0             0             1 
+   441 x[4,2,6]     *              1             0             1 
+   442 x[4,3,6]     *              0             0             1 
+   443 x[5,1,6]     *              0             0             1 
+   444 x[5,2,6]     *              0             0             1 
+   445 x[5,3,6]     *              0             0             1 
+   446 x[6,1,6]     *              0             0             1 
+   447 x[6,2,6]     *              0             0             1 
+   448 x[6,3,6]     *              0             0             1 
+   449 x[4,4,6]     *              0             0             1 
+   450 x[4,5,6]     *              0             0             1 
+   451 x[4,6,6]     *              0             0             1 
+   452 x[5,4,6]     *              0             0             1 
+   453 x[5,5,6]     *              0             0             1 
+   454 x[5,6,6]     *              0             0             1 
+   455 x[6,4,6]     *              0             0             1 
+   456 x[6,5,6]     *              0             0             1 
+   457 x[6,6,6]     *              1             0             1 
+   458 x[4,7,6]     *              0             0             1 
+   459 x[4,8,6]     *              0             0             1 
+   460 x[4,9,6]     *              0             0             1 
+   461 x[5,7,6]     *              0             0             1 
+   462 x[5,9,6]     *              0             0             1 
+   463 x[6,7,6]     *              0             0             1 
+   464 x[6,8,6]     *              0             0             1 
+   465 x[6,9,6]     *              0             0             1 
+   466 x[7,1,6]     *              1             0             1 
+   467 x[7,2,6]     *              0             0             1 
+   468 x[7,3,6]     *              0             0             1 
+   469 x[8,1,6]     *              0             0             1 
+   470 x[8,2,6]     *              0             0             1 
+   471 x[8,3,6]     *              0             0             1 
+   472 x[9,1,6]     *              0             0             1 
+   473 x[9,2,6]     *              0             0             1 
+   474 x[9,3,6]     *              0             0             1 
+   475 x[7,4,6]     *              0             0             1 
+   476 x[7,5,6]     *              0             0             1 
+   477 x[7,6,6]     *              0             0             1 
+   478 x[8,4,6]     *              0             0             1 
+   479 x[8,5,6]     *              1             0             1 
+   480 x[8,6,6]     *              0             0             1 
+   481 x[9,4,6]     *              0             0             1 
+   482 x[9,5,6]     *              0             0             1 
+   483 x[9,6,6]     *              0             0             1 
+   484 x[7,7,6]     *              0             0             1 
+   485 x[7,8,6]     *              0             0             1 
+   486 x[7,9,6]     *              0             0             1 
+   487 x[8,7,6]     *              0             0             1 
+   488 x[8,8,6]     *              0             0             1 
+   489 x[8,9,6]     *              0             0             1 
+   490 x[9,8,6]     *              0             0             1 
+   491 x[9,9,6]     *              0             0             1 
+   492 x[1,1,7]     *              0             0             1 
+   493 x[1,2,7]     *              0             0             1 
+   494 x[1,3,7]     *              0             0             1 
+   495 x[2,1,7]     *              0             0             1 
+   496 x[2,2,7]     *              0             0             1 
+   497 x[2,3,7]     *              0             0             1 
+   498 x[3,1,7]     *              0             0             1 
+   499 x[3,2,7]     *              0             0             1 
+   500 x[1,4,7]     *              1             0             1 
+   501 x[1,5,7]     *              0             0             1 
+   502 x[1,6,7]     *              0             0             1 
+   503 x[2,4,7]     *              0             0             1 
+   504 x[2,5,7]     *              0             0             1 
+   505 x[2,6,7]     *              0             0             1 
+   506 x[3,4,7]     *              0             0             1 
+   507 x[3,5,7]     *              0             0             1 
+   508 x[3,6,7]     *              0             0             1 
+   509 x[1,7,7]     *              0             0             1 
+   510 x[1,8,7]     *              0             0             1 
+   511 x[1,9,7]     *              0             0             1 
+   512 x[2,7,7]     *              1             0             1 
+   513 x[2,8,7]     *              0             0             1 
+   514 x[2,9,7]     *              0             0             1 
+   515 x[3,7,7]     *              0             0             1 
+   516 x[3,8,7]     *              0             0             1 
+   517 x[3,9,7]     *              0             0             1 
+   518 x[4,1,7]     *              0             0             1 
+   519 x[4,2,7]     *              0             0             1 
+   520 x[4,3,7]     *              0             0             1 
+   521 x[5,1,7]     *              1             0             1 
+   522 x[5,2,7]     *              0             0             1 
+   523 x[5,3,7]     *              0             0             1 
+   524 x[6,1,7]     *              0             0             1 
+   525 x[6,2,7]     *              0             0             1 
+   526 x[6,3,7]     *              0             0             1 
+   527 x[4,4,7]     *              0             0             1 
+   528 x[4,5,7]     *              0             0             1 
+   529 x[4,6,7]     *              0             0             1 
+   530 x[5,4,7]     *              0             0             1 
+   531 x[5,5,7]     *              0             0             1 
+   532 x[5,6,7]     *              0             0             1 
+   533 x[6,4,7]     *              0             0             1 
+   534 x[6,5,7]     *              1             0             1 
+   535 x[6,6,7]     *              0             0             1 
+   536 x[4,7,7]     *              0             0             1 
+   537 x[4,8,7]     *              0             0             1 
+   538 x[5,7,7]     *              0             0             1 
+   539 x[5,8,7]     *              0             0             1 
+   540 x[5,9,7]     *              0             0             1 
+   541 x[6,7,7]     *              0             0             1 
+   542 x[6,8,7]     *              0             0             1 
+   543 x[6,9,7]     *              0             0             1 
+   544 x[7,1,7]     *              0             0             1 
+   545 x[7,2,7]     *              1             0             1 
+   546 x[7,3,7]     *              0             0             1 
+   547 x[8,1,7]     *              0             0             1 
+   548 x[8,2,7]     *              0             0             1 
+   549 x[8,3,7]     *              0             0             1 
+   550 x[9,1,7]     *              0             0             1 
+   551 x[9,2,7]     *              0             0             1 
+   552 x[9,3,7]     *              0             0             1 
+   553 x[7,4,7]     *              0             0             1 
+   554 x[7,5,7]     *              0             0             1 
+   555 x[7,6,7]     *              0             0             1 
+   556 x[8,4,7]     *              0             0             1 
+   557 x[8,5,7]     *              0             0             1 
+   558 x[9,4,7]     *              0             0             1 
+   559 x[9,5,7]     *              0             0             1 
+   560 x[9,6,7]     *              0             0             1 
+   561 x[7,7,7]     *              0             0             1 
+   562 x[7,8,7]     *              0             0             1 
+   563 x[7,9,7]     *              0             0             1 
+   564 x[8,7,7]     *              0             0             1 
+   565 x[8,8,7]     *              0             0             1 
+   566 x[8,9,7]     *              0             0             1 
+   567 x[9,7,7]     *              0             0             1 
+   568 x[9,8,7]     *              1             0             1 
+   569 x[9,9,7]     *              0             0             1 
+   570 x[1,1,8]     *              0             0             1 
+   571 x[1,2,8]     *              0             0             1 
+   572 x[1,3,8]     *              0             0             1 
+   573 x[2,2,8]     *              0             0             1 
+   574 x[2,3,8]     *              0             0             1 
+   575 x[3,1,8]     *              0             0             1 
+   576 x[3,2,8]     *              0             0             1 
+   577 x[3,3,8]     *              0             0             1 
+   578 x[1,4,8]     *              0             0             1 
+   579 x[1,5,8]     *              0             0             1 
+   580 x[1,6,8]     *              0             0             1 
+   581 x[2,4,8]     *              0             0             1 
+   582 x[2,5,8]     *              0             0             1 
+   583 x[2,6,8]     *              0             0             1 
+   584 x[3,4,8]     *              0             0             1 
+   585 x[3,5,8]     *              1             0             1 
+   586 x[3,6,8]     *              0             0             1 
+   587 x[1,7,8]     *              1             0             1 
+   588 x[1,8,8]     *              0             0             1 
+   589 x[1,9,8]     *              0             0             1 
+   590 x[2,7,8]     *              0             0             1 
+   591 x[2,8,8]     *              0             0             1 
+   592 x[2,9,8]     *              0             0             1 
+   593 x[3,7,8]     *              0             0             1 
+   594 x[3,8,8]     *              0             0             1 
+   595 x[3,9,8]     *              0             0             1 
+   596 x[4,1,8]     *              0             0             1 
+   597 x[4,2,8]     *              0             0             1 
+   598 x[4,3,8]     *              0             0             1 
+   599 x[5,1,8]     *              0             0             1 
+   600 x[5,2,8]     *              0             0             1 
+   601 x[5,3,8]     *              1             0             1 
+   602 x[6,1,8]     *              0             0             1 
+   603 x[6,2,8]     *              0             0             1 
+   604 x[6,3,8]     *              0             0             1 
+   605 x[4,4,8]     *              0             0             1 
+   606 x[4,5,8]     *              0             0             1 
+   607 x[4,6,8]     *              1             0             1 
+   608 x[5,4,8]     *              0             0             1 
+   609 x[5,5,8]     *              0             0             1 
+   610 x[5,6,8]     *              0             0             1 
+   611 x[6,4,8]     *              0             0             1 
+   612 x[6,5,8]     *              0             0             1 
+   613 x[6,6,8]     *              0             0             1 
+   614 x[4,7,8]     *              0             0             1 
+   615 x[4,8,8]     *              0             0             1 
+   616 x[4,9,8]     *              0             0             1 
+   617 x[5,7,8]     *              0             0             1 
+   618 x[5,8,8]     *              0             0             1 
+   619 x[5,9,8]     *              0             0             1 
+   620 x[6,7,8]     *              0             0             1 
+   621 x[6,9,8]     *              0             0             1 
+   622 x[7,1,8]     *              0             0             1 
+   623 x[7,2,8]     *              0             0             1 
+   624 x[7,3,8]     *              0             0             1 
+   625 x[8,1,8]     *              0             0             1 
+   626 x[8,2,8]     *              0             0             1 
+   627 x[8,3,8]     *              0             0             1 
+   628 x[9,1,8]     *              0             0             1 
+   629 x[9,2,8]     *              1             0             1 
+   630 x[9,3,8]     *              0             0             1 
+   631 x[7,4,8]     *              0             0             1 
+   632 x[7,5,8]     *              0             0             1 
+   633 x[7,6,8]     *              0             0             1 
+   634 x[8,4,8]     *              1             0             1 
+   635 x[8,5,8]     *              0             0             1 
+   636 x[8,6,8]     *              0             0             1 
+   637 x[9,4,8]     *              0             0             1 
+   638 x[9,5,8]     *              0             0             1 
+   639 x[9,6,8]     *              0             0             1 
+   640 x[7,7,8]     *              0             0             1 
+   641 x[7,8,8]     *              0             0             1 
+   642 x[7,9,8]     *              1             0             1 
+   643 x[8,7,8]     *              0             0             1 
+   644 x[8,8,8]     *              0             0             1 
+   645 x[8,9,8]     *              0             0             1 
+   646 x[9,7,8]     *              0             0             1 
+   647 x[9,8,8]     *              0             0             1 
+   648 x[9,9,8]     *              0             0             1 
+   649 x[1,1,9]     *              0             0             1 
+   650 x[1,2,9]     *              0             0             1 
+   651 x[1,3,9]     *              0             0             1 
+   652 x[2,1,9]     *              0             0             1 
+   653 x[2,2,9]     *              0             0             1 
+   654 x[2,3,9]     *              0             0             1 
+   655 x[3,1,9]     *              0             0             1 
+   656 x[3,2,9]     *              1             0             1 
+   657 x[3,3,9]     *              0             0             1 
+   658 x[1,4,9]     *              0             0             1 
+   659 x[1,5,9]     *              0             0             1 
+   660 x[1,6,9]     *              1             0             1 
+   661 x[2,4,9]     *              0             0             1 
+   662 x[2,5,9]     *              0             0             1 
+   663 x[2,6,9]     *              0             0             1 
+   664 x[3,4,9]     *              0             0             1 
+   665 x[3,5,9]     *              0             0             1 
+   666 x[3,6,9]     *              0             0             1 
+   667 x[1,7,9]     *              0             0             1 
+   668 x[1,8,9]     *              0             0             1 
+   669 x[1,9,9]     *              0             0             1 
+   670 x[2,7,9]     *              0             0             1 
+   671 x[2,8,9]     *              0             0             1 
+   672 x[2,9,9]     *              1             0             1 
+   673 x[3,7,9]     *              0             0             1 
+   674 x[3,8,9]     *              0             0             1 
+   675 x[3,9,9]     *              0             0             1 
+   676 x[4,1,9]     *              0             0             1 
+   677 x[4,2,9]     *              0             0             1 
+   678 x[4,3,9]     *              0             0             1 
+   679 x[5,1,9]     *              0             0             1 
+   680 x[5,2,9]     *              0             0             1 
+   681 x[5,3,9]     *              0             0             1 
+   682 x[6,1,9]     *              0             0             1 
+   683 x[6,2,9]     *              0             0             1 
+   684 x[6,3,9]     *              1             0             1 
+   685 x[4,4,9]     *              0             0             1 
+   686 x[4,5,9]     *              0             0             1 
+   687 x[4,6,9]     *              0             0             1 
+   688 x[5,4,9]     *              0             0             1 
+   689 x[5,5,9]     *              1             0             1 
+   690 x[5,6,9]     *              0             0             1 
+   691 x[6,4,9]     *              0             0             1 
+   692 x[6,5,9]     *              0             0             1 
+   693 x[6,6,9]     *              0             0             1 
+   694 x[4,7,9]     *              0             0             1 
+   695 x[4,8,9]     *              1             0             1 
+   696 x[4,9,9]     *              0             0             1 
+   697 x[5,7,9]     *              0             0             1 
+   698 x[5,8,9]     *              0             0             1 
+   699 x[5,9,9]     *              0             0             1 
+   700 x[6,7,9]     *              0             0             1 
+   701 x[6,8,9]     *              0             0             1 
+   702 x[6,9,9]     *              0             0             1 
+   703 x[7,1,9]     *              0             0             1 
+   704 x[7,2,9]     *              0             0             1 
+   705 x[7,3,9]     *              0             0             1 
+   706 x[8,1,9]     *              0             0             1 
+   707 x[8,2,9]     *              0             0             1 
+   708 x[8,3,9]     *              0             0             1 
+   709 x[9,1,9]     *              1             0             1 
+   710 x[9,2,9]     *              0             0             1 
+   711 x[9,3,9]     *              0             0             1 
+   712 x[7,4,9]     *              1             0             1 
+   713 x[7,5,9]     *              0             0             1 
+   714 x[7,6,9]     *              0             0             1 
+   715 x[8,4,9]     *              0             0             1 
+   716 x[8,5,9]     *              0             0             1 
+   717 x[8,6,9]     *              0             0             1 
+   718 x[9,4,9]     *              0             0             1 
+   719 x[9,5,9]     *              0             0             1 
+   720 x[9,6,9]     *              0             0             1 
+   721 x[7,7,9]     *              0             0             1 
+   722 x[7,8,9]     *              0             0             1 
+   723 x[7,9,9]     *              0             0             1 
+   724 x[8,7,9]     *              1             0             1 
+   725 x[8,8,9]     *              0             0             1 
+   726 x[8,9,9]     *              0             0             1 
+   727 x[9,7,9]     *              0             0             1 
+   728 x[9,8,9]     *              0             0             1 
+   729 x[9,9,9]     *              0             0             1 
+
+Integer feasibility conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output
