@@ -1715,3 +1715,18 @@ Ne pas oublier de stopper l'émulateur après tests pour libérer ressources.
 - Vérification niveaux API
 - Version gratuite limitée
 - Intégration CI/CD possible
+
+= Ressources supplémentaires
+#image("../img/image copy 23.png")
+#image("../img/image copy 25.png")
+
+#image("../img/image copy 29.png")
+#image("../img/image copy 11.png")
+#image("../img/image copy 14.png")
+#image("../img/image copy 21.png")
+#image("../img/image copy 26.png")
+#image("../img/image copy 32.png")
+
+#image("../img/image copy 31.png", width: 200%)
+
+#image("../img/image copy 30.png", width: 150%)
