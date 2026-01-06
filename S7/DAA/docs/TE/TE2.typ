@@ -2,7 +2,7 @@
 #show: resume.with(
   "Résumé DAA TE2",
   "Guillaume Trüeb",
-  cols: 3
+  cols: 4
 )
 
 = Threads & Coroutines
@@ -119,48 +119,195 @@ suspend fun downloadImage(url: String): ByteArray {
 ```
 
 *Dispatchers (contextes d'exécution)*
-Associe une tâche à un thread ou pool de threads spécifique.
+
+*Problématique résolue par les Dispatchers* :
+
+Les Dispatchers permettent de :
+- *Choisir le type de thread approprié* selon la nature de la tâche
+- *Éviter de surcharger* certains pools de threads
+- *Optimiser les performances* en utilisant le bon nombre de threads
+- *Protéger l'UI-Thread* des opérations bloquantes
+
+*Types de dispatchers* :
+Chaque dispatcher utilise un pool de threads adapté à son usage.
+
 - *`Dispatchers.Main`* : UI thread, interactions UI
-- *`Dispatchers.IO`* : I/O (réseau, fichiers, DB) - max 64 threads dynamiques
-- *`Dispatchers.Default`* : calculs CPU intensifs - nbr threads = nbr coeurs
+  - Thread unique pour l'interface utilisateur
+  - Pour mettre à jour les TextView, ImageView, etc.
+  - Ne JAMAIS y faire d'opérations bloquantes
+  
+- *`Dispatchers.IO`* : I/O (réseau, fichiers, DB)
+  - Pool jusqu'à 64 threads dynamiques
+  - Optimisé pour opérations bloquantes (lecture/écriture)
+  - S'adapte automatiquement à la charge
+  - Exemples : téléchargements, requêtes API, accès DB, lecture fichiers
+  
+- *`Dispatchers.Default`* : calculs CPU intensifs
+  - Nombre de threads = nombre de coeurs CPU
+  - Pour traitement d'images, calculs mathématiques, parsing JSON volumineux
+  - Partage le pool avec d'autres coroutines Default
 
 #warning[
 Toujours utiliser `withContext(Dispatchers.IO)` pour I/O, jamais sur Main.
+Un appel réseau sur Main provoque une NetworkOnMainThreadException.
 ]
+
+*Exemple d'utilisation correcte* :
+```kotlin
+suspend fun downloadImage(url: URL): Bitmap? = 
+  withContext(Dispatchers.IO) {
+    // Téléchargement réseau sur IO dispatcher
+    BitmapFactory.decodeStream(
+      url.openConnection().getInputStream()
+    )
+  }
+
+suspend fun processImage(bitmap: Bitmap): Bitmap = 
+  withContext(Dispatchers.Default) {
+    // Traitement CPU intensif sur Default dispatcher
+    applyFilters(bitmap)
+  }
+
+fun displayImage(bitmap: Bitmap) {
+  // Affichage UI sur Main dispatcher (automatique dans lifecycleScope)
+  imageView.setImageBitmap(bitmap)
+}
+
+// Usage complet
+lifecycleScope.launch {  // Main par défaut
+  val downloaded = downloadImage(url)  // Bascule vers IO
+  val processed = processImage(downloaded)  // Bascule vers Default
+  displayImage(processed)  // Retour sur Main
+}
+```
 
 #image("../img/image copy 37.png", width: 90%)
 #image("../img/image copy 38.png", width: 90%)
 
 *Dispatcher custom*
 ```kotlin
+// Limiter à 4 threads max pour contrôler la concurrence
 val myDispatcher = Executors
   .newFixedThreadPool(4)
   .asCoroutineDispatcher()
-```
-Pour des besoins spécifiques (ex: limiter la concurrence).
 
-*withContext*
-```kotlin
-suspend fun downloadImage(url: URL): Bitmap? = 
-  withContext(Dispatchers.IO) {
-    BitmapFactory.decodeStream(
-      url.openConnection().getInputStream()
-    )
-  }
+// Usage
+withContext(myDispatcher) {
+  // Tâche spécifique avec pool dédié
+}
+
+// Ne pas oublier de fermer le dispatcher !
+myDispatcher.close()
 ```
-`withContext` change le dispatcher uniquement pour le bloc de code.
+Utile pour des besoins spécifiques (ex: limiter uploads simultanés).
+
+*withContext - Changement de dispatcher*
+
+`withContext` change temporairement le dispatcher pour un bloc de code :
+- Suspend la coroutine actuelle
+- Exécute le bloc sur le dispatcher spécifié
+- Reprend sur le dispatcher original avec le résultat
+- Thread-safe et optimisé par le compilateur
+
+```kotlin
+lifecycleScope.launch {  // Sur Main
+  val data = withContext(Dispatchers.IO) {
+    // Sur IO
+    downloadData()
+  }
+  // Retour automatique sur Main
+  textView.text = data
+}
+```
 
 *Scopes*
-Les scopes permettent de limiter la durée de vie des coroutines à un contexte spécifique.
-- *`GlobalScope`* : scope application (éviter, memory leaks)
-- *`lifecycleScope`* : lié Activity/Fragment, auto-stop
-- *`viewModelScope`* : lié ViewModel
 
+*Problématique résolue par les Scopes* :
+
+Les Scopes permettent de :
+- *Gérer automatiquement le cycle de vie* des coroutines
+- *Éviter les memory leaks* en annulant les coroutines avec leur composant
+- *Organiser hiérarchiquement* les coroutines (parent-enfant)
+- *Propager l'annulation* : annuler le parent annule tous les enfants
+- *Définir le contexte d'exécution* par défaut (dispatcher, gestion d'erreurs)
+
+Le scope définit la durée de vie des coroutines et leur contexte d'exécution.
+
+*Types de scopes Android* :
+
+- *`GlobalScope`* : scope application (à ÉVITER)
+  - Durée de vie = toute l'application
+  - Risque de memory leaks (coroutines continuent après destruction composants)
+  - Utiliser uniquement pour tâches vraiment globales
+  - Exemple : logger, analytics (mais préférer des alternatives)
+
+- *`lifecycleScope`* : lié Activity/Fragment
+  - Annulation automatique quand Activity/Fragment est détruit
+  - Idéal pour opérations UI liées au cycle de vie
+  - Se met en pause/reprend avec le lifecycle
+  - Exemple : téléchargements UI, mise à jour écran
+
+- *`viewModelScope`* : lié ViewModel
+  - Annulation automatique quand ViewModel est cleared
+  - Survit aux rotations d'écran (contrairement à lifecycleScope)
+  - Idéal pour logique métier indépendante de l'UI
+  - Exemple : requêtes API, transformation données
+
+*Exemple lifecycleScope dans Activity* :
 ```kotlin
-lifecycleScope.launch {
-  val bytes = downloadImage(url)
-  val bmp = decodeImage(bytes)
-  displayImage(bmp)
+class MainActivity : AppCompatActivity() {
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    
+    lifecycleScope.launch {
+      // Coroutine liée au cycle de vie de l'Activity
+      val bytes = downloadImage(url)
+      val bmp = decodeImage(bytes)
+      displayImage(bmp)
+    }
+    // Annulation automatique si Activity détruite
+  }
+}
+```
+
+*Exemple viewModelScope dans ViewModel* :
+```kotlin
+class MyViewModel : ViewModel() {
+  private val _data = MutableStateFlow<String>("")
+  val data = _data.asStateFlow()
+  
+  fun loadData() {
+    viewModelScope.launch {
+      // Coroutine liée au ViewModel
+      try {
+        val result = repository.fetchData()
+        _data.value = result
+      } catch (e: Exception) {
+        Log.e("VM", "Erreur: ${e.message}")
+      }
+    }
+    // Survit à la rotation, annulée quand ViewModel cleared
+  }
+}
+```
+
+*Lancement avec dispatcher spécifique* :
+```kotlin
+lifecycleScope.launch(Dispatchers.Default) {
+  // Coroutine sur Default dispatcher
+  val result = heavyComputation()
+}
+```
+On peut combiner scope et dispatcher pour un contrôle précis.
+
+*Hiérarchie parent-enfant* :
+```kotlin
+lifecycleScope.launch {  // Parent
+  val job1 = launch { task1() }  // Enfant 1
+  val job2 = launch { task2() }  // Enfant 2
+  
+  // Si parent annulé → enfants annulés automatiquement
+  // Si enfant échoue → parent peut gérer ou propager
 }
 ```
 
@@ -203,29 +350,90 @@ Toujours préférer `delay()` dans les coroutines pour ne pas bloquer le thread.
 
 *suspendCoroutine() - Pont avec APIs à callbacks*
 
-Permet de convertir des APIs basées sur callbacks en fonctions suspensives.
+*Rôle de suspendCoroutine()* :
 
+`suspendCoroutine()` permet de convertir des APIs basées sur callbacks en fonctions suspensives.
+C'est le pont entre l'ancien monde (callbacks) et le nouveau (coroutines).
+
+*Fonctionnement détaillé* :
+- Suspend la coroutine en cours d'exécution
+- Fournit un objet `Continuation` pour reprendre l'exécution ultérieurement
+- `cont.resume(value)` : reprend l'exécution avec un résultat de succès
+- `cont.resumeWithException(e)` : reprend l'exécution avec une erreur
+- La coroutine reste suspendue jusqu'à ce qu'une de ces méthodes soit appelée
+
+*Cas d'utilisation typique : Volley avec coroutines*
+
+Volley utilise des callbacks, on veut l'utiliser avec des coroutines :
 ```kotlin
 suspend fun downloadHTMLVolley(urlParam: String): String = 
   suspendCoroutine { cont ->
     val textRequest = StringRequest(
       Request.Method.GET, urlParam,
-      { response -> cont.resume(response) },
-      { e -> cont.resumeWithException(e) }
+      { response -> 
+        // Succès : on reprend avec la réponse
+        cont.resume(response) 
+      },
+      { error -> 
+        // Erreur : on reprend avec une exception
+        cont.resumeWithException(error) 
+      }
     )
     queue.add(textRequest)
   }
 ```
 
-*Fonctionnement* :
-- Suspend la coroutine
-- Fournit `Continuation` pour reprendre
-- `cont.resume(value)` : reprend avec résultat
-- `cont.resumeWithException(e)` : reprend avec erreur
+*Utilisation dans une coroutine* :
+```kotlin
+lifecycleScope.launch {
+  try {
+    val html = downloadHTMLVolley("https://www.heig-vd.ch")
+    // Traiter le résultat
+    textView.text = html
+  } catch (e: Exception) {
+    // Gérer l'erreur
+    Log.e("Download", "Erreur: ${e.message}")
+  }
+}
+```
+
+*Autre exemple : LocationManager avec coroutines*
+```kotlin
+suspend fun getCurrentLocation(): Location = suspendCoroutine { cont ->
+  val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+  
+  locationManager.requestSingleUpdate(
+    LocationManager.GPS_PROVIDER,
+    object : LocationListener {
+      override fun onLocationChanged(location: Location) {
+        cont.resume(location)  // Succès
+      }
+      override fun onProviderDisabled(provider: String) {
+        cont.resumeWithException(Exception("GPS désactivé"))
+      }
+    },
+    null
+  )
+}
+```
+
+*Avantages de suspendCoroutine* :
+- Transforme du code asynchrone à callbacks en code séquentiel lisible
+- Gestion d'erreur naturelle avec try/catch (pas de callback d'erreur séparé)
+- Compatible avec les bibliothèques existantes sans les réécrire
+- Pas besoin de modifier les APIs tierces
+- Code plus maintenable et testable
 
 #warning[
 Ne jamais appeler `resume()` ou `resumeWithException()` plusieurs fois.
+Une seule reprise est autorisée par suspension.
 ]
+
+*Points d'attention* :
+- Toujours gérer le cas d'erreur dans le callback
+- La coroutine reste suspendue jusqu'à l'appel de resume
+- Ne pas oublier de gérer les timeouts si nécessaire
+- Attention aux fuites mémoire si la callback n'est jamais appelée
 
 *Annulation des Coroutines*
 ```kotlin
@@ -261,75 +469,227 @@ while(value > 0) {
 
 == WorkManager
 
-*Usage*
-- Tâches longues/périodiques garanties
-- Survit fermeture app et redémarrage
-- Contraintes : réseau, batterie, stockage
+=== Périmètre
+
+*Pour tâches persistantes* devant s'exécuter même quand :
+- L'application est en arrière-plan
+- L'application est fermée (tuée par l'utilisateur)
+- Le téléphone redémarre
+
+Cas d'usage typiques :
+- Synchronisation périodique de données
+- Upload de fichiers en arrière-plan
+- Nettoyage de cache/données temporaires
+- Envoi de logs/analytics
+- Traitement différé de données
+
+*Avantages de WorkManager* :
+- Gestion automatique des contraintes système (réseau, batterie, stockage)
+- Persistance dans SQLite (les tâches survivent au redémarrage)
+- Résiste aux redémarrages du téléphone
+- Respect des optimisations batterie Android (Doze, App Standby)
+- Retry automatique en cas d'échec avec backoff exponentiel
+- Compatible avec toutes versions Android (API 14+)
 
 #image("../img/image copy 39.png")
 
-*Mode Doze*
-- Économie batterie : tâches différées
-- Fenêtres activité contrôlées par système
-- Classification apps : Active, Working set, Frequent, Rare, Restricted
-- Sortie périodique pour sync données (fréquence variable)
+*Types de tâches WorkManager* :
+- *Immédiates* : exécution ASAP (mais peut être différée par le système)
+  - OneTimeWorkRequest pour tâche unique
+  - Pas de garantie de temps d'exécution exact
+- *Longue durée* : > 10 minutes (notification obligatoire)
+  - Notification pour informer utilisateur
+  - setForeground() pour éviter kill système
+- *Différables* : programmées et/ou périodiques
+  - PeriodicWorkRequest avec intervalle minimum 15 minutes
+  - Contraintes système appliquées
 
-*Contraintes WorkManager*
-```kotlin
-val constraints = Constraints.Builder()
-  .setRequiredNetworkType(NetworkType.CONNECTED)
-  .setRequiresBatteryNotLow(true)
-  .setRequiresCharging(false)
-  .build()
+=== Contraintes système
 
-val workRequest = PeriodicWorkRequestBuilder<MyWork>(15, TimeUnit.MINUTES)
-  .setConstraints(constraints)
-  .build()
-```
+==== Android Doze (API 23+)
+
+*Mode Doze* : économie batterie agressive
+- Activé quand écran verrouillé + appareil immobile + non chargé
+- Veille profonde : désactive réseau, syncs, jobs, GPS
+- Fenêtres de maintenance périodiques (durée de plus en plus espacée)
+  - Première : ~15 min après Doze
+  - Puis espacement exponentiel : 30min, 1h, 2h, 4h...
+- Les tâches WorkManager s'exécutent durant ces fenêtres
+- App importante : fenêtres plus fréquentes
 
 #image("../img/image copy 40.png")
 
-*Implémentation*
-```kotlin
-class MyWork(appContext: Context, workerParams: WorkerParameters) : Worker(appContext, workerParams) {
-  override fun doWork(): Result {
-    // tâche
-    return Result.success()  // ou Result.failure() / Result.retry()
-  }
-}
+*Light Doze* (appareil en mouvement) :
+- Restrictions moins sévères
+- Fenêtres plus fréquentes
+- Permet certaines activités réseau
 
-val workManager = WorkManager.getInstance(applicationContext)
-val myWorkRequest = OneTimeWorkRequestBuilder<MyWork>().build()
-workManager.enqueue(myWorkRequest)
-```
+==== App Standby Buckets (API 28+)
 
-*Types de tâches*
-- *Immédiates* : exécution ASAP (peut être différée par système)
-- *Longue durée* : > 10 minutes (notification obligatoire)
-- *Différables* : programmées/périodiques (intervalle min 15min)
+*Classification automatique selon utilisation* :
+Android classe les apps selon leur fréquence d'utilisation pour optimiser batterie.
 
-#warning[
-Fréquence minimale pour PeriodicWorkRequest : 15 minutes.
-]
+- *Active* : app actuellement utilisée ou utilisée très récemment
+  - Aucune restriction
+  - Jobs et syncs normaux
+  
+- *Working set* : app utilisée régulièrement (quotidiennement)
+  - Restrictions légères
+  - Jobs différés de quelques minutes
+  
+- *Frequent* : app utilisée fréquemment (quelques fois par semaine)
+  - Restrictions modérées
+  - Jobs limités à ~10 par jour
+  
+- *Rare* : app rarement utilisée
+  - Restrictions importantes
+  - Jobs limités à ~5 par jour
+  - Fenêtre quotidienne de 10 minutes max
+  
+- *Restricted* : app consomme beaucoup de ressources
+  - Restrictions maximales
+  - Pratiquement pas de jobs en arrière-plan
+  - Nécessite interaction utilisateur pour sortir
 
-*App Standby Buckets (API 28+)*
-Classification selon utilisation :
-- *Active* : utilisée actuellement
-- *Working set* : utilisée régulièrement
-- *Frequent* : utilisée fréquemment mais pas quotidien
-- *Rare* : rarement utilisée
-- *Restricted* : consomme beaucoup de ressources
+*Impact sur WorkManager* :
+Plus une app est dans un bucket restrictif, plus l'exécution des tâches est différée.
+Le système attend des conditions optimales (charge, WiFi, etc.) avant d'exécuter.
 
-Plus une app est utilisée, moins elle est restreinte.
+==== App Hibernation (API 30+)
 
-*App Hibernation (API 30+)*
-Après plusieurs mois sans interaction :
-- Révocation permissions runtime
-- Arrêt tâches programmées
-- Arrêt notifications push (FCM)
-- Vidage caches
+*Hibernation automatique après plusieurs mois sans interaction* :
+
+Si l'utilisateur n'a pas ouvert l'app depuis ~3 mois :
+- *Révocation permissions runtime*
+  L'utilisateur devra réaccorder les permissions sensibles
+- *Arrêt des tâches programmées*
+  WorkManager ne s'exécute plus du tout
+- *Arrêt notifications push (FCM)*
+  Plus de messages Firebase reçus
+- *Vidage du cache*
+  Libération d'espace de stockage
+- *Reset de l'app à l'état initial*
+  Comme si elle venait d'être installée
+
+*Sortie d'hibernation* :
+L'utilisateur doit ouvrir l'app manuellement pour la réactiver.
 
 #image("../img/image copy 41.png", width: 80%)
+
+=== Exemple d'utilisation WorkManager
+
+*Définition du Worker* :
+```kotlin
+class SyncWorker(
+  appContext: Context,
+  workerParams: WorkerParameters
+) : Worker(appContext, workerParams) {
+  
+  override fun doWork(): Result {
+    return try {
+      // Logique métier ici (téléchargement, sync, etc.)
+      val data = fetchDataFromServer()
+      saveToLocalDatabase(data)
+      
+      Result.success()  // Tâche réussie
+    } catch (e: Exception) {
+      Log.e("SyncWorker", "Erreur: ${e.message}")
+      Result.retry()  // Réessayer plus tard avec backoff
+      // ou Result.failure() pour échec définitif
+    }
+  }
+}
+```
+La logique métier va dans `doWork()`. Cette méthode s'exécute automatiquement sur un thread background.
+
+*Tâche unique (OneTimeWorkRequest)* :
+```kotlin
+val workManager = WorkManager.getInstance(applicationContext)
+
+val myWorkRequest = OneTimeWorkRequestBuilder<SyncWorker>().build()
+
+workManager.enqueue(myWorkRequest)
+```
+S'exécute une seule fois dès que possible (selon contraintes système).
+
+*Tâche périodique avec contraintes (PeriodicWorkRequest)* :
+```kotlin
+// Définir les contraintes d'exécution
+val constraints = Constraints.Builder()
+  .setRequiredNetworkType(NetworkType.CONNECTED)  // WiFi ou mobile data
+  .setRequiresBatteryNotLow(true)  // Batterie > 15%
+  .setRequiresCharging(false)  // Pas besoin de charge
+  .setRequiresStorageNotLow(true)  // Stockage suffisant
+  .build()
+
+// Créer la requête périodique
+val periodicWork = PeriodicWorkRequestBuilder<SyncWorker>(
+    15,  // Intervalle : 15 minutes minimum
+    TimeUnit.MINUTES,
+    10,  // Flex interval : peut s'exécuter dans les 10 dernières minutes
+    TimeUnit.MINUTES
+  )
+  .setConstraints(constraints)  // Appliquer les contraintes
+  .setBackoffCriteria(  // Stratégie en cas d'échec
+    BackoffPolicy.EXPONENTIAL,
+    10,
+    TimeUnit.SECONDS
+  )
+  .build()
+
+workManager.enqueue(periodicWork)
+```
+
+*Flex interval expliqué* :
+- Intervalle = 15 min, Flex = 10 min
+- La tâche peut s'exécuter entre la 5ème et 15ème minute
+- Permet au système d'optimiser en groupant plusieurs tâches ensemble
+- Économise batterie en évitant réveils fréquents de l'appareil
+
+*Backoff en cas d'échec* :
+Si `Result.retry()` est retourné, WorkManager réessaie avec délai croissant :
+- 1er essai : immédiat
+- 2ème essai : après 10s
+- 3ème essai : après 20s
+- 4ème essai : après 40s
+- 5ème essai : après 80s
+- Etc. (backoff exponentiel jusqu'à maximum)
+
+*Contraintes disponibles* :
+- `NetworkType.CONNECTED` : n'importe quelle connexion réseau
+- `NetworkType.UNMETERED` : WiFi uniquement (pas de data mobile)
+- `NetworkType.NOT_ROAMING` : pas en roaming
+- `NetworkType.METERED` : data mobile acceptée
+- `setRequiresBatteryNotLow()` : batterie > 15%
+- `setRequiresCharging()` : appareil en charge
+- `setRequiresDeviceIdle()` : appareil inactif (rare)
+- `setRequiresStorageNotLow()` : stockage suffisant
+
+#warning[
+Intervalle *minimum : 15 minutes* pour PeriodicWorkRequest.
+Limite Android non contournable pour économiser la batterie.
+]
+
+*Observer l'état d'un Worker* :
+```kotlin
+workManager.getWorkInfoByIdLiveData(periodicWork.id)
+  .observe(this) { workInfo ->
+    when (workInfo?.state) {
+      WorkInfo.State.ENQUEUED -> Log.d("Work", "En attente")
+      WorkInfo.State.RUNNING -> Log.d("Work", "En cours d'exécution")
+      WorkInfo.State.SUCCEEDED -> Log.d("Work", "Réussi")
+      WorkInfo.State.FAILED -> Log.d("Work", "Échoué")
+      WorkInfo.State.CANCELLED -> Log.d("Work", "Annulé")
+      else -> {}
+    }
+  }
+```
+
+*Annuler un Worker* :
+```kotlin
+workManager.cancelWorkById(periodicWork.id)  // Annuler par ID
+workManager.cancelAllWork()  // Tout annuler
+```
 
 *Bonnes pratiques*
 - Threads : uniquement tâches courtes, WeakReference obligatoire
@@ -846,15 +1206,98 @@ Scaffold(
 
 #image("../img/image copy 59.png", width: 80%)
 
-*Listes paresseuses*
-- `LazyColumn` : liste verticale scrollable
-- `LazyRow` : liste horizontale scrollable
-- `LazyVerticalGrid` : grille verticale scrollable
+=== Listes scrollables : LazyColumn et LazyRow
 
-*Différence avec RecyclerView*
-- Affichent uniquement éléments visibles (performances)
-- Pas de recyclage : recomposition systématique
-- Plus simple à implémenter que RecyclerView
+*LazyColumn/LazyRow* : listes optimisées pour grandes quantités de données
+
+Les LazyColumn et LazyRow sont des composants Compose pour afficher des listes scrollables performantes.
+Ils ne rendent que les éléments visibles à l'écran, économisant ainsi mémoire et ressources.
+
+*Différence avec RecyclerView* :
+- *Plus simple* : pas d'Adapter, ViewHolder, LayoutManager nécessaires
+- *Pas de recyclage manuel* : Compose crée/détruit les vues à la volée automatiquement
+- *Recomposition automatique* : seuls les éléments modifiés sont recalculés
+- *Meilleure intégration* : s'intègre naturellement avec l'état Compose
+- *Performance* : seuls les éléments visibles sont rendus (lazy loading)
+
+*LazyColumn* : liste verticale scrollable
+```kotlin
+LazyColumn(
+  modifier = Modifier.fillMaxSize(),
+  verticalArrangement = Arrangement.spacedBy(8.dp),
+  contentPadding = PaddingValues(16.dp)
+) {
+  items(listOfItems) { item ->
+    ItemCard(item = item)
+  }
+  // ou avec index
+  itemsIndexed(listOfItems) { index, item ->
+    Text("$index: ${item.name}")
+  }
+}
+```
+
+*LazyRow* : liste horizontale scrollable
+```kotlin
+LazyRow(
+  horizontalArrangement = Arrangement.spacedBy(8.dp),
+  contentPadding = PaddingValues(horizontal = 16.dp)
+) {
+  items(contacts) { contact ->
+    ContactCard(contact)
+  }
+}
+```
+
+*LazyVerticalGrid* : grille verticale scrollable
+```kotlin
+LazyVerticalGrid(
+  columns = GridCells.Fixed(2),  // 2 colonnes
+  // ou GridCells.Adaptive(minSize = 128.dp)  // taille adaptative
+  verticalArrangement = Arrangement.spacedBy(8.dp),
+  horizontalArrangement = Arrangement.spacedBy(8.dp)
+) {
+  items(photos) { photo ->
+    ImageCard(photo)
+  }
+}
+```
+
+*Caractéristiques importantes* :
+- Seuls les *éléments visibles* sont rendus (pas tous)
+- *Défilement automatique* sans configuration supplémentaire
+- *Performance optimale* même avec milliers d'éléments
+- Pas de recyclage de vues comme RecyclerView (architecture différente)
+- Support de sticky headers, arrangements personnalisés, etc.
+
+*Exemple complet avec données observables* :
+```kotlin
+@Composable
+fun ContactList(viewModel: ContactViewModel = viewModel()) {
+  val contacts by viewModel.allContacts.collectAsStateWithLifecycle()
+  
+  LazyColumn(
+    modifier = Modifier.fillMaxSize(),
+    verticalArrangement = Arrangement.spacedBy(8.dp),
+    contentPadding = PaddingValues(16.dp)
+  ) {
+    items(
+      items = contacts,
+      key = { it.id }  // Optimisation : clé unique par item
+    ) { contact ->
+      ContactCard(
+        contact = contact,
+        onClick = { viewModel.selectContact(contact) }
+      )
+    }
+  }
+}
+```
+
+#warning[
+Toujours utiliser `key = { it.id }` pour optimiser les recompositions.
+Sans clé, Compose ne peut pas identifier les éléments modifiés/déplacés.
+]
 
 #image("../img/image copy 60.png", width: 80%)
 
@@ -1040,9 +1483,9 @@ fun Card() {
 
 #image("../img/image copy 67.png")
 #align(center)[
-#image("../img/image copy 68.png", width: 30%)
-
+#image("../img/image copy 68.png", width: 25%)
 ]
+#colbreak()
 *UI Hybride*
 - Possible mais non recommandé
 - `ComposeView` : Compose dans XML
