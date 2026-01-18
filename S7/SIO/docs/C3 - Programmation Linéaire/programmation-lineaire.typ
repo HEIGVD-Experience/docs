@@ -356,6 +356,53 @@ Un programme linéaire en nombres entiers (PLNE) est un programme linéaire où 
 - Les PL binaires: *toutes* les variables sont contraintes à être binaires (0 ou 1).
 - Les PL mixtes: *certaines* variables sont contraintes à être entières, les autres pouvant être continues.
 
+== Programme linéaire binaire
+Un programme linéaire binaire (PLB) est un type particulier de PLNE où toutes les variables ne peuvent prendre que deux valeurs : 0 ou 1. Ces variables binaires sont utilisées pour modéliser des *décisions de type oui/non* :
+- Sélectionner ou non un projet
+- Construire ou non une usine
+- Inclure ou non un élément dans un ensemble
+- Activer ou non une ressource
+
+Les PLB sont particulièrement adaptés pour résoudre des problèmes de :
+- *Sélection optimale* (choisir les meilleurs éléments parmi un ensemble)
+- *Affectation* (assigner des ressources à des tâches)
+- *Couverture* (couvrir un ensemble d'exigences avec un minimum de ressources)
+- *Ordonnancement* (planifier des activités dans le temps)
+
+=== Exemple : Sélection de projets
+Une entreprise dispose d'un budget de 100'000 francs et doit choisir parmi 4 projets à financer. Chaque projet a un coût et un bénéfice estimé :
+
+#table(
+  columns: (auto, auto, auto),
+  inset: 8pt,
+  align: horizon,
+  [*Projet*], [*Coût (kCHF)*], [*Bénéfice*],
+  [1], [40], [60],
+  [2], [30], [45],
+  [3], [50], [70],
+  [4], [35], [50]
+)
+
+On introduit une variable binaire $x_i$ pour chaque projet :
+$
+  x_i = cases(
+    1 "si le projet" i "est sélectionné",
+    0 "sinon"
+  ) space space space i = 1\, 2\, 3\, 4
+$
+
+Le problème se formule ainsi :
+$
+  "Max" z = &60x_1 + 45x_2 + 70x_3 + 50x_4 \
+  "s.c." space space space &40x_1 + 30x_2 + 50x_3 + 35x_4 lt.eq 100 space &"(budget)" \
+  &x_i in {0, 1} space &i = 1\, 2\, 3\, 4
+$
+
+*Solution optimale* :
+$
+  x_1 = 1\, x_2 = 1\, x_3 = 0\, x_4 = 1 space space space "avec" z = 155
+$
+
 == Modélisation avec des variables entières
 Les variables entières sont souvent utilisées pour modéliser des situations où les décisions sont discrètes, telles que le nombre d'unités produites, le nombre de véhicules utilisés, ou la sélection de projets.
 
