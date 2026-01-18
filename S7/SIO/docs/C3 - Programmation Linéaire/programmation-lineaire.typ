@@ -183,7 +183,7 @@ Voici un problème de programmation linéaire en forme canonique.
 === Contrainte
 La contrainte non linéaire
 $
-  |"expr"_1| lt.eq "expr"_2
+  |"expr"_1| lt.eq "expr"_2 space space space "ou" space space space "expr"_1 gt.eq |"expr"_2|
 $
 est équivalente aux deux inéquations linéaires
 $
@@ -222,3 +222,206 @@ $
   "s.c." space space space space space space space &-t lt.eq "expr"_1 lt.eq t \
   &t gt.eq 0
 $
+
+= Programme linéaires en nombres entiers
+Un programme linéaire en nombres entiers (PLNE) est un programme linéaire où certaines variables ne peuvent prendre que des valeurs entières. On pourra distinguer:
+- Les PLNE purs: *toutes* les variables sont contraintes à être entières.
+- Les PL binaires: *toutes* les variables sont contraintes à être binaires (0 ou 1).
+- Les PL mixtes: *certaines* variables sont contraintes à être entières, les autres pouvant être continues.
+
+== Modélisation avec des variables entières
+Les variables entières sont souvent utilisées pour modéliser des situations où les décisions sont discrètes, telles que le nombre d'unités produites, le nombre de véhicules utilisés, ou la sélection de projets.
+
+=== Variables discrètes
+Pour modéliser une variable discrète qui peut prendre des valeurs dans un ensemble fini, nous pouvons utiliser des variables auxiliaires binaires. Considérons une variable $x$ qui ne peut prendre que deux valeurs :
+$
+  x = 0 space space space "ou" space space space x = b
+$
+
+Pour modéliser $x$, on introduit une variable auxiliaire binaire $y$ et on pose
+$
+  x = b y space space space "avec" y in {0, 1}
+$
+
+De manière générale, une variable *bivalente* se modèlise de la manière suivante :
+$
+  x in {a, b} space space space <==> space space space cases(
+    x = a + (b - a) y,
+    y in {0, 1}
+  )
+$
+
+Dans le cas où une variable doit pouvoir prendre plusieurs valeurs discrètes, nous pouvons modéliser cela comme ça : 
+$
+  x in {2,5,10} space space space <==> space space space cases(
+    x = 2 y_1 + 5 y_2 + 10 y_3,
+    y_1 + y_2 + y_3 = 1,
+    y_k in {0, 1}\, k = 1\, 2\, 3
+  )
+$
+
+=== Fonction objectif avec coûts fixes
+Il se peut arriver que la fonction objectif comporte des coûts fixes associés à l'activation de certaines variables.
+$
+  "Min" &z = K y + c x \
+  "s.c." &dots\
+  &x lt.eq M y &(1)\
+  &0 lt.eq x lt.eq M \
+  &y in {0, 1}
+$
+
+La contrainte (1) garantit que lorsque:
+- $y = 0$, alors $x = 0$ (la variable n'est pas activée, donc pas de coût variable).
+- $y = 1$, alors $x$ peut prendre n'importe quelle valeur entre 0 et $M$ (la variable est activée, donc le coût variable s'applique).
+- Si $x > 0$, alors $y$ doit être égal à 1 (si la variable est activée, le coût fixe s'applique).
+- Si $x = 0$, alors $y$ peut être égal à 0 ou 1 (si la variable n'est pas activée, le coût fixe ne s'applique pas).
+
+#colbreak()
+
+=== Variables semi-continues
+Une variable semi-continue est une variable qui peut soit être égale à zéro, soit prendre une valeur dans un intervalle continu. Imaginons un intervalle $[a, b]$ :
+$
+  x = 0 space space space "ou" space space space a lt.eq x lt.eq b
+$
+Pour gérer ce cas nous devons introduire 2 variables auxiliaires : une variable binaire $y$ et une variable continue $t$.
+$
+  y = cases(
+    1 "si" x in [a, b],
+    0 "si" x = 0
+  )
+$
+et
+$
+  0 lt.eq t lt.eq 1 space space space "servant à paramétrer l'intervalle" [a,b].
+$
+Nous pouvons alors modéliser $x$ de la manière suivante :
+$
+  x in {0} union [a,b] space space space <==> space space space cases(
+    x = a y + (b - a) t space space space &(1),
+    t lt.eq y &(2),
+    0 lt.eq t lt.eq 1 &(3),
+    y in {0, 1} &(4)
+  )
+$
+
+Cette approche garantit que :
+- Si $y = 1$, la contrainte (2) devient redondante avec les contraintes de borne (3) et (1) devient $x = a + (b-a)t$. La variable $x$ varie alors entre $a$ et $b$ lorsque $t$ varie entre 0 et 1.
+- Si $y = 0$, les contraintes (2) et (3) forcent $t = 0$ et (1) devient $x = 0$.
+- Si $t > 0$, la contrainte (2) force $y = 1$ et (1) devient $x = a + (b-a)t$ et $x$ varie entre $a$ et $b$.
+- Si $t = 0$, on peut avoir $y = 0$ et $x = 0$ ou $y = 1$ et $x = a$.
+
+=== Contraintes disjonctives (OU logique)
+Les contraintes disjonctives modélisent des situations où *au moins une* contrainte parmi plusieurs doit être satisfaite.
+
+Considérons deux contraintes dont au moins une doit être satisfaite :
+$
+  2x_1 + 3x_2 lt.eq 12 space space space "OU" space space space 3x_1 + x_2 lt.eq 9
+$
+
+Pour modéliser cette disjonction, on introduit une variable binaire $y$ et un nombre très grand $M$ :
+$
+  cases(
+    2x_1 + 3x_2 lt.eq 12 + M(1-y),
+    3x_1 + x_2 lt.eq 9 + M y,
+    y in {0, 1}
+  )
+$
+
+*Analyse :*
+- Si $y = 1$ : la première contrainte est active, la seconde devient $3x_1 + x_2 lt.eq 9 + M$ (toujours satisfaite).
+- Si $y = 0$ : la seconde contrainte est active, la première devient $2x_1 + 3x_2 lt.eq 12 + M$ (toujours satisfaite).
+
+*Généralisation :* Pour satisfaire *au moins K contraintes parmi L*, on introduit une variable binaire $y_i$ par contrainte et on reformule :
+$
+  cases(
+    sum_(j=1)^n a_"ij" x_j lt.eq b_i + M(1-y_i) space space space &i = 1\, ...\, L,
+    sum_(i=1)^L y_i gt.eq K,
+    y_i in {0\, 1} space space space &i = 1\, ...\, L
+  )
+$
+
+=== Valeurs absolues
+Nous pouvons facilement linéariser une contrainte avec valeur absolue de type $lt.eq$ en utilisant des inéquations linéaires.
+$
+  |sum_(j=1)^n a_j x_j| lt.eq b <==> -b lt.eq sum_(j=1)^n a_j x_j lt.eq b
+$
+*Exemple*
+$
+  |2x_1 + 3_x_2| lt.eq 12 space space space <==> space space space cases(
+    2x_1 + 3x_2 lt.eq &12,
+    2x_1 + 3x_2 gt.eq -&12
+  )
+$
+
+Pour linéariser une contrainte avec valeur absolue de type $gt.eq$, on utilise des variables binaires car elle implique une disjonction (OU logique).
+
+La contrainte non linéaire
+$
+  |sum_(j=1)^n a_j x_j| gt.eq b
+$
+est équivalente à la disjonction
+$
+  sum_(j=1)^n a_j x_j gt.eq b space space space "OU" space space space sum_(j=1)^n a_j x_j lt.eq -b
+$
+
+Pour modéliser cette disjonction, on introduit une variable binaire $y$ et un nombre très grand $M$ :
+$
+  cases(
+    -sum_(j=1)^n a_j x_j lt.eq -b + M(1-y),
+    sum_(j=1)^n a_j x_j lt.eq -b + M y,
+    y in {0, 1}
+  )
+$
+
+==== Exemple
+La contrainte $|x_1 - 2x_2| gt.eq 5$ devient :
+$
+  cases(
+    -x_1 + 2x_2 lt.eq -5 + M(1-y),
+    x_1 - 2x_2 lt.eq -5 + M y,
+    y in {0, 1}
+  )
+$
+
+= Résolution des programmes linéaires en nombres entiers
+
+== Relaxation linéaire
+La *relaxation linéaire* (ou relaxation continue) d'un PLNE consiste à remplacer les contraintes d'intégralité par des contraintes de non-négativité.
+
+*Exemple :*
+$
+  "PLNE:" space x_1, x_2 in NN space space space arrow.r.double space space space "Relaxation:" space x_1, x_2 gt.eq 0
+$
+
+Cette transformation convertit le PLNE en un PL classique en variables continues, plus facile à résoudre.
+
+== Domaine admissible
+- *PL* : Le domaine admissible est un polyèdre convexe (polytope si borné). La solution optimale se trouve à un sommet.
+- *PLNE* : L'ensemble des solutions admissibles est un ensemble *discret et fini* de points à coordonnées entières.
+
+Résoudre un PLNE est un *problème d'optimisation combinatoire* : trouver la meilleure solution parmi un ensemble fini (mais généralement gigantesque) de solutions.
+
+== Cas favorables
+Dans certains cas, la solution optimale de la relaxation linéaire est déjà entière :
+- Si *tous les sommets* du domaine admissible de la relaxation linéaire sont entiers, résoudre le PLNE n'est pas plus difficile que résoudre sa relaxation linéaire.
+- Exemple important : les *problèmes de transbordement* (réseaux de transport avec offres, demandes et capacités entières) garantissent toujours une solution optimale entière.
+
+== Arrondir la solution : une fausse bonne idée
+Lorsque la solution optimale de la relaxation linéaire n'est pas entière, peut-on simplement l'arrondir ?
+
+*Deux difficultés majeures :*
+1. *Admissibilité* : Comment arrondir (vers le haut, vers le bas, au plus proche ?) tout en garantissant que la solution reste admissible ? Il n'existe pas de méthode générale.
+2. *Optimalité* : Même si la solution arrondie est admissible, rien ne garantit qu'elle soit optimale pour le PLNE.
+
+*Exemple (sac à dos) :*
+$
+  "Max" z = &13x_1 + 16x_2 + 7x_3 + 4x_4 \
+  "s.c." space space space &6x_1 + 8x_2 + 4x_3 + 3x_4 lt.eq 12 \
+  &x_1, x_2, x_3, x_4 in {0, 1}
+$
+
+Solution de la relaxation : $(x_1, x_2, x_3, x_4) = (1, 0.75, 0, 0)$ avec $z = 25$.
+
+Si on arrondit $x_2$ vers le bas : $(1, 0, 0, 0)$ donne $z = 13$ (admissible mais sous-optimal).
+
+La vraie solution optimale est : $(0, 1, 1, 0)$ avec $z = 23$.
