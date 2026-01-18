@@ -223,6 +223,133 @@ $
   &t gt.eq 0
 $
 
+= Analyse de sensibilité
+L'analyse de sensibilité étudie le comportement de la solution optimale d'un programme linéaire et de sa valeur lorsque l'on modifie légèrement les coefficients du problème (qui ne sont pas toujours connus avec une précision parfaite).
+
+Deux questions principales sont abordées :
+- *Analyse de la fonction objectif* : Comment se comporte la solution optimale et sa valeur lorsqu'on modifie un coefficient de la fonction objectif ?
+- *Analyse du second membre* : Comment se comporte la solution optimale et sa valeur lorsqu'on modifie le second membre (terme constant) d'une contrainte ?
+
+== Sensibilité de la fonction objectif
+Considérons le problème de Geppetto SA :
+$
+  "Max" z = &3x_1 + 2x_2 \
+  "s.c." space space space &2x_1 + x_2 lt.eq 100 \
+  &x_1 + x_2 lt.eq 80 \
+  &x_1 lt.eq 40 \
+  &x_1, x_2 gt.eq 0
+$
+
+La solution optimale est : $x_1 = 20$ soldats, $x_2 = 60$ trains, avec $z = 180$ francs.
+
+=== Modification d'un coefficient
+Que se passe-t-il si on modifie le coefficient $c_1$ (actuellement 3) dans la fonction objectif ?
+
+*Géométriquement*, cela modifie la pente des lignes de niveau de la fonction objectif :
+- Si $c_1 = 2$ : Les lignes de niveau deviennent $2x_1 + 2x_2 = "constante"$. On obtient deux sommets optimaux : $(20, 60)$ et $(0, 80)$, avec une infinité de solutions optimales entre ces points (valeur = 160).
+- Si $c_1 = 3$ : Solution unique $(20, 60)$ avec $z = 180$ (situation actuelle).
+- Si $c_1 = 4$ : Les lignes de niveau deviennent $4x_1 + 2x_2 = "constante"$. On obtient deux sommets optimaux : $(20, 60)$ et $(40, 20)$, avec une infinité de solutions optimales (valeur = 200).
+
+=== Intervalle de stabilité
+*Principe général* : Quand on modifie un coefficient de la fonction objectif, le sommet optimal actuel et la base associée restent optimaux tant que ce coefficient varie dans un intervalle $[a, b]$.
+
+- Dans cet intervalle, la *solution optimale* (valeurs des variables) ne change pas.
+- Seule la *valeur de la fonction objectif* est modifiée.
+- Aux bornes de l'intervalle, on obtient généralement plusieurs solutions optimales.
+- En dehors de l'intervalle, le sommet optimal change et on obtient un nouvel intervalle de stabilité.
+
+Pour l'exemple : tant que $c_1 in ]2; 4[$, la solution optimale reste $(20, 60)$ et seule la valeur $z$ varie entre 160 et 200.
+
+=== Rapport de sensibilité dans GLPK
+Dans GUSEK, ces informations sont obtenues via *Tools → Generate LP Sensitivity Analysis (CTRL+9)*.
+
+La *deuxième page* du rapport contient l'analyse pour la fonction objectif :
+
+#figure(
+  image("../img/image copy 18.png", width: 100%),
+  caption: [Rapport GLPK - Analyse de sensibilité de la fonction objectif]
+)
+
+*Colonnes du rapport :*
+- *Column name* : Nom de la variable de décision.
+- *St (Status)* : Statut de la variable (BS = Basic, dans la base ; NU = Non-Upper, à sa borne supérieure).
+- *Activity* : Valeur de la variable à l'optimum (solution actuelle).
+- *Obj coef* : Coefficient actuel de la variable dans la fonction objectif.
+- *Activity range* : Intervalle de variation de la valeur de la variable (si elle reste dans la base).
+- *Obj coef range* : *Intervalle de stabilité* du coefficient — tant que le coefficient reste dans cet intervalle, la solution optimale ne change pas.
+- *Obj value at break point* : Valeur de la fonction objectif aux bornes de l'intervalle de stabilité.
+- *Limiting variable* : Variable qui entre/sort de la base aux bornes de l'intervalle.
+
+*Interprétation pour $x_1$* :
+- *Activity* = 20 : À l'optimum actuel, on produit 20 soldats.
+- *Obj coef* = 3 : Le profit unitaire actuel est de 3 francs.
+- *Obj coef range* = $[2, 4]$ : Tant que le profit unitaire des soldats varie entre 2 et 4 francs, la solution optimale reste $(x_1, x_2) = (20, 60)$.
+- *Obj value at break point* = 160 / 200 : 
+  - Si $c_1 = 2$, le profit total devient 160 francs.
+  - Si $c_1 = 4$, le profit total devient 200 francs.
+- *Limiting variable* = x3 / x4 : Aux bornes, les contraintes associées à $x_3$ et $x_4$ deviennent critiques.
+- *Activity range* = $[-infinity, 40]$ : Si le coefficient sort de l'intervalle, $x_1$ pourrait varier entre 0 et 40.
+
+#colbreak()
+
+== Sensibilité du second membre
+Reprenons le problème de Geppetto SA et modifions le second membre $b_2$ de la deuxième contrainte (actuellement 80).
+
+=== Effet géométrique
+Modifier $b_2$ provoque un *déplacement parallèle* de la droite délimitant le demi-plan admissible associé à cette contrainte.
+
+La région admissible se déforme, et le sommet optimal peut changer ou se déplacer le long d'une arête.
+
+=== Analyse similaire
+De manière analogue à l'analyse de la fonction objectif, on peut déterminer :
+- Un *intervalle de variation* $[b_"min", b_"max"]$ pour le second membre.
+- Dans cet intervalle, la *base optimale* reste la même (mais les valeurs des variables changent).
+- La valeur de la fonction objectif varie linéairement avec le second membre.
+- Aux bornes de l'intervalle, la base optimale change.
+
+=== Rapport de sensibilité dans GLPK
+La première page du rapport contient l'analyse pour les contraintes (second membre) :
+
+#figure(
+  image("../img/image copy 19.png", width: 100%),
+  caption: [Rapport GLPK - Analyse de sensibilité des contraintes]
+)
+
+*Colonnes du rapport :*
+- *Row name* : Nom de la contrainte (ligne du problème).
+- *St (Status)* : Statut de la contrainte (BS = Basic, contrainte non saturée ; NU = Non-Upper, contrainte saturée à sa borne).
+- *Activity* : Valeur du membre de gauche de la contrainte à l'optimum.
+- *Slack Marginal* : Marge (slack) et *prix dual* (ou variable duale) de la contrainte.
+- *Lower/Upper bound* : Bornes actuelles du second membre.
+- *Activity range* : *Intervalle de stabilité* du second membre — tant qu'il reste dans cet intervalle, la base optimale ne change pas.
+- *Obj coef range* : Intervalle de variation du prix dual.
+- *Obj value at break point* : Valeur de la fonction objectif aux bornes de l'intervalle.
+- *Limiting variable* : Variable qui entre/sort de la base aux bornes.
+
+*Interprétation pour la contrainte x3 (finissage : $x_1 + x_2 lt.eq 100$)* :
+- *Activity* = 100 : La contrainte est *saturée* (on utilise les 100 heures disponibles).
+- *Slack* = 0 (implicite par NU) : Il n'y a pas de marge, la contrainte est active.
+- *Marginal* = 1 : Le *prix dual* est 1. Cela signifie que si on augmente $b_1$ d'une unité (de 100 à 101), le profit optimal augmente de 1 franc.
+- *Activity range* = $[80, 120]$ : Tant que le second membre $b_1$ varie entre 80 et 120 heures, la base optimale reste la même (mais les valeurs des variables changent).
+- *Obj value at break point* = 160 / 200 : 
+  - Si $b_1 = 80$, le profit devient 160 francs.
+  - Si $b_1 = 120$, le profit devient 200 francs.
+
+*Interprétation pour la contrainte x5 (demande soldats : $x_1 lt.eq 40$)* :
+- *Activity* = 20 : On produit 20 soldats (bien en-dessous de la limite de 40).
+- *Slack* = 20 : Il reste une marge de 20 soldats avant d'atteindre la limite.
+- *Marginal* = 0 : Le prix dual est nul. Augmenter cette limite n'améliorerait pas le profit (la contrainte n'est pas active).
+- *Activity range* = $[dot, 50]$ : Si la limite passe au-dessus de 50, la base optimale change.
+
+*Principe du prix dual* : Le prix dual d'une contrainte indique de combien augmente (ou diminue) la valeur optimale si on augmente le second membre de cette contrainte d'une unité, tant qu'on reste dans l'intervalle de stabilité. Les contraintes avec un prix dual élevé sont les plus "précieuses" (goulots d'étranglement).
+
+== Utilité de l'analyse de sensibilité
+L'analyse de sensibilité permet de :
+- *Évaluer la robustesse* de la solution face aux imprécisions des données.
+- *Identifier les paramètres critiques* dont la variation impacte fortement la solution.
+- *Répondre à des questions de type "what-if"* sans résoudre à nouveau le problème.
+- *Négocier les ressources* en connaissant leur impact marginal (prix duaux).
+
 = Programme linéaires en nombres entiers
 Un programme linéaire en nombres entiers (PLNE) est un programme linéaire où certaines variables ne peuvent prendre que des valeurs entières. On pourra distinguer:
 - Les PLNE purs: *toutes* les variables sont contraintes à être entières.
