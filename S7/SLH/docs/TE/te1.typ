@@ -1,8 +1,9 @@
-#import "/_settings/typst/template-te.typ": *
+#import "/_settings/typst/template-te-land.typ": *
 #show: resume.with(
   "Résumé SLH TE1",
   "Guillaume Trüeb",
-  cols: 5
+  cols: 5,
+  header: false,
 )
 
 #set text(size: 8pt)
