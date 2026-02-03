@@ -50,13 +50,6 @@ Pour gérer l'analyse de nom on utilise une *tables des symboles* qui peut stock
 - *Strong*: conversions de types explicites requises
 - *Weak*: conversions implicites fréquentes
 
-*Inférence de types*
-Déduire automatiquement le type de la valeur:
-```java
-var x = 42; // Int
-var y = "hello"; // String
-```
-
 == Type checking
 *Literals* :
 $ Gamma tack.r n : "int" $
@@ -136,6 +129,17 @@ Algorithme largement utilisé pour l'inférence de type.
 2. *Type Constraints* : Générer contraintes basées sur opérations
 3. *Unification* : Trouver substitution cohérente
 4. *Generalization* : Trouver le type le plus général
+
+```haskell
+check :: Expr -> [Expr]
+check expr = check' expr []
+where 
+  check' :: Expr -> [String] -> [Expr]
+  check' (Cst _) _ = []
+  check' (Var v) env = [Var v | v `notElem` env]
+  check' (Bin e1 _ e2) env = check' e1 env ++ check' e2 env
+  check' (Let x e1 e2) env = check' e1 env ++ check' e2 (x : env)
+```
 
 = Interpréteurs
 Les interpreteurs se basent sur les étapes d'analyse lexicale, syntaxique et sémantique pour traduire du code source en actions exécutables.
@@ -275,12 +279,30 @@ L'organisation de la mémoire dans un environnement d'exécution comprend plusie
 
 4. *Stack*: zone de mémoire utilisée pour les appels de fonctions et les variables locales.
 
-#align(center)[
-  #image("../img/image copy 20.png", width: 75%)
-]
-
 === Stack et base pointers
-La stack pointer (SP) et la base pointer (BP) sont des registres utilisés pour gérer la pile d'exécution. Le SP pointe vers le sommet de la pile, tandis que le BP pointe vers le début de la zone de la pile utilisée par la fonction en cours d'exécution. Ils sont utilisés pour accéder aux variables locales et aux paramètres de la fonction.
+```
++--------------------------+
+| main's local variables   |
+| main's parameters        |
+| Return Address to OS     |
++--------------------------+
+| "Main program starts\n"  |
++--------------------------+
+| foo's local variables    |
+| foo's parameters (n=2)   |
+| Return Address to main   |
+| Pointer to main's frame  |
++--------------------------+
+| "Entering foo(2)\n"      |
++--------------------------+
+| foo's local variables    |
+| foo's parameters (n=1)   |
+| Return Address to foo(2) |
+| Pointer to foo(2)'s frame|
++--------------------------+
+|                          |  <--- SP
++--------------------------+
+```
 
 === Stack frames
 Un stack frame est une structure de données utilisée pour stocker les informations d'une fonction lors de son appel. Durant un appel de fonction:
@@ -353,11 +375,7 @@ Technique de gestion automatique identifiant et libérant la mémoire inutilisé
 - *Interne*: blocs alloués plus grands que nécessaire.
 
 === Reference counting
-Compteur indiquant le nombre de références vers chaque objet. Incrémenté lors d'une référence, décrémenté lors de sa suppression. L'objet est libéré quand le compteur atteint zéro.
-
-*Limitation* : ne gère pas les cycles de références (objets se référençant mutuellement). Souvent combiné avec d'autres techniques.
-
-*Smart pointers* : abstractions gérant automatiquement la durée de vie des objets via comptage de références.
+Compteur indiquant le nombre de références vers chaque objet, smart pointers, gère pas les cycles.
 
 === Copying GC
 Mémoire divisée en deux zones. Lors de la collecte:
@@ -395,4 +413,4 @@ Phase optionnelle *compactage*: réduit fragmentation en déplaçant objets viva
 - *First fit*: allouer premier bloc libre suffisamment grand.
 - *Best fit*: allouer plus petit bloc libre qui convient.
 
-Si le bloc est trop grand, il peut être divisé. Les blocs libres adjacents peuvent être fusionnés pour réduire la fragmentation.
+Bloc grand - divisé | Bloc petit - fusionné
