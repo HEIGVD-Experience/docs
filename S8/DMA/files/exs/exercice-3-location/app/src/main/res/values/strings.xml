@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">dma-location</string>
+
+    <string name="main_locationmanager">LocationManager</string>
+    <string name="main_fused">FusedLocationProvider</string>
+
+    <string name="need_permission">Location needs permission</string>
+
+    <string name="locman_sources_title">Sources</string>
+    <string name="locman_sources_passive">Passive</string>
+    <string name="locman_sources_network">Network</string>
+    <string name="locman_sources_gps">GPS</string>
+    <string name="locman_sources_fused">Fused</string>
+
+    <string name="fused_last_location_title">Last location</string>
+    <string name="fused_last_location">Get last location</string>
+    <string name="fused_requirement_title">Requirements</string>
+    <string name="fused_requirement_nopower">No power</string>
+    <string name="fused_requirement_lowpower">Low power</string>
+    <string name="fused_requirement_balanced">Balanced</string>
+    <string name="fused_requirement_highaccuracy">High accuracy</string>
+
+    <string name="location_off">Off</string>
+    <string name="location_on">On</string>
+    <string name="location_result_title">Location</string>
+    <string name="location_result_time">Time</string>
+    <string name="location_result_provider">Provider</string>
+    <string name="location_result_latitude">Latitude</string>
+    <string name="location_result_longitude">Longitude</string>
+    <string name="location_result_accuracy">Accuracy</string>
+    <string name="location_result_altitude">Altitude</string>
+    <string name="location_result_speed">Speed</string>
+    <string name="location_result_bearing">Bearing</string>
+    <string name="location_geocoding">Reverse geocoding</string>
+
+</resources>

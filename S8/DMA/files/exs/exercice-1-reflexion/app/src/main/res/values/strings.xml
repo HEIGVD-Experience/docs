@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">DMA - Reflection</string>
+    <string name="input">Entrée</string>
+    <string name="input_invalid">Vérifier les entrées</string>
+    <string name="name">Nom</string>
+    <string name="firstname">Prénom</string>
+    <string name="height">Taille</string>
+    <string name="birthday">Date de naissance</string>
+    <string name="serialize">Sérialiser</string>
+    <string name="json">JSON</string>
+    <string name="deserialize">Désérialiser</string>
+    <string name="output">Sortie</string>
+    <string name="datemissing">Veuillez saisir une date de naissance</string>
+</resources>

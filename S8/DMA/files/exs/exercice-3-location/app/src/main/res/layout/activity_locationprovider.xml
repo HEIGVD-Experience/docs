@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FusedActivity">
+
+    <!-- Barre d'action -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Contenu: -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/appbarlayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/location_result_guid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_begin="120dp"
+                android:orientation="vertical"/>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_with_permission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="need_permission,sources_title,sources_passive,sources_network,sources_gps,sources_fused,enabled_localisation,location_result_title,location_result_time_title,location_result_time,location_result_provider_title,location_result_provider,location_result_latitude_title,location_result_latitude,location_result_longitude_title,location_result_longitude,location_result_accuracy_title,location_result_accuracy,location_result_altitude_title,location_result_altitude,location_result_speed_title,location_result_speed,location_result_bearing_title,location_result_bearing,location_geocoding_btn" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_without_permission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="need_permission" />
+
+            <TextView
+                android:id="@+id/need_permission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/need_permission"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/sources_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/locman_sources_title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <CheckBox
+                android:id="@+id/sources_passive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/locman_sources_passive"
+                app:layout_constraintTop_toBottomOf="@id/sources_title"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <CheckBox
+                android:id="@+id/sources_network"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/locman_sources_network"
+                app:layout_constraintTop_toBottomOf="@id/sources_passive"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <CheckBox
+                android:id="@+id/sources_gps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/locman_sources_gps"
+                app:layout_constraintTop_toBottomOf="@id/sources_network"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <CheckBox
+                android:id="@+id/sources_fused"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/locman_sources_fused"
+                app:layout_constraintTop_toBottomOf="@id/sources_gps"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/enabled_localisation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/sources_fused"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:selectionRequired="true"
+                app:singleSelection="true"
+                app:checkedButton="@id/enabled_localisation_off">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/enabled_localisation_off"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location_off" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/enabled_localisation_on"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location_on"/>
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <TextView
+                android:id="@+id/location_result_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/location_result_title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                app:layout_constraintTop_toBottomOf="@id/enabled_localisation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/location_result_time_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/location_result_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/location_result_guid"
+                app:layout_constraintBaseline_toBaselineOf="@id/location_result_time"/>
+
+            <EditText
+                android:id="@+id/location_result_time"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/location_result_title"
+                app:layout_constraintStart_toEndOf="@id/location_result_guid"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:enabled="false" />
+
+            <TextView
+                android:id="@+id/location_result_provider_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/location_result_provider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/location_result_guid"
+                app:layout_constraintBaseline_toBaselineOf="@id/location_result_provider"/>
+
+            <EditText
+                android:id="@+id/location_result_provider"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/location_result_time"
+                app:layout_constraintStart_toEndOf="@id/location_result_guid"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:enabled="false" />
+
+            <TextView
+                android:id="@+id/location_result_latitude_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/location_result_latitude"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/location_result_guid"
+                app:layout_constraintBaseline_toBaselineOf="@id/location_result_latitude"/>
+
+            <EditText
+                android:id="@+id/location_result_latitude"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/location_result_provider"
+                app:layout_constraintStart_toEndOf="@id/location_result_guid"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:enabled="false" />
+
+            <TextView
+                android:id="@+id/location_result_longitude_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/location_result_longitude"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/location_result_guid"
+                app:layout_constraintBaseline_toBaselineOf="@id/location_result_longitude"/>
+
+            <EditText
+                android:id="@+id/location_result_longitude"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/location_result_latitude"
+                app:layout_constraintStart_toEndOf="@id/location_result_guid"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:enabled="false" />
+
+            <TextView
+                android:id="@+id/location_result_accuracy_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/location_result_accuracy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/location_result_guid"
+                app:layout_constraintBaseline_toBaselineOf="@id/location_result_accuracy"/>
+
+            <EditText
+                android:id="@+id/location_result_accuracy"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/location_result_longitude"
+                app:layout_constraintStart_toEndOf="@id/location_result_guid"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:enabled="false" />
+
+            <TextView
+                android:id="@+id/location_result_altitude_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/location_result_altitude"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/location_result_guid"
+                app:layout_constraintBaseline_toBaselineOf="@id/location_result_altitude"/>
+
+            <EditText
+                android:id="@+id/location_result_altitude"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/location_result_accuracy"
+                app:layout_constraintStart_toEndOf="@id/location_result_guid"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:enabled="false" />
+
+            <TextView
+                android:id="@+id/location_result_speed_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/location_result_speed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/location_result_guid"
+                app:layout_constraintBaseline_toBaselineOf="@id/location_result_speed"/>
+
+            <EditText
+                android:id="@+id/location_result_speed"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/location_result_altitude"
+                app:layout_constraintStart_toEndOf="@id/location_result_guid"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:enabled="false" />
+
+            <TextView
+                android:id="@+id/location_result_bearing_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/location_result_bearing"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/location_result_guid"
+                app:layout_constraintBaseline_toBaselineOf="@id/location_result_bearing"/>
+
+            <EditText
+                android:id="@+id/location_result_bearing"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/location_result_speed"
+                app:layout_constraintStart_toEndOf="@id/location_result_guid"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:enabled="false" />
+
+            <Button
+                android:id="@+id/location_geocoding_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location_geocoding"
+                app:layout_constraintTop_toBottomOf="@id/location_result_bearing"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

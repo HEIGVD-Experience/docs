@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="3"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".MainActivity">
+
+    <!-- Barre d'action -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Contenu: -->
+    <RelativeLayout
+        android:id="@+id/layout_input"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/input_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/input"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+        <EditText
+            android:id="@+id/input_ed_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_tv_title"
+            android:hint="@string/name"
+            android:inputType="textNoSuggestions" />
+
+        <EditText
+            android:id="@+id/input_ed_firstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_ed_name"
+            android:hint="@string/firstname"
+            android:inputType="textNoSuggestions" />
+
+        <EditText
+            android:id="@+id/input_ed_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_ed_firstname"
+            android:hint="@string/height"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/input_ed_birthdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_ed_height"
+            android:hint="@string/birthday"
+            android:inputType="date" />
+
+        <Button
+            android:id="@+id/input_btn_serialize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/serialize" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_serialized"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/serialized_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/json"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+        <Button
+            android:id="@+id/serialized_btn_deserialize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:text="@string/deserialize" />
+
+        <TextView
+            android:id="@+id/serialized_tv_json"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/serialized_tv_title"
+            android:layout_above="@id/serialized_btn_deserialize"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_output"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/output_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/output"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+        <EditText
+            android:id="@+id/output_ed_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/output_tv_title"
+            android:hint="@string/name"
+            android:inputType="textNoSuggestions"
+            android:enabled="false" />
+
+        <EditText
+            android:id="@+id/output_ed_firstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/output_ed_name"
+            android:hint="@string/firstname"
+            android:inputType="textNoSuggestions"
+            android:enabled="false"  />
+
+        <EditText
+            android:id="@+id/output_ed_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/output_ed_firstname"
+            android:hint="@string/height"
+            android:inputType="number"
+            android:enabled="false"  />
+
+        <EditText
+            android:id="@+id/output_ed_birthdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/output_ed_height"
+            android:hint="@string/birthday"
+            android:inputType="date"
+            android:enabled="false"  />
+
+    </RelativeLayout>
+
+</LinearLayout>
