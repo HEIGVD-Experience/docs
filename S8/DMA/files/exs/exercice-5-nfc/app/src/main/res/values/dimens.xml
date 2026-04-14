@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="row_message_iconsize">36dp</dimen>
+    <dimen name="row_message_guide">48dp</dimen>
+</resources>

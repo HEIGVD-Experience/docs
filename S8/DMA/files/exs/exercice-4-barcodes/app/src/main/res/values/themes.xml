@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="Theme.Dma.Base" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/md_deep_purple_300</item>
+        <item name="colorOnPrimary">@android:color/black</item>
+    </style>
+
+    <style name="Theme.Dma" parent="Theme.Dma.Base" />
+
+</resources>

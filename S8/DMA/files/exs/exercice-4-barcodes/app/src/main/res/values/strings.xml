@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">dma-nfc</string>
+    <string name="title_nfc">Lecteur NFC</string>
+    <string name="nfc_instructions">Approchez un tag NFC NDEF pour lire ses enregistrements.</string>
+    <string name="empty_state">Aucun enregistrement lu pour l\'instant.</string>
+    <string name="text_dialog_title">Message texte (%1$s)</string>
+</resources>
